@@ -1,0 +1,17 @@
+@model SocialMedia.ViewModels.TableViewModel
+
+<h2>Database Tables</h2>
+
+@if (Model.TableNames.Any())
+{
+    <ul>
+        @foreach (var tableName in Model.TableNames)
+        {
+            <li>@tableName</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No tables found in the database.</p>
+}

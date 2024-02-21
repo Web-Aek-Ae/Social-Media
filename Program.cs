@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Social_Media.Models; // Adjust this to the correct namespace
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add PostgreSQL support
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+    "Host=34.142.237.224;Database=mydb;Username=root;Password=*2FyhT%#ZHkG+MJE;";
+
+builder.Services.AddDbContext<SocialMediaContext>(options =>
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
@@ -9,7 +21,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

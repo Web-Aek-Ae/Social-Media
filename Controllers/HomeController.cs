@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Social_Media.Models;
+using SocialMedia.Models;
 
-namespace Social_Media.Controllers;
+namespace SocialMedia.Controllers;
 
 public class HomeController : Controller
 {

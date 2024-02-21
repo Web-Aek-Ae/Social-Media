@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Social_Media.Models
+namespace SocialMedia.Models
 {
     public class User
     {

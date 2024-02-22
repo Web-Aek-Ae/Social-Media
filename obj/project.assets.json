@@ -711,19 +711,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/pk/.nuget/packages/": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pk/Desktop/Project/Social-Media/Social-Media.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj",
       "projectName": "Social-Media",
-      "projectPath": "/Users/pk/Desktop/Project/Social-Media/Social-Media.csproj",
-      "packagesPath": "/Users/pk/.nuget/packages/",
-      "outputPath": "/Users/pk/Desktop/Project/Social-Media/obj/",
+      "projectPath": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/pk/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -776,7 +776,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

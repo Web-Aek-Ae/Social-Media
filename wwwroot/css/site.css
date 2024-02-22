@@ -18,5 +18,22 @@ html {
 }
 
 body {
+  display: grid;
   margin-bottom: 60px;
+  grid-template-columns: 300px auto 400px;
+} 
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  align-items: center;
+}
+.menu a{
+  font-size: 25px;
+  text-decoration: none;
+}
+
+.menu li{
+  list-style: none;
 }

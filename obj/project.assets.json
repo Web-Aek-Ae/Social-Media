@@ -711,24 +711,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/pk/.nuget/packages/": {}
+    "C:\\Users\\pooky\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pk/Desktop/Project/Social-Media/Social-Media.csproj",
+      "projectUniqueName": "D:\\webdev\\project2\\Social-Media\\Social-Media.csproj",
       "projectName": "Social-Media",
-      "projectPath": "/Users/pk/Desktop/Project/Social-Media/Social-Media.csproj",
-      "packagesPath": "/Users/pk/.nuget/packages/",
-      "outputPath": "/Users/pk/Desktop/Project/Social-Media/obj/",
+      "projectPath": "D:\\webdev\\project2\\Social-Media\\Social-Media.csproj",
+      "packagesPath": "C:\\Users\\pooky\\.nuget\\packages\\",
+      "outputPath": "D:\\webdev\\project2\\Social-Media\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/pk/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pooky\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -776,7 +778,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

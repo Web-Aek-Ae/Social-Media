@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../build/Social-Media.props" />
+  <Import Project="..\build\Social-Media.props" />
 </Project>

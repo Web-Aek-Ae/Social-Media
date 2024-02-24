@@ -15,10 +15,29 @@ namespace SocialMedia.Controllers
 
         public IActionResult Index()
         {
-            var users = _userService.GetAllUsers();
-            return View(users);
+            var all_users = _userService.GetAllUsers();
+            return View(all_users);
         }
 
-        // Other actions...
+        public IActionResult Register(){
+            // User user = new User();
+            return View();
+        }
+
+         [HttpPost]
+        public ActionResult Register(User model)
+        {
+        if (ModelState.IsValid)
+        {
+            // Registration logic
+            return RedirectToAction("Login", "User");
+        }
+
+        // If validation fails, return the view with validation errors
+        return View(model);}
+
+        public IActionResult Login(){
+            return View();
+        }
     }
 }

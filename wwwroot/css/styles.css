@@ -1,0 +1,86 @@
+body {
+  background-color: #fff6e8;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.Header {
+  font-family: "League Spartan", sans-serif;
+  color: #f77c7e;
+  font-weight: bold;
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+.loginHeader {
+  width: 450px;
+  font-size: 100px;
+  text-align: center;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: solid 4px;
+  border-radius: 50px;
+  padding: 40px;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+input {
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 550px;
+  padding: 0 0 0 15px;
+  margin: 10px 0 5px;
+}
+
+
+.submit {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+button {
+  width: 200px;
+  height: 70px;
+  background-color: #fbca63;
+  border: none;
+  border-radius: 30px;
+  font-size: 30px;
+  font-weight: 500;
+}
+ิีbutton:hover {
+  background-color: #f77c7e;
+}
+
+img {
+  width: 175px;
+  height: 168px;
+  position: absolute;
+  left: 360px;
+  top: 200px;
+}
+
+.pLogin {
+  color: #8b8989;
+}
+
+.invalid {
+  color: red;
+  margin-bottom: 20px;
+}

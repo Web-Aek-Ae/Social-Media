@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1b4IOBAeXbhik2lvcSiBCMDz/MgwtV5aicJQ3VAt798=",
+  "Hash": "iRyJZh+mRofclvxkz1hJZj5ra+1/FrREYsG3+xHG6Xs=",
   "Source": "Social-Media",
   "BasePath": "_content/Social-Media",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Social-Media.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\wwwroot\\css\\home.css",
+      "SourceId": "Social-Media",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\wwwroot\\",
+      "BasePath": "_content/Social-Media",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\wwwroot\\css\\site.css",

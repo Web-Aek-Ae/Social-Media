@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Social-Media.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

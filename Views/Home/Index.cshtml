@@ -2,7 +2,37 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome Chat</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<head>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
+</head>
+<div class="main">
+    <div class="header">
+        <div class="search">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search" id="search-input">
+            </div>
+            <div class="filter-bar">
+                <i class="fa-solid fa-angle-down"></i>
+                <input type="text" placeholder="Filter" id="filter-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="container-post">
+        <div class="post">
+            <div>
+                <h1>test1</h1>
+                <p> เป็นกลุ่มที่เราจะนัดเฮฮาสังสรรค์กันทุก ๆ วันศุกร์หรรษา #ศุกร์เสาร์เหงาได้ไง
+                    ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับ อะว่าแล้วก็ปายยยยย</p>
+                <div class="activity-image">
+                    <img src="https://media.thairath.co.th/image/mYUiexc0Ga30hlV8FYTDBu5jvISEETmenLQTRGoLMRge9vA1.png" alt="activity" id="activity1">
+                    @* <img src="https://as2.ftcdn.net/v2/jpg/00/91/03/83/1000_F_91038333_C6b2EeBuxMcVjJpvdtdG2dMZijoSUkDX.jpg" alt="activity" id="activity2">
+                    <img src="https://as2.ftcdn.net/v2/jpg/00/91/03/83/1000_F_91038333_C6b2EeBuxMcVjJpvdtdG2dMZijoSUkDX.jpg" alt="activity" id="activity3"> *@ 
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

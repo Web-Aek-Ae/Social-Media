@@ -1,0 +1,72 @@
+main{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    height: fit-content;
+    border-bottom: 1px solid grey;
+
+}
+.search{
+    display: flex;
+    width: 100%;
+    margin-left: 20px;
+}
+.search i{
+    margin-left: 20px;
+    position: absolute ;
+}
+.search-bar{
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+#search-input{
+    width: 100%;
+    height: 40px;
+    border-radius: 30px;
+    padding-left: 45px;
+}
+.filter-bar{
+    display: flex;
+    align-items: center;
+    width: 20%;
+    margin-left: 20px;
+}
+#filter-input{
+    width: 100%;
+    height: 40px;
+    border-radius: 30px;
+    padding-left: 45px;
+}
+
+.container-post{
+    display: flex;
+    justify-content: center;
+}
+
+.post{
+    border: 1px solid;
+    border-radius: 30px;
+    width: 735px;
+    height: 469px;
+}
+
+.post p{
+    color: #9E9E9E;
+}
+.activity-image{
+    display: flex;
+    width: 100%;
+    height: 400px;
+}
+
+.activity-image img{
+    width: 350px;
+    height: 275px;
+}
+

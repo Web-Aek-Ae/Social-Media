@@ -39,15 +39,16 @@ namespace SocialMedia.Services
 
         public User GetUserById(int id)
         {
-            return _context.Users.FirstOrDefault(u => u.UserId == id);
+            return _context.Users.FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
+
         public async Task<User> AuthenticateUser(string username, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-            if (user == null) return null;
+            if (user == null) return null!;
 
             var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
-            return verificationResult == PasswordVerificationResult.Success ? user : null;
+            return verificationResult == PasswordVerificationResult.Success ? user : null!;
         }
 
         public async Task<bool> AddUser(User user)

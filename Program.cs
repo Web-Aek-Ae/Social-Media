@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Models;
+using SocialMedia.Models.Database;
 using SocialMedia.Services;
 using Microsoft.Extensions.Logging;
 
@@ -52,7 +53,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         // Attempt to connect to the database
-        context.Database.EnsureCreated();
+        context.Database.EnsureCreated(); 
         context.Database.Migrate();
         logger.LogInformation("Hello Database, connection was successful.");
     }

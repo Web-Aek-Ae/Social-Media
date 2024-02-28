@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SocialMedia.Models
+namespace SocialMedia.Models.Database
 {
     public class User
     {
@@ -22,10 +22,6 @@ namespace SocialMedia.Models
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
         public string Password {get; set;}
 
-        [Required(ErrorMessage = "Please confirm password")]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
         }
 
 }

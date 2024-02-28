@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Models;
+using SocialMedia.Models.Database;
 using SocialMedia.Services;
 using Microsoft.Extensions.Logging;
 

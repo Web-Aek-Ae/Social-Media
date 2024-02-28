@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Services;
 using SocialMedia.Models.Database; // Assuming this is where your User entity is defined
 using SocialMedia.ViewModels; // Reference UserViewModel
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 
 namespace SocialMedia.Controllers
@@ -66,7 +68,6 @@ namespace SocialMedia.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -83,9 +84,17 @@ namespace SocialMedia.Controllers
                 return View(model);
             }
 
-            // Here you would handle logging the user in, typically setting a cookie or session
-            // This example does not cover the setup of authentication middleware
+            // Generate JWT token
+            var token = GenerateJwtToken(user);
+             // Set the JWT token as a cookie
+            Response.Cookies.Append("jwt", token, new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict, // Adjust as needed
+                Expires = DateTime.Now.AddDays(1) // Adjust expiration as needed
+            });
 
+            // You can return the token as part of a view model, set it in a cookie, or use it in another appropriate way depending on your application's needs
             return RedirectToAction("Index", "Home");
         }
 
@@ -103,6 +112,27 @@ namespace SocialMedia.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("rk6IiDIGqZcwT+Vm+Qx6flz98AieqMhgzV73uGZ3mEN8Z6BSYhGywS9yviN7yL4K")); // Use a secure key from your configuration
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]{
+        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+        new Claim(ClaimTypes.Name, user.Username),
+        // Add other claims as needed
+ };
+
+            var token = new JwtSecurityToken(
+                // issuer: "YourIssuer", // Optional
+                // audience: "YourAudience", // Optional
+                claims: claims,
+                expires: DateTime.Now.AddHours(2),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
 

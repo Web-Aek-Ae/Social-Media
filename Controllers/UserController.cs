@@ -5,6 +5,7 @@ using SocialMedia.ViewModels; // Reference UserViewModel
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace SocialMedia.Controllers
@@ -18,6 +19,7 @@ namespace SocialMedia.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var all_users = _userService.GetAllUsers();

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\kmitl\\2D\\web dev\\Project\\Social-Media\\Social-Media.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj": {
+    "C:\\Users\\Admin\\Desktop\\kmitl\\2D\\web dev\\Project\\Social-Media\\Social-Media.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\kmitl\\2D\\web dev\\Project\\Social-Media\\Social-Media.csproj",
         "projectName": "Social-Media",
-        "projectPath": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\Social-Media.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\web app\\project\\Social-Media\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\kmitl\\2D\\web dev\\Project\\Social-Media\\Social-Media.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\kmitl\\2D\\web dev\\Project\\Social-Media\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

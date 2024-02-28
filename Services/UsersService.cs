@@ -1,4 +1,4 @@
-using SocialMedia.Models;
+using SocialMedia.Models.Database;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,11 +23,12 @@ namespace SocialMedia.Services
             return _context.Users.FirstOrDefault(u => u.UserId == id);
         }
 
-        public void AddUser(User user)
+        public async Task AddUser(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
+
 
         // More methods for update, delete, etc.
     }

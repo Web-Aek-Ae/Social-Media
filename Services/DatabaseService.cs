@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SocialMedia.Models;
+using SocialMedia.Models.Database;
 
 namespace SocialMedia.Services
 {

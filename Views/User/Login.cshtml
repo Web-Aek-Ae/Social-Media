@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Register Page";
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/styles.css"/>
+</head>
+<div class="Container">
+    <h1 class="Header loginHeader">Welcome back !</h1>
+    <div class="Form">
+        <img src="@Url.Content("~/star.png")">
+        <label>username</label>
+        <input type="text"/>
+        <label>password</label>
+        <input type="text"/>
+
+        <div class="submit">
+            <button type="submit" >log in</button>
+        </div>
+
+    </div>
+
+    <p class="pLogin">don’t have an account ? <a href="@Url.Action("Register", "User")" class="pLogin">Sign up</a> </p>
+
+</div>

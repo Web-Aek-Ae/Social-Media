@@ -20,6 +20,7 @@ builder.Services.AddDbContext<SocialMediaContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<DatabaseService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 

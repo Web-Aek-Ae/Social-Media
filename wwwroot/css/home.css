@@ -1,4 +1,5 @@
 main{
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -47,71 +48,3 @@ main{
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
-.container-post{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-#section{
-    font-size: 24px;
-}
-
-.post{
-    border: 2px solid #000000;
-    border-radius: 30px;
-    width: 735px;
-    height: 469px;
-    margin-top: 33px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-    
-}
-
-.post p{
-    font-size: 13px;
-    color: #9E9E9E;
-}
-.card-post{
-    margin-left: 42px;
-    margin-right: 42px;
-    height: fit-content;
-}
-.activity-image{
-    display: flex;
-    width: 100%;
-    height: fit-content;
-}
-.test1{
-    margin-left: 5px;
-}
-#activity1{
-    width: 350px;
-    height: 275px;
-    object-fit: cover;
-}
-#activity2{
-    width: 284px;
-    height: 135px;
-    object-fit: cover;
-}
-#activity3{
-    width: 284px;
-    height: 135px;
-    object-fit: cover;
-}
-
-.test2{
-    margin-top: 15px;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap:10px;
-}
-
-#group-button{
-    width: 91px;
-    height: 37px;
-    border-radius: 27px;
-    background-color: #FBCA63;
-}

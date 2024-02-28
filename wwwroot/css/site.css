@@ -22,10 +22,11 @@ html {
 }
 
 body {
+  font-family: "Poppins", sans-serif;
   display: grid;
   margin: 0;
   padding: 0;
-  grid-template-columns: 243px auto 365px;
+  grid-template-columns: 12% auto 17%;
 
 } 
 .container{

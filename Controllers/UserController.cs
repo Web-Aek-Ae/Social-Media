@@ -28,6 +28,12 @@ namespace SocialMedia.Controllers
 
         public IActionResult Register()
         {
+            if (User?.Identity?.IsAuthenticated == true)
+            {
+                // User is already authenticated, redirect to "/Home"
+                return RedirectToAction("Index", "Home");
+            }
+
             // User user = new User();
             return View();
         }
@@ -67,7 +73,13 @@ namespace SocialMedia.Controllers
         }
 
         public IActionResult Login()
-        {
+        {   
+            if (User?.Identity?.IsAuthenticated == true)
+            {
+                // User is already authenticated, redirect to "/Home"
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
         [HttpPost]

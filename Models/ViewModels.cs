@@ -31,4 +31,14 @@ namespace SocialMedia.ViewModels
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
   }
+  public class LoginViewModel
+  {
+    [Required(ErrorMessage = "Username is required")]
+    public string Username { get; set; }
+
+    [Required]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+  }
+
 }

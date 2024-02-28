@@ -3,6 +3,8 @@ using SocialMedia.Models.Database;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 
 namespace SocialMedia.Services
@@ -23,9 +25,29 @@ namespace SocialMedia.Services
             return _context.Users.ToList();
         }
 
+        public async Task<bool> DeleteUser(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+                return true; // Or use TempData or another way to communicate success
+            }
+            return false; // Or communicate the user was not found
+        }
+
         public User GetUserById(int id)
         {
             return _context.Users.FirstOrDefault(u => u.UserId == id);
+        }
+        public async Task<User> AuthenticateUser(string username, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null) return null;
+
+            var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+            return verificationResult == PasswordVerificationResult.Success ? user : null;
         }
 
         public async Task<bool> AddUser(User user)

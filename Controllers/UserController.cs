@@ -31,24 +31,37 @@ namespace SocialMedia.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(UserViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
             {
                 var user = new User
                 {
-                    Name = model.Name,
                     Username = model.Username,
+                    Name = model.Name,
                     Email = model.Email,
-                    Password = model.Password // Remember to hash the password in a real application
+                    Password = model.Password // This should be hashed inside AddUser
                 };
 
-                await _userService.AddUser(user);
-                return RedirectToAction("Login", "User");
+                var result = await _userService.AddUser(user);
+                if (result)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                // Handle false result if you chose to return a boolean from AddUser
+            }
+            catch (ArgumentException ex)
+            {
+                // Log the exception or set model state error
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
 
-            // If validation fails, return the view with validation errors
             return View(model);
         }
-        
+
         public IActionResult Login()
         {
             return View();

@@ -3,6 +3,8 @@ using SocialMedia.Models;
 using SocialMedia.Models.Database;
 using SocialMedia.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<SocialMediaContext>(options =>
 
 builder.Services.AddScoped<DatabaseService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
 

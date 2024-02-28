@@ -5,6 +5,7 @@
 <table>
     <thead>
         <tr>
+            <th>UserId</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -16,6 +17,7 @@
     @foreach (var user in Model)
     {
         <tr>
+            <td>@user.UserId</td>
             <td>@user.Name</td>
             <td>@user.Username</td>
             <td>@user.Email</td>

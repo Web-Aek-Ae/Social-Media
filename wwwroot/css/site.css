@@ -16,11 +16,13 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   font-family: "Poppins", sans-serif;
   display: grid;
   margin: 0;
   padding: 0;
-  grid-template-columns: 12% auto 17%;
+  min-height:100vh ;
+  grid-template-columns: 15% auto 17%;
 
 } 
 .container{
@@ -36,7 +38,6 @@ body {
 }
 .menu{
   display: flex;
-  justify-content: center;
   align-items: center;
   position: sticky;
   top: 0;
@@ -48,14 +49,17 @@ body {
   gap: 100px;
   list-style: none;
 }
+
 .menu a{
+  display: flex;
   font-size: 25px;
+  font-weight: bold;
   text-decoration: none;
   color:white;
 }
 
 #icon{
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .Blog{

@@ -101,34 +101,36 @@
 .test2{
     margin-top: 15px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     gap:10px;
 }
 
 #group-button{
-    width: 91px;
-    height: 37px;
+    font-size: 16px;
+    font-weight:bold;
+    width: 146px;
+    height: 34px;
     border-radius: 27px;
     background-color: #FBCA63;
 }
 
-
-.test-icon{
-
-    
-    /* Vector */
-    
-    position: absolute;
-    left: 12.5%;
-    right: 12.5%;
-    top: 8.33%;
-    bottom: 8.33%;
-    
-    border: 3px solid #FFFFFF;
-    
-    
-    /* Vector */
-    
-
+#group-button:hover{
+    background-color: #F77C7E;
+    color: #ffff;
+    transition: 0.3s;
 }
+
+.group-poster{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.group-poster img{
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+

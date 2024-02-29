@@ -59,7 +59,7 @@ namespace SocialMedia.Controllers
                 var result = await _userService.AddUser(user);
                 if (result)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "User");
                 }
                 // Handle false result if you chose to return a boolean from AddUser
             }

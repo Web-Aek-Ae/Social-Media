@@ -47,6 +47,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 logger.LogError(context.Exception, "JWT authentication failed: " + context.Exception.Message);
                 logger.LogInformation("Request URL: " + context.HttpContext.Request.Path);
                 // Redirect to login page
+                var cookies = context.HttpContext.Request.Cookies;
+                foreach (var cookie in cookies)
+                {
+                    context.HttpContext.Response.Cookies.Delete(cookie.Key);
+                }
                 context.Response.Redirect("/User/Login");
 
                 return Task.CompletedTask;

@@ -48,3 +48,74 @@ main{
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
+
+.container-post{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.post{
+    border: 2px solid #000000;
+    border-radius: 1.75rem;
+    width: 55rem;
+    height: 19rem;
+    margin-top: 2.5rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+}
+
+.post p{
+    font-size: 18px;
+    color: #9E9E9E;
+    margin-left: 1rem;
+    margin-top: 0rem;
+}
+.card-post{
+    display : flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    height: fit-content;
+}
+#activity{
+    width: 17rem;
+    height: 17rem;
+    object-fit: cover;
+    border-radius : 1.75rem;
+}
+.post-header{
+    display: flex;
+    margin-left: 1rem;
+}
+.date{
+    width: 5rem;
+    height:6rem;
+    background-color: #F77C7E;
+    border-radius: 1.25rem;
+}
+.date h3{
+    text-align: center;
+    color:#FFFFFF;
+    font-weight: 600;
+}
+#month{
+    font-size: 18px;
+    margin-top:0.25rem;
+    margin-bottom: 0rem;
+}
+#day{
+    font-size: 36px;
+    margin-top:-0.75rem;
+    margin-bottom: 0;
+}
+#year{
+    font-size: 18px;
+    margin-top:-0.75rem;
+}
+.topic h1{
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+}
+

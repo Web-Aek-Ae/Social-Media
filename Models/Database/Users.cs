@@ -1,27 +1,38 @@
-using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialMedia.Models.Database
 {
     public class User
     {
+        [Key]
         public int UserId { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<PostLike> PostLikes { get; set; }
+
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
-        public string Name {get; set;}
+        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
+        public required string Name { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
-        public string Username { get; set; }
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Username must be between 4 and 50 characters")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must be alphanumeric")]
+        public required string Username { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
-         [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [StringLength(255, ErrorMessage = "Email cannot exceed 255 characters")]
+        public required string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
-        public string Password {get; set;}
+        // Do not add MaxLength for password because it will be hashed
+        public required string Password { get; set; }
 
-        }
-
+    }
 }

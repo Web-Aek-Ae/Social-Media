@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Services;
 using SocialMedia.ViewModels; // Namespace where TableViewModel is located
-using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
+    [Authorize]
     public class DatabaseController : Controller
     {
         private readonly DatabaseService _databaseService;

@@ -14,12 +14,13 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   font-family: "Poppins", sans-serif;
   display: grid;
   margin: 0;
   padding: 0;
-  grid-template-columns: 12% auto 17%;
-}
+  min-height:100vh ;
+  grid-template-columns: 15% auto 17%;}
 
 input::placeholder {
   font-family: "Poppins", sans-serif;
@@ -41,7 +42,6 @@ textarea::placeholder {
 }
 .menu {
   display: flex;
-  justify-content: center;
   align-items: center;
   position: sticky;
   top: 0;
@@ -53,14 +53,17 @@ textarea::placeholder {
   gap: 100px;
   list-style: none;
 }
-.menu a {
+
+.menu a{
+  display: flex;
   font-size: 25px;
+  font-weight: bold;
   text-decoration: none;
   color: white;
 }
 
-#icon {
-  padding-right: 10px;
+#icon{
+  margin-right: 10px;
 }
 
 .Blog {
@@ -86,6 +89,8 @@ textarea::placeholder {
   gap: 30px;
   width: 100%;
   margin-left: 20px;
+  align-items: center;
+  justify-content: center;
 }
 .allprofile img {
   border-radius: 50%;

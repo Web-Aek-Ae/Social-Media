@@ -1,0 +1,35 @@
+@model SocialMedia.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Register Page";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+
+<body>
+    <div class="post">
+        <div class="containerPost">
+            <h1>ลิงกินก้วย</h1>
+            <div>
+                <div class="info">
+                    <img src="@Url.Content("~/src/images/DateProfileIcon.svg")">
+                    <p>FEB 23, 2024</p>
+                </div>
+                <div class="info">
+                    <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")">
+                    <p>21:00 - 23:59, KMITL</p>
+                </div>
+                <div class="info">
+                    <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")">
+                    <p>8/10</p>
+                </div>
+                <div class="info">
+                    <p>ppookkiesbubu</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>

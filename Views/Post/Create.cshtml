@@ -1,0 +1,50 @@
+@model SocialMedia.ViewModels.PostViewModel
+
+@section css {
+    <link rel="stylesheet" href="~/css/post.css">
+}
+
+
+<div>
+    <a href="@Url.Action("index", "Post")">
+        <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
+    </a>
+    <div class="box">
+
+        <div class="title">
+            <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                class="profile">
+            <input asp-for="Name" placeholder="Event Name" class="name">
+        </div>
+
+        <textarea asp-for="Description" placeholder="description..."></textarea>
+
+        <h1>Details</h1>
+        <div class="details">
+            <div class="boxinput">
+
+                <img src="@Url.Content("~/src/images/Dateicon.svg")">
+                <input asp-for="Date" placeholder="Pick a date..." type="date" class="input">
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Locationicon.svg")">
+                <input asp-for="Date" placeholder="Location" class="input">
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Timeicon.svg")">
+                <input asp-for="Date" placeholder="What time ?" type="datetime" class="input">
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Expireicon.svg")">
+                <input asp-for="Date" placeholder="Expire date" type="datetime" class="input">
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
+                <input asp-for="Date" placeholder="Add some photos" class="input">
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Peopleicon.svg")">
+                <input asp-for="Date" placeholder="Max people" class="input">
+            </div>
+        </div>
+
+        <div class="btn">
+            <button>Post</button>
+        </div>
+    </div>
+</div>

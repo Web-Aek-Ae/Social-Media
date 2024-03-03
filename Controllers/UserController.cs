@@ -73,7 +73,7 @@ namespace SocialMedia.Controllers
         }
 
         public IActionResult Login()
-        {   
+        {
             if (User?.Identity?.IsAuthenticated == true)
             {
                 // User is already authenticated, redirect to "/Home"
@@ -100,7 +100,7 @@ namespace SocialMedia.Controllers
 
             // Generate JWT token
             var token = GenerateJwtToken(user);
-             // Set the JWT token as a cookie
+            // Set the JWT token as a cookie
             Response.Cookies.Append("jwt", token, new CookieOptions
             {
                 HttpOnly = true,
@@ -134,10 +134,9 @@ namespace SocialMedia.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]{
-        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-        new Claim(ClaimTypes.Name, user.Username),
-        // Add other claims as needed
- };
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim(ClaimTypes.Name, user.Username),
+            };
 
             var token = new JwtSecurityToken(
                 // issuer: "YourIssuer", // Optional

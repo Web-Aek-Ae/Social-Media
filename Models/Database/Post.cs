@@ -15,6 +15,8 @@ namespace SocialMedia.Models.Database
         public virtual User User { get; set; }
         public virtual ICollection<PostLike> PostLikes { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; }
+
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(255, ErrorMessage = "Title cannot be longer than 255 characters.")] // Limit title length

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Social_Media</title>
+    @await RenderSectionAsync("css", required: false)
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Social_Media.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -15,7 +16,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    
+
     <!-- <link rel="stylesheet" href="~/css/styles.css"/> -->
 </head>
 
@@ -23,15 +24,18 @@
     <nav class="sidebar">
         <div class="menu">
             <ul>
-                <li><a href="@Url.Action("index", "Home")""><img src="@Url.Content("~/src/images/Homeicon.svg")" id="icon">Home</a></li>
-                <li><a href="@Url.Action("index", "Group")""><img src="@Url.Content("~/src/images/Groupicon.svg")" id="icon"></img>Group</a></li>
-                <li><a href="@Url.Action("index", "Profile")""><img src="@Url.Content("~/src/images/Profileicon.svg")" id="icon"></img></i>Profile</a></li>
+                <li><a href="@Url.Action("index", "Home")""><img src=" @Url.Content("~/src/images/Homeicon.svg")"
+                        id="icon">Home</a></li>
+                <li><a href="@Url.Action("index", "Group")""><img src=" @Url.Content("~/src/images/Groupicon.svg")"
+                        id="icon"></img>Group</a></li>
+                <li><a href="@Url.Action("index", "Profile")""><img src=" @Url.Content("~/src/images/Profileicon.svg")"
+                        id="icon"></img></i>Profile</a></li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <main role="main" class="pb">
-            @RenderBody()
+                    @RenderBody()
         </main>
     </div>
     <div class="Blog">
@@ -54,7 +58,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

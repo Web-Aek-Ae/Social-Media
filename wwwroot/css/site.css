@@ -8,8 +8,6 @@ html {
   }
 }
 
-
-
 html {
   position: relative;
   min-height: 100%;
@@ -21,54 +19,61 @@ body {
   margin: 0;
   padding: 0;
   grid-template-columns: 12% auto 17%;
+}
 
-} 
-.container{
+input::placeholder {
+  font-family: "Poppins", sans-serif;
+}
+
+textarea::placeholder {
+  font-family: "Poppins", sans-serif;
+}
+.container {
   margin: 0;
   padding: 0;
 }
-.sidebar{
+.sidebar {
   position: sticky;
   top: 0;
-  border: 1px solid;
-  background-color: #53475B;
-  color:white;
+  /* border-right: 1px solid; */
+  background-color: #53475b;
+  color: white;
 }
-.menu{
+.menu {
   display: flex;
   justify-content: center;
   align-items: center;
   position: sticky;
   top: 0;
 }
-.menu ul{
+.menu ul {
   margin-top: 150px;
   display: flex;
   flex-direction: column;
   gap: 100px;
   list-style: none;
 }
-.menu a{
+.menu a {
   font-size: 25px;
   text-decoration: none;
-  color:white;
+  color: white;
 }
 
-#icon{
+#icon {
   padding-right: 10px;
 }
 
-.Blog{
+.Blog {
   position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: -7px 0px 10px 1px rgba(0, 0, 0, 0.1);
-  background-color: #FBCA63;
+  background-color: #fbca63;
 }
 
-.myprofile{
+.myprofile {
   display: flex;
   width: 100%;
   height: 125px;
@@ -76,21 +81,15 @@ body {
   border-bottom: 1px solid grey;
 }
 
-.allprofile{
+.allprofile {
   display: flex;
   gap: 30px;
   width: 100%;
   margin-left: 20px;
 }
-.allprofile img{
+.allprofile img {
   border-radius: 50%;
   object-fit: fill;
   width: 59px;
   height: 59px;
 }
-
-
-
-
-
-

@@ -1,0 +1,134 @@
+/* profile layout part */
+.bodyProfile {
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: 15% auto;
+  min-height: 100vh;
+}
+.headerProfile {
+  display: flex;
+  width: auto;
+  height: 100px;
+  border: solid 2px;
+}
+.containerProfile {
+  /* background-color: #fbca63; */
+  display: grid;
+  grid-template-rows: 30% auto;
+}
+.top {
+  border-bottom: solid 1px grey;
+  display: grid;
+  grid-template-rows: 80% auto;
+}
+.profilee {
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profilee .left {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.left img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin: 30px 30px 0px 50px;
+}
+.left h1 {
+  font-size: 44px;
+  margin: 0;
+}
+.left h2 {
+  margin: 0;
+  color: grey;
+  font-weight: 500;
+  font-size: larger;
+}
+.profilee button {
+  margin-right: 50px;
+}
+
+.option {
+  display: flex;
+  margin: 0 0 30px 50px;
+  gap: 80px;
+}
+.option h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+button {
+  width: 200px;
+  height: 70px;
+  background-color: #fbca63;
+  border: none;
+  border-radius: 30px;
+  font-size: 30px;
+  font-weight: bold;
+}
+button:hover {
+  transition: 0.3s;
+  background-color: #f77c7e;
+}
+
+/* post */
+.post {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.containerPost {
+  width: 430px;
+  height: 230px;
+  border: solid 3px;
+  border-radius: 30px;
+  margin: 30px 0 0 50px;
+  padding: 30px;
+}
+.info {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.containerPost h1 {
+  margin: 0 0 10px 0;
+  font-size: 30px;
+  font-weight: lighter;
+}
+.info icon {
+  height: fit-content;
+}
+.info p {
+  height: fit-content;
+  margin: 0;
+  color: grey;
+}
+.imgProfile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.profilePost{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.profilePost .info{
+  align-items: center;
+}
+.status p {
+  color: #f77c7e;
+  font-weight: bold;
+}
+

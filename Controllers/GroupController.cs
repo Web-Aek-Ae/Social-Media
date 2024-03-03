@@ -1,15 +1,24 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SocialMedia.Services;
-using SocialMedia.ViewModels; // Namespace where TableViewModel is located
-using System.Threading.Tasks;
+
 
 namespace SocialMedia.Controllers
 {
-    public class GroupController : Controller{
+    [Authorize]
+    public class GroupController : Controller
+    {
         public IActionResult Index()
         {
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            // Use the username for your application logic...
+            ViewData["Username"] = username;
+
             return View();
         }
     }
-    
+
 }

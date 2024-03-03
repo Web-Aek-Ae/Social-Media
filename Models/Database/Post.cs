@@ -12,7 +12,9 @@ namespace SocialMedia.Models.Database
         [ForeignKey("User")] // Specifies UserId as a foreign key referencing the User entity
         public int UserId { get; set; }
         
-        public virtual User User { get; set; } // Navigation property for the User entity
+        public virtual User User { get; set; }
+        public virtual ICollection<PostLike> PostLikes { get; set; }
+
 
         [Required(ErrorMessage = "Title is required")]
         [StringLength(255, ErrorMessage = "Title cannot be longer than 255 characters.")] // Limit title length

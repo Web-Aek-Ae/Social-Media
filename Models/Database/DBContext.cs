@@ -12,6 +12,8 @@ namespace SocialMedia.Models.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
@@ -66,6 +68,7 @@ namespace SocialMedia.Models.Database
             // Configuring the many-to-many relationship between Users and Groups through GroupMembers
             modelBuilder.Entity<GroupMember>()
                 .HasKey(gm => new { gm.UserId, gm.GroupId }); // Composite key
+        
 
             modelBuilder.Entity<GroupMember>()
                 .HasOne<User>(gm => gm.User)

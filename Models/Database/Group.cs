@@ -21,6 +21,5 @@ namespace SocialMedia.Models.Database
         // Navigation property for the group's members
         public virtual ICollection<GroupMember> Members { get; set; }
         
-        // Additional fields such as group image, privacy settings, etc., can be added here
     }
 }

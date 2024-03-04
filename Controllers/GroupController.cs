@@ -28,7 +28,9 @@ namespace SocialMedia.Controllers
             // Use the username for your application logic...
             ViewData["Username"] = username;
 
-            return View();
+            var groupspost = _groupService.GetAllGroups();
+
+            return View(groupspost);
         }
         public IActionResult Postpage()
         {
@@ -47,7 +49,7 @@ namespace SocialMedia.Controllers
         {   
             if (!ModelState.IsValid)
             {
-                return Ok("Kuay");
+                return BadRequest("model invalid");
             }
             try{
                 var group = new Group

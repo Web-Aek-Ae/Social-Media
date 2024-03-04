@@ -1,7 +1,7 @@
 @{
     ViewData["Title"] = "Group Page";
 }
-
+@model List<SocialMedia.Models.Database.Group>
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
@@ -95,12 +95,13 @@
 
     <div class="Recomended-Group">
         <h2>Recomended Groups</h2>
+        
         <div class="Recomended-Group-post">
             <div class="card-Recomended-Group">
                 <img src="https://www.brandbuffet.in.th/wp-content/uploads/2021/08/Penguin-Eat-Shabu-6.jpg" alt="">
                 <div class="contents">
                     <div class="contents-header">
-                        <h3>Shabu eateat</h3>
+                        <h3>FOOO</h3>
                         <div onclick="openmembers()" id="amountofmembers">
                             <i class="fa-regular fa-user"></i>
                             <span>18</span>
@@ -135,12 +136,11 @@
         </div>
     </div>
     <div class="container-post">
-        <div class="post">
+        @foreach(var groupspost in Model ){
+            <div class="post">
             <div class="card-post">
-                <h1 id="section">Party Ganster</h1>
-                <p id="section-content"> เป็นกลุ่มที่เราจะนัดเฮฮาสังสรรค์กันทุก ๆ วันที่ขึ้นต้นด้วยตัว t today tomorrow
-                    อะหยอกเล่น #ศุกร์เสาร์เหงาได้ไง ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับอ้วน
-                    อะว่าแล้วก็ปายยยยย</p>
+                <h1 id="section">@groupspost.Name</h1>
+                <p id="section-content"> @groupspost.Description</p>
                 <div class="activity-image">
                     <img src="https://72skybar.com/wp-content/uploads/2023/06/320069658_699189411877610_6606429275967979160_n-1.jpg"
                         alt="activity" id="activity1">
@@ -168,6 +168,8 @@
             </div>
 
         </div>
+        }
+        
         <div class="post">
             <div class="card-post">
                 <h1 id="section">Board game</h1>

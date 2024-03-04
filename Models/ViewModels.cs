@@ -56,4 +56,11 @@ namespace SocialMedia.ViewModels
     public required string Password { get; set; }
   }
 
+  public class GroupViewModel
+  {
+    public required string Groupname{get;set;}
+    
+    public required string Description{get;set;}
+  }
+
 }

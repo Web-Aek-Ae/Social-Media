@@ -19,8 +19,6 @@
         rel="stylesheet">
 
 </head>
-@{
-}
 
 <body class="bodyProfile">
     <nav class="sidebar">
@@ -36,35 +34,17 @@
         </div>
     </nav>
 
-    <div class="containerProfile">
-        <div class="top">
-            <div class="profilee">
-                <div class="left">
-                    <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                        alt="proflie">
-                    <div>
-                        <h1>ppookkiesbubu</h1>
-                        <h2>&commat;monkey_jeik</h2>
-                    </div>
-                </div>
-                <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
-            </div>
-            <div class="option">
-                <a href="@Url.Action("Post","Profile")">Posts</a>
-                <a href="@Url.Action("Joined","Profile")">Joined</a>
-                <a href="@Url.Action("Likes","Profile")">Likes</a>
-            </div>
-        </div>
-        <main role="main" class="pb">
-            @RenderBody()
-        </main>
+
+    <main role="main" class="pb">
+                    @RenderBody()
+    </main>
     </div>
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
+                        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

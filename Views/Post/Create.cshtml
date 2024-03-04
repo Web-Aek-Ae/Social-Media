@@ -81,6 +81,7 @@
                         if(response.success) {
                             alert("Post created successfully.");
                             // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Index", "Home")'; // Adjust controller and action names as necessary
                         } else {
                             alert("Failed to create post: " + response.message);
                         }

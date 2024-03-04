@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<SocialMedia.Models.Database.Post>
+
 <head>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
 
@@ -20,15 +22,38 @@
         </div>
     </div>
     <div class="container-post">
+        @foreach (var post in Model)
+        {   
+            <div class="post">
+                <div class="card-post">
+                    <img src="@post.Image" alt="activity" class="activity">
+                    <div class="content">
+                        <div class="post-header">
+                            <div class="date">
+                                <h3 id="month">@post.Date.ToString("MMM").ToUpper()</h3>
+                                <h3 id="day">@post.Date.Day</h3>
+                                <h3 id="year">@post.Date.Year</h3>
+                            </div>
+                            <div class="topic">
+                                <h1>@post.Title</h1>
+                                <p>@post.Time.ToString("HH:mm"), @post.Location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>@post.Content</p>
+            </div>
+        }
         <div class="post">
             <div class="card-post">
-                <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt = "activity" id = "activity">
+                <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
+                    id="activity">
                 <div class="content">
                     <div class="post-header">
                         <div class="date">
-                            <h3 id = "month">FEB</h3>
-                            <h3 id = "day">26</h3>
-                            <h3 id = "year">2024</h3>
+                            <h3 id="month">FEB</h3>
+                            <h3 id="day">26</h3>
+                            <h3 id="year">2024</h3>
                         </div>
                         <div class="topic">
                             <h1>เตะบอลกันครับพี่ๆ</h1>
@@ -38,5 +63,5 @@
                 </div>
             </div>
         </div>
+
     </div>
-</div>

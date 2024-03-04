@@ -9,7 +9,7 @@ namespace SocialMedia.ViewModels
   }
   public class UserViewModel
   {
-    public int UserId { get; set; }
+    
 
     [Required(ErrorMessage = "Name is required")]
     public required string Name { get; set; }
@@ -57,9 +57,11 @@ namespace SocialMedia.ViewModels
   }
 
   public class GroupViewModel
-  {
+  { 
+
+    [Required(ErrorMessage ="Please enter name")]
     public required string Groupname{get;set;}
-    
+
     public required string Description{get;set;}
   }
 

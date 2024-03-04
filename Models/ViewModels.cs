@@ -60,7 +60,8 @@ namespace SocialMedia.ViewModels
     [Range(1, int.MaxValue, ErrorMessage = "MaxPeople must be at least 1")] // Ensures MaxPeople is a positive number
     public int MaxPeople { get; set; }
 
-    public DateTime Time { get; set; }
+    public string Time { get; set; } // Change to string if parsing server-side
+
 
     [DataType(DataType.Date)] // Specifies that the data type is a date, without a time component
     public DateTime Date { get; set; }

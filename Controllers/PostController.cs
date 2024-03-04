@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 
 
+
 namespace SocialMedia.Controllers
 {
     public class PostController : Controller
@@ -24,9 +25,10 @@ namespace SocialMedia.Controllers
         public IActionResult Create()
         {
             var username = HttpContext.User.Identity?.Name;
-            // Alternatively, if the username is stored in a specific claim type
-            var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
+            ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
             return View();
         }
@@ -34,12 +36,16 @@ namespace SocialMedia.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost([FromBody] PostViewModel model)
-        {
+        {   
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            int.TryParse(UserId, out int userIdAsInt);
+
             if (ModelState.IsValid)
             {
                 var post = new Post
                 {
-                    UserId = model.UserId,
+                    UserId = userIdAsInt,
                     Title = model.Title,
                     Content = model.Content, // Corrected from Description to Content
                     Location = model.Location,

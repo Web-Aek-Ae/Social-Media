@@ -44,9 +44,6 @@ namespace SocialMedia.ViewModels
 
   public class PostViewModel
   {
-
-    public int UserId { get; set; }
-
     [Required(ErrorMessage = "Title is required")]
     [StringLength(255, ErrorMessage = "Title cannot be longer than 255 characters.")] // Limit title length
     public required string Title { get; set; }
@@ -62,6 +59,8 @@ namespace SocialMedia.ViewModels
 
     [Range(1, int.MaxValue, ErrorMessage = "MaxPeople must be at least 1")] // Ensures MaxPeople is a positive number
     public int MaxPeople { get; set; }
+
+    public DateTime Time { get; set; }
 
     [DataType(DataType.Date)] // Specifies that the data type is a date, without a time component
     public DateTime Date { get; set; }

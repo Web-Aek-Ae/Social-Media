@@ -20,7 +20,7 @@ public class HomeController : Controller
     {
         var username = HttpContext.User.Identity?.Name;
         // Alternatively, if the username is stored in a specific claim type
-        var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
         // Use the username for your application logic...
         _logger.LogInformation($"Username from JWT: {username}");

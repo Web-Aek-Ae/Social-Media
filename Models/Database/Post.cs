@@ -34,6 +34,9 @@ namespace SocialMedia.Models.Database
         [Range(1, int.MaxValue, ErrorMessage = "MaxPeople must be at least 1")] // Ensures MaxPeople is a positive number
         public int MaxPeople { get; set; }
 
+        [DataType(DataType.Time)]
+        public DateTime Time { get; set; }
+
         [DataType(DataType.Date)] // Specifies that the data type is a date, without a time component
         public DateTime Date { get; set; }
 

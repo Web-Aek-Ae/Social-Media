@@ -71,13 +71,14 @@
 }
 
 button {
+  font-family: "Poppins", sans-serif;
   width: 200px;
   height: 70px;
   background-color: #fbca63;
   border: none;
   border-radius: 30px;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 600;
 }
 button:hover {
   transition: 0.3s;

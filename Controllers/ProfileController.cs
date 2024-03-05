@@ -15,6 +15,7 @@ namespace SocialMedia.Controllers
 
         public IActionResult Post()
         {
+            // string actionName = (string)RouteData.Values["action"];
             return View();
         }
         public IActionResult Joined()

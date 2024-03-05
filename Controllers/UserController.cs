@@ -148,12 +148,17 @@ namespace SocialMedia.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public IActionResult Forgot()
+        public IActionResult ForgotPassword()
         {
             return View();
         }
 
         public IActionResult SentEmail()
+        {
+            return View();
+        }
+        
+        public IActionResult ResetPassword()
         {
             return View();
         }

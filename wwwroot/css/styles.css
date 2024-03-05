@@ -17,19 +17,20 @@ body {
   font-family: "League Spartan", sans-serif;
   color: #f77c7e;
   font-size: 120px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   font-weight: bolder;
 }
 .loginHeader {
   width: 40%;
   font-size: 180px;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .forgotHeader {
   width: 40%;
   text-align: center;
+  margin-top: 5%;
 }
 .Form {
   position: relative;
@@ -40,6 +41,7 @@ body {
   border-radius: 50px;
   padding: 50px;
   width: 35%;
+  margin-top: 20px;
 }
 .forgotForm {
   padding-top: 60px;
@@ -67,11 +69,12 @@ input {
 }
 button {
   font-family: "Poppins", sans-serif;
-  width: 200px;
-  height: 70px;
+  /* width: 200px;
+  height: 70px; */
+  padding: 20px 50px;
   background-color: #fbca63;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   font-size: 30px;
   font-weight: 600;
 }
@@ -80,7 +83,7 @@ button:hover {
   transition: 0.3s;
 }
 
-.Form img1 {
+.Form .star1 {
   width: 175px;
   height: 168px;
   position: absolute;
@@ -90,7 +93,7 @@ button:hover {
   top: 200px; */
 }
 
-.Form .img2 {
+.Form .star2 {
   position: absolute;
   right: -100px;
   bottom: -80px;
@@ -129,4 +132,15 @@ button:hover {
 .forgot {
   margin-top: 20px;
   text-align: center;
+}
+
+.boxEmail {
+  /* background-color: #8b8989; */
+  width: 30%;
+  margin-bottom: 5%;
+}
+.boxEmail p {
+  font-size: 24px;
+  text-align: center;
+  color: grey;
 }

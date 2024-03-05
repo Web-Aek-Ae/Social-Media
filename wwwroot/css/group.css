@@ -332,6 +332,18 @@ button:hover {
 
 /* recommend group */
 .Recomended-Group-header {
-    display: flex;
-    padding-left: 30px;
+        display: grid;
+        font-size: 24px;
+        font-weight: 600;
+        gap: 5px;
+        display: flex;
+        align-items: center;
+
 }
+.Recomended-Group-header a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+

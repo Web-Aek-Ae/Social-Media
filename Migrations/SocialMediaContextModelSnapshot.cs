@@ -80,7 +80,7 @@ namespace Social_Media.Migrations
 
                     b.HasKey("GroupId");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("SocialMedia.Models.Database.GroupMember", b =>
@@ -131,6 +131,9 @@ namespace Social_Media.Migrations
 
                     b.Property<int>("MaxPeople")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()

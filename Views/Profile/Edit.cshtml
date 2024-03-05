@@ -17,11 +17,13 @@
     </div>
 
     <div class="containerEdit">
-        <div class="imgEdit">
-            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+        <div class="all-img"><img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                 alt="proflie" class="img1">
-            @* <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2"> *@
+            <div class="imgEdit">
+                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
+            </div>
         </div>
+
         <div class="boxEdit">
             <form asp-action="Register" asp-controller="User" method="post">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })

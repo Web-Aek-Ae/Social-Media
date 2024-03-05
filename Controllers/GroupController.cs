@@ -23,6 +23,10 @@ namespace SocialMedia.Controllers
         {
             return View();
         }
+        public IActionResult Recommend()
+        {
+            return View();
+        }
     }
     
 

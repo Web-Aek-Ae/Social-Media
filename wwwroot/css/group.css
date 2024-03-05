@@ -245,6 +245,8 @@ a{
 #cancle:hover{
     cursor: pointer;
 }
+
+/* create-post */
 .title {
     display: flex;
 }
@@ -321,8 +323,15 @@ button:hover {
     bottom: 50px; 
     right: 400px; 
     z-index: 9999;
+    
   }
     
   .create-post-button button:hover {
     outline: black solid 3px;
   }
+
+/* recommend group */
+.Recomended-Group-header {
+    display: flex;
+    padding-left: 30px;
+}

@@ -315,3 +315,14 @@ button:hover {
     transition: 0.3s;
     background-color: #f77c7e;
 }
+
+.create-post-button {
+    position: fixed;
+    bottom: 50px; 
+    right: 400px; 
+    z-index: 9999;
+  }
+    
+  .create-post-button button:hover {
+    outline: black solid 3px;
+  }

@@ -78,3 +78,6 @@ button:hover {
   transition: 0.3s;
   background-color: #f77c7e;
 }
+.posts {
+  color: yellow;
+}

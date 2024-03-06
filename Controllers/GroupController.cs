@@ -42,7 +42,28 @@ namespace SocialMedia.Controllers
             ViewData["Username"] = username;
             return View();
         }
+
+        public IActionResult Recommend(){
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            // Use the username for your application logic...
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
+            return View();
+        }
         
+        public IActionResult Details(){
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            // Use the username for your application logic...
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
+            return View();
+        }
+
+
 
         
         [HttpPost("CreateGroup")]
@@ -54,6 +75,7 @@ namespace SocialMedia.Controllers
                 return BadRequest("model invalid");
             }
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             if (!int.TryParse(UserId, out int userIdAsInt))
             {
                 return Json(new { success = false, message = "User ID is invalid." });
@@ -70,8 +92,9 @@ namespace SocialMedia.Controllers
                 var result = await _groupService.AddGroup(group);
                 if (result)
                 {
-                    return RedirectToAction("Index", "Group");
+                    return Json(new { success = true, message = "Post created successfully!" });
                 }
+
             }
             catch (ArgumentException ex)
             {

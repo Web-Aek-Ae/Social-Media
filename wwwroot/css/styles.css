@@ -6,31 +6,45 @@ body {
 }
 .Container {
   display: flex;
+  /* position: relative; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
 }
 .Header {
   font-family: "League Spartan", sans-serif;
   color: #f77c7e;
-  font-weight: bold;
-  font-size: 60px;
-  margin-bottom: 20px;
+  font-size: 110px;
+  margin-bottom: 0px;
+  font-weight: bolder;
 }
 .loginHeader {
-  width: 450px;
-  font-size: 100px;
+  width: 40%;
+  font-size: 180px;
   text-align: center;
+  margin-top: 2%;
 }
 
+.forgotHeader {
+  width: 40%;
+  text-align: center;
+  margin-top: 5%;
+}
 .Form {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: white;
   border: solid 4px;
   border-radius: 50px;
-  padding: 40px;
+  padding: 50px;
+  width: 35%;
+  margin-top: 20px;
+}
+.forgotForm {
+  padding-top: 60px;
 }
 
 label {
@@ -39,15 +53,13 @@ label {
 }
 
 input {
-  background-color: #d9d9d9;
-  border: none;
+  border: solid 2px;
   border-radius: 10px;
-  height: 30px;
-  width: 550px;
+  height: 50px;
+  width: 98%;
   padding: 0 0 0 15px;
-  margin: 10px 0 5px;
+  margin: 0 0 20px;
 }
-
 
 .submit {
   display: flex;
@@ -56,24 +68,56 @@ input {
   justify-content: center;
 }
 button {
-  width: 200px;
-  height: 70px;
+  font-family: "Poppins", sans-serif;
+  /* width: 200px;
+  height: 70px; */
+  padding: 20px 50px;
   background-color: #fbca63;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 600;
 }
-ิีbutton:hover {
+button:hover {
   background-color: #f77c7e;
+  transition: 0.3s;
 }
 
-img {
+.Form .star1 {
   width: 175px;
   height: 168px;
   position: absolute;
-  left: 360px;
-  top: 200px;
+  left: -100px;
+  top: -80px;
+  /* left: 360px;
+  top: 200px; */
+}
+
+.Form .star2 {
+  position: absolute;
+  right: -100px;
+  bottom: -80px;
+}
+.Container .img1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.Container .back {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
+
+.back {
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  align-items: center;
+}
+.back a {
+  height: 44px;
 }
 
 .pLogin {
@@ -83,4 +127,20 @@ img {
 .invalid {
   color: red;
   margin-bottom: 20px;
+}
+
+.forgot {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.boxEmail {
+  /* background-color: #8b8989; */
+  width: 30%;
+  margin-bottom: 5%;
+}
+.boxEmail p {
+  font-size: 24px;
+  text-align: center;
+  color: grey;
 }

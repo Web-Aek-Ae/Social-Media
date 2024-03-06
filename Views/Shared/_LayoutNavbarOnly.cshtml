@@ -24,19 +24,23 @@
     <nav class="sidebar">
         <div class="menu">
             <ul>
-                <li><a href="@Url.Action("index", "Home")""><img src=" @Url.Content("~/src/images/Homeicon.svg")"
-                        id="icon">Home</a></li>
-                <li><a href="@Url.Action("index", "Group")""><img src=" @Url.Content("~/src/images/Groupicon.svg")"
-                        id="icon"></img>Group</a></li>
-                <li><a href="@Url.Action("post", "Profile")""><img src=" @Url.Content("~/src/images/Profileicon.svg")"
-                        id="icon"></img></i>Profile</a></li>
+                <li><a href="@Url.Action("index", "Home")"" class=" none"><img
+                            src=" @Url.Content("~/src/images/Homeicon.svg")" id="icon">Home</a></li>
+                <li><a href="@Url.Action("index", "Group")"" class=" none"><img
+                            src=" @Url.Content("~/src/images/Groupicon.svg")" id="icon"></img>Group</a></li>
+                <li><a href="@Url.Action("post", "Profile")"" class=" current"><img
+                            src=" @Url.Content("~/src/images/ProfileiconYellow.svg")" id="icon"></img></i>Profile</a>
+                    <div class="line"></div>
+                </li>
+                <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
+                            src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</a></li>
             </ul>
         </div>
     </nav>
 
 
     <main role="main" class="pb">
-                    @RenderBody()
+        @RenderBody()
     </main>
     </div>
 
@@ -44,7 +48,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-                        @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

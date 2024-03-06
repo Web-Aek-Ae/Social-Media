@@ -69,15 +69,29 @@
   color: black;
   text-decoration: none;
 }
+.option #select {
+  color: #fbca63;
+}
 
+.select {
+  width: fit-content;
+}
+.select .underline {
+  width: 100%;
+  background-color: #fbca63;
+  height: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
 button {
+  font-family: "Poppins", sans-serif;
   width: 200px;
   height: 70px;
   background-color: #fbca63;
   border: none;
   border-radius: 30px;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 600;
 }
 button:hover {
   transition: 0.3s;
@@ -160,10 +174,24 @@ button:hover {
   gap: 50px;
   margin: 20px 0 0 10%;
 }
-.imgEdit img {
+.all-img {
+  position: relative;
+  height: fit-content;
+}
+.img1 {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  position: relative;
+}
+.imgEdit {
+  background-color: #fbca63;
+  height: 31px;
+  padding: 10px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 .boxEdit {
   width: 800px;

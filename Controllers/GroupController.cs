@@ -106,7 +106,16 @@ namespace SocialMedia.Controllers
 
         // }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+        public IActionResult Recommend()
+        {
+            return View();
+        }
     }
+    
 
 
 }

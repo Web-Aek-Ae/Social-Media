@@ -1,0 +1,28 @@
+@section css {
+    <link rel="stylesheet" href="~/css/group.css">
+}
+
+@{
+    ViewData["Title"] = "Group Page";
+    Layout = "~/Views/Shared/_LayoutGroup.cshtml";
+}
+<div>
+    <a href="@Url.Action("index", "Group")">
+        <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
+    </a>
+    <div class="box">
+        <div class="title">
+            <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                class="profile">
+            <input ="Title" placeholder="Group Name" class="name">
+        </div>
+        <textarea ="Content" placeholder="description..."></textarea>
+
+        <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
+            <input ="Image" placeholder="Add some photos" class="input">
+        </div>
+        <div class="btn">
+            <button>create group</button>
+        </div>
+    </div>
+</div>

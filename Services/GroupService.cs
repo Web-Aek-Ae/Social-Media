@@ -17,7 +17,18 @@ namespace SocialMedia.Services
         {
             _context = context;
         }
-
+        
+        public async Task<bool> DeleteGroup(int GroupId)
+        {
+            var group = await _context.Groups.FindAsync(GroupId);
+            if (group != null)
+            {
+                _context.Groups.Remove(group);
+                await _context.SaveChangesAsync();
+                return true; // Or use TempData or another way to communicate success
+            }
+            return false; // Or communicate the user was not found
+        }
         public List<Group> GetAllGroups()
         {
             return _context.Groups.ToList();

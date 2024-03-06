@@ -1,5 +1,4 @@
 @model SocialMedia.ViewModels.GroupViewModel
-
 @section css {
     <link rel="stylesheet" href="~/css/group.css">
 }
@@ -16,12 +15,12 @@
         <div class="title">
             <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                 class="profile">
-            <input ="Title" placeholder="Group Name" class="name">
+            <input ="Title" asp-for="title" placeholder="Group Name" class="name">
         </div>
-        <textarea ="Content" placeholder="description..."></textarea>
+        <textarea ="Content" asp-for="Content" placeholder="description..."></textarea>
 
         <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
-            <input ="Image" placeholder="Add some photos" class="input">
+            <input ="Image" asp-for = "Image" placeholder="Add some photos" class="input">
         </div>
         <div class="btn">
             <button>create group</button>
@@ -36,7 +35,7 @@
 
                 var formData = {
                     Groupname: $('input[name="Title"]').val(),
-                    Content:$('input[name = "Content"]').val(),
+                    Content: $('textarea[name="Content"]').val(),  
                 };
 
                 // Basic validation example
@@ -47,16 +46,16 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("CreateGroup", "Group")', // Modify with your correct URL
+                    url: '@Url.Action("CreateGroup", "Post")', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function(response) {
                         if(response.success) {
-                            alert("Group created successfully.");
+                            alert("Post created successfully.");
                             // Optionally, redirect or clear form here
                             window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
                         } else {
-                            alert("Failed to create Group: " + response.message);
+                            alert("Failed to create post: " + response.message);
                         }
                     },
                     error: function(error) {

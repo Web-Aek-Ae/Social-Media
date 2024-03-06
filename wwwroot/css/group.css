@@ -45,7 +45,7 @@ a {
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
-.container-post {
+.container-group {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,7 +56,7 @@ a {
   font-size: 24px;
 }
 
-.post {
+.group {
   border: 2px solid #000000;
   border-radius: 30px;
   width: 735px;
@@ -65,15 +65,15 @@ a {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
   transition: all 0.5s;
 }
-.post:hover {
+.group:hover {
   transform: scale(1.05);
 }
-.post p {
+.group p {
   font-size: 13px;
   color: #9e9e9e;
 }
 
-.card-post {
+.card-group {
   margin-left: 42px;
   margin-right: 42px;
   height: fit-content;
@@ -112,8 +112,8 @@ a {
 
 #group-button {
   font-size: 16px;
-  font-weight: bold;
-  width: 146px;
+  font-weight: medium;
+  width: 130px;
   height: 34px;
   border-radius: 27px;
   background-color: #fbca63;
@@ -139,8 +139,8 @@ a {
 }
 .Recomended-Group {
   padding-left: 30px;
-  border-bottom: 1px solid;
-  height: 390px;
+  border-bottom: 2px solid rgb(211, 207, 207);
+  height: 360px;
 }
 .Recomended-Group-post {
   display: flex;
@@ -329,7 +329,7 @@ button:hover {
 
 /* recommend group */
 .Recomended-Group-header {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
         gap: 5px;
         display: flex;
@@ -368,4 +368,111 @@ button:hover {
     margin-left: 42px;
     margin-right: 42px;
     height: fit-content;
+}
+#group-rec-button {
+    font-size: 16px;
+    font-weight: medium;
+    width: 146px;
+    height: 34px;
+    border-radius: 27px;
+    background-color: #fbca63;
+}
+  
+#group-rec-button:hover {
+    background-color: #f77c7e;
+    color: #ffff;
+    transition: 0.3s;
+}
+
+/* detaills */
+.Group-details-header {
+    font-size: 20px;
+    font-weight: 600;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+
+}
+.Group-details-header a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.Group-details {
+    margin: 0px 30px 0px 30px;
+}
+.events h2{
+    font-size: 30px;
+    margin-left: 30px;
+}
+.container-post{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.post{
+    border: 2px solid #000000;
+    border-radius: 1.75rem;
+    width: 55rem;
+    height: 19rem;
+    margin-top: 2.5rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+}
+
+.post p{
+    font-size: 18px;
+    color: #9E9E9E;
+    margin-left: 1rem;
+    margin-top: 0rem;
+}
+.card-post{
+    display : flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    height: fit-content;
+}
+#activity{
+    width: 17rem;
+    height: 17rem;
+    object-fit: cover;
+    border-radius : 1.75rem;
+}
+.post-header{
+    display: flex;
+    margin-left: 1rem;
+}
+.date{
+    width: 5rem;
+    height:6rem;
+    background-color: #F77C7E;
+    border-radius: 1.25rem;
+}
+.date h3{
+    text-align: center;
+    color:#FFFFFF;
+    font-weight: 600;
+}
+#month{
+    font-size: 18px;
+    margin-top:0.25rem;
+    margin-bottom: 0rem;
+}
+#day{
+    font-size: 36px;
+    margin-top:-0.75rem;
+    margin-bottom: 0;
+}
+#year{
+    font-size: 18px;
+    margin-top:-0.75rem;
+}
+.topic h1{
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
 }

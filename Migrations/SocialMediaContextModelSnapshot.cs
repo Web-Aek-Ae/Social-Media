@@ -37,7 +37,7 @@ namespace Social_Media.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("SocialMedia.Models.Database.Comment", b =>

@@ -10,7 +10,6 @@
 
 <body>
     <div class="top">
-        <div class="profilee">
             <div class="left">
                 <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                     alt="proflie">
@@ -20,10 +19,9 @@
                 </div>
             </div>
             <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
-        </div>
         <div class="option">
-            <a href="@Url.Action("Post","Profile")" id="select">
-                <div class="select">Posts
+            <a href="@Url.Action("Post","Profile")" class="select">
+                <div class="selectBox">Posts
                     <div class="underline"></div>
                 </div>
             </a>

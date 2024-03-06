@@ -23,16 +23,24 @@
         <div class="menu">
             <ul>
                 <li><a href="@Url.Action("index", "Home")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Homeicon.svg")" id="icon">Home</a></li>
+                            src=" @Url.Content("~/src/images/Homeicon.svg")" class="icon">
+                        <p class="labelNav">Home</p>
+                    </a></li>
                 <li><a href="@Url.Action("index", "Group")"" class=" current"><img
-                            src=" @Url.Content("~/src/images/GroupiconYellow.svg")" id="icon"></img>Group</a>
+                            src=" @Url.Content("~/src/images/GroupiconYellow.svg")" class="icon"></img>
+                        <p class="labelNav">Group</p>
+                    </a>
                     <div class="line"></div>
                 </li>
                 <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Profileicon.svg")" id="icon"></img></i>Profile</a>
+                            src=" @Url.Content("~/src/images/Profileicon.svg")" class="icon"></img></i>
+                        <p class="labelNav">Profile</p>
+                    </a>
                 </li>
                 <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</a></li>
+                            src=" @Url.Content("~/src/images/Logouticon.svg")" class="icon"></img></i>
+                        <p class="labelNav">Log out</p>
+                    </a></li>
             </ul>
         </div>
     </nav>

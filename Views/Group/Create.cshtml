@@ -1,3 +1,5 @@
+@model SocialMedia.ViewModels.GroupViewModel
+
 @section css {
     <link rel="stylesheet" href="~/css/group.css">
 }
@@ -26,3 +28,43 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            $(".btn button").click(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = {
+                    Groupname: $('input[name="Title"]').val(),
+                    Content:$('input[name = "Content"]').val(),
+                };
+
+                // Basic validation example
+                if (!formData.Groupname || !formData.Content) {
+                    alert("Groupname and Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateGroup", "Group")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        if(response.success) {
+                            alert("Group created successfully.");
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create Group: " + response.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
+    </script>
+}

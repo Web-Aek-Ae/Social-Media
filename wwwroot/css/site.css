@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: fixed;
+  overflow-y: scroll;
 }
 
 html {
@@ -29,20 +31,21 @@ textarea::placeholder {
 .container {
   width: 68%;
   height: 100vh;
-  margin: 0;
+  margin: 0 0 0 15%;
   padding: 0;
 }
 
 .containerNavbarOnly {
   width: 85%;
   height: 100vh;
+  margin: 0 0 0 15%;
 }
 
 .sidebar {
   width: 15%;
-  position: sticky;
+  height: 100vh;
+  position: fixed;
   top: 0;
-  /* border-right: 1px solid; */
   background-color: #53475b;
   color: white;
 }
@@ -99,8 +102,10 @@ ul .line {
 
 .Blog {
   width: 17%;
-  position: sticky;
+  height: 100vh;
+  position: fixed;
   top: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,6 +148,9 @@ ul .line {
   }
 }
 @media (max-width: 1250px) {
+  .sidebar {
+    height: 100vh;
+  }
   .Blog {
     display: none;
   }
@@ -167,7 +175,7 @@ ul .line {
     height: 60px;
     width: 100%;
     bottom: 0;
-    position: sticky;
+    top: unset;
   }
   .menu {
     height: 100%;
@@ -192,8 +200,12 @@ ul .line {
   }
   .container {
     width: 100%;
+    margin: 0 0 60px 0;
   }
   .containerNavbarOnly {
+    overflow-y: scroll;
     width: 100%;
+    margin-left: 0;
+    /* margin: 0 0 60px 0; */
   }
 }

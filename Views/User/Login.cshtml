@@ -12,7 +12,7 @@
 
     <!-- Begin form -->
     <form method="post" action="@Url.Action("Login", "User")" class="Form">
-        <img src="@Url.Content("~/star.png")" alt="Star Icon">
+        <img src="@Url.Content("~/src/images/Star.svg")" alt="Star Icon" class="star1">
 
         <div class="form-group">
             <label for="username">Username</label>
@@ -27,11 +27,15 @@
         <div class="submit">
             <button type="submit">Log in</button>
         </div>
+
+        <div class="forgot">
+            <a href="@Url.Action("ForgotPassword", "User")" class="pLogin">Forgot password ?</a>
+        </div>
     </form>
     <!-- End form -->
 
     <p class="pLogin">
-        Don’t have an account? 
+        Don’t have an account?
         <a href="@Url.Action("Register", "User")" class="pLogin">Sign up</a>
     </p>
 </div>

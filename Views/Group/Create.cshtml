@@ -2,7 +2,10 @@
     <link rel="stylesheet" href="~/css/group.css">
 }
 
-
+@{
+    ViewData["Title"] = "Group Page";
+    Layout = "~/Views/Shared/_LayoutGroup.cshtml";
+}
 <div>
     <a href="@Url.Action("index", "Group")">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">

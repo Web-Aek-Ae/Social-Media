@@ -1,10 +1,14 @@
 @{
     ViewData["Title"] = "Group Page";
+    Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
 
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
+<a href="@Url.Action("create", "Group")">
+        <img src="@Url.Content("~/src/images/Creategoupicon.svg")" class="create-post-button">
+</a>
 <div class="pop-up">
     <div class="header-popup">
         <h2>Members</h2>
@@ -131,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <a href="">see all</a>
+            <a href="@Url.Action("Recommend", "Group")"">see all</a>
         </div>
     </div>
     <div class="container-post">

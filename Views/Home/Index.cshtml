@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
 @model List<SocialMedia.Models.Database.Post>
@@ -23,7 +24,7 @@
     </div>
     <div class="container-post">
         @foreach (var post in Model)
-        {   
+        {
             <div class="post">
                 <div class="card-post">
                     <img src="@post.Image" alt="activity" class="activity">

@@ -25,6 +25,20 @@
 
         <h1>Details</h1>
         <div class="details">
+            <!-- Category selection -->
+            <div class="boxinput">
+                <label for="SelectedCategoryId">Category:</label>
+                <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
+                    <option value="">Choose...</option>
+                </select>
+            </div>
+
+            <!-- Input for adding a new category -->
+            <div class="boxinput">
+                <label for="NewCategoryName">New Category:</label>
+                <input asp-for="NewCategoryName" placeholder="Create new category" class="input" />
+            </div>
+            
             <div class="boxinput">
                 <img src="@Url.Content("~/src/images/Dateicon.svg")">
                 <div class="item">

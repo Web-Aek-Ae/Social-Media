@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace SocialMedia.ViewModels
@@ -69,7 +70,9 @@ namespace SocialMedia.ViewModels
     [Display(Name = "Expire Date")]
     public DateTime ExpireDate { get; set; }
 
-    // Additional properties or methods can be added here
+    public int? SelectedCategoryId { get; set; }
+    public string NewCategoryName { get; set; }
+    public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
   }
 
 }

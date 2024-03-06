@@ -15,9 +15,12 @@ namespace SocialMedia.Controllers
     {
         private readonly GroupService _groupService;
 
-        public GroupController(GroupService groupService)
+        private readonly GroupmemberService _groupmemberService;
+
+        public GroupController(GroupService groupService,GroupmemberService groupmemberService)
         {
             _groupService = groupService;
+            _groupmemberService = groupmemberService;
         }
         public IActionResult Index()
         {
@@ -72,6 +75,20 @@ namespace SocialMedia.Controllers
             Console.WriteLine(model.Groupname);
             return Ok(model.Groupname);
         }
+
+        // [HttpPost]
+
+        // public Task<ActionResult> JoinGroup(int? GroupId)
+        // {
+        //     var groupmember = new GroupMember
+        //     {
+        //         UserId = User.FindFirstValue(User.UserId);
+
+        //     }
+           
+
+        // }
+
 
 
     }

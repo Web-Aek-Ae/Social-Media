@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace SocialMedia.Services
 {
@@ -25,8 +26,15 @@ namespace SocialMedia.Services
         {
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
-
+            
             return true;
         }
+
+        // public async Task<bool> JoinGroup(Group group, GroupMember groupMember)
+        // {
+        //     _context.Groups.Add(group,groupMember);
+        //     await _context.SaveChangesAsync();
+        //     return true;
+        // }
     }
 }

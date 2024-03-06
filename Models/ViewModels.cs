@@ -9,7 +9,6 @@ namespace SocialMedia.ViewModels
   }
   public class UserViewModel
   {
-    public int UserId { get; set; }
 
     [Required(ErrorMessage = "Name is required")]
     public required string Name { get; set; }

@@ -82,6 +82,7 @@
   height: 10px;
   border-radius: 10px;
   margin-top: 5px;
+  transition: 0.3s ease;
 }
 button {
   font-family: "Poppins", sans-serif;
@@ -99,20 +100,26 @@ button:hover {
 }
 
 /* post */
+
+@media (max-width: 1250px) {
+  .post {
+    grid-template-columns: auto auto;
+  }
+}
 .post {
   width: 100%;
-  height: 100%;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto auto;
   margin: 0 30px 0;
 }
 .containerPost {
-  width: 420px;
-  height: 230px;
+  width: 80%;
+  height: 70%;
   border: solid 3px;
   border-radius: 30px;
   margin: 30px 0 0 0px;
-  padding: 30px;
+  padding: 20px;
   transition: all 0.5s;
 }
 

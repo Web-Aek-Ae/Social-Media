@@ -62,19 +62,36 @@
   margin: 0 0 30px 50px;
   gap: 80px;
 }
-.option h1 {
+.option a {
   margin: 0;
   font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+.option #select {
+  color: #fbca63;
 }
 
+.select {
+  width: fit-content;
+}
+.select .underline {
+  width: 100%;
+  background-color: #fbca63;
+  height: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
 button {
+  font-family: "Poppins", sans-serif;
   width: 200px;
   height: 70px;
   background-color: #fbca63;
   border: none;
   border-radius: 30px;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 600;
 }
 button:hover {
   transition: 0.3s;
@@ -87,14 +104,20 @@ button:hover {
   height: 100%;
   display: grid;
   grid-template-columns: auto auto auto;
+  margin: 0 30px 0;
 }
 .containerPost {
-  width: 430px;
+  width: 420px;
   height: 230px;
   border: solid 3px;
   border-radius: 30px;
-  margin: 30px 0 0 50px;
+  margin: 30px 0 0 0px;
   padding: 30px;
+  transition: all 0.5s;
+}
+
+.containerPost:hover {
+  transform: scale(1.05);
 }
 .info {
   display: flex;
@@ -119,12 +142,12 @@ button:hover {
   height: 50px;
   border-radius: 50%;
 }
-.profilePost{
+.profilePost {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
-.profilePost .info{
+.profilePost .info {
   align-items: center;
 }
 .status p {
@@ -132,3 +155,69 @@ button:hover {
   font-weight: bold;
 }
 
+/* edit profile */
+.headerEdit {
+  display: flex;
+  font-size: 24px;
+  margin: 10px 0 0 50px;
+  gap: 20px;
+}
+.headerEdit h1 {
+  font-weight: 600;
+}
+.headerEdit a {
+  display: flex;
+  align-items: center;
+}
+.containerEdit {
+  display: flex;
+  gap: 50px;
+  margin: 20px 0 0 10%;
+}
+.all-img {
+  position: relative;
+  height: fit-content;
+}
+.img1 {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+}
+.imgEdit {
+  background-color: #fbca63;
+  height: 31px;
+  padding: 10px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.boxEdit {
+  width: 800px;
+  height: 600px;
+  border: solid 3px;
+  border-radius: 60px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  padding: 40px;
+}
+.saveEdit {
+  display: flex;
+  justify-content: end;
+  padding-right: 10%;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+input {
+  background-color: white;
+  border: solid 2px;
+  border-radius: 10px;
+  height: 50px;
+  width: 98%;
+  padding: 0 0 0 15px;
+  margin: 10px 0 20px;
+}

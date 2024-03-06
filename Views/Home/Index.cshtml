@@ -31,9 +31,9 @@
                     <div class="content">
                         <div class="post-header">
                             <div class="date">
-                                <h3 id="month">@post.Date.ToString("MMM").ToUpper()</h3>
-                                <h3 id="day">@post.Date.Day</h3>
-                                <h3 id="year">@post.Date.Year</h3>
+                                <h3 class="month">@post.Date.ToString("MMM").ToUpper()</h3>
+                                <h3 class="day">@post.Date.Day</h3>
+                                <h3 class="year">@post.Date.Year</h3>
                             </div>
                             <div class="topic">
                                 <h1>@post.Title</h1>
@@ -44,25 +44,45 @@
                 </div>
                 <p>@post.Content</p>
             </div>
+            
         }
         <div class="post">
             <div class="card-post">
                 <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
-                    id="activity">
+                    class="activity">
                 <div class="content">
                     <div class="post-header">
                         <div class="date">
-                            <h3 id="month">FEB</h3>
-                            <h3 id="day">26</h3>
-                            <h3 id="year">2024</h3>
+                            <h3 class="month">FEB</h3>
+                            <h3 class="day">26</h3>
+                            <h3 class="year">2024</h3>
                         </div>
                         <div class="topic">
                             <h1>เตะบอลกันครับพี่ๆ</h1>
                             <p>18:00 - 20:00, KMITL</p>
                         </div>
                     </div>
+                    <div class="description">
+                        <p>เตะบอลวันอังคารที่ 27 ตอนเย็นที่สนามมอครับ ใครสนใจก็มาร่วมด้ายยย ค่าสนามชั่วโมงละ 1500 บาท เราเล่น 2 ชั่วโมงตกคนละ 200 บาทครับบ มีเพื่อนชวนเพื่อนมาได้โล้ดดด</p>
+                        <div class="owner">
+                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                alt="" id="owner-profile">
+                            <span>Boom Za</span>
+                        </div>
+                        <div class="action">
+                            <button class="join-button" id="btn">join activity</button>
+                            <script src="~/lib/button.js"></script>
+                            <div class="likes">
+                                <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" id="like">
+                                <span>15</span>
+                            </div>
+                            <div class="participant">
+                                <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
+                                <span>8/10</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>

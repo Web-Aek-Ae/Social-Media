@@ -13,7 +13,7 @@ namespace Social_Media.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "categories",
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
@@ -22,7 +22,7 @@ namespace Social_Media.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.CategoryId);
+                    table.PrimaryKey("PK_categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,16 +105,16 @@ namespace Social_Media.Migrations
                 {
                     table.PrimaryKey("PK_Posts", x => x.PostId);
                     table.ForeignKey(
-                        name: "FK_Posts_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Posts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Posts_categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "categories",
+                        principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -233,10 +233,10 @@ namespace Social_Media.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "categories");
         }
     }
 }

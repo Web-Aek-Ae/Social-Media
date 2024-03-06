@@ -12,6 +12,9 @@ namespace SocialMedia.Models.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -20,6 +23,8 @@ namespace SocialMedia.Models.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Category>().ToTable("categories"); // Or whatever the actual table name is
 
             // Configuring the relationship between Posts and Users
             modelBuilder.Entity<Post>()

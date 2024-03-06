@@ -71,7 +71,6 @@ namespace SocialMedia.ViewModels
     public DateTime ExpireDate { get; set; }
 
     public int? SelectedCategoryId { get; set; }
-    public string NewCategoryName { get; set; }
     public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
   }
 

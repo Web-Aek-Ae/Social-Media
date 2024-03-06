@@ -41,7 +41,7 @@ namespace SocialMedia.Controllers
             };
 
             // Optionally add a default choice
-            model.Categories.Insert(0, new SelectListItem { Text = "Select a category", Value = "" });
+            model.Categories.Insert(0, new SelectListItem { Text = "Other", Value = "other" });
 
             var username = HttpContext.User.Identity?.Name;
 

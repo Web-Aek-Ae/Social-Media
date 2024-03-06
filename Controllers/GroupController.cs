@@ -15,12 +15,9 @@ namespace SocialMedia.Controllers
     {
         private readonly GroupService _groupService;
 
-        private readonly GroupmemberService _groupmemberService;
-
-        public GroupController(GroupService groupService,GroupmemberService groupmemberService)
+        public GroupController(GroupService groupService)
         {
             _groupService = groupService;
-            _groupmemberService = groupmemberService;
         }
         public IActionResult Index()
         {
@@ -50,17 +47,24 @@ namespace SocialMedia.Controllers
         
         [HttpPost("CreateGroup")]
         [Authorize]
-        public async Task<ActionResult> CreateGroup(GroupViewModel model)
+        public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model)
         {   
             if (!ModelState.IsValid)
             {
                 return BadRequest("model invalid");
             }
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
             try{
                 var group = new Group
-                {
+                {   
+                    UserId = userIdAsInt,
                     Name = model.Groupname,
                     Description = model.Description,
+                    Image = model.Image,
 
                 };
                 var result = await _groupService.AddGroup(group);

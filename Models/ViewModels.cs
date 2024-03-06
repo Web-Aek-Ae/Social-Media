@@ -49,6 +49,8 @@ namespace SocialMedia.ViewModels
     public required string Groupname{get;set;}
 
     public required string Description{get;set;}
+
+    public required string Image { get; set; }
   }
   public class PostViewModel
   {

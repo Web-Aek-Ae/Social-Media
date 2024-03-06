@@ -147,18 +147,21 @@ a {
   align-items: center;
   gap: 50px;
 }
-.card-Recomended-Group {
-  width: 318px;
-  height: 266px;
-  border: 2px solid;
-  border-radius: 30px;
+.card-Recomended-Group{
+    width: 318px;
+    height: 266px;
+    border: 2px solid;
+    border-radius: 30px;
+    transition: all 0.5s;
 }
-
-.card-Recomended-Group img {
-  width: 100%;
-  height: 181px;
-  border-radius: 30px 30px 0px 0px;
-  object-fit: cover;
+.card-Recomended-Group:hover{
+    transform: scale(1.05);
+}
+.card-Recomended-Group img{
+    width: 100%;
+    height: 181px;
+    border-radius: 30px 30px 0px 0px;
+    object-fit: cover;
 }
 .card-Recomended-Group h3 {
   margin: 0;
@@ -239,3 +242,105 @@ a {
 #cancle:hover {
   cursor: pointer;
 }
+
+/* create-post */
+.title {
+    display: flex;
+}
+.profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.back {
+    width: 44px;
+    margin: 30px 0px 0px 30px;
+}
+.box {
+    border: solid 3px;
+    margin: 0px 50px 0px;
+    border-radius: 40px;
+    padding: 50px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.name {
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid grey;
+    font-size: 30px;
+    font-weight: bold;
+}
+textarea {
+    min-height: 50vh;
+    min-width: 60vw;
+    border: none;
+    outline: none;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.details {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    gap: 30px;
+  }
+  
+.input {
+    outline: none;
+    border: none;
+}
+  
+.boxinput {
+    display: flex;
+    gap: 20px;
+}
+.btn {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+button {
+    font-family: "Poppins", sans-serif;
+    width: 250px;
+    height: 70px;
+    background-color: #fbca63;
+    border: none;
+    border-radius: 40px;
+    font-size: 30px;
+    font-weight: 600;
+}
+button:hover {
+    transition: 0.3s;
+    background-color: #f77c7e;
+}
+
+.create-post-button {
+    position: fixed;
+    bottom: 50px; 
+    right: 400px; 
+    z-index: 9999;
+    
+  }
+    
+  .create-post-button button:hover {
+    outline: black solid 3px;
+  }
+
+/* recommend group */
+.Recomended-Group-header {
+        display: grid;
+        font-size: 24px;
+        font-weight: 600;
+        gap: 5px;
+        display: flex;
+        align-items: center;
+
+}
+.Recomended-Group-header a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+

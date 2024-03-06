@@ -37,7 +37,14 @@ namespace SocialMedia.Controllers
                 {
                     Value = c.CategoryId.ToString(),
                     Text = c.Name
-                }).ToList()
+                }).ToList(),
+                Date = DateTime.Now,
+                ExpireDate = DateTime.Now,
+                Time = DateTime.Now.ToString("HH:mm"),
+                MaxPeople = 1,
+                Location = "Bangkok",
+
+                
             };
 
             if(model.Categories.Count == 0)

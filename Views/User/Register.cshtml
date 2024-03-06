@@ -20,34 +20,34 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <label>full name</label>
-            <input type="text" asp-for='Name' />
+            <input required type="text" asp-for='Name' />
             <span asp-validation-for='Name' class='invalid'></span>
         </div>
 
 
         <div class="form-group">
             <label>username</label>
-            <input type="text" asp-for='Username' />
+            <input required type="text" asp-for='Username' />
             <span asp-validation-for='Username' class='invalid'></span>
         </div>
 
 
         <div class="form-group">
             <label>email</label>
-            <input type="text" asp-for='Email' />
+            <input required type="email" asp-for='Email' />
             <span asp-validation-for='Email' class='invalid'></span>
         </div>
 
 
         <div class="form-group">
             <label>password (8+)</label>
-            <input type="text" asp-for='Password' />
+            <input required type="password" asp-for='Password' />
             <span asp-validation-for='Password' class='invalid'></span>
         </div>
 
         <div class="form-group">
             <label>confirm password</label>
-            <input type="text" asp-for='ConfirmPassword' />
+            <input required type="password" asp-for='ConfirmPassword' />
             <span asp-validation-for='ConfirmPassword' class='invalid'></span>
         </div>
         <div class="submit">

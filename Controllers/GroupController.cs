@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Services;
-using SocialMedia.Models.Database; // Assuming this is where your User entity is defined
-using SocialMedia.ViewModels; // Reference UserViewModel
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using SocialMedia.Models.Database; // Namespace where Post is located
+using SocialMedia.ViewModels; // Namespace where TableViewModel is located
+using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 
 namespace SocialMedia.Controllers
@@ -46,6 +46,7 @@ namespace SocialMedia.Controllers
 
             return View();
         }
+        
 
         [HttpPost]
         public async Task<ActionResult> Create(GroupViewModel model)
@@ -75,21 +76,35 @@ namespace SocialMedia.Controllers
             Console.WriteLine(model.Groupname);
             return Ok(model.Groupname);
         }
+        public IActionResult CreateGroup()
+        {
+            var username = HttpContext.User.Identity?.Name;
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
+            return View();
+        }
 
         // [HttpPost]
-
-        // public Task<ActionResult> JoinGroup(int? GroupId)
+        // public Task<ActionResult> JoinGroup([FromBody] int GroupId)
         // {
+        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //     if (!int.TryParse(UserId, out int userIdAsInt))
+        //     {
+        //         return Json(new { success = false, message = "User ID is invalid." });
+        //     }
         //     var groupmember = new GroupMember
         //     {
-        //         UserId = User.FindFirstValue(User.UserId);
+        //         UserId = userIdAsInt,
+        //         GroupId = GroupId,
 
-        //     }
+        //     };
+        
            
 
         // }
-
-
 
     }
 

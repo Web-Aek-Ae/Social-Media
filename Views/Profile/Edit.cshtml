@@ -1,0 +1,61 @@
+@model SocialMedia.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Register Page";
+    Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+
+<body>
+    <div class="headerEdit">
+        <a href='@Url.Action("post", "Profile")'">
+            <img src=" @Url.Content("~/src/images/Backicon.svg")">
+        </a>
+        <h1>Edit profile</h1>
+    </div>
+
+    <div class="containerEdit">
+        <div class="all-img"><img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                alt="proflie" class="img1">
+            <div class="imgEdit">
+                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
+            </div>
+        </div>
+
+        <div class="boxEdit">
+            <form asp-action="Register" asp-controller="User" method="post">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="Form">
+
+                    <label>full name</label>
+                    <input type="text" asp-for='Name' />
+                    <span asp-validation-for='Name' class='invalid'></span>
+
+                    <label>username</label>
+                    <input type="text" asp-for='Username' />
+                    <span asp-validation-for='Username' class='invalid'></span>
+
+
+                    <label>email</label>
+                    <input type="text" asp-for='Email' />
+                    <span asp-validation-for='Email' class='invalid'></span>
+
+                    <label>password (8+)</label>
+                    <input type="text" asp-for='Password' />
+                    <span asp-validation-for='Password' class='invalid'></span>
+
+                    <label>confirm password</label>
+                    <input type="text" asp-for='ConfirmPassword' />
+                    <span asp-validation-for='ConfirmPassword' class='invalid'></span>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="saveEdit">
+        <button type="submit" onclick="window.location.href='@Url.Action("post", "Profile")'">save</button>
+    </div>
+</body>

@@ -1,15 +1,14 @@
 @model SocialMedia.ViewModels.PostViewModel
 
-@section css {
-    <link rel="stylesheet" href="~/css/post.css">
-}
 
 @{
     ViewData["Title"] = "Register Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
-
+<head>
+    <link rel="stylesheet" href="~/css/post.css">
+</head>
 <div>
     <a href="@Url.Action("index", "Post")">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
@@ -30,7 +29,6 @@
                 <div class="item">
                     <label for="SelectedCategoryId">Category:</label>
                     <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
-                        <option value="">Choose...</option>
                     </select>
                 </div>
             </div>
@@ -95,7 +93,7 @@
                     // Assuming Date and ExpireDate are in "YYYY-MM-DD" format
                     Date: $('input[name="Date"]').val(),
                     Location: $('input[name="Location"]').val(),
-                    // Assuming Time is in "HH:MM" format, compatible with TimeSpan
+                    SelectedCategoryId : $('select[name="SelectedCategoryId"]').val(),
                     Time: $('input[name="Time"]').val(),
                     ExpireDate: $('input[name="ExpireDate"]').val(),
                     Image: $('input[name="Image"]').val(),

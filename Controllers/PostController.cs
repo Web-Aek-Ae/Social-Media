@@ -40,8 +40,10 @@ namespace SocialMedia.Controllers
                 }).ToList()
             };
 
-            // Optionally add a default choice
-            model.Categories.Insert(0, new SelectListItem { Text = "Other", Value = "other" });
+            if(model.Categories.Count == 0)
+            {
+                throw new Exception("No categories found.");
+            }
 
             var username = HttpContext.User.Identity?.Name;
 
@@ -81,6 +83,7 @@ namespace SocialMedia.Controllers
                         Title = model.Title,
                         Content = model.Content,
                         Location = model.Location,
+                        CategoryId = model.SelectedCategoryId,
                         Time = fullDateTime,
                         Image = model.Image,
                         MaxPeople = model.MaxPeople,

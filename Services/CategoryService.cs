@@ -18,7 +18,7 @@ namespace SocialMedia.Services
         }
 
         // Method to add a new category if it doesn't already exist
-        public Category AddNewCategory(string categoryName)
+        public async Task<Category> AddNewCategory(string categoryName)
         {
             // Check if the category already exists
             var existingCategory = _context.Categories.FirstOrDefault(c => c.Name.ToLower() == categoryName.ToLower());
@@ -28,8 +28,8 @@ namespace SocialMedia.Services
                 // Category doesn't exist, so create a new one
                 var newCategory = new Category { Name = categoryName };
                 _context.Categories.Add(newCategory);
-                _context.SaveChanges(); // Save changes to the database
-                
+                await _context.SaveChangesAsync(); // Save changes to the database
+
                 return newCategory; // Return the newly created category
             }
 

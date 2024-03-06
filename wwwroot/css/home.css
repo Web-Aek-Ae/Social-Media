@@ -67,7 +67,7 @@ main{
 
 .post p{
     font-size: 18px;
-    color: #9E9E9E;
+    color: black;
     margin-left: 1rem;
     margin-top: 0rem;
 }
@@ -118,4 +118,54 @@ main{
     margin-top: 0.5rem;
     margin-bottom: 0rem;
 }
-
+.description{
+    margin: 0.5rem 0 0 0.25rem;
+    width: 35rem;
+}
+.description p{
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 2; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+.owner{
+    display:flex;
+    align-items: center;
+    margin-left: 1rem;
+    gap: 0.5rem;
+    font-weight: 600;
+    /* background-color: #F77C7E; */
+}
+#owner-profile{
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 20rem;
+}
+.action{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    align-items: center;
+    /* background-color: #F77C7E; */
+}
+#btn{
+    font-size: 16px;
+    font-weight: 600;
+    width: 10rem;
+    height: 2.2rem;
+    border-radius: 3rem;
+    background-color: #fbca63;
+    border:0;
+}
+.likes{
+    display: flex;
+    /* background-color: #fbca63; */
+    gap: 0.5rem;
+}
+.participant{
+    display: flex;
+    /* background-color: #fbca63; */
+    gap: 0.5rem;
+}

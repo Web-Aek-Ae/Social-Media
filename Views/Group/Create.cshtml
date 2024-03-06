@@ -15,12 +15,12 @@
         <div class="title">
             <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                 class="profile">
-            <input ="Title" asp-for="title" placeholder="Group Name" class="name">
+            <input asp-for="Groupname" placeholder="Group Name" class="name">
         </div>
-        <textarea ="Content" asp-for="Content" placeholder="description..."></textarea>
+        <textarea asp-for="Description" placeholder="description..."></textarea>
 
         <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
-            <input ="Image" asp-for = "Image" placeholder="Add some photos" class="input">
+            <input placeholder="Add some photos" class="input">
         </div>
         <div class="btn">
             <button>create group</button>
@@ -34,19 +34,21 @@
                 event.preventDefault(); // Prevent the default form submission
 
                 var formData = {
-                    Groupname: $('input[name="Title"]').val(),
-                    Content: $('textarea[name="Content"]').val(),  
+                    Groupname: $('input[name="Groupname"]').val(),
+                    Description: $('textarea[name="Description"]').val(),  
                 };
 
+                
+               
                 // Basic validation example
-                if (!formData.Groupname || !formData.Content) {
-                    alert("Groupname and Content are required.");
+                if (!formData.Groupname || !formData.Description) {
+                    alert("Groupname and Description are required.");
                     return; // Exit the function to prevent sending the request
                 }
-
+                console.log(Groupname);
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("CreateGroup", "Post")', // Modify with your correct URL
+                    url: '@Url.Action("CreateGroup", "Group")', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function(response) {

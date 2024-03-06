@@ -17,7 +17,6 @@ namespace SocialMedia.Models.Database
 
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
 
 

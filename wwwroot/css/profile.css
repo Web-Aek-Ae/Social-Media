@@ -1,12 +1,5 @@
 /* profile layout part */
-.bodyProfile {
-  font-family: "Poppins", sans-serif;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  grid-template-columns: 15% auto;
-  min-height: 100vh;
-}
+
 .headerProfile {
   display: flex;
   width: auto;

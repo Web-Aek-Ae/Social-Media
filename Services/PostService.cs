@@ -14,7 +14,7 @@ namespace SocialMedia.Services
             _context = context;
 
         }
-
+        
         public List<Post> GetAllPosts()
         {
             return _context.Posts.ToList();

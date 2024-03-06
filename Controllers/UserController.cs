@@ -40,6 +40,13 @@ namespace SocialMedia.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(UserViewModel model)
         {
+            Console.WriteLine("Registering user");
+            Console.WriteLine(model.Username);
+            Console.WriteLine(model.Name);
+            Console.WriteLine(model.Email);
+            Console.WriteLine(model.Password);
+            Console.WriteLine(model.ConfirmPassword);
+            
             if (!ModelState.IsValid)
             {
                 return View(model);

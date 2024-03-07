@@ -1,9 +1,9 @@
 .group-element {
   padding-bottom: 60px;
 }
-a {
+/* a {
   text-decoration: none;
-}
+} */
 
 .header {
   display: flex;
@@ -15,38 +15,42 @@ a {
   display: flex;
   width: 100%;
   margin-left: 20px;
+  gap: 1.5rem;
 }
 .search i {
   margin-left: 20px;
-  position: absolute;
 }
 .search-bar {
   display: flex;
   align-items: center;
+  height: 2.7rem;
   width: 60%;
-}
-#search-input {
-  width: 100%;
-  height: 40px;
   border: 2px solid #000000;
   border-radius: 30px;
-  padding-left: 45px;
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+  gap: 1rem;
 }
+.search-bar input {
+  outline: none;
+  border: none;
+  width: 90%;
+}
+
 .filter-bar {
   display: flex;
   align-items: center;
+  height: 2.7rem;
   width: 20%;
-  margin-left: 20px;
-}
-#filter-input {
-  width: 100%;
-  height: 40px;
   border: 2px solid #000000;
   border-radius: 30px;
-  padding-left: 45px;
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+  gap: 1rem;
 }
+.filter-bar input {
+    outline: none;
+    border: none;
+    width: 60%;
+  }
 
 .container-group {
   display: flex;
@@ -144,6 +148,9 @@ a {
   padding-left: 30px;
   border-bottom: 2px solid rgb(211, 207, 207);
   height: 360px;
+}
+.Recomended-Group-post a{
+  text-decoration: none;
 }
 .Recomended-Group-post {
   display: flex;
@@ -276,7 +283,7 @@ a {
 }
 textarea {
   min-height: 50vh;
-  min-width: 60vw;
+  min-width: 50vw;
   border: none;
   outline: none;
   margin-top: 20px;

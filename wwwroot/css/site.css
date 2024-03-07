@@ -201,6 +201,7 @@ ul .line {
     top: -15px;
   }
   .container {
+    overflow-y: scroll;
     width: 100%;
     margin: 0 0 60px 0;
   }

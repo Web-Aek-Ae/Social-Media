@@ -20,16 +20,19 @@
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
         <div class="option">
-            <a href="@Url.Action("Post","Profile")" class="select">
+            <a asp-action="Post" asp-controller="Profile" class="select">
                 <div class="selectBox">Posts
                     <div class="underline"></div>
                 </div>
             </a>
-            <a href=" @Url.Action("Joined","Profile")">Joined</a>
-            <a href="@Url.Action("Likes", "Profile")">Likes</a>
+            <a asp-action="Joined" asp-controller="Profile">Joined</a>
+            <a asp-action="Likes" asp-controller="Profile">Likes</a>
         </div>
     </div>
     <div class="post">
+        <div class="addPostIcon">
+            <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
+        </div>
         <div class="containerPost">
             <h1>ลิงกินก้วย</h1>
             <div>

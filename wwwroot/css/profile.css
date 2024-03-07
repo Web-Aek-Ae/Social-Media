@@ -79,9 +79,22 @@ button:hover {
 
 .post {
   display: flex;
+  position: relative;
   flex-wrap: wrap;
   gap: 2%;
   margin: 0 0 0 3%;
+}
+.addPostIcon {
+  background-color: #fbca63;
+  padding: 10px 13px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  z-index: 1;
+}
+.addPostIcon:hover {
+  border: solid 2px;
 }
 .containerPost {
   position: relative;
@@ -256,5 +269,8 @@ input {
   }
   .headerEdit {
     font-size: 20px;
+  }
+  .addPostIcon {
+    bottom: 8%;
   }
 }

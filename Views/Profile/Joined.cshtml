@@ -20,14 +20,14 @@
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
         <div class="option">
-            <a href="@Url.Action("Post","Profile")">
+            <a asp-action="Post" asp-controller="Profile">
                 Posts
             </a>
-            <a href=" @Url.Action("Joined","Profile")" class="select">
+            <a asp-action="Joined" asp-controller="Profile" class="select">
                 <div class="selectBox">Joined<div class="underline"></div>
                 </div>
             </a>
-            <a href="@Url.Action("Likes", "Profile")">
+            <a asp-action="Likes" asp-controller="Profile">
                 Likes
             </a>
         </div>

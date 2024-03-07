@@ -115,7 +115,7 @@ namespace SocialMedia.Controllers
         {
             // int groupid = Int32.Parse(id);
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            var existingMembership = await _groupmemberService.GetGroupMembershipAsync(userId, id);
+            // var existingMembership = await _groupmemberService.GetGroupMembershipAsync(userId, id);
             if (!int.TryParse(UserId, out int userIdAsInt))
             {
                 return Json(new { success = false, message = "User ID is invalid." });

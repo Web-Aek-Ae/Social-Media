@@ -100,8 +100,8 @@
     </div>
 
     <div class="Recomended-Group-header">
-        <a href="@Url.Action("index", "Group")">
-            <img src="@Url.Content("~/src/images/Backicon.svg")" class="back-recommend">
+        <a asp-action="index" asp-controller="Group">
+            <img src="~/src/images/Backicon.svg" class="back-recommend">
         </a>
         <h1>Recomended Groups</h1>
 
@@ -109,7 +109,7 @@
     <div class="container-rec">
         @foreach (var groupspost in Model)
         {
-            <div class="post-rec" onclick="">
+            <div class="post-rec">
                 <div class="card-post-rec">
                     <h1 id="section">@groupspost.Name</h1>
                     <p id="section-content">@groupspost.Description</p>
@@ -120,7 +120,7 @@
                                 alt="activity" id="activity2">
                             <img src="https://miwservices.com/wp-content/uploads/2019/05/9rmjue0ix5r9c0k4.jpg"
                                 alt="activity" id="activity3">
-                        </div>
+                         </div>
                     </div>
                     <div class="test2">
                         <div class="group-poster">
@@ -156,7 +156,7 @@
                     success: function (data) {
                         if (data.success){
                             alert("You have joined the group successfully!");
-                            window.location.href = '@Url.Action("Recommend", "Group")';
+                            window.location.href = '@Url.Action("Details", "Group")';
                         }
                         else{
                             alert("Failed to Join Group: " + response.message);

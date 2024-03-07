@@ -1,15 +1,14 @@
 @model SocialMedia.ViewModels.PostViewModel
 
-@section css {
-    <link rel="stylesheet" href="~/css/post.css">
-}
 
 @{
     ViewData["Title"] = "Register Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
-
+<head>
+    <link rel="stylesheet" href="~/css/post.css">
+</head>
 <div>
     <a href="@Url.Action("index", "Post")">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
@@ -27,18 +26,13 @@
         <div class="details">
             <!-- Category selection -->
             <div class="boxinput">
-                <label for="SelectedCategoryId">Category:</label>
-                <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
-                    <option value="">Choose...</option>
-                </select>
+                <div class="item">
+                    <label for="SelectedCategoryId">Category:</label>
+                    <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
+                    </select>
+                </div>
             </div>
 
-            <!-- Input for adding a new category -->
-            <div class="boxinput">
-                <label for="NewCategoryName">New Category:</label>
-                <input asp-for="NewCategoryName" placeholder="Create new category" class="input" />
-            </div>
-            
             <div class="boxinput">
                 <img src="@Url.Content("~/src/images/Dateicon.svg")">
                 <div class="item">
@@ -99,7 +93,7 @@
                     // Assuming Date and ExpireDate are in "YYYY-MM-DD" format
                     Date: $('input[name="Date"]').val(),
                     Location: $('input[name="Location"]').val(),
-                    // Assuming Time is in "HH:MM" format, compatible with TimeSpan
+                    SelectedCategoryId : $('select[name="SelectedCategoryId"]').val(),
                     Time: $('input[name="Time"]').val(),
                     ExpireDate: $('input[name="ExpireDate"]').val(),
                     Image: $('input[name="Image"]').val(),

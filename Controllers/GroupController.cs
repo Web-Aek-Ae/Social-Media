@@ -50,10 +50,12 @@ namespace SocialMedia.Controllers
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-            return View();
+            var groupspost = _groupService.GetAllGroups();
+            return View(groupspost);
         }
         
-        public IActionResult Details(){
+        public IActionResult Details(int id){
+            Console.WriteLine(id);
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -63,12 +65,10 @@ namespace SocialMedia.Controllers
             return View();
         }
 
-
-
         
         [HttpPost("CreateGroup")]
         [Authorize]
-        public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model)
+        public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model )
         {   
             if (!ModelState.IsValid)
             {
@@ -94,6 +94,7 @@ namespace SocialMedia.Controllers
                 {
                     return Json(new { success = true, message = "Post created successfully!" });
                 }
+                
 
             }
             catch (ArgumentException ex)
@@ -104,35 +105,24 @@ namespace SocialMedia.Controllers
             Console.WriteLine(model.Groupname);
             return Ok(model.Groupname);
         }
-        // public IActionResult CreateGroup()
-        // {
-        //     var username = HttpContext.User.Identity?.Name;
-
-        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-        //     ViewData["UserId"] = UserId;
-        //     ViewData["Username"] = username;
-        //     return View();
-        // }
-
+        
         // [HttpPost]
         // public Task<ActionResult> JoinGroup([FromBody] int GroupId)
         // {
         //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
         //     if (!int.TryParse(UserId, out int userIdAsInt))
         //     {
         //         return Json(new { success = false, message = "User ID is invalid." });
         //     }
-        //     var groupmember = new GroupMember
-        //     {
+        //     var groupmember = new GroupMember{
         //         UserId = userIdAsInt,
-        //         GroupId = GroupId,
-
-        //     };
+        //         GroupId = 
+        //     }
+        // }
         
            
 
-        // }
 
     }
 

@@ -3,16 +3,18 @@
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
 
+@model List<SocialMedia.Models.Database.Group>
+
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
-<a href="@Url.Action("create", "Group")">
-        <img src="@Url.Content("~/src/images/Creategoupicon.svg")" class="create-post-button">
+<a asp-action="create" asp-controller="Group">
+        <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
 </a>
 <div class="pop-up">
     <div class="header-popup">
         <h2>Members</h2>
-        <img src="@Url.Content("~/src/images/Cancleicon.svg")" alt="canclelogo" id="cancle" onclick="openmembers()">
+        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
     <div class="group-members">
         <div class="members">
@@ -112,7 +114,7 @@
                     อะหยอกเล่น #ศุกร์เสาร์เหงาได้ไง ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับอ้วน
                     อะว่าแล้วก็ปายยยยย</p>
                 <div class="activity-image">
-                    <img src="https://72skybar.com/wp-content/uploads/2023/06/320069658_699189411877610_6606429275967979160_n-1.jpg"
+                    <img src="https://www.hiddencitysecrets.com.au/wp-content/uploads/2023/06/Pearl-Oyster-Chablis-CBD-bars-Melbourne-bar-top-best-good-new-hidden-spots-after-work-date-01.jpg"
                         alt="activity" id="activity1">
                     <div class="test1">
                         <img src="https://www.wee-interior.com/wp-content/uploads/2019/02/bar_interior4.jpg"

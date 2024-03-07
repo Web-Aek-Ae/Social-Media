@@ -15,9 +15,12 @@ namespace SocialMedia.Controllers
     {
         private readonly GroupService _groupService;
 
-        public GroupController(GroupService groupService)
+        private readonly GroupmemberService _groupmemberService;
+
+        public GroupController(GroupService groupService ,GroupmemberService groupmemberService)
         {
             _groupService = groupService;
+            _groupmemberService = groupmemberService;
         }
         public IActionResult Index()
         {
@@ -106,20 +109,30 @@ namespace SocialMedia.Controllers
             return Ok(model.Groupname);
         }
         
-        // [HttpPost]
-        // public Task<ActionResult> JoinGroup([FromBody] int GroupId)
-        // {
-        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-        //     if (!int.TryParse(UserId, out int userIdAsInt))
-        //     {
-        //         return Json(new { success = false, message = "User ID is invalid." });
-        //     }
-        //     var groupmember = new GroupMember{
-        //         UserId = userIdAsInt,
-        //         GroupId = 
-        //     }
-        // }
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> JoinGroup(int id)
+        {
+            // int groupid = Int32.Parse(id);
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var existingMembership = await _groupmemberService.GetGroupMembershipAsync(userId, id);
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
+            var groupmember = new GroupMember{
+                UserId = userIdAsInt,
+                GroupId = id,
+            };
+            var result = await _groupmemberService.JoinGroup(groupmember);
+            if(result){
+                return Json(new { success = true, message = "Join group successfully!" });
+            }
+            else{
+                return Json(new { success = true, message = "Error to join group" });
+            }
+            
+        }
         
            
 

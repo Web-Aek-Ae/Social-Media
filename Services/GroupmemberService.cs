@@ -27,10 +27,9 @@ namespace SocialMedia.Services
             } 
             return false;
         }
-        public async Task<bool> JoinGroup(int id)
+        public async Task<bool> JoinGroup(GroupMember groupMember)
         {
-            var group = _context.Groups.FirstOrDefaultAsync(g => g.GroupId == id);
-            
+            _context.GroupMembers.Add(groupMember);
             await _context.SaveChangesAsync();
             
             return true;

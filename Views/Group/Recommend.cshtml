@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
 <a asp-action="create" asp-controller="Group">
-        <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
+    <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
 </a>
 <div class="pop-up">
     <div class="header-popup">
@@ -101,76 +101,76 @@
 
     <div class="Recomended-Group-header">
         <a href="@Url.Action("index", "Group")">
-        <img src="@Url.Content("~/src/images/Backicon.svg")" class="back-recommend">
-    </a>
+            <img src="@Url.Content("~/src/images/Backicon.svg")" class="back-recommend">
+        </a>
         <h1>Recomended Groups</h1>
-        
+
     </div>
     <div class="container-rec">
-        <div class="post-rec">
-            <div class="card-post-rec">
-                <h1 id="section">Party Ganster</h1>
-                <p id="section-content"> เป็นกลุ่มที่เราจะนัดเฮฮาสังสรรค์กันทุก ๆ วันที่ขึ้นต้นด้วยตัว t today tomorrow
-                    อะหยอกเล่น #ศุกร์เสาร์เหงาได้ไง ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับอ้วน
-                    อะว่าแล้วก็ปายยยยย</p>
-                <div class="activity-image">
-                    <img src="https://www.hiddencitysecrets.com.au/wp-content/uploads/2023/06/Pearl-Oyster-Chablis-CBD-bars-Melbourne-bar-top-best-good-new-hidden-spots-after-work-date-01.jpg"
-                        alt="activity" id="activity1">
-                    <div class="test1">
-                        <img src="https://www.wee-interior.com/wp-content/uploads/2019/02/bar_interior4.jpg"
-                            alt="activity" id="activity2">
-                        <img src="https://miwservices.com/wp-content/uploads/2019/05/9rmjue0ix5r9c0k4.jpg"
-                            alt="activity" id="activity3">
+        @foreach (var groupspost in Model)
+        {
+            <div class="post-rec" onclick="">
+                <div class="card-post-rec">
+                    <h1 id="section">@groupspost.Name</h1>
+                    <p id="section-content">@groupspost.Description</p>
+                    <div class="activity-image">
+                        <img src="@groupspost.Image" alt="activity" id="activity1">
+                        <div class="test1">
+                            <img src="https://www.wee-interior.com/wp-content/uploads/2019/02/bar_interior4.jpg"
+                                alt="activity" id="activity2">
+                            <img src="https://miwservices.com/wp-content/uploads/2019/05/9rmjue0ix5r9c0k4.jpg"
+                                alt="activity" id="activity3">
+                        </div>
+                    </div>
+                    <div class="test2">
+                        <div class="group-poster">
+                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                alt="" id="group-poster-img">
+                            <span>Chommsrya_</span>
+                        </div>
+
+                        <div class="group-of-button">
+                            <i class="fa-regular fa-user"></i>
+                            <span>18</span>
+                            <button id="group-rec-button" GroupId="@groupspost.GroupId">join group</button>
+                        </div>
                     </div>
                 </div>
-                <div class="test2">
-                    <div class="group-poster">
-                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                            alt="" id="group-poster-img">
-                        <span>Chommsrya_</span>
-                    </div>
 
-                    <div class="group-of-button">
-                        <i class="fa-regular fa-user"></i>
-                        <span>18</span>
-                        <button id="group-rec-button">join group</button>
-                    </div>
-
-                </div>
             </div>
+        }
 
-        </div>
-        <div class="post-rec">
-            <div class="card-post-rec">
-                <h1 id="section">Board game</h1>
-                <p id="section-content"> เหล้าเบียร์ไม่ยุ่งมุ่งบอร์ดเกมส์ ใครคิดว่าดวงดีดวงเด็ด เงินเหลือไม่รู้ทำอะไรดี
-                    มาอยู่กับพวกเราไม่มีผิดหวัง สนุกเร้าใจ กดเข้าร่วม แล้วมาเจอกันได้ พวกเรายินดีต้อนรับเสมอ
-                    พร้อมละลายทรัพย์พวกคุณ !</p>
-                <div class="activity-image">
-                    <img src="https://home.maefahluang.org/images/content/original-1587960995441.jpg" alt="activity"
-                        id="activity1">
-                    <div class="test1">
-                        <img src="https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_4:3/stock%2Fcustom%20stock%2F2022-11-custom-stock%2Fgames-0228-edit"
-                            alt="activity" id="activity2">
-                        <img src="https://static.wixstatic.com/media/e87dab_feb7631a51dc454eb187747f1da8fed6~mv2.jpeg/v1/fill/w_640,h_844,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/e87dab_feb7631a51dc454eb187747f1da8fed6~mv2.jpeg"
-                            alt="activity" id="activity3">
-                    </div>
-                </div>
-                <div class="test2">
-                    <div class="group-poster">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                            alt="" id="group-poster-img">
-                        <span>OakOak_</span>
-                    </div>
-                    <div class="group-of-button">
-                        <i class="fa-regular fa-user"></i>
-                        <span>18</span>
-                        <button id="group-rec-button">join group</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("button#group-rec-button").click(function () {
+                event.preventDefault();
+                var groupId = $(this).attr("GroupId");
 
-<script src="~/lib/testfile.js"></script>
+                $.ajax({
+                    type: "POST",
+                    url: '/Group/JoinGroup/' + groupId, 
+                    data : {},
+                    success: function (data) {
+                        if (data.success){
+                            alert("You have joined the group successfully!");
+                            window.location.href = '@Url.Action("Recommend", "Group")';
+                        }
+                        else{
+                            alert("Failed to Join Group: " + response.message);
+                        }
+                            
+                    },
+                    error: function () {
+                        alert("An error occurred while joining the group. Please try again later.");
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script src="~/lib/testfile.js"></script>
+
+}

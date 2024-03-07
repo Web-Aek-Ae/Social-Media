@@ -15,32 +15,33 @@ body {
 }
 .Header {
   font-family: "League Spartan", sans-serif;
+  width: fit-content;
   color: #f77c7e;
   font-size: 110px;
   margin-bottom: 0px;
   font-weight: bolder;
+  text-align: center;
 }
 .loginHeader {
-  width: 40%;
+  width: fit-content;
   font-size: 180px;
   text-align: center;
   margin-top: 2%;
 }
 
-.forgotHeader {
-  width: 40%;
+/* .forgotHeader {
+  width: ;
   text-align: center;
   margin-top: 5%;
-}
+} */
 .Form {
-
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: white;
   border: solid 4px;
   border-radius: 50px;
-  padding: 50px;
+  padding: 40px;
   width: 30vw;
   margin-top: 20px;
 }
@@ -56,22 +57,20 @@ label {
 input {
   border: solid 2px;
   border-radius: 10px;
-  height: 50px;
-  width: 98%;
+  height: 40px;
+  width: 95%;
   padding: 0 0 0 15px;
-  margin: 0 0 20px;
+  margin: 0 0 10px;
 }
 
 .submit {
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   justify-content: center;
 }
 button {
   font-family: "Poppins", sans-serif;
-  /* width: 200px;
-  height: 70px; */
   padding: 20px 50px;
   background-color: #fbca63;
   border: none;
@@ -107,7 +106,7 @@ button:hover {
 .Container .back {
   position: absolute;
   left: 5%;
-  top: 5%;
+  top: 3%;
 }
 
 .back {
@@ -137,11 +136,80 @@ button:hover {
 
 .boxEmail {
   /* background-color: #8b8989; */
-  width: 30%;
+  width: fit-content;
   margin-bottom: 5%;
 }
 .boxEmail p {
   font-size: 24px;
   text-align: center;
   color: grey;
+}
+
+@media (max-width: 1200px) {
+  .Header {
+    font-size: 80px;
+    margin-top: 10%;
+  }
+  .loginHeader {
+    font-size: 110px;
+    text-align: center;
+    margin-top: 10%;
+  }
+  button {
+    padding: 10px 40px;
+    font-size: 25px;
+  }
+  .Container .img1 {
+    width: 300px;
+    left: -30px;
+  }
+  .Form {
+    width: 40vw;
+  }
+  .Container .back {
+    top: 2%;
+  }
+  .forgotHeader {
+    margin-top: 15%;
+  }
+}
+@media (max-width: 768px) {
+  .Header {
+    font-size: 60px;
+    margin-top: 12%;
+  }
+  .forgotHeader {
+    margin-top: 20%;
+    font-size: 80px;
+  }
+  .loginHeader {
+    font-size: 80px;
+    margin-top: 10%;
+  }
+  label {
+    font-size: 18px;
+  }
+  input {
+    margin-bottom: 5px;
+  }
+  .forgotForm {
+    width: 60vw;
+  }
+  .Form .star1 {
+    width: 120px;
+    left: -65px;
+  }
+  .Form .star2 {
+    width: 120px;
+    right: -65px;
+    bottom: -50px;
+  }
+  .Container .img1 {
+    width: 250px;
+  }
+  .back {
+    font-size: 18px;
+  }
+  .boxEmail p {
+    font-size: 18px;}
 }

@@ -5,13 +5,12 @@
 }
 
 @{
-    ViewData["Title"] = "Register Page";
-    Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
+    Layout = "~/Views/Shared/_LayoutEditPost.cshtml";
 }
 
 
 <div>
-    <a href="@Url.Action("index", "Post")">
+    <a asp-action="Post" asp-controller="Profile">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
     </a>
     <div class="box">
@@ -38,7 +37,7 @@
                 <label for="NewCategoryName">New Category:</label>
                 <input asp-for="NewCategoryName" placeholder="Create new category" class="input" />
             </div>
-            
+
             <div class="boxinput">
                 <img src="@Url.Content("~/src/images/Dateicon.svg")">
                 <div class="item">
@@ -83,7 +82,7 @@
         </div>
 
         <div class="btn">
-            <button>Post</button>
+            <button asp-action="Post" asp-controller="Profile">Post</button>
         </div>
     </div>
 </div>

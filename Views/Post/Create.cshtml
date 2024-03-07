@@ -1,14 +1,13 @@
 @model SocialMedia.ViewModels.PostViewModel
 
-@section css {
-    <link rel="stylesheet" href="~/css/post.css">
-}
 
 @{
     Layout = "~/Views/Shared/_LayoutEditPost.cshtml";
 }
 
-
+<head>
+    <link rel="stylesheet" href="~/css/post.css">
+</head>
 <div>
     <a asp-action="Post" asp-controller="Profile">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
@@ -26,16 +25,11 @@
         <div class="details">
             <!-- Category selection -->
             <div class="boxinput">
-                <label for="SelectedCategoryId">Category:</label>
-                <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
-                    <option value="">Choose...</option>
-                </select>
-            </div>
-
-            <!-- Input for adding a new category -->
-            <div class="boxinput">
-                <label for="NewCategoryName">New Category:</label>
-                <input asp-for="NewCategoryName" placeholder="Create new category" class="input" />
+                <div class="item">
+                    <label for="SelectedCategoryId">Category:</label>
+                    <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
+                    </select>
+                </div>
             </div>
 
             <div class="boxinput">
@@ -98,7 +92,7 @@
                     // Assuming Date and ExpireDate are in "YYYY-MM-DD" format
                     Date: $('input[name="Date"]').val(),
                     Location: $('input[name="Location"]').val(),
-                    // Assuming Time is in "HH:MM" format, compatible with TimeSpan
+                    SelectedCategoryId : $('select[name="SelectedCategoryId"]').val(),
                     Time: $('input[name="Time"]').val(),
                     ExpireDate: $('input[name="ExpireDate"]').val(),
                     Image: $('input[name="Image"]').val(),

@@ -123,14 +123,15 @@ ul .line {
 
 .allprofile {
   display: flex;
-  gap: 20px;
+  font-size: medium;
+  flex-wrap: wrap;
+  gap: 10px;
   width: 100%;
-  margin-left: 20px;
   align-items: center;
 }
 .allprofile img {
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
   width: 60px;
   height: 60px;
 }

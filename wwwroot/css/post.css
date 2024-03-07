@@ -1,6 +1,6 @@
 body {
   /* background-color: aqua; */
-  height: 100vh;
+  min-height: 100vh;
   /* width: 100vw; */
 }
 
@@ -59,7 +59,12 @@ textarea {
   display: flex;
   gap: 20px;
 }
-
+.item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  
+}
 .btn {
   display: flex;
   justify-content: end;

@@ -13,7 +13,6 @@ function openmembers(){
         document.querySelector(".group-element").style.filter = "blur(1.15px)";
         document.querySelector(".Blog").style.filter = "blur(1.15px)";
         toggle = 1;
-        
     }
 }
 

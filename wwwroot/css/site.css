@@ -46,6 +46,7 @@ textarea::placeholder {
   height: 100vh;
   position: fixed;
   top: 0;
+
   background-color: #53475b;
   color: white;
 }

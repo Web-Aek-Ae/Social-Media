@@ -1,7 +1,7 @@
 @model SocialMedia.ViewModels.UserViewModel
 @{
     ViewData["Title"] = "Register Page";
-    Layout = "~/Views/Shared/_LayoutProfileJoined.cshtml";
+    Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
 <head>
@@ -9,21 +9,46 @@
 </head>
 
 <body>
+    <div class="top">
+        <div class="left">
+            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                alt="proflie">
+            <div>
+                <h1>ppookkiesbubu</h1>
+                <h2>&commat;monkey_jeik</h2>
+            </div>
+        </div>
+        <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
+        <div class="option">
+            <a asp-action="Post" asp-controller="Profile">
+                Posts
+            </a>
+            <a asp-action="Joined" asp-controller="Profile" class="select">
+                <div class="selectBox">Joined<div class="underline"></div>
+                </div>
+            </a>
+            <a asp-action="Likes" asp-controller="Profile">
+                Likes
+            </a>
+        </div>
+    </div>
     <div class="post">
         <div class="containerPost">
             <h1>ลิงกินก้วย</h1>
             <div>
-                <div class="info">
-                    <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
-                    <p>FEB 23, 2024</p>
-                </div>
-                <div class="info">
-                    <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
-                    <p>21:00 - 23:59, KMITL</p>
-                </div>
-                <div class="info">
-                    <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
-                    <p>8/10</p>
+                <div class="boxInfo">
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                        <p>FEB 23, 2024</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                        <p>21:00 - 23:59, KMITL</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                        <p>8/10</p>
+                    </div>
                 </div>
                 <div class="profilePost">
                     <div class="info">
@@ -37,6 +62,7 @@
                 </div>
             </div>
         </div>
+
 
     </div>
 </body>

@@ -5,7 +5,6 @@ using SocialMedia.ViewModels; // Reference UserViewModel
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace SocialMedia.Controllers
@@ -19,7 +18,7 @@ namespace SocialMedia.Controllers
             _userService = userService;
         }
 
-        [Authorize]
+        // [Authorize]
         public IActionResult Index()
         {
             var all_users = _userService.GetAllUsers();
@@ -41,6 +40,13 @@ namespace SocialMedia.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(UserViewModel model)
         {
+            Console.WriteLine("Registering user");
+            Console.WriteLine(model.Username);
+            Console.WriteLine(model.Name);
+            Console.WriteLine(model.Email);
+            Console.WriteLine(model.Password);
+            Console.WriteLine(model.ConfirmPassword);
+            
             if (!ModelState.IsValid)
             {
                 return View(model);

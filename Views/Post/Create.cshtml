@@ -4,9 +4,13 @@
     <link rel="stylesheet" href="~/css/post.css">
 }
 
+@{
+    Layout = "~/Views/Shared/_LayoutEditPost.cshtml";
+}
+
 
 <div>
-    <a href="@Url.Action("index", "Post")">
+    <a asp-action="Post" asp-controller="Profile">
         <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
     </a>
     <div class="box">
@@ -20,37 +24,72 @@
 
         <h1>Details</h1>
         <div class="details">
+            <!-- Category selection -->
             <div class="boxinput">
+                <label for="SelectedCategoryId">Category:</label>
+                <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
+                    <option value="">Choose...</option>
+                </select>
+            </div>
 
+            <!-- Input for adding a new category -->
+            <div class="boxinput">
+                <label for="NewCategoryName">New Category:</label>
+                <input asp-for="NewCategoryName" placeholder="Create new category" class="input" />
+            </div>
+
+            <div class="boxinput">
                 <img src="@Url.Content("~/src/images/Dateicon.svg")">
-                <input asp-for="Date" placeholder="Pick a date..." type="date" class="input">
+                <div class="item">
+                    <label for="Date">Date :</label>
+                    <input asp-for="Date" placeholder="Pick a date..." type="date" class="input">
+                </div>
+
             </div>
             <div class="boxinput"><img src="@Url.Content("~/src/images/Locationicon.svg")">
-                <input asp-for="Location" placeholder="Location" class="input">
+                <div class="item">
+                    <label for="Location">Location :</label>
+                    <input asp-for="Location" placeholder="Location" class="input">
+                </div>
+
             </div>
             <div class="boxinput"><img src="@Url.Content("~/src/images/Timeicon.svg")">
-                <input asp-for="Time" placeholder="What time ?" type="time" class="input">
+                <div class="item">
+                    <label for="Time">Time :</label>
+                    <input asp-for="Time" placeholder="What time ?" type="time" class="input">
+                </div>
             </div>
             <div class="boxinput"><img src="@Url.Content("~/src/images/Expireicon.svg")">
-                <input asp-for="ExpireDate" placeholder="Expire date" type="date" class="input">
+                <div class="item">
+                    <label for="ExpireDate">Expire Date :</label>
+                    <input asp-for="ExpireDate" placeholder="Expire date" type="date" class="input">
+                </div>
+
             </div>
             <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
-                <input asp-for="Image" placeholder="Add some photos" class="input">
+                <div class="item">
+                    <label for="Image">Image :</label>
+                    <input asp-for="Image" placeholder="Add some photos" class="input">
+                </div>
+
             </div>
             <div class="boxinput"><img src="@Url.Content("~/src/images/Peopleicon.svg")">
-                <input asp-for="MaxPeople" placeholder="Max people" type="number" class="input">
+                <div class="item">
+                    <label for="MaxPeople">Max People :</label>
+                    <input asp-for="MaxPeople" placeholder="Max people" type="number" class="input">
+                </div>
             </div>
         </div>
 
         <div class="btn">
-            <button>Post</button>
+            <button asp-action="Post" asp-controller="Profile">Post</button>
         </div>
     </div>
 </div>
 @section scripts {
     <script>
-        $(document).ready(function() {
-            $(".btn button").click(function(event) {
+        $(document).ready(function () {
+            $(".btn button").click(function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
                 var formData = {
@@ -77,8 +116,8 @@
                     url: '@Url.Action("CreatePost", "Post")', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
-                    success: function(response) {
-                        if(response.success) {
+                    success: function (response) {
+                        if (response.success) {
                             alert("Post created successfully.");
                             // Optionally, redirect or clear form here
                             window.location.href = '@Url.Action("Index", "Home")'; // Adjust controller and action names as necessary
@@ -86,7 +125,7 @@
                             alert("Failed to create post: " + response.message);
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                         alert("There was an error processing your request.");
                     }

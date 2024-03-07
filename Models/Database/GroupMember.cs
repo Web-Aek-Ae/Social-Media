@@ -21,7 +21,7 @@ namespace SocialMedia.Models.Database
 
         [ForeignKey("GroupId")]
         public virtual Group Group { get; set; }
-
+        
         // Additional properties like member role within the group could be added here
     }
 }

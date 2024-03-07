@@ -283,7 +283,7 @@
 }
 textarea {
   min-height: 50vh;
-  min-width: 60vw;
+  min-width: 50vw;
   border: none;
   outline: none;
   margin-top: 20px;

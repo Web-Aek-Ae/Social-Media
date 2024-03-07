@@ -193,10 +193,7 @@ main {
   align-items: center;
   /* gap: 0.5rem; */
 }
-.participant span{
-    width: 2rem;
-    /* background-color: pink; */
-}
+
 
 .addPostIcon {
     background-color: #fbca63;

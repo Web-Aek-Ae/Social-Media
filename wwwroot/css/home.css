@@ -153,7 +153,7 @@ main {
 .action {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  /* gap: 1rem; */
   align-items: center;
   /* background-color: #F77C7E; */
 }
@@ -172,19 +172,30 @@ main {
     transition: 0.3s;
 }
 .likes{
+    margin-left: 1rem;
     display: flex;
-    /* background-color: #fbca63; */
+    align-items: center;
     gap: 0.5rem;
 }
 
+.likes span{
+    width: 2rem;
+}
+
 .like-button {
+  width: 2rem;
+  align-items: center;
   border: none;
   background-color: white;
 }
 .participant {
   display: flex;
-  /* background-color: #fbca63; */
-  gap: 0.5rem;
+  align-items: center;
+  /* gap: 0.5rem; */
+}
+.participant span{
+    width: 2rem;
+    /* background-color: pink; */
 }
 
 .addPostIcon {

@@ -164,6 +164,11 @@ main{
     background-color: #fbca63;
     border:0;
 }
+.join-button:hover{
+    background-color: #F77C7E;
+    color: #FFFFFF;
+    transition: 0.3s;
+}
 .likes{
     display: flex;
     /* background-color: #fbca63; */

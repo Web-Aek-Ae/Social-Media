@@ -15,18 +15,20 @@
         <div class="search">
             <div class="search-bar">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search" id="search-input">
+                <input type="text" placeholder="Search" class="input">
             </div>
             <div class="filter-bar">
                 <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" id="filter-input">
+                <input type="text" placeholder="Filter" class="input">
             </div>
         </div>
     </div>
     <div class="container-post">
+        <div class="addPostIcon">
+            <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
+        </div>
         @foreach (var post in Model)
         {
-
             <div class="post">
                 <div class="card-post">
                     <img src="@post.Image" alt="activity"
@@ -107,5 +109,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>

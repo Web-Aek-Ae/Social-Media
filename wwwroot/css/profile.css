@@ -175,8 +175,8 @@ button:hover {
   bottom: 0;
 }
 .boxEdit {
-  width: 800px;
-  height: 600px;
+  width: 40vw;
+  height: 60vh;
   border: solid 3px;
   border-radius: 60px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -198,7 +198,7 @@ input {
   border: solid 2px;
   border-radius: 10px;
   height: 50px;
-  width: 98%;
+  width: 95%;
   padding: 0 0 0 15px;
   margin: 10px 0 20px;
 }
@@ -206,7 +206,7 @@ input {
 @media (max-width: 1200px) {
   .left {
     align-items: center;
-    margin: 20px ;
+    margin: 20px;
   }
   .left img {
     width: 80px;
@@ -227,6 +227,16 @@ input {
   .post {
     gap: 1%;
   }
+  .containerEdit {
+    margin: 20px 0 0 5%;
+  }
+  .img1 {
+    width: 150px;
+    height: 150px;
+  }
+  .saveEdit {
+    margin-top: 2%;
+  }
 }
 @media (max-width: 1024px) {
   .post {
@@ -236,6 +246,15 @@ input {
 }
 @media (max-width: 768px) {
   .post {
-    margin: 0;
+    margin-bottom: 60px;
+  }
+  .boxEdit {
+    height: 55vh;
+  }
+  input {
+    height: 40px;
+  }
+  .headerEdit {
+    font-size: 20px;
   }
 }

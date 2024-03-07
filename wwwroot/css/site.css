@@ -1,11 +1,18 @@
 html {
   font-size: 14px;
 }
-
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+}
+/* @media (max-width: 1250px) {
+  .sidebar {
+    display: none;
+  }
+} */
+
+@media (max-width: 768px) {
 }
 
 html {
@@ -37,7 +44,7 @@ textarea::placeholder {
 .sidebar {
   position: sticky;
   top: 0;
-  /* border-right: 1px solid; */
+
   background-color: #53475b;
   color: white;
 }
@@ -128,4 +135,14 @@ ul .line {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.bodyProfile {
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  grid-template-columns: 15% auto;
 }

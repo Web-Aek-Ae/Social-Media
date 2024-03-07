@@ -1,9 +1,5 @@
-using Microsoft.AspNetCore.Identity;
+
 using SocialMedia.Models.Database;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 
 
@@ -18,7 +14,7 @@ namespace SocialMedia.Services
             _context = context;
 
         }
-
+        
         public List<Post> GetAllPosts()
         {
             return _context.Posts.ToList();

@@ -148,7 +148,7 @@ ul .line {
     font-size: 16px;
   }
 }
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
   .sidebar {
     height: 100vh;
   }
@@ -207,6 +207,8 @@ ul .line {
     overflow-y: scroll;
     width: 100%;
     margin-left: 0;
+    justify-content: center;
+    align-items: center;
     /* margin: 0 0 60px 0; */
   }
 }

@@ -1,16 +1,4 @@
 /* profile layout part */
-
-.headerProfile {
-  display: flex;
-  width: auto;
-  height: 100px;
-  border: solid 2px;
-}
-.containerProfile {
-  /* background-color: #fbca63; */
-  display: grid;
-  grid-template-rows: 30% auto;
-}
 .top {
   border-bottom: solid 1px grey;
   position: relative;
@@ -98,13 +86,14 @@ button:hover {
 .containerPost {
   position: relative;
   width: 27%;
-  min-width: 320px;
+  min-width: 350px;
   /* height: 60%;
    */
   border: solid 3px;
   border-radius: 30px;
   padding: 20px;
   margin-top: 3%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.5s;
 }
 
@@ -143,9 +132,6 @@ button:hover {
   align-items: center;
 }
 .status {
-  background-color: #fbca63;
-}
-.status p {
   color: #f77c7e;
   font-weight: bold;
 }
@@ -217,9 +203,10 @@ input {
   margin: 10px 0 20px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
   .left {
     align-items: center;
+    margin: 20px ;
   }
   .left img {
     width: 80px;
@@ -241,30 +228,14 @@ input {
     gap: 1%;
   }
 }
+@media (max-width: 1024px) {
+  .post {
+    justify-content: center;
+    margin: 0;
+  }
+}
 @media (max-width: 768px) {
-  .status {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    height: 60%;
-  }
-  .containerPost {
-    width: 80%;
-    height: 150px;
-  }
-  .boxInfo{
-    position: absolute;
-    right: 5%;
-    top: 30%;
-  }
-  .profilePost .info{
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-  }
-  .containerPost h1{
-    position: absolute;
-    right: 20%;
-    top: 0;
+  .post {
+    margin: 0;
   }
 }

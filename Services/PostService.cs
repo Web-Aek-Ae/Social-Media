@@ -18,7 +18,10 @@ namespace SocialMedia.Services
         
         public List<Post> GetAllPosts()
         {
-            return _context.Posts.Include(p => p.User).ToList();
+            return _context.Posts
+        .Include(p => p.User)
+        .Include(p => p.PostLikes) // Include PostLikes
+        .ToList();
         }
         public async Task<bool> MakePost(Post post)
         {

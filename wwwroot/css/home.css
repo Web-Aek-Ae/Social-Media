@@ -176,6 +176,11 @@ main {
     /* background-color: #fbca63; */
     gap: 0.5rem;
 }
+
+.like-button {
+  border: none;
+  background-color: white;
+}
 .participant {
   display: flex;
   /* background-color: #fbca63; */

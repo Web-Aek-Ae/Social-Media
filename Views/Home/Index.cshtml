@@ -31,8 +31,7 @@
         {
             <div class="post">
                 <div class="card-post">
-                    <img src="@post.Image" alt="activity"
-                        class="activity">
+                    <img src="@post.Image" alt="activity" class="activity">
                     <div class="content">
                         <div class="post-header">
                             <div class="date">
@@ -111,3 +110,31 @@
             </div>
         </div> 
     </div>
+    
+
+@section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('.like-button').click(function () {
+                    var button = $(this); // The clicked button
+                    var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                    $.ajax({
+                        url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
+                        type: 'POST',
+                        data: { postId: postId }, // Send the post ID as data
+                        success: function (result) {
+
+                            console.log(result)
+                            button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
+                            button.siblings('span').text(result.likeCount);
+                            console.log("Post liked successfully");
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                            console.log("Error liking post: " + error);
+                        }
+                    });
+                });
+            });
+        </script>
+    }

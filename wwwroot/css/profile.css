@@ -273,4 +273,7 @@ input {
   .addPostIcon {
     bottom: 8%;
   }
+  .addPostIcon img{
+    width: 30px;
+  }
 }

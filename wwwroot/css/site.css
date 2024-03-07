@@ -29,7 +29,7 @@ textarea::placeholder {
   font-family: "Poppins", sans-serif;
 }
 .container {
-  width: 68%;
+  width: 65%;
   height: 100vh;
   margin: 0 0 0 15%;
   padding: 0;
@@ -101,7 +101,7 @@ ul .line {
 }
 
 .Blog {
-  width: 17%;
+  width: 20%;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -123,11 +123,10 @@ ul .line {
 
 .allprofile {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
   margin-left: 20px;
   align-items: center;
-  justify-content: center;
 }
 .allprofile img {
   border-radius: 50%;
@@ -141,7 +140,70 @@ ul .line {
   align-items: center;
   gap: 10px;
 }
+.myactivity {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.myactivity h1 {
+  /* font-size: 25px; */
+  align-self: flex-start;
+  margin: 5% 0 5% 5%;
+}
+.containerPost {
+  position: relative;
+  width: 80%;
+  background-color: white;
+  border-radius: 30px;
+  padding: 20px;
+  margin-top: 3%;
+}
 
+.containerPost:hover {
+  border: solid 2px;
+}
+.info {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.containerPost h1 {
+  margin: 0 0 5px 0;
+  font-size: 25px;
+  font-weight: lighter;
+}
+.info icon {
+  height: fit-content;
+}
+.info p {
+  height: fit-content;
+  margin: 0;
+  color: grey;
+  font-size: 14px;
+}
+.imgProfile {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.profilePost {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.profilePost .info {
+  align-items: center;
+}
+.status {
+  color: #f77c7e;
+  font-weight: 600;
+  font-size: 12px;
+}
+.seeAll {
+  margin-top: 10%;
+  border-bottom: solid 1px;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;

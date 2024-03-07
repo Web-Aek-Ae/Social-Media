@@ -37,11 +37,20 @@ namespace SocialMedia.Controllers
                 {
                     Value = c.CategoryId.ToString(),
                     Text = c.Name
-                }).ToList()
+                }).ToList(),
+                Date = DateTime.Now,
+                ExpireDate = DateTime.Now,
+                Time = DateTime.Now.ToString("HH:mm"),
+                MaxPeople = 1,
+                Location = "Bangkok",
+
+                
             };
 
-            // Optionally add a default choice
-            model.Categories.Insert(0, new SelectListItem { Text = "Select a category", Value = "" });
+            if(model.Categories.Count == 0)
+            {
+                throw new Exception("No categories found.");
+            }
 
             var username = HttpContext.User.Identity?.Name;
 
@@ -81,6 +90,7 @@ namespace SocialMedia.Controllers
                         Title = model.Title,
                         Content = model.Content,
                         Location = model.Location,
+                        CategoryId = model.SelectedCategoryId,
                         Time = fullDateTime,
                         Image = model.Image,
                         MaxPeople = model.MaxPeople,

@@ -117,14 +117,16 @@ ul .line {
 
 .allprofile {
   display: flex;
-  gap: 20px;
+  font-size: medium;
+  flex-wrap: wrap;
+  gap: 10px;
   width: 100%;
-  margin-left: 20px;
   align-items: center;
+  margin-left: 1rem;
 }
 .allprofile img {
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
   width: 60px;
   height: 60px;
 }
@@ -196,7 +198,10 @@ ul .line {
 }
 .seeAll {
   margin-top: 10%;
-  border-bottom: solid 1px;
+  color: #7E6532;
+  font-weight: 600;
+  padding-bottom: -0.01rem;
+  text-underline-offset: 0.15rem;
 }
 
 /* logout */

@@ -46,7 +46,7 @@ namespace SocialMedia.Controllers
             Console.WriteLine(model.Email);
             Console.WriteLine(model.Password);
             Console.WriteLine(model.ConfirmPassword);
-            
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -163,10 +163,23 @@ namespace SocialMedia.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ResetPassword()
         {
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            // Get all cookies from the request
+            var cookies = HttpContext.Request.Cookies;
+
+            // Loop through the cookies and delete each one
+            foreach (var cookie in cookies)
+            {
+                HttpContext.Response.Cookies.Delete(cookie.Key);
+            }
+            return RedirectToAction("Login", "User");
         }
 
     }

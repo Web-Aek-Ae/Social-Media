@@ -31,11 +31,17 @@ namespace SocialMedia.Services
         }
         public List<Group> GetAllGroups()
         {
-            return _context.Groups.ToList();
+            return _context.Groups.Include(g => g.Members).Include(g => g.User).ToList();
         }
         public async Task<bool> AddGroup(Group group)
         {
+            var groupmember = new GroupMember
+            {
+                GroupId = group.GroupId,
+                UserId = group.UserId,
+            };
             _context.Groups.Add(group);
+            _context.GroupMembers.Add(groupmember);
             await _context.SaveChangesAsync();
             
             return true;

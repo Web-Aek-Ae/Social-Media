@@ -32,6 +32,7 @@ builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<JoinActivityService>();
 builder.Services.AddScoped<PostLikeService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<PostGroupService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

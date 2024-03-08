@@ -16,11 +16,13 @@ namespace SocialMedia.Controllers
         private readonly GroupService _groupService;
 
         private readonly GroupmemberService _groupmemberService;
+        private readonly PostGroupService _postgroupService;
 
-        public GroupController(GroupService groupService ,GroupmemberService groupmemberService)
+        public GroupController(GroupService groupService ,GroupmemberService groupmemberService, PostGroupService postGroupService)
         {
             _groupService = groupService;
             _groupmemberService = groupmemberService;
+            _postgroupService = postGroupService;
         }
         public IActionResult Index()
         {
@@ -65,13 +67,15 @@ namespace SocialMedia.Controllers
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-            return View();
+
+            var postgroup = _postgroupService.GetAllPostsGroup();
+            return View(postgroup);
         }
 
         
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateGroup(GroupViewModel model)
+        public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model)
         {   
             if (!ModelState.IsValid)
             {
@@ -129,10 +133,6 @@ namespace SocialMedia.Controllers
             }
             
         }
-        
-           
-
-
     }
 
 

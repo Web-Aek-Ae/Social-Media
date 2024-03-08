@@ -166,6 +166,24 @@ main {
   background-color: #fbca63;
   border: 0;
 }
+
+.joined-button {
+  font-size: 16px;
+  font-weight: 600;
+  width: 10rem;
+  height: 2.2rem;
+  border-radius: 3rem;
+  background-color: #ffffff;
+  border: solid 2px #000000;
+}
+
+.joined-button:hover {
+  background-color: #a2a2a2;
+  color: white;
+  transition: 0.3s;
+
+
+}
 .join-button:hover{
     background-color: #F77C7E;
     color: #FFFFFF;

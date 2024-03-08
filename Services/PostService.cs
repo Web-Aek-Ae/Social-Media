@@ -21,6 +21,7 @@ namespace SocialMedia.Services
             return _context.Posts
         .Include(p => p.User)
         .Include(p => p.PostLikes) // Include PostLikes
+        .Include(p => p.JoinActivities) // Include JoinActivities
         .ToList();
         }
         public async Task<bool> MakePost(Post post)

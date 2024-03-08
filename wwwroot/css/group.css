@@ -88,26 +88,17 @@
 .activity-image {
   display: flex;
   width: 100%;
-  height: fit-content;
+  height: 300px;
+  
 }
 .test1 {
   margin-left: 5px;
 }
 #activity1 {
-  width: 350px;
-  height: 275px;
+  width: 100%;
   object-fit: cover;
 }
-#activity2 {
-  width: 284px;
-  height: 135px;
-  object-fit: cover;
-}
-#activity3 {
-  width: 284px;
-  height: 135px;
-  object-fit: cover;
-}
+
 
 .test2 {
   margin-top: 15px;

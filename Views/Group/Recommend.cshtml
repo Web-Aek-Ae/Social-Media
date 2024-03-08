@@ -119,12 +119,6 @@
                         <p id="section-content">@group.Description</p>
                         <div class="activity-image">
                             <img src="@group.Image" alt="activity" id="activity1">
-                            <div class="test1">
-                                <img src="https://www.wee-interior.com/wp-content/uploads/2019/02/bar_interior4.jpg"
-                                    alt="activity" id="activity2">
-                                <img src="https://miwservices.com/wp-content/uploads/2019/05/9rmjue0ix5r9c0k4.jpg"
-                                    alt="activity" id="activity3">
-                            </div>
                         </div>
                         <div class="test2">
                             <div class="group-poster">
@@ -165,13 +159,13 @@
                     data: {},
                     success: function (data) {
                         if (data.success) {
-                            $(".group-rec-button").css({
+                            $(this).parent().find(".group-rec-button").css({
                                 backgroundColor:"white",
                                 color:"black",
                                 border:"2px solid black"
                             })
-                            $(".group-rec-button").text("View group");
-                            $(".group-rec-button").attr("onclick","viewgrouponclick()")
+                            $(this).parent().(".group-rec-button").text("View group");
+                            $(this).parent().(".group-rec-button").attr("onclick","viewgrouponclick()")
                         }
                         else {
                             alert("Failed to Join Group: " + response.message);

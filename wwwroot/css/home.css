@@ -286,10 +286,11 @@ main {
   align-items: center;
 }
 
+.participantCount:hover {
+    display: block;
+}
 .participantCount:hover .dropdownParticipant {
    display: block;
-   top: 23vh;
-   right: 0;
     
 }
 

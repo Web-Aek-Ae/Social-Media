@@ -64,7 +64,6 @@ namespace SocialMedia.Controllers
         }
 
 
-
         
         [HttpPost("CreateGroup")]
         [Authorize]

@@ -20,6 +20,7 @@
 </head>
 
 <body>
+
     <nav class="sidebar">
         <div class="menu">
             <ul>
@@ -38,16 +39,25 @@
                         <p class="labelNav">Profile</p>
                     </a>
                 </li>
-                <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Logouticon.svg")" class="icon"></img></i>
+                <li>
+                    <a id="iconLogout" class=" none"><img src=" @Url.Content("~/src/images/Logouticon.svg")"
+                            class="icon"></img></i>
                         <p class="labelNav">Log out</p>
-                    </a></li>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
     <div class="container">
+        <div id="logout">
+            <h1>Logout ?</h1>
+            <p>You can always log back in <br>at any time.</p>
+            <button id="btnLogout">Log out</button>
+            <button id="btnCancel">Cancel</button>
+        </div>
+        <div class="modalBg"></div>
         <main role="main" class="pb">
-            @RenderBody()
+                    @RenderBody()
         </main>
     </div>
     <div class="Blog">
@@ -56,10 +66,10 @@
                 <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                     alt="proflie">
                 <h2>
-                    @if (ViewData["Username"] != null)
-                    {
+                            @if (ViewData["Username"] != null)
+                            {
                         <p>Hello, @ViewData["Username"]!</p>
-                    }
+                            }
                 </h2>
             </div>
         </div>
@@ -152,8 +162,11 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/logout.js"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    <script>
+
+    </script>
 </body>
 
 </html>

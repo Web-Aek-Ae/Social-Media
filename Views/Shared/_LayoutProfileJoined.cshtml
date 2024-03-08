@@ -32,7 +32,7 @@
                             src=" @Url.Content("~/src/images/ProfileiconYellow.svg")" id="icon"></img></i>Profile</a>
                     <div class="line"></div>
                 </li>
-                <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
+                <li><a  href="@Url.Action("Logout", "User")""  class=" none"><img
                             src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</a></li>
             </ul>
         </div>
@@ -52,12 +52,12 @@
                 <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
             </div>
             <div class="option">
-                <a href="@Url.Action("Post","Profile")" id="select">
-                    <div class="select">Posts
+                <a href="@Url.Action("Post","Profile")">Posts</a>
+                <a href=" @Url.Action("Joined","Profile")" id="select">
+                    <div class="select">Joined
                         <div class="underline"></div>
                     </div>
                 </a>
-                <a href=" @Url.Action("Joined","Profile")">Joined</a>
                 <a href="@Url.Action("Likes", "Profile")">Likes</a>
             </div>
         </div>

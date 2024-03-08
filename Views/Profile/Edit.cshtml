@@ -17,12 +17,21 @@
     </div>
 
     <div class="containerEdit">
-        <div class="all-img"><img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                alt="proflie" class="img1">
-            <div class="imgEdit">
-                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
-            </div>
+        <div id="modalImgBg"></div>
+        <div id="modalImg">
+            <img src=" @Url.Content("~/src/images/Cancleicon.svg")" id="Cancel">
+            <label>add your image</label>
+            <input type="text" asp-for='Image' />
+            <button id="Upload">upload</button>
         </div>
+        <div class="all-img"><img
+                src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                alt="proflie" class="img1">
+            <a class="imgEdit" id="Edit">
+                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
+            </a>
+        </div>
+
 
         <div class="boxEdit">
             <form asp-action="Register" asp-controller="User" method="post">
@@ -58,4 +67,5 @@
     <div class="saveEdit">
         <button type="submit" onclick="window.location.href='@Url.Action("post", "Profile")'">save</button>
     </div>
+    <script src="~/lib/addImg.js"></script>
 </body>

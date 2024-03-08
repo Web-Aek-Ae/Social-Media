@@ -10,7 +10,7 @@ namespace SocialMedia.ViewModels
   }
   public class UserViewModel
   {
-    
+
 
     [Required(ErrorMessage = "Name is required")]
     public required string Name { get; set; }
@@ -44,12 +44,12 @@ namespace SocialMedia.ViewModels
   }
 
   public class GroupViewModel
-  { 
+  {
 
-    [Required(ErrorMessage ="Please enter name")]
-    public required string Groupname{get;set;}
+    [Required(ErrorMessage = "Please enter name")]
+    public required string Groupname { get; set; }
 
-    public required string Description{get;set;}
+    public required string Description { get; set; }
 
     public required string Image { get; set; }
   }
@@ -81,9 +81,20 @@ namespace SocialMedia.ViewModels
     [Display(Name = "Expire Date")]
     public DateTime ExpireDate { get; set; }
 
-    public int? SelectedCategoryId { get; set; }
-    public string NewCategoryName { get; set; }
+    public int SelectedCategoryId { get; set; }
     public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
+  }
+
+  public class CategoryViewModel
+  {
+    [Required(ErrorMessage = "Category name is required")]
+    [StringLength(100, ErrorMessage = "Category name cannot exceed 100 characters.")]
+    public required string Name { get; set; }
+  }
+
+  public class JoinActivityViewModel
+  {
+    public int PostId { get; set; }
   }
 
 }

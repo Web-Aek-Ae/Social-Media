@@ -69,7 +69,7 @@ namespace SocialMedia.Controllers
         }
 
         
-        [HttpPost("CreateGroup")]
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model )
         {   
@@ -78,7 +78,7 @@ namespace SocialMedia.Controllers
                 return BadRequest("model invalid");
             }
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
+            Console.WriteLine(UserId);
             if (!int.TryParse(UserId, out int userIdAsInt))
             {
                 return Json(new { success = false, message = "User ID is invalid." });

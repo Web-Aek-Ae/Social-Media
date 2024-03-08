@@ -161,10 +161,12 @@
                     success: function (data) {
                         if (data.success) {
                             $("#group-rec-button").css({
-                                text:"view group",
+                                content:"view group",
                                 backgroundColor:"white",
+                                color:"black",
                                 border:"2px solid black"
-                            })
+                            }
+                            )
                         }
                         else {
                             alert("Failed to Join Group: " + response.message);

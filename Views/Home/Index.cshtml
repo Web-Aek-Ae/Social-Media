@@ -68,11 +68,41 @@
                                         }
 
                                     </button>
-                                    <span>@post.PostLikes.Count</span>
+                                    <span class="likeCount">@post.PostLikes.Count
+                                        <div class="dropdownLike"">
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                        </div>
+                                    </span>
                                 </div>
                                 <div class="participant">
                                     <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
-                                    <span>8/10</span>
+                                    <span class="participantCount">8/10
+                                        <div class="dropdownParticipant">
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                            <div class="member">
+                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                <h5>oakoakoak</h5>
+                                            </div>
+                                        </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +112,7 @@
 
         }
         <div class="addPostIcon">
-            <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
+            <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
         </div>
     </div>
     

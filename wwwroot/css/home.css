@@ -285,8 +285,13 @@ main {
   justify-items: center;
   align-items: center;
 }
-.participantCount:hover .dropdownParticipant {
+
+.participantCount:hover {
     display: block;
+}
+.participantCount:hover .dropdownParticipant {
+   display: block;
+    
 }
 
 .addPostIcon {

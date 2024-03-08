@@ -53,12 +53,12 @@
             </div>
             <div class="option">
                 <a href="@Url.Action("Post","Profile")">Posts</a>
-                <a href=" @Url.Action("Joined","Profile")">Joined</a>
-                <a href="@Url.Action("Likes", "Profile")" id="select">
-                    <div class="select">Likes
+                <a href=" @Url.Action("Joined","Profile")" id="select">
+                    <div class="select">Joined
                         <div class="underline"></div>
                     </div>
                 </a>
+                <a href="@Url.Action("Likes", "Profile")">Likes</a>
             </div>
         </div>
         <main role="main" class="pb">
@@ -67,10 +67,12 @@
     </div>
 
 
-   
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false) *@
+
+
 </body>
 
 </html>

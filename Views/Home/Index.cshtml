@@ -29,8 +29,7 @@
 
             <div class="post">
                 <div class="card-post">
-                    <img src="@post.Image" alt="activity"
-                        class="activity">
+                    <img src="@post.Image" alt="activity" class="activity">
                     <div class="content">
                         <div class="post-header">
                             <div class="date">
@@ -54,8 +53,22 @@
                                 <button class="join-button" id="btn">join activity</button>
                                 <script src="~/lib/button.js"></script>
                                 <div class="likes">
-                                    <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" id="like">
-                                    <span>15</span>
+                                    <button data-postid="@post.PostId" class="like-button">
+
+                                        @using System.Security.Claims
+
+                                        @if(post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                        {
+                                            <img src="@Url.Content("~/src/images/LikedIcon.svg")" class="icon" >
+                                            
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
+                                        }
+
+                                    </button>
+                                    <span>@post.PostLikes.Count</span>
                                 </div>
                                 <div class="participant">
                                     <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
@@ -68,44 +81,35 @@
             </div>
 
         }
-        <div class="post">
-            <div class="card-post">
-                <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
-                    class="activity">
-                <div class="content">
-                    <div class="post-header">
-                        <div class="date">
-                            <h3 class="month">FEB</h3>
-                            <h3 class="day">26</h3>
-                            <h3 class="year">2024</h3>
-                        </div>
-                        <div class="topic">
-                            <h1>เตะบอลกันครับพี่ๆ</h1>
-                            <p>18:00 - 20:00, KMITL</p>
-                        </div>
-                    </div>
-                    <div class="description">
-                        <p>เตะบอลวันอังคารที่ 27 ตอนเย็นที่สนามมอครับ ใครสนใจก็มาร่วมด้ายยย ค่าสนามชั่วโมงละ 1500 บาท
-                            เราเล่น 2 ชั่วโมงตกคนละ 200 บาทครับบ มีเพื่อนชวนเพื่อนมาได้โล้ดดด</p>
-                        <div class="owner">
-                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                alt="" id="owner-profile">
-                            <span>Boom Za</span>
-                        </div>
-                        <div class="action">
-                            <button class="join-button" id="btn">join activity</button>
-                            <script src="~/lib/button.js"></script>
-                            <div class="likes">
-                                <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" id="like">
-                                <span>15</span>
-                            </div>
-                            <div class="participant">
-                                <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
-                                <span>8/10</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="addPostIcon">
+            <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
         </div>
     </div>
+    
+
+@section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('.like-button').click(function () {
+                    var button = $(this); // The clicked button
+                    var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                    $.ajax({
+                        url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
+                        type: 'POST',
+                        data: { postId: postId }, // Send the post ID as data
+                        success: function (result) {
+
+                            console.log(result)
+                            button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
+                            button.siblings('span').text(result.likeCount);
+                            console.log("Post liked successfully");
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                            console.log("Error liking post: " + error);
+                        }
+                    });
+                });
+            });
+        </script>
+    }

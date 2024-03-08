@@ -74,40 +74,33 @@
                                         </button>
                                         <span class="likeCount">@post.PostLikes.Count
                                             <div class="dropdownLike">
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
+
+                                                @foreach (var like in post.PostLikes)
+                                                {
+                                                    <div class="member">
+                                                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                        <h5>@like.User.Name</h5>
+                                                    </div>
+                                                }
+                                                
                                             </div>
                                         </span>
                                     </div>
                                     <div class="participant">
                                         <span class="participantCount">
-                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
+                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
                                             <span class="joined">@post.JoinActivities.Count </span>
                                         <span class="max"> / @post.MaxPeople</span>
                                             <div class="dropdownParticipant">
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
-                                                <div class="member">
-                                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                    <h5>oakoakoak</h5>
-                                                </div>
+                                                @foreach (var joinActivity in post.JoinActivities)
+                                                {
+                                                    <div class="member">
+                                                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                        <h5>@joinActivity.User.Name</h5>
+                                                    </div>
+                                                }                                        
                                             </div>
+                                        
                                         </span>
 
                                     </div>
@@ -118,11 +111,11 @@
                 </div>
 
         }
+        </div>
         <div class="addPostIcon">
             <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
         </div>
-    </div>
-
+</div>
 
     @section Scripts {
             <script>

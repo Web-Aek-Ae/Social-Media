@@ -19,6 +19,8 @@ namespace SocialMedia.Models.Database
         public virtual User User { get; set; }
         public virtual ICollection<PostLike> PostLikes { get; set; }
 
+        public virtual ICollection<JoinActivity> JoinActivities { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; }
 
 

@@ -320,7 +320,7 @@ button {
   font-size: 30px;
   font-weight: 600;
 }
-button:hover {
+button:not(#btnCancel):hover  {
   transition: 0.3s;
   background-color: #f77c7e;
 }

@@ -101,7 +101,8 @@ src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</
                     </a>
                     <div class="line"></div>
                 </li>
-                <li><a id="iconLogout" class=" none"><img src=" @Url.Content("~/src/images/Logouticon.svg")" class="icon"></img></i>
+                <li><a id="iconLogout" class=" none"><img src=" @Url.Content("~/src/images/Logouticon.svg")"
+                            class="icon"></img></i>
                         <p class="labelNav">Log out</p>
                     </a></li>
             </ul>
@@ -109,16 +110,16 @@ src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</
     </nav>
 
     <div class="containerNavbarOnly">
-          <div id="logout">
+        <div id="logout">
             <h1>Logout ?</h1>
             <p>You can always log back in <br>at any time.</p>
-            <button id="btnLogout">Log out</button>
+            <button id="btnLogout" onclick="window.location.href='@Url.Action("Logout", "User")'">Log out</button>
             <button id="btnCancel">Cancel</button>
         </div>
+        <div class="modalBg"></div>
         <main role="main" class="pb">
                     @RenderBody()
         </main>
-    </div>
     </div>
 
 

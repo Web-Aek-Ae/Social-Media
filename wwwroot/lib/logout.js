@@ -1,28 +1,17 @@
 const btnEl = document.getElementById("iconLogout");
 const btnCC = document.getElementById("btnCancel");
+const btnLO = document.getElementById("btnLogout");
 
 let state = 0; 
-function open() {
-    document.getElementById("logout").style.display = "block";
-    document.getElementsByClassName("post")[0].style.position = "fixed"
-    // document.querySelector("body").style.backgroundColor = "pink";
-    document.querySelectorAll("button:not(#btnLogout):not(#btnCancel)").forEach(element => {
-        element.disabled = "true";
-    });
-    document.querySelectorAll("a").forEach(element=>{
-     element.style.pointerEvents = "none";
-    })
+function openLogout() {
+    document.getElementById("logout").style.visibility = "visible";
+    document.getElementsByClassName("modalBg")[0].style.visibility = "visible"
 }
 
-function close(){
-    document.getElementById("logout").style.display = "none"
-    document.querySelectorAll("button:not(#btnLogout):not(#btnCancel)").forEach(element => {
-        element.disabled = "false";
-    });
-    document.querySelectorAll("a").forEach(element=>{
-        element.style.pointerEvents = "auto";
-       })
+function closeLogout(){
+    document.getElementById("logout").style.visibility = "hidden"
+    document.getElementsByClassName("modalBg")[0].style.visibility = "hidden"
 }
 
-btnEl.addEventListener('click', open); // Pass reference to open function
-btnCC.addEventListener('click', close)
+btnEl.addEventListener('click', openLogout);
+btnCC.addEventListener('click', closeLogout)

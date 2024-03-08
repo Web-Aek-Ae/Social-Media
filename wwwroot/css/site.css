@@ -218,7 +218,7 @@ ul .line {
   background-color: white;
   border: solid 2px;
   border-radius: 30px;
-  z-index: 4;
+  z-index: 10;
 }
 .modalBg {
   visibility: hidden;
@@ -228,7 +228,7 @@ ul .line {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  z-index: 9;
 }
 #logout h1 {
   font-size: 24px;

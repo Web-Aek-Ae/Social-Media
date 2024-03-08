@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
 <div>
-    <a href="@Url.Action("index", "Group")">
+    <a asp-action="index" asp-controller="Group">
         <img src="~/src/images/Backicon.svg" class="back">
     </a>
     <div class="box">
@@ -44,7 +44,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("CreateGroup", "Group")', // Modify with your correct URL
+                    url: '/Group/CreateGroup', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function(response) {

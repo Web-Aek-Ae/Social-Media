@@ -71,14 +71,13 @@ namespace SocialMedia.Controllers
         
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model )
+        public async Task<ActionResult> CreateGroup(GroupViewModel model)
         {   
             if (!ModelState.IsValid)
             {
                 return BadRequest("model invalid");
             }
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine(UserId);
             if (!int.TryParse(UserId, out int userIdAsInt))
             {
                 return Json(new { success = false, message = "User ID is invalid." });
@@ -97,15 +96,12 @@ namespace SocialMedia.Controllers
                 {
                     return Json(new { success = true, message = "Post created successfully!" });
                 }
-                
-
             }
             catch (ArgumentException ex)
             {
                 // Log the exception or set model state error
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
-            Console.WriteLine(model.Groupname);
             return Ok(model.Groupname);
         }
         

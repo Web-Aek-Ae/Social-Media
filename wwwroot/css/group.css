@@ -377,7 +377,7 @@ button:hover {
   margin-right: 42px;
   height: fit-content;
 }
-#group-rec-button {
+.group-rec-button {
   font-size: 16px;
   font-weight: medium;
   width: 146px;

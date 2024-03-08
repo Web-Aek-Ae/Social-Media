@@ -17,7 +17,7 @@ namespace SocialMedia.Services
         {
             _context = context;
         }
-        
+
         public async Task<bool> DeleteGroup(int GroupId)
         {
             var group = await _context.Groups.FindAsync(GroupId);
@@ -35,23 +35,22 @@ namespace SocialMedia.Services
         }
         public async Task<bool> AddGroup(Group group)
         {
-            var groupmember = new GroupMember
-            {
-                GroupId = group.GroupId,
-                UserId = group.UserId,
-            };
-            _context.Groups.Add(group);
-            _context.GroupMembers.Add(groupmember);
+            var newGroup = _context.Groups.Add(group).Entity;
             await _context.SaveChangesAsync();
-            
+
+            var groupMember = new GroupMember
+            {
+                GroupId = newGroup.GroupId,
+                UserId = group.UserId // Assuming you want to use the UserId from the passed group object
+            };
+
+            _context.GroupMembers.Add(groupMember);
+            await _context.SaveChangesAsync();
+
             return true;
+
+
         }
 
-        // public async Task<bool> JoinGroup(Group group, GroupMember groupMember)
-        // {
-        //     _context.Groups.Add(group,groupMember);
-        //     await _context.SaveChangesAsync();
-        //     return true;
-        // }
     }
 }

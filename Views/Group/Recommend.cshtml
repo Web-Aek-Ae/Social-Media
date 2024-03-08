@@ -136,7 +136,7 @@
                             <div class="group-of-button">
                                 <i class="fa-regular fa-user"></i>
                                 <span>@group.Members.Count</span>
-                                <button id="group-rec-button" GroupId="@group.GroupId">join group</button>
+                                <button class="group-rec-button" GroupId="@group.GroupId" onclick="">join group</button>
                             </div>
                         </div>
                     </div>
@@ -149,8 +149,13 @@
 </div>
 @section scripts {
     <script>
+        function viewgrouponclick(){
+            window.location.href = '@Url.Action("Details", "Group")';
+        }
+    </script>
+    <script>
         $(document).ready(function () {
-            $("button#group-rec-button").click(function () {
+            $("button.group-rec-button").click(function () {
                 event.preventDefault();
                 var groupId = $(this).attr("GroupId");
 
@@ -160,18 +165,17 @@
                     data: {},
                     success: function (data) {
                         if (data.success) {
-                            $("#group-rec-button").css({
-                                content:"view group",
+                            $(".group-rec-button").css({
                                 backgroundColor:"white",
                                 color:"black",
                                 border:"2px solid black"
-                            }
-                            )
+                            })
+                            $(".group-rec-button").text("View group");
+                            $(".group-rec-button").attr("onclick","viewgrouponclick()")
                         }
                         else {
                             alert("Failed to Join Group: " + response.message);
                         }
-
                     },
                     error: function () {
                         alert("An error occurred while joining the group. Please try again later.");

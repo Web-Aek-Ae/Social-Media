@@ -23,15 +23,21 @@
         <div class="menu">
             <ul>
                 <li><a href="@Url.Action("index", "Home")"" class=" current"><img
-                            src=" @Url.Content("~/src/images/HomeiconYellow.svg")" id="icon">Home</a>
+                            src=" @Url.Content("~/src/images/HomeiconYellow.svg")" class="icon">
+                        <p class="labelNav">Home</p>
+                    </a>
                     <div class="line"></div>
                 </li>
                 <li><a href="@Url.Action("index", "Group")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Groupicon.svg")" id="icon"></img>Group</a></li>
+                            src=" @Url.Content("~/src/images/Groupicon.svg")" class="icon"></img>
+                        <p class="labelNav">Group</p>
+                    </a></li>
                 <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
-                            src=" @Url.Content("~/src/images/Profileicon.svg")" id="icon"></img></i>Profile</a>
+                            src=" @Url.Content("~/src/images/Profileicon.svg")" class="icon"></img></i>
+                        <p class="labelNav">Profile</p>
+                    </a>
                 </li>
-                <li><a href="@Url.Action("post", "Profile")"" class=" none"><img
+                <li><a href="@Url.Action("Logout", "User")"" class=" none"><img
                             src=" @Url.Content("~/src/images/Logouticon.svg")" id="icon"></img></i>Log out</a></li>
             </ul>
         </div>
@@ -55,14 +61,96 @@
             </div>
         </div>
         <div class="myactivity">
-            <h1>My activity</h1>
-            <div>activity1</div>
-            <div>activity2</div>
-            <div>activity3</div>
+            <h1>My Activity</h1>
+            <div class="containerPost">
+                <h1>ลิงกินก้วย</h1>
+                <div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                        <p>FEB 23, 2024</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                        <p>21:00 - 23:59, KMITL</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                        <p>8/10</p>
+                    </div>
+                    <div class="profilePost">
+                        <div class="info">
+                            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                                alt="proflie" class="imgProfile">
+                            <p>ppookkiesbubu</p>
+                        </div>
+                        <div class="status">
+                            <p>Start in 2 Hours...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="containerPost">
+                <h1>ลิงกินก้วย</h1>
+                <div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                        <p>FEB 23, 2024</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                        <p>21:00 - 23:59, KMITL</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                        <p>8/10</p>
+                    </div>
+                    <div class="profilePost">
+                        <div class="info">
+                            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                                alt="proflie" class="imgProfile">
+                            <p>ppookkiesbubu</p>
+                        </div>
+                        <div class="status">
+                            <p>Start in 2 Hours...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="containerPost">
+                <h1>ลิงกินก้วย</h1>
+                <div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                        <p>FEB 23, 2024</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                        <p>21:00 - 23:59, KMITL</p>
+                    </div>
+                    <div class="info">
+                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                        <p>8/10</p>
+                    </div>
+                    <div class="profilePost">
+                        <div class="info">
+                            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                                alt="proflie" class="imgProfile">
+                            <p>ppookkiesbubu</p>
+                        </div>
+                        <div class="status">
+                            <p>Start in 2 Hours...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button>See all</button>
+        <a class="seeAll" asp-action="Joined" asp-controller="Profile">See all</a>
+        <!-- <a class="seeAll" asp-action="Joined" asp-controller="Profile">See all</a> -->
     </div>
+
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

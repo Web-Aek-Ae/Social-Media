@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using SocialMedia.Models.Database;
 
 
@@ -14,12 +15,14 @@ namespace SocialMedia.Services
             _context = context;
 
         }
-
+        
         public List<Post> GetAllPosts()
         {
-            return _context.Posts.ToList();
+            return _context.Posts
+        .Include(p => p.User)
+        .Include(p => p.PostLikes) // Include PostLikes
+        .ToList();
         }
-
         public async Task<bool> MakePost(Post post)
         {
             _context.Posts.Add(post);

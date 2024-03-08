@@ -1,47 +1,21 @@
 /* profile layout part */
-.bodyProfile {
-  font-family: "Poppins", sans-serif;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  grid-template-columns: 15% auto;
-  min-height: 100vh;
-}
-.headerProfile {
-  display: flex;
-  width: auto;
-  height: 100px;
-  border: solid 2px;
-}
-.containerProfile {
-  /* background-color: #fbca63; */
-  display: grid;
-  grid-template-rows: 30% auto;
-}
 .top {
   border-bottom: solid 1px grey;
-  display: grid;
-  grid-template-rows: 80% auto;
+  position: relative;
 }
-.profilee {
-  /* background-color: aqua; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.profilee .left {
-  width: 50%;
+.left {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
   align-items: center;
+  margin: 30px 30px 0px 50px;
+  gap: 20px;
 }
-
 .left img {
   height: 150px;
   width: 150px;
   border-radius: 50%;
-  margin: 30px 30px 0px 50px;
 }
 .left h1 {
   font-size: 44px;
@@ -53,13 +27,29 @@
   font-weight: 500;
   font-size: larger;
 }
-.profilee button {
+.top button {
   margin-right: 50px;
+  position: absolute;
+  right: 0;
+  top: 30%;
+}
+button {
+  font-family: "Poppins", sans-serif;
+  padding: 10px 20px;
+  background-color: #fbca63;
+  border: none;
+  border-radius: 40px;
+  font-size: 30px;
+  font-weight: 600;
+}
+button:hover {
+  transition: 0.3s;
+  background-color: #f77c7e;
 }
 
 .option {
   display: flex;
-  margin: 0 0 30px 50px;
+  margin: 30px 0 0px 50px;
   gap: 80px;
 }
 .option a {
@@ -69,11 +59,11 @@
   color: black;
   text-decoration: none;
 }
-.option #select {
+.option .select {
   color: #fbca63;
 }
 
-.select {
+.selectBox {
   width: fit-content;
 }
 .select .underline {
@@ -84,42 +74,39 @@
   margin-top: 5px;
   transition: 0.3s ease;
 }
-button {
-  font-family: "Poppins", sans-serif;
-  width: 200px;
-  height: 70px;
-  background-color: #fbca63;
-  border: none;
-  border-radius: 30px;
-  font-size: 30px;
-  font-weight: 600;
-}
-button:hover {
-  transition: 0.3s;
-  background-color: #f77c7e;
-}
 
 /* post */
 
-@media (max-width: 1250px) {
-  .post {
-    grid-template-columns: auto auto;
-  }
-}
 .post {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: auto auto;
-  margin: 0 30px 0;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 2%;
+  margin: 0 0 0 3%;
+}
+.addPostIcon {
+  background-color: #fbca63;
+  padding: 10px 13px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  z-index: 1;
+}
+.addPostIcon:hover {
+  border: solid 2px;
 }
 .containerPost {
-  width: 80%;
-  height: 70%;
+  position: relative;
+  width: 27%;
+  min-width: 350px;
+  /* height: 60%;
+   */
   border: solid 3px;
   border-radius: 30px;
-  margin: 30px 0 0 0px;
   padding: 20px;
+  margin-top: 3%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.5s;
 }
 
@@ -157,7 +144,7 @@ button:hover {
 .profilePost .info {
   align-items: center;
 }
-.status p {
+.status {
   color: #f77c7e;
   font-weight: bold;
 }
@@ -201,8 +188,8 @@ button:hover {
   bottom: 0;
 }
 .boxEdit {
-  width: 800px;
-  height: 600px;
+  width: 40vw;
+  height: 60vh;
   border: solid 3px;
   border-radius: 60px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -224,7 +211,69 @@ input {
   border: solid 2px;
   border-radius: 10px;
   height: 50px;
-  width: 98%;
+  width: 95%;
   padding: 0 0 0 15px;
   margin: 10px 0 20px;
+}
+
+@media (max-width: 1200px) {
+  .left {
+    align-items: center;
+    margin: 20px;
+  }
+  .left img {
+    width: 80px;
+    height: 80px;
+  }
+  .left h1 {
+    font-size: 25px;
+  }
+  .left h2 {
+    font-size: medium;
+  }
+  .top button {
+    font-size: medium;
+  }
+  .option a {
+    font-size: 20px;
+  }
+  .post {
+    gap: 1%;
+  }
+  .containerEdit {
+    margin: 20px 0 0 5%;
+  }
+  .img1 {
+    width: 150px;
+    height: 150px;
+  }
+  .saveEdit {
+    margin-top: 2%;
+  }
+}
+@media (max-width: 1024px) {
+  .post {
+    justify-content: center;
+    margin: 0;
+  }
+}
+@media (max-width: 768px) {
+  .post {
+    margin-bottom: 60px;
+  }
+  .boxEdit {
+    height: 55vh;
+  }
+  input {
+    height: 40px;
+  }
+  .headerEdit {
+    font-size: 20px;
+  }
+  .addPostIcon {
+    bottom: 8%;
+  }
+  .addPostIcon img{
+    width: 30px;
+  }
 }

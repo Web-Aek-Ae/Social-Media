@@ -26,7 +26,11 @@ builder.Services.AddDbContext<SocialMediaContext>(options =>
 
 builder.Services.AddScoped<DatabaseService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<GroupService>();
+builder.Services.AddScoped<GroupmemberService>();
 builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<PostLikeService>();
+builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

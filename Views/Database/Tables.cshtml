@@ -1,5 +1,8 @@
 @model SocialMedia.ViewModels.TableViewModel
-
+@{
+    ViewData["Title"] = "Tables";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
 <h2>Database Tables</h2>
 
 @if (Model.TableNames.Any())

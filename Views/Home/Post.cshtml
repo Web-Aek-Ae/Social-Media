@@ -30,22 +30,15 @@
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
-                    <a id="applications-closed">
+                    <a class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
-                    <a id="delete-post">
+                    <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
                         <p>delete post</p>
                     </a>
                 </div>
-                <div id="applicationsClosed">
-                    <p>Are you sure to closed<br>applications for this activity?</p>
-                    <button id="btnClosed" onclick="">Application closed</button>
-                    <button id="btnCancel">Cancel</button>
-                </div>
-                <div class="modalBg"></div>
-                
             </div>
             <div class="post-detail">
                 <div class="post-header" style="margin-left:0rem;width:60rem;">
@@ -76,6 +69,19 @@
     </div>
 </div>
 
+<div class="popup">
+    <div id="applicationsClosed">
+        <p>Are you sure to close <br>the application for this activity?</p>
+        <button id="btnClosed" class="accept" onclick="">I'm sure!!!</button>
+        <button id="btnCC" class="cancel">Cancel</button>
+    </div>
+    <div id="delete">
+        <p>Are you sure to delete <br>this activity?</p>
+        <button id="btnDelete" class="accept" onclick="">Delete post</button>
+        <button id="btnCancle" class="cancel">Cancel</button>
+    </div>
+</div>
+<div class="modalBg"></div>
 <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -108,3 +114,5 @@ window.onclick = function(event) {
   }
 }
 </script>
+<script src="~/lib/ApplicationClosed.js"></script>
+<script src="~/lib/deletePost.js"></script>

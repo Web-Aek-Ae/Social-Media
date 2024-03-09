@@ -1,6 +1,5 @@
-const btnEl = document.getElementById("applications-closed");
-const btnCancle = document.getElementById("btnCancel");
-const btnClosed = document.getElementById("btnClosed");
+var btnEl = document.getElementsByClassName("applications-closed");
+var btnCancel = document.getElementById("btnCC");
 
 let state = 0; 
 function open() {
@@ -13,5 +12,5 @@ function close(){
     document.getElementsByClassName("modalBg")[0].style.visibility = "hidden"
 }
 
-btnEl.addEventListener('click', open);
-btnCancle.addEventListener('click', close)
+btnEl[0].addEventListener('click', open);
+btnCancel.addEventListener('click', close);

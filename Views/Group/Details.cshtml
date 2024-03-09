@@ -2,7 +2,7 @@
     ViewData["Title"] = "Group Page";
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
-
+@model List<SocialMedia.Models.Database.Group>
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
@@ -19,10 +19,10 @@
             </div>
         </div>
     </div>
+
+
 <div class="Group-details-header">
-        <a href="@Url.Action("index", "Group")">
-        <img src="@Url.Content("~/src/images/Backicon.svg")" class="back-recommend">
-    </a>
+        <a asp-action="Index" asp-controller="Group"><img src="~/src/images/Backicon.svg" class="back-recommend"></a>
         <h1>Party Gangster</h1>    
 </div>
 <div class="Group-details">

@@ -278,12 +278,13 @@ main {
 }
 
 .joined {
-  margin-right: 5px;
+  margin-right: 0.25rem;
 }
 .participantCount{
-  display: flex;
-  justify-items: center;
-  align-items: center;
+  display: block;
+  /* background-color: #F77C7E; */
+  /* justify-items: center;
+  align-items: center; */
 }
 
 .participantCount:hover {
@@ -306,4 +307,58 @@ main {
 
 .addPostIcon:hover {
     border: solid 2px;
+}
+
+.backIcon {
+    width: 44px;
+    margin: 30px 0px 0px 30px;
+}
+
+.explain-post{
+    transition: all 0.5s;
+    border: 2px solid #000000;
+    border-radius: 1.75rem;
+    width: 60rem;
+    margin-top: 2.5rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+    /* padding: 1.5rem; */
+}
+
+.post-detail {
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.topic p{
+    margin: 0 0 0 1rem;
+    font-size: 18px;
+    color: black;
+}
+
+.status-categories{
+    position: absolute;
+    width: 20rem;
+    right:3rem;
+    top:0.25rem;
+    font-size: 18px;
+}
+.status-activity {
+    position:absolute;
+    right:0;
+    display:flex;
+    gap: 0.5rem;
+}
+.status-activity .state{
+    color: #F77C7E;
+    font-weight: 600;
+}
+.slice {
+    width: 60rem;
+    margin-top: -1.5rem;
+    border-bottom: 2px solid #000000;
+}
+.comment{
+    margin: -0.5rem 1.5rem 1.5rem 1.5rem;
 }

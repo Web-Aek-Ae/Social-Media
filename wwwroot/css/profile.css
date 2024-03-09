@@ -42,7 +42,7 @@ button {
   font-size: 30px;
   font-weight: 600;
 }
-button:hover {
+button:not(#btnCancel):not(#Upload):hover {
   transition: 0.3s;
   background-color: #f77c7e;
 }
@@ -100,8 +100,6 @@ button:hover {
   position: relative;
   width: 27%;
   min-width: 350px;
-  /* height: 60%;
-   */
   border: solid 3px;
   border-radius: 30px;
   padding: 20px;
@@ -150,6 +148,49 @@ button:hover {
 }
 
 /* edit profile */
+#modalImgBg {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+}
+#modalImg {
+  visibility: hidden;
+  text-align: center;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  padding: 20px;
+  background-color: white;
+  border: solid 2px;
+  border-radius: 30px;
+  z-index: 7;
+}
+#modalImg img {
+  position: absolute;
+  left: 3%;
+  top: 8%;
+  cursor: pointer;
+}
+#modalImg label {
+  font-size: 25px;
+}
+#modalImg input {
+  position: relative;
+  height: 40px;
+}
+#modalImg #Upload {
+  font-size: 20px;
+}
+#Upload:hover {
+  background-color: #f77c7e;
+}
+
 .headerEdit {
   display: flex;
   font-size: 24px;
@@ -179,6 +220,7 @@ button:hover {
   position: relative;
 }
 .imgEdit {
+  cursor: pointer;
   background-color: #fbca63;
   height: 31px;
   padding: 10px;
@@ -186,6 +228,10 @@ button:hover {
   position: absolute;
   right: 0;
   bottom: 0;
+}
+.imgEdit:hover {
+  background-color: #f77c7e;
+  transition: 0.3s;
 }
 .boxEdit {
   width: 40vw;
@@ -273,7 +319,7 @@ input {
   .addPostIcon {
     bottom: 8%;
   }
-  .addPostIcon img{
+  .addPostIcon img {
     width: 30px;
   }
 }

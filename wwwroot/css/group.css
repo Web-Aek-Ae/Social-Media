@@ -360,7 +360,7 @@ button:hover {
 }
 
 .create-post-button:hover {
-    border: solid 3px;
+    border: solid 3px black;
     
 }
 

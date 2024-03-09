@@ -20,8 +20,6 @@ namespace SocialMedia.Models.Database
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<PostGroup> PostGroups { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

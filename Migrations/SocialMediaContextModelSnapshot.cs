@@ -58,9 +58,6 @@ namespace Social_Media.Migrations
                     b.Property<int?>("ParentCommentId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PostGroupPostId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("PostId")
                         .HasColumnType("integer");
 
@@ -70,8 +67,6 @@ namespace Social_Media.Migrations
                     b.HasKey("CommentId");
 
                     b.HasIndex("ParentCommentId");
-
-                    b.HasIndex("PostGroupPostId");
 
                     b.HasIndex("PostId");
 
@@ -183,6 +178,9 @@ namespace Social_Media.Migrations
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
@@ -208,60 +206,11 @@ namespace Social_Media.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("SocialMedia.Models.Database.PostGroup", b =>
-                {
-                    b.Property<int>("PostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PostId"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<int>("MaxPeople")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PostId");
-
                     b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PostGroups");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("SocialMedia.Models.Database.PostLike", b =>
@@ -278,12 +227,7 @@ namespace Social_Media.Migrations
                     b.Property<DateTime>("LikedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("PostGroupPostId")
-                        .HasColumnType("integer");
-
                     b.HasKey("UserId", "PostId");
-
-                    b.HasIndex("PostGroupPostId");
 
                     b.HasIndex("PostId");
 
@@ -328,10 +272,6 @@ namespace Social_Media.Migrations
                         .WithMany("ChildComments")
                         .HasForeignKey("ParentCommentId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("SocialMedia.Models.Database.PostGroup", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("PostGroupPostId");
 
                     b.HasOne("SocialMedia.Models.Database.Post", "Post")
                         .WithMany("Comments")
@@ -409,6 +349,10 @@ namespace Social_Media.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SocialMedia.Models.Database.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("SocialMedia.Models.Database.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -417,23 +361,6 @@ namespace Social_Media.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SocialMedia.Models.Database.PostGroup", b =>
-                {
-                    b.HasOne("SocialMedia.Models.Database.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SocialMedia.Models.Database.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Group");
 
                     b.Navigation("User");
@@ -441,10 +368,6 @@ namespace Social_Media.Migrations
 
             modelBuilder.Entity("SocialMedia.Models.Database.PostLike", b =>
                 {
-                    b.HasOne("SocialMedia.Models.Database.PostGroup", null)
-                        .WithMany("PostLikes")
-                        .HasForeignKey("PostGroupPostId");
-
                     b.HasOne("SocialMedia.Models.Database.Post", "Post")
                         .WithMany("PostLikes")
                         .HasForeignKey("PostId")
@@ -477,13 +400,6 @@ namespace Social_Media.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("JoinActivities");
-
-                    b.Navigation("PostLikes");
-                });
-
-            modelBuilder.Entity("SocialMedia.Models.Database.PostGroup", b =>
-                {
-                    b.Navigation("Comments");
 
                     b.Navigation("PostLikes");
                 });

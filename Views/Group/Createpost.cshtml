@@ -14,7 +14,8 @@
     </a>
     <div class="box">
         <div class="title">
-            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg" class="profile">
+            <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                class="profile">
             <input asp-for="Title" placeholder="Event Name" class="name">
         </div>
 
@@ -24,7 +25,7 @@
         <div class="details">
             <!-- Category selection -->
             <div class="boxinput">
-                <img src="~/src/images/CategoriesIcon.svg">
+                <img src="@Url.Content("~/src/images/CategoriesIcon.svg")">
                 <div class="item">
                     <label for="SelectedCategoryId">Category:</label>
                     <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
@@ -33,14 +34,14 @@
             </div>
 
             <div class="boxinput">
-                <img src="~/src/images/Dateicon.svg">
+                <img src="@Url.Content("~/src/images/Dateicon.svg")">
                 <div class="item">
                     <label for="Date">Date :</label>
                     <input asp-for="Date" placeholder="Pick a date..." type="date" class="input">
                 </div>
 
             </div>
-            <div class="boxinput"><img src="~/src/images/Locationicon.svg">
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Locationicon.svg")">
                 <div class="item">
                     <label for="Location">Location :</label>
                     <input asp-for="Location" placeholder="Location" class="input">
@@ -67,7 +68,7 @@
                 </div>
 
             </div>
-            <div class="boxinput"><img src="~/src/images/Peopleicon.svg">
+            <div class="boxinput"><img src="/src/images/Peopleicon.svg">
                 <div class="item">
                     <label for="MaxPeople">Max People :</label>
                     <input asp-for="MaxPeople" placeholder="Max people" type="number" class="input">
@@ -107,14 +108,14 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Post/CreatePost", // Modify with your correct URL
+                    url: '@Url.Action("CreatePost", "Post")', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function (response) {
                         if (response.success) {
                             alert("Post created successfully.");
                             // Optionally, redirect or clear form here
-                            window.location.href = "/Home/Index"; // Adjust controller and action names as necessary
+                            window.location.href = '@Url.Action("Index", "Home")'; // Adjust controller and action names as necessary
                         } else {
                             alert("Failed to create post: " + response.message);
                         }

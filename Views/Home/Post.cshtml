@@ -24,10 +24,22 @@
     <div class="container-post" style="margin-top:-1rem;">
         <div class="explain-post">
             <div class="threedots">
-                <button class="dropdownBtn">
-                    <!-- <img src="~/src/images/Threedots.svg" style="border-radius:50%;"> -->
-                </button>
-            </div>   
+                <button onclick="dropdown()" class="dropdownBtn"></button>
+                <div class="dropdown-content">
+                    <a href="">
+                        <img src="~/src/images/EditIcon.svg">
+                        <p>edit</p>
+                    </a>
+                    <a href="">
+                        <img src="~/src/images/applicationClosed.svg">
+                        <p>applications closed</p>
+                    </a>
+                    <a href="">
+                        <img src="~/src/images/binIcon.svg">
+                        <p>delete post</p>
+                    </a>
+                </div>
+            </div>
             <div class="post-detail">
                 <div class="post-header" style="margin-left:0rem;width:60rem;">
                     <div class="date">
@@ -56,3 +68,36 @@
         </div>
     </div>
 </div>
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function dropdown() {
+//   document.getElementById("myDropdown").classList.toggle("show");
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        openDropdown.classList.toggle('show');
+        dropdownBtn[i].classList.toggle('focus');
+    }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdownBtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+    //   console.log(dropdowns[i])
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        dropdownBtn[i].classList.remove('focus');
+      }
+    }
+  }
+}
+</script>

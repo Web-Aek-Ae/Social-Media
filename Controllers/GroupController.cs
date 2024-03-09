@@ -71,10 +71,6 @@ namespace SocialMedia.Controllers
             var postgroup = _postgroupService.GetAllPostsGroup();
             return View(postgroup);
         }
-        public IActionResult Createpost(){
-            return View();
-        }
-
         
         [HttpPost]
         [Authorize]

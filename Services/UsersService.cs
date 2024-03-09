@@ -37,9 +37,21 @@ namespace SocialMedia.Services
             return false; // Or communicate the user was not found
         }
 
-        public User GetUserById(int id)
+
+        public async Task<bool> UpdateUser(User user)
         {
-            return _context.Users.FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+            if (user != null)
+            {
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                return true; // Or use TempData or another way to communicate success
+            }
+            return false; // Or communicate the user was not found
+        }
+
+        public async Task<User> GetUserById(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
 
         public async Task<User> AuthenticateUser(string username, string password)
@@ -71,5 +83,7 @@ namespace SocialMedia.Services
             return true;
         }
         // More methods for update, delete, etc.
+
+
     }
 }

@@ -105,6 +105,8 @@ namespace Social_Media.Migrations
 
                     b.HasKey("GroupId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Groups");
                 });
 
@@ -176,6 +178,9 @@ namespace Social_Media.Migrations
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
@@ -200,6 +205,8 @@ namespace Social_Media.Migrations
                     b.HasKey("PostId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
@@ -285,6 +292,17 @@ namespace Social_Media.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SocialMedia.Models.Database.Group", b =>
+                {
+                    b.HasOne("SocialMedia.Models.Database.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SocialMedia.Models.Database.GroupMember", b =>
                 {
                     b.HasOne("SocialMedia.Models.Database.Group", "Group")
@@ -331,6 +349,10 @@ namespace Social_Media.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SocialMedia.Models.Database.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("SocialMedia.Models.Database.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -338,6 +360,8 @@ namespace Social_Media.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });

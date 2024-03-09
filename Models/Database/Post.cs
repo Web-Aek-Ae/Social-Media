@@ -12,8 +12,20 @@ namespace SocialMedia.Models.Database
         [ForeignKey("User")] // Specifies UserId as a foreign key referencing the User entity
         public int UserId { get; set; }
         
+        [ForeignKey("Category")] // Specifies UserId as a foreign key referencing the User entity
+        public int CategoryId { get; set; }
+
+        [ForeignKey("Group")] // Specifies UserId as a foreign key referencing the User entity
+        public int? GroupId { get; set; }
+
+
+        public virtual Group Group { get; set; }
+
+        public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<PostLike> PostLikes { get; set; }
+
+        public virtual ICollection<JoinActivity> JoinActivities { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 
@@ -43,7 +55,8 @@ namespace SocialMedia.Models.Database
         [DataType(DataType.DateTime)]
         [Display(Name = "Expire Date")]
         public DateTime ExpireDate { get; set; }
+        
 
-        // Additional properties or methods can be added here
+
     }
 }

@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Group Page";
+    Layout = "~/Views/Shared/_LayoutGroup.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
+</head>
+<div class="group-element">
+    <div class="header">
+        <div class="search">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search" id="search-input">
+            </div>
+            <div class="filter-bar">
+                <i class="fa-solid fa-angle-down"></i>
+                <input type="text" placeholder="Filter" id="filter-input">
+            </div>
+        </div>
+    </div>
+
+
+<div class="Group-details-header">
+        <a asp-action="Index" asp-controller="Group"><img src="~/src/images/Backicon.svg" class="back-recommend"></a>
+        <h1>Party Gangster</h1>    
+</div>
+<div class="Group-details">
+    <p id="description"> เป็นกลุ่มที่เราจะนัดเฮฮาสังสรรค์กันทุก ๆ วันที่ขึ้นต้นด้วยตัว t today tomorrow
+                    อะหยอกเล่น #ศุกร์เสาร์เหงาได้ไง ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับอ้วน
+                    อะว่าแล้วก็ปายยยยย</p>
+</div>
+ <div class="addPostIcon">
+            <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
+</div>
+<div class= "events">
+    <h2>Upcoming events</h2>
+    <div class="container-post">
+            <div class="post">
+            <div class="card-post">
+                <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
+                    id="activity">
+                <div class="content">
+                    <div class="post-header">
+                        <div class="date">
+                            <h3 id="month">FEB</h3>
+                            <h3 id="day">26</h3>
+                            <h3 id="year">2024</h3>
+                        </div>
+                        <div class="topic">
+                            <h1>เตะบอลกันครับพี่ๆ</h1>
+                            <p>18:00 - 20:00, KMITL</p>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>เตะบอลวันอังคารที่ 27 ตอนเย็นที่สนามมอครับ ใครสนใจก็มาร่วมด้ายยย ค่าสนามชั่วโมงละ 1500 บาท เราเล่น 2 ชั่วโมงตกคนละ 200 บาทครับบ มีเพื่อนชวนเพื่อนมาได้โล้ดดด</p>
+                        <div class="owner">
+                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                alt="" id="owner-profile">
+                            <span>Boom Za</span>
+                        </div>
+                        <div class="action">
+                            <button id="btn">join activity</button>
+                            <script src="~/lib/button.js"></script>
+                            <div class="likes">
+                                <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" id="like">
+                                <span>15</span>
+                            </div>
+                            <div class="participant">
+                                <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon">
+                                <span>8/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

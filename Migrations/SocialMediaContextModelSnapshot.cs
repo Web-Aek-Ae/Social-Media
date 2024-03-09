@@ -22,6 +22,24 @@ namespace Social_Media.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("SocialMedia.Models.Database.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("categories", (string)null);
+                });
+
             modelBuilder.Entity("SocialMedia.Models.Database.Comment", b =>
                 {
                     b.Property<int>("CommentId")
@@ -73,12 +91,21 @@ namespace Social_Media.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("GroupId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Groups");
                 });
@@ -104,6 +131,32 @@ namespace Social_Media.Migrations
                     b.ToTable("GroupMembers");
                 });
 
+            modelBuilder.Entity("SocialMedia.Models.Database.JoinActivity", b =>
+                {
+                    b.Property<int>("JoinActivityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JoinActivityId"));
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("JoinActivityId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("JoinActivities");
+                });
+
             modelBuilder.Entity("SocialMedia.Models.Database.Post", b =>
                 {
                     b.Property<int>("PostId")
@@ -111,6 +164,9 @@ namespace Social_Media.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PostId"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -121,6 +177,9 @@ namespace Social_Media.Migrations
 
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Image")
                         .HasColumnType("text");
@@ -144,6 +203,10 @@ namespace Social_Media.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
@@ -229,6 +292,17 @@ namespace Social_Media.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SocialMedia.Models.Database.Group", b =>
+                {
+                    b.HasOne("SocialMedia.Models.Database.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SocialMedia.Models.Database.GroupMember", b =>
                 {
                     b.HasOne("SocialMedia.Models.Database.Group", "Group")
@@ -248,13 +322,46 @@ namespace Social_Media.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SocialMedia.Models.Database.JoinActivity", b =>
+                {
+                    b.HasOne("SocialMedia.Models.Database.Post", "Post")
+                        .WithMany("JoinActivities")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialMedia.Models.Database.User", "User")
+                        .WithMany("JoinActivities")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SocialMedia.Models.Database.Post", b =>
                 {
+                    b.HasOne("SocialMedia.Models.Database.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialMedia.Models.Database.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
                     b.HasOne("SocialMedia.Models.Database.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
@@ -292,6 +399,8 @@ namespace Social_Media.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("JoinActivities");
+
                     b.Navigation("PostLikes");
                 });
 
@@ -300,6 +409,8 @@ namespace Social_Media.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("GroupMembers");
+
+                    b.Navigation("JoinActivities");
 
                     b.Navigation("PostLikes");
 

@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SocialMedia.Controllers
 {
     public class PostController : Controller
-    {
+    {   
+        private readonly CategoryService _categoryService;
         private readonly PostService _postService;
         private readonly ILogger<PostController> _logger;
 
-        public PostController(PostService postService, ILogger<PostController> logger)
+        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService)
         {
             _postService = postService;
             _logger = logger;
+            _categoryService = categoryService;
         }
         public IActionResult Index()
         {
@@ -26,13 +29,36 @@ namespace SocialMedia.Controllers
 
         public IActionResult Create()
         {
+            var model = new PostViewModel
+            {
+                Title = "", // Add the missing Title property
+                Content = "", // Add the missing Content property
+                Categories = _categoryService.GetAllCategories().Select(c => new SelectListItem
+                {
+                    Value = c.CategoryId.ToString(),
+                    Text = c.Name
+                }).ToList(),
+                Date = DateTime.Now,
+                ExpireDate = DateTime.Now,
+                Time = DateTime.Now.ToString("HH:mm"),
+                MaxPeople = 1,
+                Location = "Bangkok",
+
+                
+            };
+
+            if(model.Categories.Count == 0)
+            {
+                throw new Exception("No categories found.");
+            }
+
             var username = HttpContext.User.Identity?.Name;
 
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-            return View();
+            return View(model);
         }
 
         [HttpPost("CreatePost")]
@@ -50,7 +76,7 @@ namespace SocialMedia.Controllers
             {
                 return Json(new { success = false, message = "User ID is invalid." });
             }
-            if (! DateTime.TryParse("2000-01-01 " + model.Time, out DateTime fullDateTime))
+            if (!DateTime.TryParse("2000-01-01 " + model.Time, out DateTime fullDateTime))
             {
                 return Json(new { success = false, message = "Invalid time format." });
             }
@@ -64,6 +90,7 @@ namespace SocialMedia.Controllers
                         Title = model.Title,
                         Content = model.Content,
                         Location = model.Location,
+                        CategoryId = model.SelectedCategoryId,
                         Time = fullDateTime,
                         Image = model.Image,
                         MaxPeople = model.MaxPeople,

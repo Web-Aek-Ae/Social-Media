@@ -16,13 +16,12 @@ namespace SocialMedia.Controllers
         private readonly GroupService _groupService;
 
         private readonly GroupmemberService _groupmemberService;
-        private readonly PostGroupService _postgroupService;
 
-        public GroupController(GroupService groupService ,GroupmemberService groupmemberService, PostGroupService postGroupService)
+        public GroupController(GroupService groupService ,GroupmemberService groupmemberService)
         {
             _groupService = groupService;
             _groupmemberService = groupmemberService;
-            _postgroupService = postGroupService;
+
         }
         public IActionResult Index()
         {
@@ -59,18 +58,18 @@ namespace SocialMedia.Controllers
             return View(groupspost);
         }
         
-        public IActionResult Details(int id){
-            Console.WriteLine(id);
-            var username = HttpContext.User.Identity?.Name;
-            // Alternatively, if the username is stored in a specific claim type
-            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            // Use the username for your application logic...
-            ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+        // public IActionResult Details(int id){
+        //     Console.WriteLine(id);
+        //     var username = HttpContext.User.Identity?.Name;
+        //     // Alternatively, if the username is stored in a specific claim type
+        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //     // Use the username for your application logic...
+        //     ViewData["UserId"] = UserId;
+        //     ViewData["Username"] = username;
 
-            var postgroup = _postgroupService.GetAllPostsGroup();
-            return View(postgroup);
-        }
+        //     var postgroup = _postgroupService.GetAllPostsGroup();
+        //     return View(postgroup);
+        // }
 
         
         [HttpPost]

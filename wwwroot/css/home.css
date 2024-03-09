@@ -331,6 +331,7 @@ main {
 }
 .dropdownBtn{
     border-radius: 100%;
+    cursor: pointer;
     height: 1.7rem;
     width: 1.7rem;
     background-image: url('../src/images/Threedots.svg');

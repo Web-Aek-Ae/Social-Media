@@ -87,6 +87,7 @@ namespace SocialMedia.Controllers
                     var post = new Post
                     {
                         UserId = userIdAsInt,
+                        GroupId = model.GroupId,
                         Title = model.Title,
                         Content = model.Content,
                         Location = model.Location,

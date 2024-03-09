@@ -28,7 +28,7 @@ namespace SocialMedia.Services
         
         public List<Post> GetPostsByGroupId(int id)
         {
-            return _context.Posts.Where(p => p.GroupId == id).Include(p => p.Group).Include(p => p.User).Include(p => p.PostLikes).Include(p => p.JoinActivities).ToList();
+            return _context.Posts.Include(p => p.Group).Include(p => p.User).Include(p => p.PostLikes).Include(p => p.JoinActivities).Where(p => p.GroupId == id).ToList();
         }
         public async Task<bool> MakePost(Post post)
         {

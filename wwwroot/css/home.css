@@ -278,12 +278,13 @@ main {
 }
 
 .joined {
-  margin-right: 5px;
+  margin-right: 0.25rem;
 }
 .participantCount{
-  display: flex;
-  justify-items: center;
-  align-items: center;
+  display: block;
+  /* background-color: #F77C7E; */
+  /* justify-items: center;
+  align-items: center; */
 }
 
 .participantCount:hover {

@@ -38,9 +38,9 @@ namespace SocialMedia.Services
             return false; // Or communicate the user was not found
         }
 
-        public   User GetUserById(int id)
+        public User GetUserById(int id)
         {
-            return _context.Users.Include(u => u.Posts).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+            return _context.Users.FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
 
         public async Task<User> AuthenticateUser(string username, string password)

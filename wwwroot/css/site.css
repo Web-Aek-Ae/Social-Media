@@ -132,6 +132,11 @@ ul .line {
   height: 60px;
 }
 
+.allprofile p {
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0px;
+}
 .group-of-button {
   display: flex;
   align-items: center;

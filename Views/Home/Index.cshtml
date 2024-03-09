@@ -26,7 +26,6 @@
     <div class="container-post">
         @foreach (var post in Model)
         {
-
                 <div class="post">
                     <div class="card-post">
                         <img src="@post.Image" alt="activity" class="activity">
@@ -63,12 +62,12 @@
                                         <button data-postid="@post.PostId" class="like-button">
                                         @if (post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
                                         {
-                                                    <img src="@Url.Content("~/src/images/LikedIcon.svg")" class="icon" >
+                                                    <img src="~/src/images/LikedIcon.svg" class="icon" >
 
                                         }
                                         else
                                         {
-                                                    <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
+                                                    <img src="~/src/images/LikeIcon.svg" class="icon" >
                                         }
 
                                         </button>

@@ -108,6 +108,8 @@ namespace SocialMedia.Controllers
             }
             return Ok(model.Groupname);
         }
+
+        
         
         [HttpPost]
         [Authorize]

@@ -18,6 +18,12 @@ namespace SocialMedia.Services
             _context = context;
 
         }
+
+        public async Task<bool> AddPostGroup(PostGroup postGroup){
+            _context.PostGroups.Add(postGroup);
+            await _context.SaveChangesAsync();
+            return true;
+        }
         
         public List<PostGroup> GetAllPostsGroup()
         {

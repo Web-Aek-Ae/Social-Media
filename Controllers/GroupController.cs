@@ -62,6 +62,10 @@ namespace SocialMedia.Controllers
             ViewData["Username"] = username;
             return View();
         }
+        public IActionResult Createpost(){
+            return View();
+        }
+
 
 
         

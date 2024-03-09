@@ -1,6 +1,11 @@
 @{
     ViewData["Title"] = "Group Page";
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
+    @using System.Security.Claims
+    var filteredGroups = Model.Where(group =>
+    group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ?
+    userId : 0))
+    ).Take(3);
 }
 @model List<SocialMedia.Models.Database.Group>
 
@@ -99,24 +104,36 @@
         </div>
     </div>
 
+    @foreach (var group in Model)
+    {
+    
+        @if (group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
+       userId) ? userId : 0)))
+        {
+            var firstThreeGroups = Model;
+        }
+    }
     <div class="Recomended-Group">
         <h2>Recomended Groups</h2>
 
         <div class="Recomended-Group-post">
-            <div class="card-Recomended-Group">
-                <img src="https://www.brandbuffet.in.th/wp-content/uploads/2021/08/Penguin-Eat-Shabu-6.jpg" alt="">
-                <div class="contents">
-                    <div class="contents-header">
-                        <h3>Shabu Shabu</h3>
-                        <div onclick="openmembers()" id="amountofmembers">
-                            <i class="fa-regular fa-user"></i>
-                            <span>18</span>
+            @foreach (var group in filteredGroups)
+            {
+                <div class="card-Recomended-Group">
+                    <img src="@group.Image" alt="Recomended-Group-Image">
+                    <div class="contents">
+                        <div class="contents-header">
+                            <h3>@group.Name</h3>
+                            <div onclick="openmembers()" id="amountofmembers">
+                                <i class="fa-regular fa-user"></i>
+                                <span>@group.Members.Count</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="Recomended-Group-poster">
-                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                            alt="" id="group-poster-img">
-                        <span>Chommsrya_</span>
+                        <div class="Recomended-Group-poster">
+                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                alt="" id="group-poster-img">
+                            <span>@group.User.Name</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,43 +191,46 @@
                 </div>
             </div>
             
+            }
             <a asp-action="Recommend" asp-controller="Group">see all</a>
         </div>
     </div>
     <div class="container-group">
-        @foreach (var groupspost in Model)
+        @foreach (var group in Model)
         {
-            <div class="group">
-                <div class="card-group">
-                    <h1 id="section">@groupspost.Name</h1>
-                    <p id="section-content"> @groupspost.Description</p>
-                    <div class="activity-image">
-                        <img src="@groupspost.Image" alt="activity" id="activity1">
-                        <div class="test1">
-                            <img src="https://www.wee-interior.com/wp-content/uploads/2019/02/bar_interior4.jpg"
-                                alt="activity" id="activity2">
-                            <img src="https://miwservices.com/wp-content/uploads/2019/05/9rmjue0ix5r9c0k4.jpg"
-                                alt="activity" id="activity3">
+            @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
+           userId) ? userId : 0)))
+            {
+                <div class="group">
+                    <div class="card-group">
+                        <h1 id="section">@group.Name</h1>
+                        <p id="section-content">@group.Description</p>
+                        <div class="activity-image">
+                            <img src="@group.Image" alt="activity" id="activity1">
                         </div>
-                    </div>
-                    <div class="test2">
-                        <div class="group-poster">
-                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                alt="" id="group-poster-img">
-                            <span>Chommsrya_</span>
-                        </div>
+                        <div class="test2">
+                            <div class="group-poster">
+                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                    alt="" id="group-poster-img">
+                                <span>@group.User.Name</span>
+                            </div>
 
-                        <div class="group-of-button">
-                            <i class="fa-regular fa-user"></i>
-                            <span>18</span>
-                            <a asp-action="Details" asp-controller="Group"><button id="group-button">view group</button></a>
+                            <div class="group-of-button">
+                                <i class="fa-regular fa-user"></i>
+                                <span>@group.Members.Count</span>
+                                <a asp-action="Details" asp-controller="Group"><button class="group-button">view group</button></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+
         }
+
+
     </div>
 </div>
+
 
 
 <script src="~/lib/testfile.js"></script>

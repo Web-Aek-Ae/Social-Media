@@ -23,6 +23,8 @@ namespace SocialMedia.Models.Database
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public virtual User User { get; set; }
+
         // Navigation property for the group's members
         public virtual ICollection<GroupMember> Members { get; set; }
         

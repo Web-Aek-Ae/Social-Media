@@ -88,26 +88,17 @@
 .activity-image {
   display: flex;
   width: 100%;
-  height: fit-content;
+  height: 300px;
+  
 }
 .test1 {
   margin-left: 5px;
 }
 #activity1 {
-  width: 350px;
-  height: 275px;
+  width: 100%;
   object-fit: cover;
 }
-#activity2 {
-  width: 284px;
-  height: 135px;
-  object-fit: cover;
-}
-#activity3 {
-  width: 284px;
-  height: 135px;
-  object-fit: cover;
-}
+
 
 .test2 {
   margin-top: 15px;
@@ -117,18 +108,20 @@
   gap: 10px;
 }
 
-#group-button {
+.group-button {
+  color: black;
   font-size: 16px;
   font-weight: medium;
   width: 130px;
   height: 34px;
   border-radius: 27px;
-  background-color: #fbca63;
+  border: 2px solid black;
+  background-color: white;
 }
 
-#group-button:hover {
-  background-color: #f77c7e;
-  color: #ffff;
+.group-button:hover {
+  background-color: #fbca63;
+  color: black;
   transition: 0.3s;
 }
 
@@ -411,7 +404,7 @@ button:hover {
   margin-right: 42px;
   height: fit-content;
 }
-#group-rec-button {
+.group-rec-button {
   font-size: 16px;
   font-weight: medium;
   width: 146px;

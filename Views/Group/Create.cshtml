@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
 <div>
-    <a href="@Url.Action("index", "Group")">
+    <a asp-action="index" asp-controller="Group">
         <img src="~/src/images/Backicon.svg" class="back">
     </a>
     <div class="box">
@@ -37,26 +37,23 @@
                     Description: $('textarea[name="Description"]').val(),
                     Image:$('input[name="Image"]').val()  
                 };
-
                 // Basic validation example
                 if (!formData.Groupname || !formData.Description || !formData.Image) {
                     alert("Groupname,Description and Image are required.");
                     return; // Exit the function to prevent sending the request
                 }
-                console.log(Groupname);
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("CreateGroup", "Group")', // Modify with your correct URL
+                    url: '/Group/CreateGroup', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function(response) {
-                        console.log(response);
                         if(response.success) {
-                            alert("Post created successfully.");
+                            alert("Group created successfully.");
                             // Optionally, redirect or clear form here
                             window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
                         } else {
-                            alert("Failed to create post: " + response.message);
+                            alert("Failed to create Group: " + response.message);
                         }
                     },
                     error: function(error) {

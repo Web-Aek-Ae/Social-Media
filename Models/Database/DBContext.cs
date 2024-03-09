@@ -12,7 +12,7 @@ namespace SocialMedia.Models.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
-        
+
         public DbSet<JoinActivity> JoinActivities { get; set; }
         public DbSet<Category> Categories { get; set; }
 
@@ -20,11 +20,12 @@ namespace SocialMedia.Models.Database
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<PostGroup> PostGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<Category>().ToTable("categories"); // Or whatever the actual table name is
 
             // Configuring the relationship between Posts and Users
@@ -78,7 +79,7 @@ namespace SocialMedia.Models.Database
             // Configuring the many-to-many relationship between Users and Groups through GroupMembers
             modelBuilder.Entity<GroupMember>()
                 .HasKey(gm => new { gm.UserId, gm.GroupId }); // Composite key
-        
+
 
             modelBuilder.Entity<GroupMember>()
                 .HasOne<User>(gm => gm.User)

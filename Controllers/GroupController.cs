@@ -58,18 +58,17 @@ namespace SocialMedia.Controllers
             return View(groupspost);
         }
         
-        // public IActionResult Details(int id){
-        //     Console.WriteLine(id);
-        //     var username = HttpContext.User.Identity?.Name;
-        //     // Alternatively, if the username is stored in a specific claim type
-        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        //     // Use the username for your application logic...
-        //     ViewData["UserId"] = UserId;
-        //     ViewData["Username"] = username;
+        public IActionResult Details(int id){
+            Console.WriteLine(id);
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            // Use the username for your application logic...
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
 
-        //     var postgroup = _postgroupService.GetAllPostsGroup();
-        //     return View(postgroup);
-        // }
+            return View();
+        }
 
         
         [HttpPost]

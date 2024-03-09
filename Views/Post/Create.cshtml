@@ -13,12 +13,16 @@
         <img src="~/src/images/Backicon.svg" class="back">
     </a>
     <div class="box">
-        <div class="title">
-            <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                class="profile">
-            <input asp-for="Title" placeholder="Event Name" class="name">
-        </div>
-
+        <div class="title-header">
+            <div class="title">
+                <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                    class="profile">
+                    <input asp-for="Title" placeholder="Event Name" class="name">
+            </div>
+                <div class="group-name">
+            <h3>groupname</h3>
+        </div></div>
+        
         <textarea asp-for="Content" placeholder="description..."></textarea>
 
         <h1>Details</h1>

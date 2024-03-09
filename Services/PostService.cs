@@ -22,7 +22,13 @@ namespace SocialMedia.Services
         .Include(p => p.User)
         .Include(p => p.PostLikes) // Include PostLikes
         .Include(p => p.JoinActivities) // Include JoinActivities
+        .Include(p => p.Group)
         .ToList();
+        }
+        
+        public List<Post> GetPostsByGroupId(int id)
+        {
+            return _context.Posts.Where(p => p.GroupId == id).Include(p => p.Group).Include(p => p.User).Include(p => p.PostLikes).Include(p => p.JoinActivities).ToList();
         }
         public async Task<bool> MakePost(Post post)
         {

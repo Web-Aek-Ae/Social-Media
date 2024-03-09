@@ -143,15 +143,15 @@
 </div>
 @section scripts {
     <script>
-        function viewgrouponclick() {
-            window.location.href = '@Url.Action("Details", "Group")';
+        function viewgrouponclick(groupId) {
+            window.location.href = '@Url.Action("Details", "Group")' + '/' + groupId;
         }
     </script>
     <script>
         $(document).ready(function () {
             $("button.group-rec-button").click(function () {
                 event.preventDefault();
-                var button = $(this)
+                var button = $(this);
                 var groupId = button.attr("GroupId");
 
                 $.ajax({
@@ -160,11 +160,13 @@
                     data: {},
                     success: function (data) {
                         if (data.success) {
-                            button.addClass("group-button");
-                            button.removeClass("group-rec-button");
+                            button.text("View group")
+                            .addClass("group-button")
+                            .removeClass("group-rec-button")
+                            .attr("onclick", "viewgrouponclick(" + groupId + ")");
                         }
                         else {
-                            alert("Failed to Join Group: " + response.message);
+                            alert("Failed to Join Group: " + data.message);
                         }
                     },
                     error: function () {

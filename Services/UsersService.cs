@@ -18,6 +18,7 @@ namespace SocialMedia.Services
         {
             _context = context;
             _passwordHasher = passwordHasher;
+
         }
 
         public List<User> GetAllUsers()
@@ -82,8 +83,6 @@ namespace SocialMedia.Services
             await _context.SaveChangesAsync();
             return true;
         }
-        // More methods for update, delete, etc.
-
 
     }
 }

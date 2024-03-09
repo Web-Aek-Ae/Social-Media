@@ -13,17 +13,17 @@ namespace SocialMedia.Models.Database
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
 
+        public DbSet<JoinActivity> JoinActivities { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<Category>().ToTable("categories"); // Or whatever the actual table name is
 
             // Configuring the relationship between Posts and Users
@@ -31,6 +31,12 @@ namespace SocialMedia.Models.Database
                 .HasOne<User>(p => p.User)
                 .WithMany(u => u.Posts)
                 .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Or use .Restrict based on your business rules
+
+            modelBuilder.Entity<JoinActivity>()
+                .HasOne<User>(ja => ja.User)
+                .WithMany(u => u.JoinActivities)
+                .HasForeignKey(ja => ja.UserId)
                 .OnDelete(DeleteBehavior.Cascade); // Or use .Restrict based on your business rules
 
             // Configuring the User-Comment relationship
@@ -71,7 +77,7 @@ namespace SocialMedia.Models.Database
             // Configuring the many-to-many relationship between Users and Groups through GroupMembers
             modelBuilder.Entity<GroupMember>()
                 .HasKey(gm => new { gm.UserId, gm.GroupId }); // Composite key
-        
+
 
             modelBuilder.Entity<GroupMember>()
                 .HasOne<User>(gm => gm.User)

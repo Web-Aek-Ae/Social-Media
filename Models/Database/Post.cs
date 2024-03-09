@@ -15,9 +15,17 @@ namespace SocialMedia.Models.Database
         [ForeignKey("Category")] // Specifies UserId as a foreign key referencing the User entity
         public int CategoryId { get; set; }
 
+        [ForeignKey("Group")] // Specifies UserId as a foreign key referencing the User entity
+        public int? GroupId { get; set; }
+
+
+        public virtual Group Group { get; set; }
+
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<PostLike> PostLikes { get; set; }
+
+        public virtual ICollection<JoinActivity> JoinActivities { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

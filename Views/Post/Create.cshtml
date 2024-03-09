@@ -10,7 +10,7 @@
 </head>
 <div>
     <a asp-action="Post" asp-controller="Profile">
-        <img src="@Url.Content("~/src/images/Backicon.svg")" class="back">
+        <img src="~/src/images/Backicon.svg" class="back">
     </a>
     <div class="box">
         <div class="title">
@@ -25,6 +25,7 @@
         <div class="details">
             <!-- Category selection -->
             <div class="boxinput">
+                <img src="@Url.Content("~/src/images/CategoriesIcon.svg")">
                 <div class="item">
                     <label for="SelectedCategoryId">Category:</label>
                     <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
@@ -47,27 +48,27 @@
                 </div>
 
             </div>
-            <div class="boxinput"><img src="@Url.Content("~/src/images/Timeicon.svg")">
+            <div class="boxinput"><img src="~/src/images/Timeicon.svg">
                 <div class="item">
                     <label for="Time">Time :</label>
                     <input asp-for="Time" placeholder="What time ?" type="time" class="input">
                 </div>
             </div>
-            <div class="boxinput"><img src="@Url.Content("~/src/images/Expireicon.svg")">
+            <div class="boxinput"><img src="~/src/images/Expireicon.svg">
                 <div class="item">
                     <label for="ExpireDate">Expire Date :</label>
                     <input asp-for="ExpireDate" placeholder="Expire date" type="date" class="input">
                 </div>
 
             </div>
-            <div class="boxinput"><img src="@Url.Content("~/src/images/Imgicon.svg")">
+            <div class="boxinput"><img src="~/src/images/Imgicon.svg">
                 <div class="item">
                     <label for="Image">Image :</label>
                     <input asp-for="Image" placeholder="Add some photos" class="input">
                 </div>
 
             </div>
-            <div class="boxinput"><img src="@Url.Content("~/src/images/Peopleicon.svg")">
+            <div class="boxinput"><img src="/src/images/Peopleicon.svg">
                 <div class="item">
                     <label for="MaxPeople">Max People :</label>
                     <input asp-for="MaxPeople" placeholder="Max people" type="number" class="input">

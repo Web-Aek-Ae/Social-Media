@@ -138,20 +138,39 @@
   object-fit: cover;
 }
 .Recomended-Group {
-  padding-left: 30px;
-  border-bottom: 2px solid rgb(211, 207, 207);
   height: 360px;
+}
+.Recomended-Group h2 {
+    padding-left: 30px;
 }
 .Recomended-Group-post a{
   text-decoration: none;
 }
 .Recomended-Group-post {
+  padding: 0px 30px 0px 30px;
+  height: 310px;
   display: flex;
   align-items: center;
   gap: 50px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.Recomended-Group-post::-webkit-scrollbar{
+    width: 3px;
+    height: 3px;
+    background-color: rgb(211, 207, 207);
+}
+.Recomended-Group-post::-webkit-scrollbar-thumb{
+    background-color: rgb(185, 183, 183);
+}
+.Recomended-Group-post::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(94, 93, 93);
+}
+.Recomended-Group-post a:hover{
+    text-decoration: underline
 }
 .card-Recomended-Group {
-  width: 318px;
+  min-width: 320px;
   height: 266px;
   border: 2px solid;
   border-radius: 30px;
@@ -200,6 +219,9 @@
   border-radius: 42px;
   z-index: 10;
 }
+.group-members::-webkit-scrollbar {
+    display: none;
+}
 .pop-up-background {
   position: fixed;
   width: 100%;
@@ -207,6 +229,16 @@
   opacity: 10%;
   overflow-y: hidden;
 }
+.popup-backdrop {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: 9; /* Ensure backdrop appears beneath modal */
+  }
 .group-members {
   height: 400px;
   display: flex;
@@ -313,20 +345,23 @@ button {
   font-size: 30px;
   font-weight: 600;
 }
-button:hover {
+button:not(#btnCancel):hover  {
   transition: 0.3s;
   background-color: #f77c7e;
 }
 
 .create-post-button {
-  position: fixed;
-  bottom: 50px;
-  right: 400px;
-  z-index: 9999;
+    background-color: #fbca63;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 3%;
+    right: 22%;
+    z-index: 1;
 }
 
-.create-post-button button:hover {
-  outline: black solid 3px;
+.create-post-button:hover {
+    border: solid 3px black;
+    
 }
 
 /* recommend group */
@@ -386,6 +421,19 @@ button:hover {
 }
 
 /* detaills */
+.addPostIcon {
+    background-color: #fbca63;
+    padding: 10px 13px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 3%;
+    right: 22%;
+    z-index: 1;
+  }
+  .addPostIcon:hover {
+    border: solid 2px;
+  }
+
 .Group-details-header {
   font-size: 20px;
   font-weight: 600;

@@ -20,11 +20,14 @@ namespace SocialMedia.Models.Database
         [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
         public required string Name { get; set; }
 
+
+        [ForeignKey("Username")]
         [Required(ErrorMessage = "Username is required")]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Username must be between 4 and 50 characters")]
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must be alphanumeric")]
         public required string Username { get; set; }
 
+        [ForeignKey("Email")]
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         [StringLength(255, ErrorMessage = "Email cannot exceed 255 characters")]

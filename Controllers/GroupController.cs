@@ -69,10 +69,14 @@ namespace SocialMedia.Controllers
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-            
             var posts = _postService.GetPostsByGroupId(id);
+            var group = _groupService.GetGroupById(id);
+            var detailsmodel = new DetailsModels{
+                Posts = posts,
+                Group = group
+            };
            
-            return View(posts);
+            return View(detailsmodel);
         }
 
         

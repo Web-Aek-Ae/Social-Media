@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using SocialMedia.Models.Database; 
 
 namespace SocialMedia.ViewModels
 {
@@ -98,6 +98,13 @@ namespace SocialMedia.ViewModels
   {
     public int PostId { get; set; }
   }
+
+  public class DetailsModels
+  {
+    public List<Post>? Posts { get; set; }
+    public Group? Group { get; set; }
+  }
+  
   
 
 }

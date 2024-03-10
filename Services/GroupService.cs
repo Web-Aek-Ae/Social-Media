@@ -33,6 +33,12 @@ namespace SocialMedia.Services
         {
             return _context.Groups.Include(g => g.Members).Include(g => g.User).ToList();
         }
+
+        public Group? GetGroupById(int id)
+        {
+            return _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
+        }
+        
         public async Task<bool> AddGroup(Group group)
         {
             var newGroup = _context.Groups.Add(group).Entity;

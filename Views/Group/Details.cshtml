@@ -2,7 +2,7 @@
     ViewData["Title"] = "Group Page";
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
-@model IEnumerable<SocialMedia.Models.Database.Post>
+@model SocialMedia.ViewModels.DetailsModels
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
 </head>
@@ -23,24 +23,21 @@
 
 <div class="Group-details-header">
         <a asp-action="Index" asp-controller="Group"><img src="~/src/images/Backicon.svg" class="back-recommend"></a>
-        <h1>Party Gangster</h1>    
+        <h1>@Model.Group.Name</h1>    
 </div>
 <div class="Group-details">
-    <p id="description"> เป็นกลุ่มที่เราจะนัดเฮฮาสังสรรค์กันทุก ๆ วันที่ขึ้นต้นด้วยตัว t today tomorrow
-                    อะหยอกเล่น #ศุกร์เสาร์เหงาได้ไง ชวนดูคอนชวนดื่มหรือชวนอย่างอื่นก็ว่ากันหลังไมค์นะงับอ้วน
-                    อะว่าแล้วก็ปายยยยย</p>
+    <p id="description">@Model.Group.Description</p>
 </div>
  <div class="addPostIcon">
-            <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
+            <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
 </div>
 <div class= "events">
     <h2>Upcoming events</h2>
     <div class="container-post">
-        @foreach(var post in Model){
+        @foreach(var post in Model.Posts){
         <div class="post">
             <div class="card-post">
-                <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
-                    id="activity">
+                <img src="" alt="activity" id="activity">
                 <div class="content">
                     <div class="post-header">
                         <div class="date">
@@ -56,7 +53,7 @@
                     <div class="description">
                         <p>@post.Content</p>
                         <div class="owner">
-                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                            <img src=""
                                 alt="" id="owner-profile">
                             <span>@post.User.Name</span>
                         </div>
@@ -124,3 +121,94 @@
     </div>
 </div>
 </div>
+@section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.like-button').click(function () {
+                        var button = $(this); // The clicked button
+                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                        $.ajax({
+                            url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
+                            type: 'POST',
+                            data: { postId: postId }, // Send the post ID as data
+                            success: function (result) {
+
+                                console.log(result)
+                                button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
+                                button.siblings('span').text(result.likeCount);
+                                console.log("Post liked successfully");
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle errors
+                                console.log("Error liking post: " + error);
+                            }
+                        });
+                    });
+
+
+                    $('.join-button').click(function () {
+                        var button = $(this); // The clicked button
+                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                        $.ajax({
+                            url: '@Url.Action("JoinActivity", "JoinActivity")', // The URL to the JoinPost action
+                            type: 'POST',
+                            data: { postId: postId }, // Send the post ID as data
+                            success: function (result) {
+                                console.log(result);
+                                if (result.joined ) {
+                                    button.text('joined');
+                                    button.removeClass('join-button');
+                                    button.addClass('joined-button');
+                                    console.log("Post joined successfully");
+
+                                }
+                                else {
+                                    button.text('join activity');
+                                    button.removeClass('joined-button');
+                                    button.addClass('join-button');
+                                    console.log("Post unjoined successfully");
+                                }
+                                button.parent().find('.joined').text(result.joinActivitiesCount);
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle errors
+                                console.log("Error joining post: " + error);
+                            }
+                        });
+                    });
+
+                    $('.joined-button').click(function () {
+                        var button = $(this); // The clicked button
+                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                        $.ajax({
+                            url: '@Url.Action("JoinActivity", "JoinActivity")', // The URL to the JoinPost action
+                            type: 'POST',
+                            data: { postId: postId }, // Send the post ID as data
+                            success: function (result) {
+                                console.log(result);
+                                if (result.joined ) {
+                                    button.text('joined');
+                                    button.removeClass('join-button');
+                                    button.addClass('joined-button');
+                                    console.log("Post joined successfully");
+                                }
+                                else {
+                                    button.text('join activity');
+                                    button.removeClass('joined-button');
+                                    button.addClass('join-button');
+                                    console.log("Post unjoined successfully");
+                                }
+                                button.parent().find('.joined').text(result.joinActivitiesCount);
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle errors
+                                console.log("Error joining post: " + error);
+                            }
+                        });
+                    });
+
+                });
+
+
+            </script>
+    }

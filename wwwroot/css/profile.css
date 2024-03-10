@@ -218,6 +218,7 @@ button:not(#btnCancel):not(#Upload):hover {
   height: 200px;
   border-radius: 50%;
   position: relative;
+  object-fit: cover;
 }
 .imgEdit {
   cursor: pointer;
@@ -292,6 +293,7 @@ input {
   .img1 {
     width: 150px;
     height: 150px;
+    object-fit: cover;
   }
   .saveEdit {
     margin-top: 2%;

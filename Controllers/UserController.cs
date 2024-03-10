@@ -209,7 +209,7 @@ namespace SocialMedia.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditImage (EditImageViewModel model)
+        public async Task<IActionResult> EditImage ([FromBody] EditImageViewModel model)
         {
            if (!ModelState.IsValid)
             {

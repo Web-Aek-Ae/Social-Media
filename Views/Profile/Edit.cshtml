@@ -77,7 +77,7 @@
                     return; // Exit the function to prevent sending the request
                 }
                 console.log(formData); // Log the form data to the
-                @* console.
+                
 
                 $.ajax({
                     type: "POST",
@@ -86,12 +86,13 @@
                     data: JSON.stringify(formData),
                     success: function (response) {
                         alert("Image uploaded successfully.");
+                        window.location.href = '@Url.Action("Post", "Profile")'; // Modify as needed
                     },
                     error: function (error) {
                         console.log(error);
                         alert("There was an error processing your request.");
                     }
-                }); *@
+                }); 
             });
         });
     </script>

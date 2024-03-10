@@ -1,6 +1,6 @@
 @model SocialMedia.ViewModels.UserViewModel
 @{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "Profile page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
@@ -14,8 +14,8 @@
             <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                 alt="proflie">
             <div>
-                <h1>ppookkiesbubu</h1>
-                <h2>&commat;monkey_jeik</h2>
+                <h1>@ViewData["Username"]</h1>
+                <h2>&commat;@ViewData["Username"]</h2>
             </div>
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>

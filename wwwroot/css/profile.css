@@ -16,6 +16,7 @@
   height: 150px;
   width: 150px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .left h1 {
   font-size: 44px;

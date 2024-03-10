@@ -97,4 +97,27 @@ namespace SocialMedia.ViewModels
     public int PostId { get; set; }
   }
 
+  public class EditProfileViewModel
+  {
+    [Required(ErrorMessage = "Name is required")]
+    public required string Name { get; set; }
+
+    [Required(ErrorMessage = "Username is required")]
+    public required string Username { get; set; }
+
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    public required string Email { get; set; }
+
+    public string? Image { get; set; }
+  }
+
+  public class EditImageViewModel
+{
+    [Required]
+    [Url]
+    public string Image { get; set; }
+}
+
+
 }

@@ -16,6 +16,7 @@
   height: 150px;
   width: 150px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .left h1 {
   font-size: 44px;
@@ -218,6 +219,7 @@ button:not(#btnCancel):not(#Upload):hover {
   height: 200px;
   border-radius: 50%;
   position: relative;
+  object-fit: cover;
 }
 .imgEdit {
   cursor: pointer;
@@ -235,7 +237,7 @@ button:not(#btnCancel):not(#Upload):hover {
 }
 .boxEdit {
   width: 40vw;
-  height: 60vh;
+  /* height: 30vh; */
   border: solid 3px;
   border-radius: 60px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -292,6 +294,7 @@ input {
   .img1 {
     width: 150px;
     height: 150px;
+    object-fit: cover;
   }
   .saveEdit {
     margin-top: 2%;
@@ -307,9 +310,9 @@ input {
   .post {
     margin-bottom: 60px;
   }
-  .boxEdit {
+  /* .boxEdit {
     height: 55vh;
-  }
+  } */
   input {
     height: 40px;
   }

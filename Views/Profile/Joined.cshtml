@@ -34,39 +34,39 @@
     </div>
     <div class="post">
 
-        @foreach (var post in Model.JoinActivities)
+        @foreach (var activity in Model.JoinActivities)
         {
 
             <div class="containerPost">
-                <h1>@post.Post.Title</h1>
+                <h1>@activity.Post.Title</h1>
                 <div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
-                        <p>@post.Post.Date.ToString("MMM").ToUpper()<span> @post.Post.Date.Day</span><span>,
-                                @post.Post.Date.Year</span>
+                        <p>@activity.Post.Date.ToString("MMM").ToUpper()<span> @activity.Post.Date.Day</span><span>,
+                                @activity.Post.Date.Year</span>
                         </p>
                     </div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
-                        <p>@post.Post.Time.ToString("HH:mm"), @post.Post.Location</p>
+                        <p>@activity.Post.Time.ToString("HH:mm"), @post.Post.Location</p>
                     </div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
                         <p>
-                            @post.Post.JoinActivities.Count
-                            <span>/ @post.Post.MaxPeople</span>
+                            @activity.Post.JoinActivities.Count
+                            <span>/ @activity.Post.MaxPeople</span>
                         </p>
                     </div>
                     <div class="profilePost">
                         <div class="info">
                             <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                                 alt="proflie" class="imgProfile">
-                            <p>@post.Post.User.Name</p>
+                            <p>@activity.User.Name</p>
                         </div>
                         <div class="status">
-                            @if (@DateTime.Now < @post.Post.ExpireDate)
+                            @if (@DateTime.Now < @activity.Post.ExpireDate)
                             {
-                                <p>Start in<span>@(post.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                                <p>Start in<span>@(activity.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
                             }
                             else
                             {

@@ -37,7 +37,7 @@
     <h2>Upcoming events</h2>
     <div class="container-post">
         @foreach(var post in Model){
-            <div class="post">
+        <div class="post">
             <div class="card-post">
                 <img src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg" alt="activity"
                     id="activity">
@@ -60,7 +60,7 @@
                                 alt="" id="owner-profile">
                             <span>@post.User.Name</span>
                         </div>
-                        @* <div class="action">
+                        <div class="action">
                                 @using System.Security.Claims
                                 @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
                                 {
@@ -114,7 +114,7 @@
                                         </div>
 
                                     </div>
-                                </div> *@
+                                </div>
                     </div>
                 </div>
             </div>

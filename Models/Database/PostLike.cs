@@ -23,6 +23,8 @@ namespace SocialMedia.Models.Database
         [ForeignKey("PostId")]
         public virtual Post Post { get; set; }
 
+        
+
        
     }
 }

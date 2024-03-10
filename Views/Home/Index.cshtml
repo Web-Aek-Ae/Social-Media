@@ -75,11 +75,19 @@
                                         <span class="likeCount">@post.PostLikes.Count
                                             <div class="dropdownLike">
 
-                                                @foreach (var like in post.PostLikes)
+                                                @foreach (var like in post.PostLikes.ToList())
                                                 {
                                                     <div class="member">
                                                         <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                        <h5>@like.User.Name</h5>
+                                                        @if (like.User != null)
+                                                            {
+                                                                <h5>@like.User.Name</h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5>User not found.</h5>
+                                                            }
+
                                                     </div>
                                                 }
                                                 

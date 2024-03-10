@@ -20,10 +20,24 @@ namespace SocialMedia.Services
 
         public async Task<object> ToggleActivity(int postId, string userId)
         {
+
             var postActivity = _context.JoinActivities.FirstOrDefault(pl => pl.PostId == postId && pl.UserId == int.Parse(userId));
+            var post = _context.Posts.Include(p => p.JoinActivities).FirstOrDefault(p => p.PostId == postId);
+
+            if (post == null)
+            {
+                return new { success = false, message = "Post not found" };
+            }
+
+
 
             if (postActivity == null)
             {
+
+                if (post.JoinActivities.Count == post.MaxPeople)
+                {
+                    return new { success = false, message = "Post is full" };
+                }
                 // Add like
                 var joinActivity = new JoinActivity
                 {

@@ -12,8 +12,8 @@ using SocialMedia.Models.Database;
 namespace Social_Media.Migrations
 {
     [DbContext(typeof(SocialMediaContext))]
-    [Migration("20240309161829_production_v2")]
-    partial class production_v2
+    [Migration("20240310192550_AddImageToUser")]
+    partial class AddImageToUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -249,6 +249,9 @@ namespace Social_Media.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

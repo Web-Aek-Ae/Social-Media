@@ -235,7 +235,7 @@ button:not(#btnCancel):not(#Upload):hover {
 }
 .boxEdit {
   width: 40vw;
-  height: 60vh;
+  /* height: 30vh; */
   border: solid 3px;
   border-radius: 60px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -307,9 +307,9 @@ input {
   .post {
     margin-bottom: 60px;
   }
-  .boxEdit {
+  /* .boxEdit {
     height: 55vh;
-  }
+  } */
   input {
     height: 40px;
   }

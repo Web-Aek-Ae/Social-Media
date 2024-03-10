@@ -4,25 +4,16 @@ using SocialMedia.Services;
 using SocialMedia.ViewModels; // Namespace where TableViewModel is located
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
-<<<<<<< HEAD
-=======
 using System.Security.Claims;
->>>>>>> origin/main
 using SocialMedia.Models.Database;
 
 namespace SocialMedia.Controllers
 {
 
     public class ProfileController : Controller
-<<<<<<< HEAD
-    {
-        private readonly UserService _userService;
-
-=======
     {   
         
         private readonly UserService _userService;
->>>>>>> origin/main
         public ProfileController(UserService userService)
         {
             _userService = userService;
@@ -64,8 +55,16 @@ namespace SocialMedia.Controllers
 
         public IActionResult Edit()
         {
-            return View();
 
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+            return View(user);
         }
        
         // GET: Profile/EditProfile

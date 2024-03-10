@@ -1,4 +1,4 @@
-const btnUp = document.getElementById("Upload");
+// const btnUp = document.getElementById("Upload");
 const btnCC = document.getElementById("Cancel");
 const btnShow = document.getElementById("Edit");
 
@@ -13,6 +13,6 @@ function closeLogout(){
     document.getElementById("modalImg").style.visibility = "hidden"
 }
 
-btnUp.addEventListener('click', closeLogout);
+// btnUp.addEventListener('click', closeLogout);
 btnCC.addEventListener('click', closeLogout);
 btnShow.addEventListener('click', openLogout);

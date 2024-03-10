@@ -1,6 +1,6 @@
-@model SocialMedia.ViewModels.UserViewModel
+@model SocialMedia.Models.Database.User
 @{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "Edit Profile Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
@@ -10,8 +10,8 @@
 
 <body>
     <div class="headerEdit">
-        <a href='@Url.Action("post", "Profile")'">
-            <img src=" @Url.Content("~/src/images/Backicon.svg")">
+        <a asp-action="Post" asp-controller="Profile">
+            <img src="~/src/images/Backicon.svg">
         </a>
         <h1>Edit profile</h1>
     </div>
@@ -19,23 +19,23 @@
     <div class="containerEdit">
         <div id="modalImgBg"></div>
         <div id="modalImg">
-            <img src=" @Url.Content("~/src/images/Cancleicon.svg")" id="Cancel">
+            <img src="~/src/images/Cancleicon.svg" id="Cancel">
             <label>add your image</label>
             <input type="text" asp-for='Image' />
             <button id="Upload">upload</button>
         </div>
         <div class="all-img"><img
-                src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                src="@Model.Image"
                 alt="proflie" class="img1">
             <a class="imgEdit" id="Edit">
-                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
+                <img src="~/src/images/AddPhotoIcon.svg" class="img2">
             </a>
         </div>
 
 
         <div class="boxEdit">
-            <form asp-action="Register" asp-controller="User" method="post">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <form asp-action="Edit" asp-controller="User" method="Post" enctype="multipart/form-data">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="Form">
 
                     <label>full name</label>
@@ -48,19 +48,58 @@
 
 
                     <label>email</label>
-                    <input type="text" asp-for='Email' />
+                    <input type="email" asp-for='Email' />
                     <span asp-validation-for='Email' class='invalid'></span>
 
+<<<<<<< HEAD
                     <label>Password</label>
                     <input type="text" asp-for='Password' />
                     <span asp-validation-for='Email' class='invalid'></span>
 
+=======
+                </div>
+                <div class="saveEdit">
+                    <button type="submit">save</button>
+>>>>>>> origin/main
                 </div>
             </form>
         </div>
     </div>
-    <div class="saveEdit">
-        <button type="submit" onclick="window.location.href='@Url.Action("post", "Profile")'">save</button>
-    </div>
+
     <script src="~/lib/addImg.js"></script>
 </body>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Upload").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = {
+                    Image: $('input[name="Image"]').val()
+                };
+
+                // Basic validation example
+                if (!formData.Image ) {
+                    alert("Fill in all required fields.");
+                    return; // Exit the function to prevent sending the request
+                }
+                console.log(formData); // Log the form data to the
+                @* console.
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EditImage", "User")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        alert("Image uploaded successfully.");
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                }); *@
+            });
+        });
+    </script>
+}

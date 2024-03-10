@@ -41,20 +41,37 @@ namespace SocialMedia.Services
 
         public async Task<bool> UpdateUser(User user)
         {
-            if (user != null)
-            {
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                return true; // Or use TempData or another way to communicate success
-            }
-            return false; // Or communicate the user was not found
-        }
+        try
+        {
+            var existingUser = await _context.Users.FindAsync(user.UserId);
 
+            if (existingUser == null)
+            {
+                return false; // ไม่พบผู้ใช้ที่ต้องการอัปเดต
+            }
+
+            // อัปเดตข้อมูลผู้ใช้
+            existingUser.Name = user.Name;
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password;
+
+            await _context.SaveChangesAsync();
+
+            return true; // อัปเดตข้อมูลผู้ใช้สำเร็จ
+        }
+        catch (Exception)
+        {
+            // การอัปเดตข้อมูลผู้ใช้ล้มเหลว
+            return false;
+        }
+    }
         public async Task<User> GetUserById(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
 
+        
         public async Task<User> AuthenticateUser(string username, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);

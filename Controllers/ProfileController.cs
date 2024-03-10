@@ -25,6 +25,11 @@ namespace SocialMedia.Controllers
 
         public IActionResult Post()
         {
+            var username = HttpContext.User.Identity?.Name;
+            var name = HttpContext.User.Identity?.Name;
+            ViewData["Username"] = username;
+            ViewData["Name"] = name;
+        
             return View();
         }
 
@@ -58,30 +63,41 @@ namespace SocialMedia.Controllers
             return View(userProfile);
         }
 
-       // POST: Profile/EditProfile
+        // POST: Profile/EditProfile
         [HttpPost]
-        public async Task<IActionResult> EditProfile(int userId, [Bind("UserId,Name,Username,Email,Password")] User userProfile)
+        public async Task<ActionResult> EditProfile(ProfileViewModel model)
         {
-        if (userId != userProfile.UserId)
-        {
-            return NotFound();
-        }
+            Console.WriteLine("Edit Profile");
+            Console.WriteLine(model.Username);
+            Console.WriteLine(model.Name);
+            Console.WriteLine(model.Email);
+            Console.WriteLine(model.Password);
 
-        if (ModelState.IsValid)
-        {
-            
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             try
             {
-                await _userService.UpdateUser(userProfile);
+                var user = new User
+                {
+                    Username = model.Username,
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = model.Password // This should be hashed inside AddUser
+                };
+
+                var result = await _userService.UpdateUser(user);
             }
             catch (ArgumentException ex)
             {
-                return NotFound(ex);
+                // Log the exception or set model state error
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
-            //return RedirectToAction(nameof(Index));
+
+            return View(model);
         }
-        return View(userProfile);
-    }
     } 
     
 }

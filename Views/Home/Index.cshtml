@@ -127,7 +127,7 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-
+                                
                                 console.log(result)
                                 button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
                                 button.siblings('span').text(result.likeCount);
@@ -149,7 +149,8 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-                                console.log(result);
+
+                                if (result.success){
                                 if (result.joined ) {
                                     button.text('joined');
                                     button.removeClass('join-button');
@@ -164,6 +165,9 @@
                                     console.log("Post unjoined successfully");
                                 }
                                 button.parent().find('.joined').text(result.joinActivitiesCount);
+
+                                }
+                                console.log(result);
                             },
                             error: function (xhr, status, error) {
                                 // Handle errors
@@ -180,12 +184,13 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-                                console.log(result);
+                                 if (result.success){
                                 if (result.joined ) {
                                     button.text('joined');
                                     button.removeClass('join-button');
                                     button.addClass('joined-button');
                                     console.log("Post joined successfully");
+
                                 }
                                 else {
                                     button.text('join activity');
@@ -194,6 +199,9 @@
                                     console.log("Post unjoined successfully");
                                 }
                                 button.parent().find('.joined').text(result.joinActivitiesCount);
+
+                                }
+                                console.log(result);
                             },
                             error: function (xhr, status, error) {
                                 // Handle errors

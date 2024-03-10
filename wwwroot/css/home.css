@@ -337,7 +337,7 @@ main {
     cursor: pointer;
     height: 1.7rem;
     width: 1.7rem;
-    background-image: url('../src/images/Threedots.svg');
+    background-image: url('../src/images/dots.svg');
     background-size:cover;
     border: none;
 }
@@ -372,6 +372,7 @@ main {
     text-decoration: none;
     display: flex;
     gap: 1rem;
+    cursor: pointer;
 }
 
 .dropdown-content p {
@@ -427,4 +428,79 @@ main {
 }
 .comment{
     margin: -0.5rem 1.5rem 1.5rem 1.5rem;
+}
+.modalBg {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+#applicationsClosed {
+    visibility: hidden;
+    text-align: center;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 30rem;
+    height: 19rem;
+    background-color: white;
+    border: solid 2px;
+    border-radius: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+#delete {
+    visibility: hidden;
+    text-align: center;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 30rem;
+    height: 19rem;
+    background-color: white;
+    border: solid 2px;
+    border-radius: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.popup p{
+    font-size: 26px;
+    margin:1.75rem 0 0 0;
+}
+.accept{
+    font-size: 20px;
+    font-weight: 600;
+    width: 15rem;
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: #fbca63;
+    border: 0;
+}
+.accept:hover{
+    background-color: #F77C7E;
+    color:#FFFFFF;
+    transition: 0.3s;
+}
+.cancel{
+    font-size: 20px;
+    font-weight: 600;
+    width: 15rem;
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: #d6d6d6;
+    border: 0;
+}
+.cancel:hover{
+    background-color: white;
+    border: 2px solid black;
 }

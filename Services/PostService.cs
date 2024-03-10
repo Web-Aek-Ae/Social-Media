@@ -15,14 +15,17 @@ namespace SocialMedia.Services
             _context = context;
 
         }
-        
+
         public List<Post> GetAllPosts()
         {
             return _context.Posts
-        .Include(p => p.User)
-        .Include(p => p.PostLikes) // Include PostLikes
-        .Include(p => p.JoinActivities) // Include JoinActivities
-        .ToList();
+       .Include(p => p.User)
+       .Include(p => p.PostLikes).ThenInclude(pl => pl.User) // Include the User of each PostLike
+       .Include(p => p.JoinActivities)
+       .Include(p => p.Comments).ThenInclude(c => c.User) // Include Comments and their Users
+       .Include(p => p.Category) // Include Category
+       .Include(p => p.Group) // Include Group
+       .ToList();
         }
         public async Task<bool> MakePost(Post post)
         {

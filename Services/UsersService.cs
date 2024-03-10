@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SocialMedia.ViewModels;
 
 
 
@@ -68,6 +69,22 @@ namespace SocialMedia.Services
             // Hash the password and add the user
             user.Password = _passwordHasher.HashPassword(user, user.Password);
             _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateUser(EditProfileViewModel user  , int userId)
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null)
+            {
+               return false;
+            }
+
+            existingUser.Name = user.Name;
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+
             await _context.SaveChangesAsync();
             return true;
         }

@@ -37,13 +37,29 @@ namespace SocialMedia.Controllers
         }
 
         public IActionResult Joined()
-        {
-            return View();
+         {
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+            return View(user);
         }
 
         public IActionResult Likes()
-        {
-            return View();
+         {
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+            return View(user);
         }
 
         public IActionResult Edit()

@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "Post Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
@@ -16,7 +16,7 @@
                 alt="proflie">
             <div>
                 <h1>@Model.Name</h1>
-                <h2>&commat;monkey_jeik</h2>
+                <h2>&commat;@Model.Username</h2>
             </div>
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>

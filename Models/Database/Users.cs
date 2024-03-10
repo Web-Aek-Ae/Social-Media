@@ -36,5 +36,7 @@ namespace SocialMedia.Models.Database
         // Do not add MaxLength for password because it will be hashed
         public required string Password { get; set; }
 
+        public  string? Image { get; set; } = "https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg" ;// Consider validating the image URL or path if applicable
+
     }
 }

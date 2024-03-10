@@ -208,5 +208,31 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditImage (EditImageViewModel model)
+        {
+           if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var result =   await _userService.UpdateImage(model, int.Parse(UserId));
+            
+            if (result)
+            {
+                return RedirectToAction("Post", "Profile");
+            }
+
+
+            return View(model);
+        }
+
     }
 }

@@ -112,4 +112,10 @@ namespace SocialMedia.ViewModels
     public string? Image { get; set; }
   }
 
+  public class EditImageViewModel
+  {
+    [Required(ErrorMessage = "Image is required")]
+    public required string Image { get; set; }
+  }
+
 }

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Social_Media.Migrations
 {
     /// <inheritdoc />
-    public partial class production_v2 : Migration
+    public partial class production : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

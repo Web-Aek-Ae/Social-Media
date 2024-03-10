@@ -37,7 +37,7 @@
         @foreach(var post in Model.Posts){
         <div class="post">
             <div class="card-post">
-                <img src="" alt="activity" id="activity">
+                <img src="@post.Image" alt="activity" id="activity">
                 <div class="content">
                     <div class="post-header">
                         <div class="date">
@@ -53,8 +53,7 @@
                     <div class="description">
                         <p>@post.Content</p>
                         <div class="owner">
-                            <img src=""
-                                alt="" id="owner-profile">
+                            <img src="" alt="" id="owner-profile">
                             <span>@post.User.Name</span>
                         </div>
                         <div class="action">

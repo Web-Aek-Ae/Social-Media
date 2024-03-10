@@ -4,6 +4,7 @@
 }
 
 @model SocialMedia.Models.Database.User
+@* @model IEnumerable<SocialMedia.Models.Database.User> *@
 
 <head>
     <link rel="stylesheet" href="~/css/profile.css" />
@@ -43,24 +44,37 @@
                 <div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
-                        <p>@post.Date</p>
+                        <p>@post.Date.ToString("MMM").ToUpper()<span> @post.Date.Day</span><span>, @post.Date.Year</span>
+                        </p>
                     </div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
-                        <p>21:00 - 23:59, KMITL</p>
+                        <p>@post.Time.ToString("HH:mm"), @post.Location</p>
                     </div>
                     <div class="info">
                         <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
-                        <p>8/10</p>
+                        <p>
+                            @post.JoinActivities.Count
+                            <span>/ @post.MaxPeople</span>
+                        </p>
                     </div>
                     <div class="profilePost">
                         <div class="info">
                             <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                                 alt="proflie" class="imgProfile">
-                            <p>ppookkiesbubu</p>
+                            <p>@post.User.Name</p>
                         </div>
                         <div class="status">
-                            <p>Status: open</p>
+                            <p>Status:
+                                @if (@DateTime.Now < @post.ExpireDate)
+                                {
+                                    <span>Open</span>
+                                }
+                                else
+                                {
+                                    <span>ended</span>
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>

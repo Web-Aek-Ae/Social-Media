@@ -41,7 +41,7 @@ namespace SocialMedia.Services
 
         public User GetUserById(int id)
         {
-            return _context.Users.Include(u => u.Posts).Include(u => u.JoinActivities).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+            return _context.Users.Include(u => u.Posts).Include(u => u.JoinActivities).ThenInclude(ja=>ja.Post).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
 
         public async Task<User> AuthenticateUser(string username, string password)

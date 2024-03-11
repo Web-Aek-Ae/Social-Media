@@ -16,24 +16,21 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    @foreach(var group in Model){
-     @using System.Security.Claims
-     @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))){
-        <div class="group-members">
-            <div class="members">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                    alt="imagemembers" id="group-poster-img">
-                <span>@group.User.Name</span>
+    @foreach(var group in Model)
+    {
+        if (group.Members.Any(m => m.GroupId == group.GroupId))
+        {
+            <div class="group-members">
+                <div class="members">
+                    <img src="@group.User.Image" alt="imagemembers" id="group-poster-img">
+                    <span>@group.User.Name</span>
+                </div>
             </div>
-        
-        </div>
         }
     }
-
 </div>
      
-    
-</div>
+
 <div class="group-element">
     <div class="header">
         <div class="search">

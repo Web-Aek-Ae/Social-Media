@@ -20,74 +20,18 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    <div class="group-members">
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-
-    </div>
+    @foreach(var group in Model)
+    {
+        if (group.Members.Any(m => m.GroupId == group.GroupId))
+        {
+            <div class="group-members">
+                <div class="members">
+                    <img src="@group.User.Image" alt="imagemembers" id="group-poster-img">
+                    <span>@group.User.Name</span>
+                </div>
+            </div>
+        }
+    }
 </div>
 <div class="popup-backdrop"></div>
 <div class="group-element">

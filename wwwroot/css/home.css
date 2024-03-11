@@ -261,7 +261,6 @@ main {
 .participant {
     display: flex;
     align-items: center;
-    /* gap: 0.5rem; */
 }
 
 .dropdownParticipant {
@@ -279,9 +278,6 @@ main {
 }
 .participantCount{
   display: block;
-  /* background-color: #F77C7E; */
-  /* justify-items: center;
-  align-items: center; */
 }
 
 .participantCount:hover {

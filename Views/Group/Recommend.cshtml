@@ -16,74 +16,23 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    <div class="group-members">
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
+    @foreach(var group in Model){
+     @using System.Security.Claims
+     @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))){
+        <div class="group-members">
+            <div class="members">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
+                    alt="imagemembers" id="group-poster-img">
+                <span>@group.User.Name</span>
+            </div>
+        
         </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
+        }
+    }
 
-    </div>
+</div>
+     
+    
 </div>
 <div class="group-element">
     <div class="header">
@@ -122,7 +71,7 @@
                         </div>
                         <div class="test2">
                             <div class="group-poster">
-                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                <img src="@group.User.Image"
                                     alt="" id="group-poster-img">
                                 <span>@group.User.Name</span>
                             </div>

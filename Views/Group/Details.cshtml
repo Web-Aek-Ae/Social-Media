@@ -35,7 +35,9 @@
             } 
     </div>
     <div class="addPostIcon">
-                <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
+        @if (Model.Group != null){
+                <a asp-action="Create" asp-controller="Post" asp-route-id="@Model.Group.GroupId"><img src="~/src/images/AddPostIcon.svg"></a>
+        }
     </div>
     <div class= "events">
         <h2>Upcoming events</h2>

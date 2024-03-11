@@ -217,9 +217,6 @@ main {
     gap: 0.5rem;
 }
 
-/* .likes a{
-    width: 2rem;
-} */
 .likeCount {
     width: 2rem;
     border: none;

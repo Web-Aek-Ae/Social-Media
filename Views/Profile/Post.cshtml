@@ -13,11 +13,10 @@
 <body>
     <div class="top">
         <div class="left">
-            <img src="@Model.Image"
-                alt="proflie">
+            <img src="@Model.Image" alt="proflie">
             <div>
                 <h1>@Model.Name</h1>
-                <h2>&commat;monkey_jeik</h2>
+                <h2>&commat;@Model.Username</h2>
             </div>
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
@@ -54,13 +53,21 @@
                     <div class="info">
                         <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
                         <p>
-                            @post.JoinActivities.Count
+                            @if (@post.JoinActivities != null)
+                            {
+
+                                @post.JoinActivities
+                            }
+                            else
+                            {
+                                <span>0</span>
+                            }
                             <span>/ @post.MaxPeople</span>
                         </p>
                     </div>
                     <div class="profilePost">
                         <div class="info">
-                            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                            <img src="@post.User.Image"
                                 alt="proflie" class="imgProfile">
                             <p>@post.User.Name</p>
                         </div>

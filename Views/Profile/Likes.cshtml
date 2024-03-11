@@ -11,11 +11,10 @@
 <body>
     <div class="top">
         <div class="left">
-            <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                alt="proflie">
+            <img src="@Model.Image" alt="proflie">
             <div>
-                <h1>ppookkiesbubu</h1>
-                <h2>&commat;monkey_jeik</h2>
+                <h1>@Model.Name</h1>
+                <h2>&commat;@Model.Username</h2>
             </div>
         </div>
         <button onclick="window.location.href='@Url.Action("edit", "Profile")'">edit profile</button>
@@ -52,15 +51,23 @@
                         <div class="info">
                             <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
                             <p>
-                                @post.Post.JoinActivities.Count
+                                @if (@post.Post.JoinActivities != null)
+                                {
+
+                                    @post.Post.JoinActivities.Count
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
                                 <span>/ @post.Post.MaxPeople</span>
                             </p>
                         </div>
                         <div class="profilePost">
                             <div class="info">
-                                <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                                <img src="@post.Post.User.Image"
                                     alt="proflie" class="imgProfile">
-                                <p>@post.Post.User.Name</p>
+                                <p>@post.Post.User.Username</p>
                             </div>
                             <div class="status">
                                 @if (@DateTime.Now < @post.Post.ExpireDate)

@@ -57,7 +57,14 @@ namespace SocialMedia.Controllers
             }
 
             var user = _userService.GetUserById(int.Parse(UserId));
-            return View(user);
+
+            var model = new EditProfileViewModel
+            {
+                Name = user.Name,
+                Username = user.Username,
+                Email = user.Email
+            };
+            return View(model);
         }
     }
 }

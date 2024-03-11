@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SocialMedia.ViewModels;
 
 
 
@@ -71,6 +72,38 @@ namespace SocialMedia.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateUser(EditProfileViewModel user  , int userId)
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null)
+            {
+               return false;
+            }
+
+            existingUser.Name = user.Name;
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateImage(EditImageViewModel model  , int userId)
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null)
+            {
+               return false;
+            }
+
+            existingUser.Image = model.Image;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
 
     }
 }

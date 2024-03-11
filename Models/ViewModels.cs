@@ -113,9 +113,11 @@ namespace SocialMedia.ViewModels
   }
 
   public class EditImageViewModel
-  {
-    [Required(ErrorMessage = "Image is required")]
-    public required string Image { get; set; }
-  }
+{
+    [Required]
+    [Url]
+    public string Image { get; set; }
+}
+
 
 }

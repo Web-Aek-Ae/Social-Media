@@ -37,12 +37,14 @@ public class HomeController : Controller
 
         var user = _userService.GetUserById(int.Parse(UserId));
 
-        if (user == null)
-        {
-            return RedirectToAction("Login", "User");
+        // if (user == null)
+        // {
+        //     return RedirectToAction("Login", "User");
 
-        }
+        // }
         var activity = new List<JoinActivity>();
+        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        activity.AddRange(userActivities);
 
         var posts = _postService.GetAllPosts();
         var model = new HomeViewModel

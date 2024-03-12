@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-@model IEnumerable<SocialMedia.Models.Database.Post>
+@model SocialMedia.ViewModels.HomeViewModel
 
 
 <head>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="container-post">
-        @foreach (var post in Model)
+        @foreach (var post in Model.Posts)
         {
             <a class="link" asp-action="Post" asp-controller="Home" style="text-decoration: none; color:black;">
                 <div class="post">

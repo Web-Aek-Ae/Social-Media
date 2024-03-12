@@ -1,4 +1,4 @@
-@model SocialMedia.Models.Database.User
+@model SocialMedia.ViewModels.EditProfileViewModel
 @{
     ViewData["Title"] = "Edit Profile Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
@@ -25,7 +25,7 @@
             <button id="Upload">upload</button>
         </div>
         <div class="all-img"><img
-                src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                src="@Model.Image"
                 alt="proflie" class="img1">
             <a class="imgEdit" id="Edit">
                 <img src="~/src/images/AddPhotoIcon.svg" class="img2">
@@ -61,3 +61,39 @@
 
     <script src="~/lib/addImg.js"></script>
 </body>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Upload").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = {
+                    Image: $('input[name="Image"]').val()
+                };
+
+                // Basic validation example
+                if (!formData.Image ) {
+                    alert("Fill in all required fields.");
+                    return; // Exit the function to prevent sending the request
+                }
+                console.log(formData); // Log the form data to the
+                
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EditImage", "User")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        alert("Image uploaded successfully.");
+                        window.location.href = '@Url.Action("Post", "Profile")'; // Modify as needed
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                }); 
+            });
+        });
+    </script>
+}

@@ -112,4 +112,12 @@ namespace SocialMedia.ViewModels
     public string? Image { get; set; }
   }
 
+  public class EditImageViewModel
+{
+    [Required]
+    [Url]
+    public string Image { get; set; }
+}
+
+
 }

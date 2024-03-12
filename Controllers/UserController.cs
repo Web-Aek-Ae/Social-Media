@@ -80,11 +80,23 @@ namespace SocialMedia.Controllers
 
         public IActionResult Login()
         {
+
+             var cookies = HttpContext.Request.Cookies;
+
+            // Loop through the cookies and delete each one
+            foreach (var cookie in cookies)
+            {
+                HttpContext.Response.Cookies.Delete(cookie.Key);
+            }
+
+            
             if (User?.Identity?.IsAuthenticated == true)
             {
                 // User is already authenticated, redirect to "/Home"
                 return RedirectToAction("Index", "Home");
             }
+
+            
 
             return View();
         }
@@ -198,6 +210,32 @@ namespace SocialMedia.Controllers
             }
 
             var result =   await _userService.UpdateUser(model, int.Parse(UserId));
+            
+            if (result)
+            {
+                return RedirectToAction("Post", "Profile");
+            }
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditImage ([FromBody] EditImageViewModel model)
+        {
+           if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var result =   await _userService.UpdateImage(model, int.Parse(UserId));
             
             if (result)
             {

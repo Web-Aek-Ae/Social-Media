@@ -89,5 +89,21 @@ namespace SocialMedia.Services
             return true;
         }
 
+        public async Task<bool> UpdateImage(EditImageViewModel model  , int userId)
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null)
+            {
+               return false;
+            }
+
+            existingUser.Image = model.Image;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
+
     }
 }

@@ -195,7 +195,7 @@ namespace SocialMedia.Controllers
         }
         
         [HttpPost]
-         public async Task<IActionResult> Edit(EditProfileViewModel model)
+         public async Task<IActionResult> Edit([FromBody]  EditProfileViewModel model)
         {
             if (!ModelState.IsValid)
             {

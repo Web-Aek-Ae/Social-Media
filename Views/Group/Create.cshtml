@@ -13,11 +13,10 @@
     </a>
     <div class="box">
         <div class="title">
-            <img src="@ViewData["UserImg"]"
-                class="profile">
+            <img src="@ViewData["UserImg"]" class="profile">
             <input placeholder="Group Name" class="name">
         </div>
-        <textarea  placeholder="description..." class="description"></textarea>
+        <textarea placeholder="description..." class="description"></textarea>
 
         <div class="boxinput"><img src="~/src/images/Imgicon.svg">
             <input placeholder="Add some photos" class="photo">
@@ -27,41 +26,43 @@
         </div>
     </div>
 </div>
-@section scripts {
-    <script>
-        $(document).ready(function() {
-            $(".btn button").click(function(event) {
-                event.preventDefault(); // Prevent the default form submission
-                var formData = {
-                    Groupname: document.querySelector('.name').value,
-                    Description: document.querySelector('.description').value,
-                    Image:document.querySelector('.photo').value  
-                };
-                // Basic validation example
-                if (!formData.Groupname || !formData.Description || !formData.Image) {
-                    alert("Groupname,Description and Image are required.");
-                    return; // Exit the function to prevent sending the request
-                }
-                $.ajax({
-                    type: "POST",
-                    url: '/Group/CreateGroup', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function(response) {
-                        if(response.success) {
-                            alert("Group created successfully.");
-                            // Optionally, redirect or clear form here
-                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
-                        } else {
-                            alert("Failed to create Group: " + response.message);
-                        }
-                    },
-                    error: function(error) {
-                        console.log(error);
-                        alert("There was an error processing your request.");
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".btn button").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = {
+                Groupname: document.querySelector('input[name="Groupname"]').value,
+                Description: document.querySelector('textarea[name="Description"]').value,
+                Image: document.querySelector('input[name="Image"]').value
+            };
+
+            // Basic validation example
+            if (!formData.Groupname || !formData.Description || !formData.Image) {
+                alert("Groupname, Description, and Image are required.");
+                return; // Exit the function to prevent sending the request
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/Group/CreateGroup', true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert("Group created successfully.");
+                        // Optionally, redirect or clear form here
+                        window.location.href = '/Group/Index'; // Adjust the path as necessary
+                    } else {
+                        alert("Failed to create Group: " + response.message);
                     }
-                });
-            });
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    alert("There was an error processing your request.");
+                }
+            };
+
+            xhr.send(JSON.stringify(formData));
         });
-    </script>
-}
+    });
+</script>

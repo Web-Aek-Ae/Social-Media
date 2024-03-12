@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SocialMedia.Models.Database;
+using SocialMedia.Models.Database; 
 
 namespace SocialMedia.ViewModels
 {
@@ -66,6 +66,11 @@ namespace SocialMedia.ViewModels
     [StringLength(500, ErrorMessage = "Location cannot be longer than 500 characters.")] // Optionally limit location length
     public string? Location { get; set; }
 
+    public Group? Group {get;set;}
+
+    
+    public int? GroupId {get;set;}
+
     public string? Image { get; set; } // Consider validating the image URL or path if applicable
 
     [Range(1, int.MaxValue, ErrorMessage = "MaxPeople must be at least 1")] // Ensures MaxPeople is a positive number
@@ -97,6 +102,13 @@ namespace SocialMedia.ViewModels
     public int PostId { get; set; }
   }
 
+  public class DetailsModels
+  {
+    public List<Post>? Posts { get; set; }
+    public Group? Group { get; set; }
+  }
+  
+  
   public class EditProfileViewModel
   {
     [Required(ErrorMessage = "Name is required")]
@@ -120,8 +132,8 @@ namespace SocialMedia.ViewModels
   }
   public class HomeViewModel
   {
-
-    public List<Post> Posts { get; set; }
+    public Post? Post { get; set; }
+    public List<Post>? Posts { get; set; }
     public List<JoinActivity>? Activities { get; set; }
 
   }

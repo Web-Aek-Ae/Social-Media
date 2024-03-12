@@ -21,37 +21,74 @@ public class HomeController : Controller
         _userService = userService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
 
-        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        ViewData["Username"] = username;
+        ViewData["UserId"] = UserIdClaim;
 
-        if (UserId == null)
+        if (UserIdClaim == null)
+        {
+            var username = HttpContext.User.Identity?.Name;
+            _logger.LogInformation($"Username from JWT: {username}");
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            var user = _userService.GetUserById(int.Parse(UserId));
+
+            ViewData["Username"] = username;
+            ViewData["UserId"] = UserId;
+            ViewData["UserImg"] = user.Image;
+
+
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
+            var posts = _postService.GetAllPosts();
+            var model = new HomeViewModel
+            {
+                Posts = posts,
+                Activities = activity
+            };
+
+            return View(model); // Passes posts as a model to the view
+        }
+
+        if (!int.TryParse(UserIdClaim, out var userId))
+        {
+            // Log error or handle parse failure
+            return RedirectToAction("Login", "User");
+        }
+
+        var user = await _userService.GetUserByIdAsync(userId);
+
+        if (user == null)
         {
             return RedirectToAction("Login", "User");
         }
-        var user = _userService.GetUserById(int.Parse(UserId));
-
-        ViewData["Username"] = username;
-        ViewData["UserId"] = UserId;
-        ViewData["UserImg"] = user.Image;
-
 
         var activity = new List<JoinActivity>();
-        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        var userActivities = await _userService.GetUserActivitiesAsync(userId);
         activity.AddRange(userActivities.Take(3));
 
-        var posts = _postService.GetAllPosts();
+        var posts = await _postService.GetAllPostsAsync();
         var model = new HomeViewModel
         {
             Posts = posts,
             Activities = activity
         };
 
-        return View(model); // Passes posts as a model to the view
+        return View(model); // Passes the model asynchronously to the view
     }
+
     public IActionResult Privacy()
     {
         return View();
@@ -63,32 +100,76 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult Post()
+    public async Task<IActionResult> Post(int id)
     {
         var username = HttpContext.User.Identity?.Name;
-        // Alternatively, if the username is stored in a specific claim type
-        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        // Use the username for your application logic...
+        _logger.LogInformation($"Username from JWT: {username}");
 
-        if (UserId == null)
+        var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        ViewData["Username"] = username;
+        ViewData["UserId"] = UserIdClaim;
+
+        if (UserIdClaim == null)
+        {
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            // Use the username for your application logic...
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            var user = _userService.GetUserById(int.Parse(UserId));
+
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
+            ViewData["UserImg"] = user.Image;
+
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+            var model = new HomeViewModel
+            {
+                Posts = [],
+                Activities = activity
+            };
+
+            return View(model);
+        }
+
+        if (!int.TryParse(UserIdClaim, out var userId))
+        {
+            // Log error or handle parse failure
+            return RedirectToAction("Login", "User");
+        }
+
+        var user = await _userService.GetUserByIdAsync(userId);
+
+        if (user == null)
         {
             return RedirectToAction("Login", "User");
         }
-        var user = _userService.GetUserById(int.Parse(UserId));
-
-        ViewData["UserId"] = UserId;
-        ViewData["Username"] = username;
-        ViewData["UserImg"] = user.Image;
 
         var activity = new List<JoinActivity>();
-        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        var userActivities = await _userService.GetUserActivitiesAsync(userId);
         activity.AddRange(userActivities.Take(3));
+        var post = _postService.GetPostByPostId(id);
+        var posts = await _postService.GetAllPostsAsync();
+        if (post == null)
+        {
+            return RedirectToAction("Index");
+        }
+
         var model = new HomeViewModel
         {
-            Posts = [],
-            Activities = activity
+            Posts = posts,
+            Activities = activity,
+            Post = post
         };
 
         return View(model);
+
     }
+
 }

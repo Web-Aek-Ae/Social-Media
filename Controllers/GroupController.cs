@@ -16,15 +16,18 @@ namespace SocialMedia.Controllers
         private readonly ILogger<GroupController> _logger;
         private readonly GroupService _groupService;
 
+        private readonly PostService _postService;
+
         private readonly GroupmemberService _groupmemberService;
         private readonly UserService _userService;
 
-        public GroupController(ILogger<GroupController> logger, GroupService groupService, GroupmemberService groupmemberService, UserService userService)
+        public GroupController(ILogger<GroupController> logger, GroupService groupService, GroupmemberService groupmemberService, UserService userService, PostService postService)
         {
             _logger = logger;
             _groupService = groupService;
             _groupmemberService = groupmemberService;
             _userService = userService;
+            _postService = postService;
 
         }
         public IActionResult Index()
@@ -117,17 +120,23 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
-        public IActionResult Details(int id)
-        {
-            Console.WriteLine(id);
+        
+        public IActionResult Details(int id){
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
+            var posts = _postService.GetPostsByGroupId(id);
+            var group = _groupService.GetGroupById(id);
+            var detailsmodel = new DetailsModels
+            {
+                Posts = posts,
+                Group = group
+            };
 
-            return View();
+            return View(detailsmodel);
         }
 
 
@@ -168,6 +177,8 @@ namespace SocialMedia.Controllers
             return Ok(model.Groupname);
         }
 
+        
+        
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> JoinGroup(int id)

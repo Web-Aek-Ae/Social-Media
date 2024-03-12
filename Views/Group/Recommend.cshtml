@@ -16,7 +16,7 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    @foreach(var group in Model)
+    @foreach (var group in Model.Groups)
     {
         if (group.Members.Any(m => m.GroupId == group.GroupId))
         {
@@ -29,7 +29,7 @@
         }
     }
 </div>
-     
+
 
 <div class="group-element">
     <div class="header">
@@ -68,8 +68,7 @@
                         </div>
                         <div class="test2">
                             <div class="group-poster">
-                                <img src="@group.User.Image"
-                                    alt="" id="group-poster-img">
+                                <img src="@group.User.Image" alt="" id="group-poster-img">
                                 <span>@group.User.Name</span>
                             </div>
 

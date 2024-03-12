@@ -20,7 +20,7 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    @foreach(var group in Model)
+    @foreach (var group in Model.Groups)
     {
         if (group.Members.Any(m => m.GroupId == group.GroupId))
         {
@@ -50,7 +50,7 @@
 
     @foreach (var group in Model.Groups)
     {
-    
+
         @if (group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
        userId) ? userId : 0)))
         {
@@ -63,26 +63,25 @@
         <div class="Recomended-Group-post">
             @foreach (var group in filteredGroups)
             {
-                    <div class="card-Recomended-Group">
-                        <img src="@group.Image" alt="Recomended-Group-Image">
-                        <div class="contents">
-                            <div class="contents-header">
-                                <h3>@group.Name</h3>
-                                <div onclick="openmembers()" id="amountofmembers">
-                                    <i class="fa-regular fa-user"></i>
-                                    <span>@group.Members.Count</span>
-                                </div>
-                            </div>
-                            <div class="Recomended-Group-poster">
-                                <img src="@group.User.Image"
-                                    alt="" id="group-poster-img">
-                                <span>@group.User.Name</span>
+                <div class="card-Recomended-Group">
+                    <img src="@group.Image" alt="Recomended-Group-Image">
+                    <div class="contents">
+                        <div class="contents-header">
+                            <h3>@group.Name</h3>
+                            <div onclick="openmembers()" id="amountofmembers">
+                                <i class="fa-regular fa-user"></i>
+                                <span>@group.Members.Count</span>
                             </div>
                         </div>
+                        <div class="Recomended-Group-poster">
+                            <img src="@group.User.Image" alt="" id="group-poster-img">
+                            <span>@group.User.Name</span>
+                        </div>
                     </div>
-            
-               
-            
+                </div>
+
+
+
             }
             <a asp-action="Recommend" asp-controller="Group">see all</a>
         </div>
@@ -102,15 +101,15 @@
                         </div>
                         <div class="test2">
                             <div class="group-poster">
-                                <img src="@group.User.Image"
-                                    alt="" id="group-poster-img">
+                                <img src="@group.User.Image" alt="" id="group-poster-img">
                                 <span>@group.User.Name</span>
                             </div>
 
                             <div class="group-of-button">
                                 <i class="fa-regular fa-user"></i>
                                 <span>@group.Members.Count</span>
-                                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button class="group-button">view group</button></a>
+                                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button
+                                        class="group-button">view group</button></a>
                             </div>
                         </div>
                     </div>

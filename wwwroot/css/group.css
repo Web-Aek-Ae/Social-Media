@@ -360,7 +360,10 @@ transition: 0.3s;
 /* create-post */
 .title {
   display: flex;
+  gap: 10px;
+  
 }
+
 .profile {
   width: 60px;
   height: 60px;
@@ -384,6 +387,7 @@ transition: 0.3s;
   border-bottom: 1px solid grey;
   font-size: 30px;
   font-weight: bold;
+  width: 70%;
 }
 textarea {
   min-height: 50vh;
@@ -408,6 +412,7 @@ textarea {
 .boxinput {
   display: flex;
   gap: 20px;
+  padding-bottom: 10px;
 }
 .btn {
   display: flex;

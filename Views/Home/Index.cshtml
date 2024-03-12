@@ -28,7 +28,7 @@
         <div class="container-post">
             @foreach (var post in Model.Posts)
             {
-                <a class="link" asp-action="Post" asp-controller="Home" style="text-decoration: none; color:black;">
+                <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                     <div class="post">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">

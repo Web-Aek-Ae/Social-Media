@@ -476,7 +476,7 @@ main {
     display: flex;
     gap: 0.5rem;
 }
-.comment img{
+.comment-img{
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
@@ -491,6 +491,13 @@ main {
 
 .add-comment{
     margin:1.5rem;
+    gap: 1rem;
+    display: flex;
+}
+.input{
+    display: flex;
+    width: 20rem;
+    justify-content: space-between;
 }
 .modalBg {
     visibility: hidden;

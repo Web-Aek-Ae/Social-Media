@@ -3,28 +3,30 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-@model IEnumerable<SocialMedia.Models.Database.Post>
+@model SocialMedia.ViewModels.HomeViewModel
 
 
 <head>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
 
 </head>
-<div class="main">
-    <div class="header">
-        <div class="search">
-            <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search" id="search-input">
-            </div>
-            <div class="filter-bar">
-                <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" id="filter-input">
+
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="search">
+                <div class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search" id="search-input">
+                </div>
+                <div class="filter-bar">
+                    <i class="fa-solid fa-angle-down"></i>
+                    <input type="text" placeholder="Filter" id="filter-input">
+                </div>
             </div>
         </div>
-    </div>
     <div class="container-post">
-        @foreach (var post in Model)
+        @foreach (var post in Model.Posts)
         {
             <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId"style="text-decoration: none; color:black;">
                 <div class="post">
@@ -94,136 +96,163 @@
                                             </div>
                                         </span>
                                     </div>
-                                    <div class="participant">
-                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
-                                        <div class="participantCount">
-                                            <span class="joined">@post.JoinActivities.Count </span>
-                                            <span class="max"> / @post.MaxPeople</span>
-                                                <div class="dropdownParticipant">
-                                                    @foreach (var joinActivity in post.JoinActivities)
+                                    <div class="topic">
+                                        <h1>@post.Title</h1>
+                                        <p>@post.Time.ToString("HH:mm"), @post.Location</p>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <p>@post.Content</p>
+                                    <div class="owner">
+                                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                            alt="" id="owner-profile">
+                                        <span>@post.User.Name</span>
+                                    </div>
+                                    <div class="action">
+                                    @using System.Security.Claims
+                                    @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                    {
+                                                    <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                    }
+                                    else
+                                    {
+                                                    <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                    }
+                                        <div class="likes">
+                                            <button data-postid="@post.PostId" class="like-button">
+                                            @if (post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                            {
+                                                        <img src="@Url.Content("~/src/images/LikedIcon.svg")" class="icon" >
+
+                                            }
+                                            else
+                                            {
+                                                        <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
+                                            }
+
+                                            </button>
+                                            <span class="likeCount">@post.PostLikes.Count
+                                                <div class="dropdownLike">
+
+                                                    @foreach (var like in post.PostLikes.ToList())
                                                     {
                                                         <div class="member">
                                                             <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                            <h5>@joinActivity.User.Name</h5>
-                                                        </div>
-                                                    }                                        
-                                                </div>
-                                        </div>
+                                                            @if (like.User != null)
+                                                                {
+                                                                    <h5>@like.User.Name</h5>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h5>User not found.</h5>
+                                                                }
 
+                                                        </div>
+                                                    }
+                                                    
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="participant">
+                                            <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
+                                            <div class="participantCount">
+                                                <span class="joined">@post.JoinActivities.Count </span>
+                                                <span class="max"> / @post.MaxPeople</span>
+                                                    <div class="dropdownParticipant">
+                                                        @foreach (var joinActivity in post.JoinActivities)
+                                                        {
+                                                            <div class="member">
+                                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                                <h5>@joinActivity.User.Name</h5>
+                                                            </div>
+                                                        }                                        
+                                                    </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-        }
-        </div>
-        <div class="addPostIcon">
-            <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
-        </div>
-</div>
+            }
+            </div>
+            <div class="addPostIcon">
+                <a asp-action="Create" asp-controller="Post"><img src="~/src/images/AddPostIcon.svg"></a>
+            </div>
+    </div>
+</body>
 
-    @section Scripts {
             <script>
-                $(document).ready(function () {
-                    $('.like-button').click(function () {
-                        event.preventDefault();
-                        var button = $(this); // The clicked button
-                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
-                        $.ajax({
-                            url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
-                            type: 'POST',
-                            data: { postId: postId }, // Send the post ID as data
-                            success: function (result) {
-                                
-                                console.log(result)
-                                button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
-                                button.siblings('span').text(result.likeCount);
-                                console.log("Post liked successfully");
-                            },
-                            error: function (xhr, status, error) {
-                                // Handle errors
-                                console.log("Error liking post: " + error);
-                            }
-                        });
-                    });
+document.addEventListener("DOMContentLoaded", function() {
+    // Handle like button clicks
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute('data-postid');
 
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var result = JSON.parse(xhr.responseText);
+                    console.log(result);
+                    var imgSrc = result.liked ? '/src/images/LikedIcon.svg' : '/src/images/LikeIcon.svg'; // Adjust the paths as necessary
+                    button.querySelector('img').setAttribute('src', imgSrc);
+                    button.nextElementSibling.textContent = result.likeCount;
+                    console.log("Post liked successfully");
+                } else {
+                    console.log("Error liking post: " + xhr.statusText);
+                }
+            };
+            xhr.send('postId=' + postId);
+        });
+    });
 
-                    $('.join-button').click(function (event) {
-                        event.preventDefault();
-                        var button = $(this); // The clicked button
-                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
-                        $.ajax({
-                            url: '@Url.Action("JoinActivity", "JoinActivity")', // The URL to the JoinPost action
-                            type: 'POST',
-                            data: { postId: postId }, // Send the post ID as data
-                            success: function (result) {
-
-                                if (result.success){
-                                if (result.joined ) {
-                                    button.text('joined');
-                                    button.removeClass('join-button');
-                                    button.addClass('joined-button');
-                                    console.log("Post joined successfully");
-
-                                }
-                                else {
-                                    button.text('join activity');
-                                    button.removeClass('joined-button');
-                                    button.addClass('join-button');
-                                    console.log("Post unjoined successfully");
-                                }
-                                button.parent().find('.joined').text(result.joinActivitiesCount);
-
-                                }
-                                console.log(result);
-                            },
-                            error: function (xhr, status, error) {
-                                // Handle errors
-                                console.log("Error joining post: " + error);
-                            }
-                        });
-                    });
-
-                    $('.joined-button').click(function () {
-                        event.preventDefault();
-                        var button = $(this); // The clicked button
-                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
-                        $.ajax({
-                            url: '@Url.Action("JoinActivity", "JoinActivity")', // The URL to the JoinPost action
-                            type: 'POST',
-                            data: { postId: postId }, // Send the post ID as data
-                            success: function (result) {
-                                 if (result.success){
-                                if (result.joined ) {
-                                    button.text('joined');
-                                    button.removeClass('join-button');
-                                    button.addClass('joined-button');
-                                    console.log("Post joined successfully");
-
-                                }
-                                else {
-                                    button.text('join activity');
-                                    button.removeClass('joined-button');
-                                    button.addClass('join-button');
-                                    console.log("Post unjoined successfully");
-                                }
-                                button.parent().find('.joined').text(result.joinActivitiesCount);
-
-                                }
-                                console.log(result);
-                            },
-                            error: function (xhr, status, error) {
-                                // Handle errors
-                                console.log("Error joining post: " + error);
-                            }
-                        });
-                    });
-
-                });
-
-
-            </script>
+    // Handle join and unjoin activity button clicks
+    function handleJoinActivity(button, isJoin) {
+        var postId = button.getAttribute('data-postid');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/JoinActivity/JoinActivity'); // Adjust the URL to match your routing
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                console.log(result);
+                if (result.success) {
+                    button.textContent = result.joined ? 'joined' : 'join activity';
+                    button.classList.toggle('join-button', !result.joined);
+                    button.classList.toggle('joined-button', result.joined);
+                    button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
+                    console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
+                }
+            } else {
+                console.log("Error joining activity: " + xhr.statusText);
+            }
+        };
+        xhr.send('postId=' + postId);
     }
+
+    // Initial bindings for join buttons
+    document.querySelectorAll('.join-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, true);
+        });
+    });
+
+    document.querySelectorAll('.joined-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, false);
+        });
+    });
+
+
+
+});
+</script>
+

@@ -125,11 +125,17 @@ namespace SocialMedia.ViewModels
   }
 
   public class EditImageViewModel
-{
+  {
     [Required]
     [Url]
     public string Image { get; set; }
-}
+  }
+  public class HomeViewModel
+  {
 
+    public List<Post> Posts { get; set; }
+    public List<JoinActivity>? Activities { get; set; }
+
+  }
 
 }

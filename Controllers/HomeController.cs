@@ -2,8 +2,10 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Models;
+using SocialMedia.ViewModels;
 using System.Security.Claims;
 using SocialMedia.Services;
+using SocialMedia.Models.Database;
 namespace SocialMedia.Controllers;
 
 [Authorize]
@@ -11,22 +13,55 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
-    public HomeController(ILogger<HomeController> logger , PostService postService)
+    private readonly UserService _userService;
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
     {
         _logger = logger;
         _postService = postService;
+        _userService = userService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
+{
+    var username = HttpContext.User.Identity?.Name;
+    _logger.LogInformation($"Username from JWT: {username}");
+
+    var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+    ViewData["Username"] = username;
+    ViewData["UserId"] = UserIdClaim;
+
+    if (UserIdClaim == null)
     {
-        var username = HttpContext.User.Identity?.Name;
-        _logger.LogInformation($"Username from JWT: {username}");
-
-        
-        ViewData["Username"] = username;
-        var posts = _postService.GetAllPosts();
-        return View(posts); // Passes posts as a model to the view
+        return RedirectToAction("Login", "User");
     }
+
+    if (!int.TryParse(UserIdClaim, out var userId))
+    {
+        // Log error or handle parse failure
+        return RedirectToAction("Login", "User");
+    }
+
+    var user = await _userService.GetUserByIdAsync(userId);
+
+    if (user == null)
+    {
+        return RedirectToAction("Login", "User");
+    }
+
+    var activity = new List<JoinActivity>();
+    var userActivities = await _userService.GetUserActivitiesAsync(userId);
+    activity.AddRange(userActivities.Take(3));
+
+    var posts = await _postService.GetAllPostsAsync();
+    var model = new HomeViewModel
+    {
+        Posts = posts,
+        Activities = activity
+    };
+
+    return View(model); // Passes the model asynchronously to the view
+}
+
     public IActionResult Privacy()
     {
         return View();

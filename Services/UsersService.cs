@@ -38,6 +38,7 @@ namespace SocialMedia.Services
             }
             return false; // Or communicate the user was not found
         }
+        
 
         public User GetUserById(int id)
         {

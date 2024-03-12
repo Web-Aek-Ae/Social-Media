@@ -13,7 +13,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
 
-    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
+    public HomeController(ILogger<HomeController> logger, PostService postService)
     {
         _logger = logger;
         _postService = postService;

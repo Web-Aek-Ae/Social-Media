@@ -72,6 +72,7 @@ namespace SocialMedia.Controllers
         [Authorize]
         public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
         {
+            
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");

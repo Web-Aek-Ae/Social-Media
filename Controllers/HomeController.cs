@@ -12,26 +12,23 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
-    private readonly UserService _userService;
+
     public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
     {
         _logger = logger;
         _postService = postService;
-        _userService = userService;
     }
 
 
     public IActionResult Index()
     {
-        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var username = HttpContext.User.Identity?.Name;
+        _logger.LogInformation($"Username from JWT: {username}");
 
-        if (UserId == null)
-        {
-            return RedirectToAction("Login", "User");
-        }
-
-        var user = _userService.GetUserById(int.Parse(UserId));
-        return View(user);
+        
+        ViewData["Username"] = username;
+        var posts = _postService.GetAllPosts();
+        return View(posts); // Passes posts as a model to the view
     }
     public IActionResult Privacy()
     {

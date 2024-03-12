@@ -73,14 +73,51 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult Post()
+    public async Task<IActionResult> Post(int id){
+     var username = HttpContext.User.Identity?.Name;
+    _logger.LogInformation($"Username from JWT: {username}");
+
+    var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+    ViewData["Username"] = username;
+    ViewData["UserId"] = UserIdClaim;
+
+    if (UserIdClaim == null)
     {
-        var username = HttpContext.User.Identity?.Name;
-        // Alternatively, if the username is stored in a specific claim type
-        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        // Use the username for your application logic...
-        ViewData["UserId"] = UserId;
-        ViewData["Username"] = username;
-        return View();
+        return RedirectToAction("Login", "User");
     }
+
+    if (!int.TryParse(UserIdClaim, out var userId))
+    {
+        // Log error or handle parse failure
+        return RedirectToAction("Login", "User");
+    }
+
+    var user = await _userService.GetUserByIdAsync(userId);
+
+    if (user == null)
+    {
+        return RedirectToAction("Login", "User");
+    }
+
+    var activity = new List<JoinActivity>();
+    var userActivities = await _userService.GetUserActivitiesAsync(userId);
+    activity.AddRange(userActivities.Take(3));
+    var post = _postService.GetPostByPostId(id);
+    var posts = await _postService.GetAllPostsAsync();
+    if (post == null)
+    {
+        return RedirectToAction("Index");
+    }
+
+    var model = new HomeViewModel
+    {
+        Posts = posts,
+        Activities = activity,
+        Post = post
+    };
+
+    return View(model); 
+
+    }
+
 }

@@ -14,20 +14,23 @@ namespace SocialMedia.Controllers
     {   
         private readonly CategoryService _categoryService;
         private readonly PostService _postService;
+
+        private readonly GroupService _groupService;
         private readonly ILogger<PostController> _logger;
 
-        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService)
+        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService)
         {
             _postService = postService;
             _logger = logger;
             _categoryService = categoryService;
+            _groupService = groupService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
             var model = new PostViewModel
             {
@@ -43,9 +46,13 @@ namespace SocialMedia.Controllers
                 Time = DateTime.Now.ToString("HH:mm"),
                 MaxPeople = 1,
                 Location = "Bangkok",
-
-                
+                Group = _groupService.GetGroupById(id),
             };
+            if(model.Group != null)
+            {
+
+            model.GroupId = id;
+            }
 
             if(model.Categories.Count == 0)
             {
@@ -65,6 +72,7 @@ namespace SocialMedia.Controllers
         [Authorize]
         public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
         {
+            
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");
@@ -80,6 +88,7 @@ namespace SocialMedia.Controllers
             {
                 return Json(new { success = false, message = "Invalid time format." });
             }
+
             if (ModelState.IsValid)
             {
                 try
@@ -87,6 +96,7 @@ namespace SocialMedia.Controllers
                     var post = new Post
                     {
                         UserId = userIdAsInt,
+                        GroupId = model.GroupId,
                         Title = model.Title,
                         Content = model.Content,
                         Location = model.Location,

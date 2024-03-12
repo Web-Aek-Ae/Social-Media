@@ -15,12 +15,15 @@ namespace SocialMedia.Controllers
     {
         private readonly GroupService _groupService;
 
+        private readonly PostService _postService;
+
         private readonly GroupmemberService _groupmemberService;
 
-        public GroupController(GroupService groupService ,GroupmemberService groupmemberService)
+        public GroupController(GroupService groupService ,GroupmemberService groupmemberService, PostService postService)
         {
             _groupService = groupService;
             _groupmemberService = groupmemberService;
+            _postService = postService;
 
         }
         public IActionResult Index()
@@ -59,15 +62,20 @@ namespace SocialMedia.Controllers
         }
         
         public IActionResult Details(int id){
-            Console.WriteLine(id);
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-
-            return View();
+            var posts = _postService.GetPostsByGroupId(id);
+            var group = _groupService.GetGroupById(id);
+            var detailsmodel = new DetailsModels{
+                Posts = posts,
+                Group = group
+            };
+           
+            return View(detailsmodel);
         }
 
         
@@ -106,6 +114,8 @@ namespace SocialMedia.Controllers
             }
             return Ok(model.Groupname);
         }
+
+        
         
         [HttpPost]
         [Authorize]

@@ -47,7 +47,7 @@
                                 <div class="description">
                                     <p>@post.Content</p>
                                     <div class="owner">
-                                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                        <img src="@post.User.Image"
                                             alt="" id="owner-profile">
                                         <span>@post.User.Name</span>
                                     </div>
@@ -80,9 +80,9 @@
                                                     @foreach (var like in post.PostLikes.ToList())
                                                     {
                                                         <div class="member">
-                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                                             @if (like.User != null)
                                                                 {
+                                                                    <img src="@like.User.Image">
                                                                     <h5>@like.User.Name</h5>
                                                                 }
                                                                 else
@@ -105,7 +105,7 @@
                                                         @foreach (var joinActivity in post.JoinActivities)
                                                         {
                                                             <div class="member">
-                                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                                <img src="@joinActivity.User.Image">
                                                                 <h5>@joinActivity.User.Name</h5>
                                                             </div>
                                                         }                                        
@@ -128,9 +128,8 @@
     </div>
 </body>
 
-            <script>
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Handle like button clicks
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -147,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
                 }
@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.classList.toggle('joined-button', result.joined);
                     button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
+                    
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);

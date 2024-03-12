@@ -19,7 +19,7 @@ builder.Logging.AddConsole();
 
 // Add PostgreSQL support
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-    "Host=34.142.237.224;Database=mydb;Username=root;Password=*2FyhT%#ZHkG+MJE;";
+    "Host=34.142.237.224;Database=mydb;Username=root;Password=&dC@u92=|Tvoeo";
 
 builder.Services.AddDbContext<SocialMediaContext>(options =>
     options.UseNpgsql(connectionString));

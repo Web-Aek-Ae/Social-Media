@@ -59,7 +59,7 @@
                             <p>Status :</p>
                             <p class="state"> Open</p>
                         </div>
-                        <p style="position:absolute;right:0;top:1rem;">Categories : @Model.Post.Category</p>
+                        <p style="position:absolute;right:0;top:1rem;">Categories : @Model.Post.Category.Name</p>
                     </div>
                 </div>
                 <p>@Model.Post.Content</p>
@@ -271,6 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
                 }
@@ -295,6 +296,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.classList.toggle('joined-button', result.joined);
                     button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
+                    
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);

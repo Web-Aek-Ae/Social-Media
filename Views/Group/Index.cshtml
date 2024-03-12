@@ -20,74 +20,18 @@
         <h2>Members</h2>
         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
     </div>
-    <div class="group-members">
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOak_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-        <div class="members">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                alt="imagemembers" id="group-poster-img">
-            <span>OakOakkkkkk_</span>
-        </div>
-
-    </div>
+    @foreach(var group in Model)
+    {
+        if (group.Members.Any(m => m.GroupId == group.GroupId))
+        {
+            <div class="group-members">
+                <div class="members">
+                    <img src="@group.User.Image" alt="imagemembers" id="group-poster-img">
+                    <span>@group.User.Name</span>
+                </div>
+            </div>
+        }
+    }
 </div>
 <div class="popup-backdrop"></div>
 <div class="group-element">
@@ -136,61 +80,6 @@
                             </div>
                         </div>
                     </div>
-            
-                <div class="card-Recomended-Group">
-                    <img src="https://s.isanook.com/he/0/ud/1/7657/korean-grilled-pork-thai-styl.jpg?ip/crop/w670h402/q80/jpg"
-                        alt="">
-                    <div class="contents">
-                        <div class="contents-header">
-                            <h3>หมากะทุหมูกระทะ</h3>
-                            <div>
-                                <i class="fa-regular fa-user"></i>
-                                <span>20</span>
-                            </div>
-                        </div>
-                        <div class="Recomended-Group-poster">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                                alt="" id="group-poster-img">
-                            <span>OakOak_</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-Recomended-Group">
-                    <img src="https://www.brandbuffet.in.th/wp-content/uploads/2021/08/Penguin-Eat-Shabu-6.jpg" alt="">
-                    <div class="contents">
-                        <div class="contents-header">
-                            <h3>Shabu Shabu</h3>
-                            <div onclick="openmembers()" id="amountofmembers">
-                                <i class="fa-regular fa-user"></i>
-                                <span>18</span>
-                            </div>
-                        </div>
-                        <div class="Recomended-Group-poster">
-                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                alt="" id="group-poster-img">
-                            <span>Chommsrya_</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-Recomended-Group">
-                    <img src="https://s.isanook.com/he/0/ud/1/7657/korean-grilled-pork-thai-styl.jpg?ip/crop/w670h402/q80/jpg"
-                        alt="">
-                    <div class="contents">
-                        <div class="contents-header">
-                            <h3>หมากะทุหมูกระทะ</h3>
-                            <div>
-                                <i class="fa-regular fa-user"></i>
-                                <span>20</span>
-                            </div>
-                        </div>
-                        <div class="Recomended-Group-poster">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hippopotamus_-_04.jpg/1200px-Hippopotamus_-_04.jpg"
-                                alt="" id="group-poster-img">
-                            <span>OakOak_</span>
-                        </div>
-                    </div>
-                </div>
-            
             }
             <a asp-action="Recommend" asp-controller="Group">see all</a>
         </div>
@@ -218,7 +107,7 @@
                             <div class="group-of-button">
                                 <i class="fa-regular fa-user"></i>
                                 <span>@group.Members.Count</span>
-                                <a asp-action="Details" asp-controller="Group"><button class="group-button">view group</button></a>
+                                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button class="group-button">view group</button></a>
                             </div>
                         </div>
                     </div>

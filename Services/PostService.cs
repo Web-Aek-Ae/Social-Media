@@ -27,6 +27,18 @@ namespace SocialMedia.Services
        .Include(p => p.Group) // Include Group
        .ToList();
         }
+        
+        public List<Post> GetPostsByGroupId(int id)
+        {
+            return _context.Posts
+            .Include(p => p.Group)
+            .Include(p => p.User)
+            .Include(p => p.PostLikes).ThenInclude(pl => pl.User)
+            .Include(p => p.JoinActivities)
+            .Include(p => p.Comments).ThenInclude(c => c.User)
+            .Include(p => p.Category)
+            .Where(p => p.GroupId == id).ToList();
+        }
         public async Task<bool> MakePost(Post post)
         {
             _context.Posts.Add(post);

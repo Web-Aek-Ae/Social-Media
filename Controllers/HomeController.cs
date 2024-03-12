@@ -12,6 +12,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
+    private readonly UserService _userServiceService;
 
     public HomeController(ILogger<HomeController> logger, PostService postService)
     {
@@ -25,7 +26,8 @@ public class HomeController : Controller
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
 
-        
+
+
         ViewData["Username"] = username;
         var posts = _postService.GetAllPosts();
         return View(posts); // Passes posts as a model to the view

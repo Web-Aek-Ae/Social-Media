@@ -16,6 +16,11 @@ namespace SocialMedia.Services
 
         }
 
+        public User GetUserById(int id)
+        {
+            return _context.Users.Include(u => u.Posts).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+        }
+
         public List<Post> GetAllPosts()
         {
             return _context.Posts
@@ -24,7 +29,7 @@ namespace SocialMedia.Services
        .Include(p => p.JoinActivities).ThenInclude(ja => ja.User) // Include the User of each JoinActivity
        .Include(p => p.Comments).ThenInclude(c => c.User) // Include Comments and their Users
        .Include(p => p.Category) // Include Category
-       .Include(p => p.Group) // Include Group
+       .Include(p => p.Group)
        .ToList();
         }
         public async Task<bool> MakePost(Post post)

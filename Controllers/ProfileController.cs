@@ -33,6 +33,8 @@ namespace SocialMedia.Controllers
             }
 
             var user = _userService.GetUserById(int.Parse(UserId));
+
+
             return View(user);
         }
 
@@ -62,7 +64,8 @@ namespace SocialMedia.Controllers
             {
                 Name = user.Name,
                 Username = user.Username,
-                Email = user.Email
+                Email = user.Email,
+                Image = user.Image
             };
             return View(model);
         }

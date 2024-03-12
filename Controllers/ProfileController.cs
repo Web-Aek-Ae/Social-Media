@@ -39,7 +39,7 @@ namespace SocialMedia.Controllers
         }
 
         public IActionResult Joined()
-         {
+        {
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             
             if (UserId == null)
@@ -52,7 +52,7 @@ namespace SocialMedia.Controllers
         }
 
         public IActionResult Likes()
-         {
+        {
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             
             if (UserId == null)

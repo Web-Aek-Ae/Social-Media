@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Models;
+using SocialMedia.ViewModels;
 using System.Security.Claims;
 using SocialMedia.Services;
 using SocialMedia.Models.Database;
@@ -12,12 +13,12 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
-    private readonly UserService _userServiceService;
-
-    public HomeController(ILogger<HomeController> logger, PostService postService)
+    private readonly UserService _userService;
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
     {
         _logger = logger;
         _postService = postService;
+        _userService = userService;
     }
 
 
@@ -26,11 +27,35 @@ public class HomeController : Controller
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
 
-
+        var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
         ViewData["Username"] = username;
+        ViewData["UserId"] = UserId;
+
+        if (UserId == null)
+        {
+            return RedirectToAction("Login", "User");
+        }
+
+        var user = _userService.GetUserById(int.Parse(UserId));
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "User");
+
+        }
+        var activity = new List<JoinActivity>();
+        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        activity.AddRange(userActivities.Take(3));
+
         var posts = _postService.GetAllPosts();
-        return View(posts); // Passes posts as a model to the view
+        var model = new HomeViewModel
+        {
+            Posts = posts,
+            Activities = activity
+        };
+
+        return View(model); // Passes posts as a model to the view
     }
     public IActionResult Privacy()
     {

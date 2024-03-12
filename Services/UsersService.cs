@@ -41,7 +41,7 @@ namespace SocialMedia.Services
 
         public User GetUserById(int id)
         {
-            return _context.Users.Include(u => u.Posts).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+            return _context.Users.Include(u => u.Posts).Include(l => l.PostLikes).ThenInclude(pl => pl.Post).Include(u => u.JoinActivities).ThenInclude(ja => ja.Post).ThenInclude(u => u.User).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
         }
 
         public async Task<User> AuthenticateUser(string username, string password)
@@ -73,12 +73,12 @@ namespace SocialMedia.Services
             return true;
         }
 
-        public async Task<bool> UpdateUser(EditProfileViewModel user  , int userId)
+        public async Task<bool> UpdateUser(EditProfileViewModel user, int userId)
         {
             var existingUser = await _context.Users.FindAsync(userId);
             if (existingUser == null)
             {
-               return false;
+                return false;
             }
 
             existingUser.Name = user.Name;
@@ -89,18 +89,25 @@ namespace SocialMedia.Services
             return true;
         }
 
-        public async Task<bool> UpdateImage(EditImageViewModel model  , int userId)
+        public async Task<bool> UpdateImage(EditImageViewModel model, int userId)
         {
             var existingUser = await _context.Users.FindAsync(userId);
             if (existingUser == null)
             {
-               return false;
+                return false;
             }
 
             existingUser.Image = model.Image;
 
             await _context.SaveChangesAsync();
             return true;
+        }
+        public ICollection<JoinActivity> GetUserActivities(int userId)
+        {
+            return _context.JoinActivities
+                           .Include(ja => ja.User) // Include the User of each JoinActivity
+                           .Where(ja => ja.UserId == userId)
+                           .ToList();
         }
 
 

@@ -21,7 +21,7 @@ namespace SocialMedia.Services
             return _context.Posts
        .Include(p => p.User)
        .Include(p => p.PostLikes).ThenInclude(pl => pl.User) // Include the User of each PostLike
-       .Include(p => p.JoinActivities)
+       .Include(p => p.JoinActivities).ThenInclude(ja => ja.User) // Include the User of each JoinActivity
        .Include(p => p.Comments).ThenInclude(c => c.User) // Include Comments and their Users
        .Include(p => p.Category) // Include Category
        .Include(p => p.Group) // Include Group

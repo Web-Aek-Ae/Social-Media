@@ -66,6 +66,9 @@ namespace SocialMedia.ViewModels
     [StringLength(500, ErrorMessage = "Location cannot be longer than 500 characters.")] // Optionally limit location length
     public string? Location { get; set; }
 
+    public Group? Group {get;set;}
+
+    
     public int? GroupId {get;set;}
 
     public string? Image { get; set; } // Consider validating the image URL or path if applicable

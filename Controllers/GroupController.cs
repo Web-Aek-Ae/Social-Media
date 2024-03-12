@@ -62,7 +62,6 @@ namespace SocialMedia.Controllers
         }
         
         public IActionResult Details(int id){
-            Console.WriteLine(id);
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;

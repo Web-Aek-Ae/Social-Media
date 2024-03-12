@@ -611,6 +611,9 @@ main {
         display: grid;
         grid-template-columns: 35% 65%;
     }
+    .dropdownLike {
+        right: 13%;
+    }
 }
 @media (max-width:1370px){
     .post{
@@ -619,6 +622,9 @@ main {
     .card-post {
         display: grid;
         grid-template-columns: 40% 60%;
+    }
+    .dropdownLike {
+        right: 15%;
     }
 }
 @media (max-width:1200px){
@@ -632,6 +638,9 @@ main {
         display: grid;
         grid-template-columns: 35% 65%;
     }
+    .dropdownLike {
+        right: 13%;
+    }
 }
 @media (max-width:1024px){
     .post{
@@ -640,6 +649,9 @@ main {
     .card-post {
         display: grid;
         grid-template-columns: 40% 60%;
+    }
+    .dropdownLike {
+        right: 15%;
     }
 }
 @media (max-width:920px){
@@ -704,6 +716,9 @@ main {
     }
     .owner span{
         font-size: 16px;
+    }
+    .dropdownLike {
+        right: 18%;
     }
 }
 @media (max-width:768px)

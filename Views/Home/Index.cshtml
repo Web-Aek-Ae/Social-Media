@@ -26,7 +26,7 @@
     <div class="container-post">
         @foreach (var post in Model)
         {
-            <a class="link" asp-action="Post" asp-controller="Home" style="text-decoration: none; color:black;">
+            <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId"style="text-decoration: none; color:black;">
                 <div class="post">
                     <div class="card-post">
                         <img src="@post.Image" alt="activity" class="activity">
@@ -45,7 +45,7 @@
                             <div class="description">
                                 <p>@post.Content</p>
                                 <div class="owner">
-                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                    <img src="@post.User.Image"
                                         alt="" id="owner-profile">
                                     <span>@post.User.Name</span>
                                 </div>

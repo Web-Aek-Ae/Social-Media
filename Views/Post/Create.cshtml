@@ -17,12 +17,16 @@
             <div class="title">
                 <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
                     class="profile">
-                    <input asp-for="Title" placeholder="Event Name" class="name">
+                <input asp-for="Title" placeholder="Event Name" class="name">
             </div>
-                <div class="group-name">
-            <h3>groupname</h3>
-        </div></div>
-        
+                @if(Model.Group != null){
+            <div class="group-name">
+                    <h3>@Model.Group.Name</h3>
+                    <input type="text" asp-for="GroupId" style=" display : none;">
+            </div>
+                }
+        </div>
+
         <textarea asp-for="Content" placeholder="description..."></textarea>
 
         <h1>Details</h1>
@@ -97,11 +101,12 @@
                     // Assuming Date and ExpireDate are in "YYYY-MM-DD" format
                     Date: $('input[name="Date"]').val(),
                     Location: $('input[name="Location"]').val(),
-                    SelectedCategoryId : $('select[name="SelectedCategoryId"]').val(),
+                    SelectedCategoryId: $('select[name="SelectedCategoryId"]').val(),
                     Time: $('input[name="Time"]').val(),
                     ExpireDate: $('input[name="ExpireDate"]').val(),
                     Image: $('input[name="Image"]').val(),
-                    MaxPeople: parseInt($('input[name="MaxPeople"]').val(), 10) // Parse as integer
+                    MaxPeople: parseInt($('input[name="MaxPeople"]').val(), 10),
+                    GroupId: parseInt( $('input[name="GroupId"]').val() ,10)
                 };
 
                 // Basic validation example

@@ -504,6 +504,12 @@ button:not(#btnCancel):hover  {
   transition: 0.3s;
 }
 
+#section-content {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* detaills */
 .addPostIcon {
     background-color: #fbca63;

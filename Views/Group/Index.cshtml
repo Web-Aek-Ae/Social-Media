@@ -15,24 +15,7 @@
 <a asp-action="create" asp-controller="group">
     <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
 </a>
-<div class="pop-up">
-    <div class="header-popup">
-        <h2>Members</h2>
-        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
-    </div>
-    @foreach(var group in Model)
-    {
-        if (group.Members.Any(m => m.GroupId == group.GroupId))
-        {
-            <div class="group-members">
-                <div class="members">
-                    <img src="@group.User.Image" alt="imagemembers" id="group-poster-img">
-                    <span>@group.User.Name</span>
-                </div>
-            </div>
-        }
-    }
-</div>
+
 <div class="popup-backdrop"></div>
 <div class="group-element">
     <div class="header">
@@ -50,7 +33,7 @@
 
     @foreach (var group in Model)
     {
-    
+
         @if (group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
        userId) ? userId : 0)))
         {
@@ -59,17 +42,18 @@
     }
     <div class="Recomended-Group">
         <h2>Recomended Groups</h2>
-
         <div class="Recomended-Group-post">
             @foreach (var group in filteredGroups)
             {
+                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"
+                    style="text-decoration: none; color:black">
                     <div class="card-Recomended-Group">
-                        <img src="@group.Image" alt="Recomended-Group-Image">
+                        <img src="@group.Image" alt="Recomended-Group-Image" id="card-Recomended-Group-img" >
                         <div class="contents">
                             <div class="contents-header">
                                 <h3>@group.Name</h3>
-                                <div onclick="openmembers()" id="amountofmembers">
-                                    <i class="fa-regular fa-user"></i>
+                                <div onclick="openmembers()" class="amountofmembers">
+                                    <img src="~/src/images/People_in_postcardIcon.svg" alt="" class="icon">
                                     <span>@group.Members.Count</span>
                                 </div>
                             </div>
@@ -80,6 +64,23 @@
                             </div>
                         </div>
                     </div>
+                </a>
+                <div class="pop-up">
+                    <div class="header-popup">
+                        <h2>Members</h2>
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                    </div>
+                    <div class="group-members">
+                    @foreach (var members in group.Members)
+                    {
+                        <div class="members">
+                            <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
+                            <span>@members.User.Name</span>
+                        </div>
+                    }
+                    </div>
+                </div>
+
             }
             <a asp-action="Recommend" asp-controller="Group">see all</a>
         </div>
@@ -90,28 +91,32 @@
             @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
            userId) ? userId : 0)))
             {
-                <div class="group">
-                    <div class="card-group">
-                        <h1 id="section">@group.Name</h1>
-                        <p id="section-content">@group.Description</p>
-                        <div class="activity-image">
-                            <img src="@group.Image" alt="activity" id="activity1">
-                        </div>
-                        <div class="test2">
-                            <div class="group-poster">
-                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                    alt="" id="group-poster-img">
-                                <span>@group.User.Name</span>
+                @* <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId" style="color: black;text-decoration: none;"> *@
+                <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId" style="color: black;text-decoration:none;">
+                    <div class="group">
+                        <div class="card-group">
+                            <h1 id="section">@group.Name</h1>
+                            <p id="section-content">@group.Description</p>
+                            <div class="activity-image">
+                                <img src="@group.Image" alt="activity" id="activity1">
                             </div>
+                            <div class="test2">
+                                <div class="group-poster">
+                                    <img src="@group.User.Image" alt="" id="group-poster-img">
+                                    <span>@group.User.Name</span>
+                                </div>
 
-                            <div class="group-of-button">
-                                <i class="fa-regular fa-user"></i>
-                                <span>@group.Members.Count</span>
-                                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button class="group-button">view group</button></a>
+                                <div class="group-of-button">
+                                    <img src="~/src/images/People_in_postcardIcon.svg">
+                                    <span>@group.Members.Count</span>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            
+
             }
 
         }
@@ -120,7 +125,19 @@
     </div>
 </div>
 
+@section scripts {
+    <script>
+        var elements = document.getElementsByClassName("amountofmembers");
 
+        // Iterate over each element and add an event listener
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('click', function (event) {
+                event.preventDefault();
+            })
+        };
+    </script>
 
-<script src="~/lib/testfile.js"></script>
-<script src="~/lib/logout.js" asp-append-version="true"></script>
+    <script src="~/lib/testfile.js"></script>
+
+    <script src="~/lib/logout.js" asp-append-version="true"></script>
+}

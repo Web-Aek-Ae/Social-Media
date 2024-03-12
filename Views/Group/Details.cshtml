@@ -143,6 +143,7 @@
             <script>
                 $(document).ready(function () {
                     $('.like-button').click(function () {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({
@@ -165,6 +166,7 @@
 
 
                     $('.join-button').click(function () {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({
@@ -196,6 +198,7 @@
                     });
 
                     $('.joined-button').click(function () {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({

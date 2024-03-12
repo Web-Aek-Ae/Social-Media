@@ -31,7 +31,9 @@ namespace SocialMedia.Services
         }
         public List<Group> GetAllGroups()
         {
-            return _context.Groups.Include(g => g.Members).Include(g => g.User).ToList();
+            return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
+            .Include(g => g.User)
+            .ToList();
         }
 
         public Group? GetGroupById(int? id)

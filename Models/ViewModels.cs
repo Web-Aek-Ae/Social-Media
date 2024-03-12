@@ -52,6 +52,8 @@ namespace SocialMedia.ViewModels
     public required string Description { get; set; }
 
     public required string Image { get; set; }
+
+    
   }
   public class PostViewModel
   {
@@ -123,7 +125,7 @@ namespace SocialMedia.ViewModels
 
     public List<Post> Posts { get; set; }
     public List<JoinActivity>? Activities { get; set; }
-
+    public string Image { get; set; }
   }
 
 }

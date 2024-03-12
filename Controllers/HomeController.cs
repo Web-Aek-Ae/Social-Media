@@ -29,8 +29,12 @@ public class HomeController : Controller
 
         var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
+        
+
         ViewData["Username"] = username;
         ViewData["UserId"] = UserId;
+        
+     
 
         if (UserId == null)
         {
@@ -38,12 +42,15 @@ public class HomeController : Controller
         }
 
         var user = _userService.GetUserById(int.Parse(UserId));
+        var image = user.Image;
+
 
         if (user == null)
         {
             return RedirectToAction("Login", "User");
 
         }
+
         var activity = new List<JoinActivity>();
         var userActivities = _userService.GetUserActivities(int.Parse(UserId));
         activity.AddRange(userActivities.Take(3));
@@ -52,7 +59,8 @@ public class HomeController : Controller
         var model = new HomeViewModel
         {
             Posts = posts,
-            Activities = activity
+            Activities = activity,
+            Image = image
         };
 
         return View(model); // Passes posts as a model to the view

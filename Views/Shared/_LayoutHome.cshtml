@@ -59,13 +59,13 @@
     <div class="Blog">
         <div class="myprofile">
             <div class="allprofile">
-                <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                    alt="proflie">
+                <img src="@Model.Image"
+                    alt="Profile">
 
-                        @if (ViewData["Username"] != null)
-                        {
-                    <p>Hello, @ViewData["Username"]!</p>
-                        }
+                    @if (ViewData["Username"] != null)
+                    {
+                        <p>Hello, @ViewData["Username"]!</p>
+                    }
 
             </div>
         </div>

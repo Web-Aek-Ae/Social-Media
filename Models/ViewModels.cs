@@ -53,6 +53,7 @@ namespace SocialMedia.ViewModels
 
     public required string Image { get; set; }
 
+
     
   }
   public class PostViewModel
@@ -141,3 +142,6 @@ namespace SocialMedia.ViewModels
   }
 
 }
+
+
+  

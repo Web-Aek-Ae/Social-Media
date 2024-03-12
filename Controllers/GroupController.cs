@@ -19,23 +19,38 @@ namespace SocialMedia.Controllers
 
         private readonly GroupmemberService _groupmemberService;
 
-        public GroupController(GroupService groupService ,GroupmemberService groupmemberService, PostService postService)
+        private readonly UserService _userService;
+
+        public GroupController(GroupService groupService ,GroupmemberService groupmemberService, PostService postService,UserService userService)
         {
             _groupService = groupService;
             _groupmemberService = groupmemberService;
             _postService = postService;
+            _userService = userService;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
+            if (!int.TryParse(specificClaimUsername, out var userId))
+            {
+                // Log error or handle parse failure
+                return RedirectToAction("Login", "User");
+            }
+
+
+            var user = await _userService.GetUserByIdAsync(userId);
+            var image = user.Image;
+
+            ViewData["Image"] = image;
             // Use the username for your application logic...
             ViewData["Username"] = username;
 
             var groupspost = _groupService.GetAllGroups();
+
 
             return View(groupspost);
         }

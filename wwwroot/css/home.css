@@ -225,9 +225,6 @@ main {
     gap: 0.5rem;
 }
 
-/* .likes a{
-    width: 2rem;
-} */
 .likeCount {
     width: 2rem;
     border: none;
@@ -274,7 +271,6 @@ main {
 .participant {
     display: flex;
     align-items: center;
-    /* gap: 0.5rem; */
 }
 
 .dropdownParticipant {
@@ -282,6 +278,7 @@ main {
     position: absolute;
     overflow-y: scroll;
     background-color: #f9f9f9;
+    overflow-y: scroll;
     width: 10rem;
     width: 10rem;
     max-height: 13rem;
@@ -295,9 +292,6 @@ main {
 }
 .participantCount{
   display: block;
-  /* background-color: #F77C7E; */
-  /* justify-items: center;
-  align-items: center; */
 }
 
 .participantCount:hover {

@@ -13,14 +13,18 @@ namespace SocialMedia.Controllers
     [Authorize]
     public class GroupController : Controller
     {
+        private readonly ILogger<GroupController> _logger;
         private readonly GroupService _groupService;
 
         private readonly GroupmemberService _groupmemberService;
+        private readonly UserService _userService;
 
-        public GroupController(GroupService groupService ,GroupmemberService groupmemberService)
+        public GroupController(ILogger<GroupController> logger, GroupService groupService, GroupmemberService groupmemberService, UserService userService)
         {
+            _logger = logger;
             _groupService = groupService;
             _groupmemberService = groupmemberService;
+            _userService = userService;
 
         }
         public IActionResult Index()
@@ -30,35 +34,91 @@ namespace SocialMedia.Controllers
             var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             // Use the username for your application logic...
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
             ViewData["Username"] = username;
+            ViewData["UserImg"] = user.Image;
 
             var groupspost = _groupService.GetAllGroups();
 
-            return View(groupspost);
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
+            var model = new GroupBlogModel
+            {
+                Groups = groupspost,
+                Activities = activity
+            };
+
+
+            return View(model);
         }
 
-        public IActionResult Create(){
+        public IActionResult Create()
+        {
+            var username = HttpContext.User.Identity?.Name;
+            // Alternatively, if the username is stored in a specific claim type
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = username;
+            ViewData["UserImg"] = user.Image;
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
+            var model = new GroupBlogModel
+            {
+                Groups = [],
+                Activities = activity
+            };
+            return View(model);
+        }
+
+        public IActionResult Recommend()
+        {
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             // Use the username for your application logic...
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
-            return View();
+            ViewData["UserImg"] = user.Image;
+            var groupspost = _groupService.GetAllGroups();
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
+            var model = new GroupBlogModel
+            {
+                Groups = groupspost,
+                Activities = activity
+            };
+
+            return View(model);
         }
 
-        public IActionResult Recommend(){
-            var username = HttpContext.User.Identity?.Name;
-            // Alternatively, if the username is stored in a specific claim type
-            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            // Use the username for your application logic...
-            ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
-            var groupspost = _groupService.GetAllGroups();
-            return View(groupspost);
-        }
-        
-        public IActionResult Details(int id){
+        public IActionResult Details(int id)
+        {
             Console.WriteLine(id);
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
@@ -70,11 +130,11 @@ namespace SocialMedia.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> CreateGroup([FromBody] GroupViewModel model)
-        {   
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest("model invalid");
@@ -84,9 +144,10 @@ namespace SocialMedia.Controllers
             {
                 return Json(new { success = false, message = "User ID is invalid." });
             }
-            try{
+            try
+            {
                 var group = new Group
-                {   
+                {
                     UserId = userIdAsInt,
                     Name = model.Groupname,
                     Description = model.Description,
@@ -106,7 +167,7 @@ namespace SocialMedia.Controllers
             }
             return Ok(model.Groupname);
         }
-        
+
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> JoinGroup(int id)
@@ -118,18 +179,21 @@ namespace SocialMedia.Controllers
             {
                 return Json(new { success = false, message = "User ID is invalid." });
             }
-            var groupmember = new GroupMember{
+            var groupmember = new GroupMember
+            {
                 UserId = userIdAsInt,
                 GroupId = id,
             };
             var result = await _groupmemberService.JoinGroup(groupmember);
-            if(result){
+            if (result)
+            {
                 return Json(new { success = true, message = "Join group successfully!" });
             }
-            else{
+            else
+            {
                 return Json(new { success = true, message = "Error to join group" });
             }
-            
+
         }
     }
 

@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
 }
 
-@model List<SocialMedia.Models.Database.Group>
+@model SocialMedia.ViewModels.GroupBlogModel
 
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
@@ -107,7 +107,7 @@
 
     </div>
     <div class="container-rec">
-        @foreach (var group in Model)
+        @foreach (var group in Model.Groups)
         {
         @using System.Security.Claims
             @if (group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int

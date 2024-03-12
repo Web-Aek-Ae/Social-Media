@@ -28,21 +28,17 @@ public class HomeController : Controller
 
         var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-        ViewData["Username"] = username;
-        ViewData["UserId"] = UserId;
-
         if (UserId == null)
         {
             return RedirectToAction("Login", "User");
         }
-
         var user = _userService.GetUserById(int.Parse(UserId));
 
-        if (user == null)
-        {
-            return RedirectToAction("Login", "User");
+        ViewData["Username"] = username;
+        ViewData["UserId"] = UserId;
+        ViewData["UserImg"] = user.Image;
 
-        }
+
         var activity = new List<JoinActivity>();
         var userActivities = _userService.GetUserActivities(int.Parse(UserId));
         activity.AddRange(userActivities.Take(3));
@@ -73,8 +69,26 @@ public class HomeController : Controller
         // Alternatively, if the username is stored in a specific claim type
         var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         // Use the username for your application logic...
+
+        if (UserId == null)
+        {
+            return RedirectToAction("Login", "User");
+        }
+        var user = _userService.GetUserById(int.Parse(UserId));
+
         ViewData["UserId"] = UserId;
         ViewData["Username"] = username;
-        return View();
+        ViewData["UserImg"] = user.Image;
+
+        var activity = new List<JoinActivity>();
+        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        activity.AddRange(userActivities.Take(3));
+        var model = new HomeViewModel
+        {
+            Posts = [],
+            Activities = activity
+        };
+
+        return View(model);
     }
 }

@@ -1,4 +1,4 @@
-@model SocialMedia.ViewModels.GroupViewModel
+@model SocialMedia.ViewModels.GroupBlogModel
 @section css {
     <link rel="stylesheet" href="~/css/group.css">
 }
@@ -13,14 +13,14 @@
     </a>
     <div class="box">
         <div class="title">
-            <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+            <img src="@ViewData["UserImg"]"
                 class="profile">
-            <input asp-for="Groupname" placeholder="Group Name" class="name">
+            <input placeholder="Group Name" class="name">
         </div>
-        <textarea asp-for="Description" placeholder="description..."></textarea>
+        <textarea  placeholder="description..." class="description"></textarea>
 
         <div class="boxinput"><img src="~/src/images/Imgicon.svg">
-            <input asp-for ="Image" placeholder="Add some photos" class="input">
+            <input placeholder="Add some photos" class="photo">
         </div>
         <div class="btn">
             <button>create group</button>
@@ -33,9 +33,9 @@
             $(".btn button").click(function(event) {
                 event.preventDefault(); // Prevent the default form submission
                 var formData = {
-                    Groupname: $('input[name="Groupname"]').val(),
-                    Description: $('textarea[name="Description"]').val(),
-                    Image:$('input[name="Image"]').val()  
+                    Groupname: document.querySelector('.name').value,
+                    Description: document.querySelector('.description').value,
+                    Image:document.querySelector('.photo').value  
                 };
                 // Basic validation example
                 if (!formData.Groupname || !formData.Description || !formData.Image) {

@@ -424,6 +424,12 @@ button {
   font-size: 30px;
   font-weight: 600;
 }
+button:hover {
+  background-color: #f77c7e;
+  color: #ffff;
+  transition: 0.3s;
+
+}
 button:not(#btnCancel):hover  {
   transition: 0.3s;
 }
@@ -671,4 +677,35 @@ button:not(#btnCancel):hover  {
   display: flex;
   /* background-color: #fbca63; */
   gap: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+  .create-post-button {
+    bottom: 3%;
+    right: 3%;
+  }
+  .addPostIcon {
+    bottom: 3%;
+    right: 3%;
+  }
+}
+@media (max-width: 768px) {
+  .create-post-button {
+    bottom: 8%;
+  }
+  .addPostIcon {
+    bottom: 8%;
+  }
+}
+
+@media (max-width: 917px) {
+  .post-rec {
+    width: 560px;
+  }
+} 
+
+@media (max-width: 932px) {
+  .group {
+    width: 590px;
+  }
 }

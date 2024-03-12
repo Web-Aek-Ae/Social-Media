@@ -80,11 +80,23 @@ namespace SocialMedia.Controllers
 
         public IActionResult Login()
         {
+
+             var cookies = HttpContext.Request.Cookies;
+
+            // Loop through the cookies and delete each one
+            foreach (var cookie in cookies)
+            {
+                HttpContext.Response.Cookies.Delete(cookie.Key);
+            }
+
+            
             if (User?.Identity?.IsAuthenticated == true)
             {
                 // User is already authenticated, redirect to "/Home"
                 return RedirectToAction("Index", "Home");
             }
+
+            
 
             return View();
         }
@@ -183,7 +195,7 @@ namespace SocialMedia.Controllers
         }
         
         [HttpPost]
-         public async Task<IActionResult> Edit(EditProfileViewModel model)
+         public async Task<IActionResult> Edit([FromBody]  EditProfileViewModel model)
         {
             if (!ModelState.IsValid)
             {

@@ -94,34 +94,41 @@
         }
     </script>
     <script>
-        $(document).ready(function () {
-            $("button.group-rec-button").click(function () {
-                event.preventDefault();
-                var button = $(this);
-                var groupId = button.attr("GroupId");
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("button.group-rec-button").forEach(function (button) {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    var groupId = button.getAttribute("GroupId");
 
-                $.ajax({
-                    type: "POST",
-                    url: '/Group/JoinGroup/' + groupId,
-                    data: {},
-                    success: function (data) {
-                        if (data.success) {
-                            button.text("View group")
-                            .addClass("group-button")
-                            .removeClass("group-rec-button")
-                            .attr("onclick", "viewgrouponclick(" + groupId + ")");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", '/Group/JoinGroup/' + groupId, true);
+
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.success) {
+                                button.classList.add("group-button");
+                                button.classList.remove("group-rec-button");
+                            } else {
+                                alert("Failed to Join Group: " + data.message);
+                            }
+                        } else {
+                            alert("An error occurred while joining the group. Please try again later.");
                         }
-                        else {
-                            alert("Failed to Join Group: " + data.message);
-                        }
-                    },
-                    error: function () {
+                    };
+
+                    xhr.onerror = function () {
                         alert("An error occurred while joining the group. Please try again later.");
-                    }
+                    };
+
+                    xhr.send();
                 });
             });
         });
     </script>
+
 
     <script src="~/lib/testfile.js"></script>
 

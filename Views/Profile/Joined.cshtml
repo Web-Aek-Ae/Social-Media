@@ -58,14 +58,14 @@
                     </div>
                     <div class="profilePost">
                         <div class="info">
-                            <img src="@activity.Post.User.Image"
-                                alt="proflie" class="imgProfile">
+                            <img src="@activity.Post.User.Image" alt="proflie" class="imgProfile">
                             <p>@activity.Post.User.Name</p>
                         </div>
                         <div class="status">
                             @if (@DateTime.Now < @activity.Post.ExpireDate)
                             {
-                                <p>Start in<span>@(activity.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                                <p>Start in <span>@(Convert.ToInt32(activity.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
+                                        Hour...</span></p>
                             }
                             else
                             {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using SocialMedia.Models.Database;
 
 namespace SocialMedia.ViewModels
 {
@@ -95,6 +95,35 @@ namespace SocialMedia.ViewModels
   public class JoinActivityViewModel
   {
     public int PostId { get; set; }
+  }
+
+  public class EditProfileViewModel
+  {
+    [Required(ErrorMessage = "Name is required")]
+    public required string Name { get; set; }
+
+    [Required(ErrorMessage = "Username is required")]
+    public required string Username { get; set; }
+
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    public required string Email { get; set; }
+
+    public string? Image { get; set; }
+  }
+
+  public class EditImageViewModel
+  {
+    [Required]
+    [Url]
+    public string Image { get; set; }
+  }
+  public class HomeViewModel
+  {
+
+    public List<Post> Posts { get; set; }
+    public List<JoinActivity>? Activities { get; set; }
+
   }
 
 }

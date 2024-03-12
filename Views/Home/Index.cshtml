@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-@model IEnumerable<SocialMedia.Models.Database.Post>
+@model SocialMedia.ViewModels.HomeViewModel
 
 
 <head>
@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="container-post">
-        @foreach (var post in Model)
+        @foreach (var post in Model.Posts)
         {
-
+            <a class="link" asp-action="Post" asp-controller="Home" style="text-decoration: none; color:black;">
                 <div class="post">
                     <div class="card-post">
                         <img src="@post.Image" alt="activity" class="activity">
@@ -45,7 +45,7 @@
                             <div class="description">
                                 <p>@post.Content</p>
                                 <div class="owner">
-                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                                    <img src="@post.User.Image"
                                         alt="" id="owner-profile">
                                     <span>@post.User.Name</span>
                                 </div>
@@ -75,11 +75,19 @@
                                         <span class="likeCount">@post.PostLikes.Count
                                             <div class="dropdownLike">
 
-                                                @foreach (var like in post.PostLikes)
+                                                @foreach (var like in post.PostLikes.ToList())
                                                 {
                                                     <div class="member">
                                                         <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                        <h5>@like.User.Name</h5>
+                                                        @if (like.User != null)
+                                                            {
+                                                                <h5>@like.User.Name</h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5>User not found.</h5>
+                                                            }
+
                                                     </div>
                                                 }
                                                 
@@ -108,6 +116,7 @@
                         </div>
                     </div>
                 </div>
+            </a>
 
         }
         </div>
@@ -120,6 +129,7 @@
             <script>
                 $(document).ready(function () {
                     $('.like-button').click(function () {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({
@@ -127,7 +137,7 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-
+                                
                                 console.log(result)
                                 button.find('img').attr('src', result.liked ? '@Url.Content("~/src/images/LikedIcon.svg")' : '@Url.Content("~/src/images/LikeIcon.svg")');
                                 button.siblings('span').text(result.likeCount);
@@ -141,7 +151,8 @@
                     });
 
 
-                    $('.join-button').click(function () {
+                    $('.join-button').click(function (event) {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({
@@ -149,7 +160,8 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-                                console.log(result);
+
+                                if (result.success){
                                 if (result.joined ) {
                                     button.text('joined');
                                     button.removeClass('join-button');
@@ -164,6 +176,9 @@
                                     console.log("Post unjoined successfully");
                                 }
                                 button.parent().find('.joined').text(result.joinActivitiesCount);
+
+                                }
+                                console.log(result);
                             },
                             error: function (xhr, status, error) {
                                 // Handle errors
@@ -173,6 +188,7 @@
                     });
 
                     $('.joined-button').click(function () {
+                        event.preventDefault();
                         var button = $(this); // The clicked button
                         var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
                         $.ajax({
@@ -180,12 +196,13 @@
                             type: 'POST',
                             data: { postId: postId }, // Send the post ID as data
                             success: function (result) {
-                                console.log(result);
+                                 if (result.success){
                                 if (result.joined ) {
                                     button.text('joined');
                                     button.removeClass('join-button');
                                     button.addClass('joined-button');
                                     console.log("Post joined successfully");
+
                                 }
                                 else {
                                     button.text('join activity');
@@ -194,6 +211,9 @@
                                     console.log("Post unjoined successfully");
                                 }
                                 button.parent().find('.joined').text(result.joinActivitiesCount);
+
+                                }
+                                console.log(result);
                             },
                             error: function (xhr, status, error) {
                                 // Handle errors

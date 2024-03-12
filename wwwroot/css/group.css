@@ -216,6 +216,7 @@ transition: 0.3s;
   text-decoration: none;
 }
 .Recomended-Group-post {
+  width: 100%;
   padding: 0px 30px 0px 30px;
   height: 310px;
   display: flex;
@@ -223,6 +224,9 @@ transition: 0.3s;
   gap: 50px;
   overflow-x: auto;
   white-space: nowrap;
+}
+.scroll-content {
+  width: auto;
 }
 .Recomended-Group-post::-webkit-scrollbar{
     width: 3px;
@@ -239,7 +243,7 @@ transition: 0.3s;
     text-decoration: underline
 }
 .card-Recomended-Group {
-  min-width: 320px;
+  width: 320px;
   height: 266px;
   border: 2px solid;
   border-radius: 30px;

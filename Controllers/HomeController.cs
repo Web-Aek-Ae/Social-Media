@@ -59,7 +59,7 @@ public class HomeController : Controller
         var model = new HomeViewModel
         {
             Posts = posts,
-            Activities = activity
+            Activities = activity,
             Image = image
         };
 

@@ -1,3 +1,5 @@
+@model SocialMedia.ViewModels.HomeViewModel
+@using System.Security.Claims
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -44,30 +46,30 @@
             <div class="post-detail">
                 <div class="post-header" style="margin-left:0rem;width:60rem;">
                     <div class="date">
-                        <h3 class="month">FEB</h3>
-                        <h3 class="day">26</h3>
-                        <h3 class="year">2024</h3>
+                        <h3 class="month">@Model.Post.Date.ToString("MMM").ToUpper()</h3>
+                        <h3 class="day">@Model.Post.Date.Day</h3>
+                        <h3 class="year">@Model.Post.Date.Year</h3>
                     </div>
                     <div class="topic">
-                        <h1>เตะบอลกันครับพี่ๆ</h1>
-                        <p>18:00 - 20:00, KMITL</p>
+                        <h1>@Model.Post.Title</h1>
+                        <p>@Model.Post.Time.ToString("HH:mm"), @Model.Post.Location</p>
                     </div>
                     <div class="status-categories">
                         <div class="status-activity">
                             <p>Status :</p>
                             <p class="state"> Open</p>
                         </div>
-                        <p style="position:absolute;right:0;top:1rem;">Categories : Sports, Football</p>
+                        <p style="position:absolute;right:0;top:1rem;">Categories : @Model.Post.Category.Name</p>
                     </div>
                 </div>
-                <p>เตะบอลวันอังคารที่ 27 ตอนเย็นที่สนามมอครับ ใครสนใจก็มาร่วมด้ายยย ค่าสนามชั่วโมงละ 1500 บาท เราเล่น 2 ชั่วโมงตกคนละ 200 บาทครับบ มีเพื่อนชวนเพื่อนมาได้โล้ดดด</p>
-                <img class="img-activity" src="https://cdn.britannica.com/51/190751-050-147B93F7/soccer-ball-goal.jpg"> 
+                <p>@Model.Post.Content</p>
+                <img class="img-activity" src="@Model.Post.Image"> 
                 <div class="post-bottom">
                     <div class="owner" style="margin:0;">
-                        <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
+                        <img src="@Model.Post.User.Image"
                             alt="" class="owner-img">
                         <div class="name" style="font-size:20px;align-item:center;">
-                            <span>Boom za</span>
+                            <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
                                 <span style="padding-top:0.1rem">15 minutes ago</span>
@@ -75,33 +77,70 @@
                         </div>
                     </div>
                     <div class="action-ep">
-                        <div class="likes">
-                            <button class="like-button">
-                                <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
+                       <div class="likes">
+                            <button data-postid="@Model.Post.PostId" class="like-button">
+                            @if (Model.Post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                            {
+                                        <img src="~/src/images/LikedIcon.svg" class="icon" >
+
+                            }
+                            else
+                            {
+                                        <img src="~/src/images/LikeIcon.svg" class="icon" >
+                            }
+
                             </button>
-                            <span class="likeCount">2
-                                <div class="dropdownLike" style="right:75%">
+                            <span class="likeCount">@Model.Post.PostLikes.Count
+                                <div class="dropdownLike" style="right :75% ">
+
+                                    @foreach (var like in Model.Post.PostLikes.ToList())
+                                    {
                                         <div class="member">
                                             <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                <h5>oakoakoak</h5>
+                                            @if (like.User != null)
+                                                {
+                                                    <h5>@like.User.Name</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>User not found.</h5>
+                                                }
+
                                         </div>
+                                    }
+                                    
                                 </div>
                             </span>
                         </div>
                         <div class="participant">
-                            <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
-                            <div class="participantCount">
-                                <span class="joined">2 </span>
-                                <span class="max"> / 10</span>
-                                    <div class="dropdownParticipant" style="right:50%;">
-                                            <div class="member">
-                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                                                <h5>oakoakoak</h5>
-                                            </div>
+                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
+                                        <div class="participantCount">
+                                            <span class="joined">@Model.Post.JoinActivities.Count </span>
+                                            <span class="max"> / @Model.Post.MaxPeople</span>
+                                                <div class="dropdownParticipant" style="right:50%">
+                                                    @foreach (var joinActivity in Model.Post.JoinActivities)
+                                                    {
+                                                        <div class="member">
+                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                            <h5>@joinActivity.User.Name</h5>
+                                                        </div>
+                                                    }                                        
+                                                </div>
+                                        </div>
+
                                     </div>
-                            </div>
-                        </div>
-                        <button class="join-button" style="margin-left:1rem;">join activity</button>
+                                
+                                <div class="join-btn" style="margin-left:1rem ;">
+                                    @if (Model.Post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                {
+                                                <button  data-postid="@Model.Post.PostId" class="joined-button" >joined</button>
+                                }
+                                else
+                                {
+                                                 <button data-postid="@Model.Post.PostId"  class="join-button" >join activity</button>
+                                }
+                                </div>
+                                
                     </div>
                 </div>  
             </div>
@@ -176,9 +215,11 @@
     </div>
 </div>
 <div class="modalBg"></div>
-<script>
+
+    <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
+
 function dropdown() {
 //   document.getElementById("myDropdown").classList.toggle("show");
     var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -210,3 +251,77 @@ window.onclick = function(event) {
 </script>
 <script src="~/lib/ApplicationClosed.js"></script>
 <script src="~/lib/deletePost.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Handle like button clicks
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute('data-postid');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var result = JSON.parse(xhr.responseText);
+                    console.log(result);
+                    var imgSrc = result.liked ? '/src/images/LikedIcon.svg' : '/src/images/LikeIcon.svg'; // Adjust the paths as necessary
+                    button.querySelector('img').setAttribute('src', imgSrc);
+                    button.nextElementSibling.textContent = result.likeCount;
+                    console.log("Post liked successfully");
+                    
+                } else {
+                    console.log("Error liking post: " + xhr.statusText);
+                }
+            };
+            xhr.send('postId=' + postId);
+        });
+    });
+
+    // Handle join and unjoin activity button clicks
+    function handleJoinActivity(button, isJoin) {
+        var postId = button.getAttribute('data-postid');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/JoinActivity/JoinActivity'); // Adjust the URL to match your routing
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                console.log(result);
+                if (result.success) {
+                    button.textContent = result.joined ? 'joined' : 'join activity';
+                    button.classList.toggle('join-button', !result.joined);
+                    button.classList.toggle('joined-button', result.joined);
+                    button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
+                    console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
+                    
+                }
+            } else {
+                console.log("Error joining activity: " + xhr.statusText);
+            }
+        };
+        xhr.send('postId=' + postId);
+    }
+
+    // Initial bindings for join buttons
+    document.querySelectorAll('.join-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, true);
+        });
+    });
+
+    document.querySelectorAll('.joined-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, false);
+        });
+    });
+
+
+
+});
+</script>
+

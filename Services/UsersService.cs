@@ -40,6 +40,12 @@ namespace SocialMedia.Services
         }
         
 
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _context.Users.Include(u => u.Posts).Include(l => l.PostLikes).ThenInclude(pl => pl.Post).Include(u => u.JoinActivities).ThenInclude(ja => ja.Post).ThenInclude(u => u.User).FirstOrDefaultAsync(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
+        }
+
+
         public User GetUserById(int id)
         {
             return _context.Users.Include(u => u.Posts).Include(l => l.PostLikes).ThenInclude(pl => pl.Post).Include(u => u.JoinActivities).ThenInclude(ja => ja.Post).ThenInclude(u => u.User).FirstOrDefault(u => u.UserId == id) ?? throw new ArgumentException("User not found.");
@@ -109,6 +115,14 @@ namespace SocialMedia.Services
                            .Include(ja => ja.User) // Include the User of each JoinActivity
                            .Where(ja => ja.UserId == userId)
                            .ToList();
+        }
+
+        public async Task<ICollection<JoinActivity>> GetUserActivitiesAsync(int userId)
+        {
+            return await _context.JoinActivities
+                           .Include(ja => ja.User) // Include the User of each JoinActivity
+                           .Where(ja => ja.UserId == userId)
+                           .ToListAsync();
         }
 
 

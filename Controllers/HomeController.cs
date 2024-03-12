@@ -14,10 +14,11 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
     private readonly UserService _userService;
-    public HomeController(ILogger<HomeController> logger, PostService postService)
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
     {
         _logger = logger;
         _postService = postService;
+        _userService = userService;
     }
 
     public IActionResult Index()
@@ -37,14 +38,14 @@ public class HomeController : Controller
 
         var user = _userService.GetUserById(int.Parse(UserId));
 
-        // if (user == null)
-        // {
-        //     return RedirectToAction("Login", "User");
+        if (user == null)
+        {
+            return RedirectToAction("Login", "User");
 
-        // }
+        }
         var activity = new List<JoinActivity>();
         var userActivities = _userService.GetUserActivities(int.Parse(UserId));
-        activity.AddRange(userActivities);
+        activity.AddRange(userActivities.Take(3));
 
         var posts = _postService.GetAllPosts();
         var model = new HomeViewModel

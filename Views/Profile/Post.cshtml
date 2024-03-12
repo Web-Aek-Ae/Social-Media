@@ -56,7 +56,7 @@
                             @if (@post.JoinActivities != null)
                             {
 
-                                @post.JoinActivities
+                                @post.JoinActivities.Count
                             }
                             else
                             {
@@ -67,8 +67,7 @@
                     </div>
                     <div class="profilePost">
                         <div class="info">
-                            <img src="@post.User.Image"
-                                alt="proflie" class="imgProfile">
+                            <img src="@post.User.Image" alt="proflie" class="imgProfile">
                             <p>@post.User.Name</p>
                         </div>
                         <div class="status">

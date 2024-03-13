@@ -90,6 +90,7 @@
 @section scripts {
     <script>
         function viewgrouponclick(groupId) {
+            event.preventDefault();
             window.location.href = '@Url.Action("Details", "Group")' + '/' + groupId;
         }
     </script>
@@ -111,6 +112,9 @@
                             if (data.success) {
                                 button.classList.add("group-button");
                                 button.classList.remove("group-rec-button");
+                                button.addEventListener('click',function(event){
+                                viewgrouponclick(event);
+                                });
                             } else {
                                 alert("Failed to Join Group: " + data.message);
                             }

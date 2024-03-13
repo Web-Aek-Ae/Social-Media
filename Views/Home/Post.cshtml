@@ -129,15 +129,19 @@
                                         </div>
 
                                     </div>
-                                
-                                    @if (Model.Post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
-                                {
-                                                <button  data-postid="@Model.Post.PostId" class="joined-button" >joined</button>
-                                }
-                                else
-                                {
-                                                 <button data-postid="@Model.Post.PostId"  class="join-button" >join activity</button>
-                                }
+                                @if(Model.Post.PostStatus != Post.Status.Closed){
+                                            @if (Model.Post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                            {
+                                                            <button  data-postid="@Model.Post.PostId" class="joined-button" >joined</button>
+                                            }
+                                            else
+                                            {
+                                                            <button data-postid="@Model.Post.PostId"  class="join-button" >join activity</button>
+                                            }
+                                    }
+                                    else{
+                                        <button class="closed-button">Closed</button>
+                                    }
                     </div>
                 </div>  
             </div>

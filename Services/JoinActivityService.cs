@@ -42,7 +42,6 @@ namespace SocialMedia.Services
                 if (post.MaxPeople - post.JoinActivities.Count == 1)
                 {
                     post.PostStatus = Post.Status.Closed;
-
                     _context.Posts.Update(post);
                     await _context.SaveChangesAsync();
                 }

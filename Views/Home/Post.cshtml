@@ -261,6 +261,7 @@ window.onclick = function(event) {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    window.location.reload();
                     
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
@@ -292,7 +293,7 @@ window.onclick = function(event) {
                     button.classList.toggle('joined-button', result.joined);
                     button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
-                    
+                    window.location.reload();
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);

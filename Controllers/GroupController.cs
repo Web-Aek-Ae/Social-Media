@@ -153,9 +153,6 @@ namespace SocialMedia.Controllers
             {
                 return RedirectToAction("Index", "Group");
             }
-            Console.WriteLine(detailsmodel.Group.Name);
-            Console.WriteLine(detailsmodel.Posts);
-            Console.WriteLine(detailsmodel.Activities);
 
             return View(detailsmodel);
         }

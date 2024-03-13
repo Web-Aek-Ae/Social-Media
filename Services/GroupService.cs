@@ -25,9 +25,9 @@ namespace SocialMedia.Services
             {
                 _context.Groups.Remove(group);
                 await _context.SaveChangesAsync();
-                return true; // Or use TempData or another way to communicate success
+                return true; 
             }
-            return false; // Or communicate the user was not found
+            return false;
         }
         public List<Group> GetAllGroups()
         {

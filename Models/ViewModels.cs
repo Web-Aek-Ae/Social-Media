@@ -155,4 +155,9 @@ namespace SocialMedia.ViewModels
     public int PostId {get; set;}
   }
 
+  public class DeleteGroupViewModel
+  {
+    public int GroupId {get; set;}
+  }
+
 }

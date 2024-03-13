@@ -125,9 +125,10 @@ namespace SocialMedia.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteGroup(int id)
+        public async Task<ActionResult> DeleteGroup([FromBody] DeleteGroupViewModel model)
         {
-            var result = await _groupService.DeleteGroup(id);
+            var result = await _groupService.DeleteGroup(model.GroupId);
+            Console.WriteLine(result);
             if(result == true)
             {
                 return Json(new { success = true, message = "Group delete successfully!" });

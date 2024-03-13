@@ -254,7 +254,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '/Group/DeleteGroup/'+groupId, // Modify with your correct URL
+                    url: '@Url.Action("DeleteGroup", "Group")', // Modify with your correct URL
                     contentType: "application/json",
                     data: JSON.stringify(formData),
                     success: function (response) {

@@ -364,7 +364,7 @@ transition: 0.3s;
   height: 1.75rem;
   border-radius: 50%;
 }
-#amountofmembers {
+.amountofmembers {
   display: flex;
   align-items: center;
   gap: 5px;

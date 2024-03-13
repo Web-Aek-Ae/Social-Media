@@ -30,7 +30,7 @@ namespace SocialMedia.Controllers
             _postService = postService;
 
         }
-        public IActionResult Index()
+        public IActionResult Index(string data)
         {
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
@@ -49,6 +49,10 @@ namespace SocialMedia.Controllers
             ViewData["UserImg"] = user.Image;
 
             var groupspost = _groupService.GetAllGroups();
+
+            if(data!=null){
+                groupspost = _groupService.GetGroupsByName(data);
+            }
 
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
@@ -132,7 +136,7 @@ namespace SocialMedia.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-             var user = _userService.GetUserById(int.Parse(UserId));
+            var user = _userService.GetUserById(int.Parse(UserId));
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
             ViewData["UserImg"] = user.Image;

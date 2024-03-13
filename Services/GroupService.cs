@@ -35,6 +35,12 @@ namespace SocialMedia.Services
             .Include(g => g.User)
             .ToList();
         }
+        public List<Group> GetGroupsByName(string data)
+        {
+            return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
+            .Include(g => g.User).Where(g=>g.Name == data)
+            .ToList();
+        }
 
         public Group? GetGroupById(int? id)
         {

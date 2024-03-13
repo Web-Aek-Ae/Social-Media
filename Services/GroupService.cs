@@ -35,10 +35,21 @@ namespace SocialMedia.Services
             .Include(g => g.User)
             .ToList();
         }
+        public List<Group> GetGroupsByName(string data)
+        {
+            return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
+            .Include(g => g.User).Where(g=>g.Name == data)
+            .ToList();
+        }
 
         public Group? GetGroupById(int? id)
         {
             return _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
+        }
+
+        public async Task<Group?> GetGroupByIdAsync(int? id)
+        {
+            return await _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefaultAsync(g => g.GroupId == id);
         }
 
         public async Task<bool> AddGroup(Group group)

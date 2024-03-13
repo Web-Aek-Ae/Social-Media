@@ -104,8 +104,10 @@ namespace SocialMedia.ViewModels
 
   public class DetailsModels
   {
+    public List<JoinActivity>? Activities { get; set; }
     public List<Post>? Posts { get; set; }
     public Group? Group { get; set; }
+  
   }
   
   
@@ -141,6 +143,7 @@ namespace SocialMedia.ViewModels
   public class GroupBlogModel{
 
     public List<Group> Groups {get;set;}
+    public Group group{get;set;}
     public List<JoinActivity>? Activities {get;set;}
   }
 

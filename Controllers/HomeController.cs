@@ -24,7 +24,8 @@ public class HomeController : Controller
         _commentService = commentService;
     }
 
-    public async Task<IActionResult> Index()
+    // [HttpPost]
+    public async Task<IActionResult> Index(string data)
     {
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
@@ -35,24 +36,34 @@ public class HomeController : Controller
         {
             return RedirectToAction("Login", "User");
         }
-        var user = _userService.GetUserById(int.Parse(UserId));
+        var user =  _userService.GetUserById(int.Parse(UserId));
 
-        ViewData["Username"] = username;
+        ViewData["Username"] = user.Name;
         ViewData["UserId"] = UserId;
         ViewData["UserImg"] = user.Image;
 
+   
+
 
         var activity = new List<JoinActivity>();
-        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        var userActivities =  _userService.GetUserActivities(int.Parse(UserId));
         activity.AddRange(userActivities.Take(3));
 
+        // var posts = _postService.GetAllPosts();
         var posts = _postService.GetAllPosts();
+        if (data != null)
+        {
+            posts = _postService.GetPostsByTitle(data);
+        }
         var model = new HomeViewModel
         {
             Posts = posts,
             Activities = activity
         };
-
+        if (data != null)
+        {
+            return View("JustPost", model);
+        }
         return View(model); // Passes posts as a model to the view
 
     }
@@ -74,8 +85,6 @@ public class HomeController : Controller
         _logger.LogInformation($"Username from JWT: {username}");
 
         var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        ViewData["Username"] = username;
-        ViewData["UserId"] = UserIdClaim;
 
         if (!int.TryParse(UserIdClaim, out var userId))
         {
@@ -84,6 +93,8 @@ public class HomeController : Controller
         }
 
         var user = await _userService.GetUserByIdAsync(userId);
+        ViewData["Username"] = user.Name;
+        ViewData["UserId"] = UserIdClaim;
 
     var activity = new List<JoinActivity>();
     var userActivities = await _userService.GetUserActivitiesAsync(userId);
@@ -103,7 +114,6 @@ public class HomeController : Controller
         Post = post,
         Comments = comment
     };
-
 
         return View(model);
 

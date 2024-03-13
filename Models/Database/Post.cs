@@ -19,6 +19,14 @@ namespace SocialMedia.Models.Database
         public int? GroupId { get; set; }
 
 
+        public enum Status
+        {
+            Open,
+            Closed
+        }
+
+        public Status PostStatus { get; set; } = Status.Open;
+
         public virtual Group Group { get; set; }
 
         public virtual Category Category { get; set; }
@@ -59,4 +67,5 @@ namespace SocialMedia.Models.Database
 
 
     }
+
 }

@@ -20,13 +20,16 @@ namespace SocialMedia.Controllers
         private readonly GroupService _groupService;
         private readonly ILogger<PostController> _logger;
 
-        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService,CommentService commentService)
+        private readonly UserService _userService;
+        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService,CommentService commentService ,UserService userService)
         {
             _postService = postService;
             _logger = logger;
             _categoryService = categoryService;
             _groupService = groupService;
             _commentService = commentService;
+
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -62,12 +65,22 @@ namespace SocialMedia.Controllers
                 throw new Exception("No categories found.");
             }
 
-            var username = HttpContext.User.Identity?.Name;
+            // var username = HttpContext.User.Identity?.Name;
 
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            if(UserId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
 
             ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
+            ViewData["UserImage"] = user.Image;
+
             return View(model);
         }
 

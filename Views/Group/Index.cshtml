@@ -21,11 +21,11 @@
         <div class="search">
             <div class="search-bar">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search" class="input">
+                <input type="text" placeholder="Search" id="searchInput">
             </div>
             <div class="filter-bar">
                 <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" class="input">
+                <input type="text" placeholder="Filter" id="input">
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"
                     style="text-decoration: none; color:black">
                     <div class="card-Recomended-Group">
-                        <img src="@group.Image" alt="Recomended-Group-Image" id="card-Recomended-Group-img" >
+                        <img src="@group.Image" alt="Recomended-Group-Image" id="card-Recomended-Group-img">
                         <div class="contents">
                             <div class="contents-header">
                                 <h3>@group.Name</h3>
@@ -56,6 +56,7 @@
                                     <span>@group.Members.Count</span>
                                 </div>
                             </div>
+
                             <div class="Recomended-Group-poster">
                                 <img src="@group.User.Image" alt="" id="group-poster-img">
                                 <span>@group.User.Name</span>
@@ -69,13 +70,13 @@
                         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
                     </div>
                     <div class="group-members">
-                    @foreach (var members in group.Members)
-                    {
-                        <div class="members">
-                            <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
-                            <span>@members.User.Name</span>
-                        </div>
-                    }
+                        @foreach (var members in group.Members)
+                        {
+                            <div class="members">
+                                <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
+                                <span>@members.User.Name</span>
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -89,7 +90,8 @@
             @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
            userId) ? userId : 0)))
             {
-                <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId" style="color: black;text-decoration:none;">
+                <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId"
+                    style="color: black;text-decoration:none;">
                     <div class="group">
                         <div class="card-group">
                             <h1 id="section">@group.Name</h1>
@@ -105,13 +107,13 @@
                                 <div class="group-of-button">
                                     <img src="~/src/images/People_in_postcardIcon.svg">
                                     <span>@group.Members.Count</span>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-            
+
 
             }
 
@@ -124,13 +126,43 @@
 @section scripts {
     <script>
         var elements = document.getElementsByClassName("amountofmembers");
-
-        // Iterate over each element and add an event listener
         for (var i = 0; i < elements.length; i++) {
             elements[i].addEventListener('click', function (event) {
                 event.preventDefault();
             })
         };
+        document.getElementById("searchInput").addEventListener("change", sentSearch);
+        function sentSearch() {
+            var data = document.getElementById("searchInput").value;
+            if (data == "") {
+                window.location.href = "/Group/Index";
+                return;
+            }
+            var newXhr = new XMLHttpRequest();
+            newXhr.open("GET", "/Group/Index?data=" + data, true);
+            newXhr.setRequestHeader("Content-Type", "application/json");
+
+            newXhr.onreadystatechange = function () {
+                if (newXhr.readyState === XMLHttpRequest.DONE) {
+                    if (newXhr.status === 200) {
+                        console.log("Data sent successfully");
+                        console.log(data);
+                        const container = document.querySelector(".container-group")
+                        container.innerHTML = newXhr.responseText
+                        console.log(newXhr.responseText)
+                        poom()
+                    } else {
+                        console.log("Error sending data");
+                    }
+                }
+            };
+
+            var jsonData = JSON.stringify({ data: data });
+
+            // Send the request with the JSON data
+            newXhr.send(jsonData);
+        }
+
     </script>
 
     <script src="~/lib/testfile.js"></script>

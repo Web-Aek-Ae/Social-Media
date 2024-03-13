@@ -463,6 +463,7 @@ button {
   border-radius: 40px;
   font-size: 30px;
   font-weight: 600;
+  cursor: pointer;
 }
 button:hover {
   background-color: #f77c7e;
@@ -481,9 +482,11 @@ button:not(#btnCancel):hover  {
   bottom: 3%;
   right: 22%;
   z-index: 1;
+  cursor: pointer;
 }
 
 .create-post-button:hover {
+  cursor: pointer;
   border: solid 3px black;
 }
 

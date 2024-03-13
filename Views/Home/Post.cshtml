@@ -71,7 +71,28 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-                                <span style="padding-top:0.1rem">@(Convert.ToInt32(DateTime.Now.Subtract(@Model.Post.Time).TotalHours)) minutes ago</span>
+
+                                    @{
+                                        // Corrected variable names to reflect the comment's timing
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.Time, DateTimeKind.Utc);
+                                        var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
+                                        var hours = Convert.ToInt32(timeSincePost.TotalHours);
+                                        var days = Convert.ToInt32(timeSincePost.TotalDays);
+                                    }
+
+                                    @if (days >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@days day@(days > 1 ? "s" : "") ago</span>
+                                    }
+                                    else if (hours >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@hours hour@(hours > 1 ? "s" : "") ago</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
+                                    }
+
                             </div>
                         </div>
                     </div>
@@ -149,22 +170,44 @@
             <div class="container-comment">
                 @if(Model.Comments != null){
                 <h2>Comments (@Model.Comments.Count)</h2>
+                <div class="all-comment">
                 @foreach(var comment in Model.Comments)
                 {
-                <div class="all-comment">
                     <div class="comment">
                         <img class="comment-img" src="@comment.User.Image">
                         <div class="comment-detail">
                             <div class="username">
                                 <span>@comment.User.Name</span>
-                                <span class="time">@(Convert.ToInt32(DateTime.UtcNow.Subtract(comment.CreatedAt).TotalMinutes)) minutes ago</span>
+
+                                  @{
+    
+                                        var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
+                                        var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
+                                        var hoursC = Convert.ToInt32(timeSincePostC.TotalHours);
+                                        var daysC = Convert.ToInt32(timeSincePostC.TotalDays);
+                                    }
+
+                                    @if (daysC >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@daysC day@(daysC > 1 ? "s" : "") ago</span>
+                                    }
+                                    else if (hoursC >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@hoursC hour@(hoursC > 1 ? "s" : "") ago</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
+                                    }
+
+                               
                             </div>
                             <p style="margin:0;">@comment.Content</p>
                         </div>
                     </div>
                         
-                </div>
             }
+                </div>
                 }
                 
                 

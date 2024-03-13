@@ -128,12 +128,21 @@ namespace SocialMedia.Controllers
             // Use the username for your application logic...
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
+            var activity = new List<JoinActivity>();
             var posts = _postService.GetPostsByGroupId(id);
             var group = _groupService.GetGroupById(id);
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
             var detailsmodel = new DetailsModels
             {
                 Posts = posts,
-                Group = group
+                Group = group,
+                Activities = activity
             };
 
             return View(detailsmodel);

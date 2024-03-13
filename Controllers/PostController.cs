@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace SocialMedia.Controllers
 {
     public class PostController : Controller
-    {   
+    {
         private readonly CategoryService _categoryService;
         private readonly PostService _postService;
 
@@ -21,7 +21,7 @@ namespace SocialMedia.Controllers
         private readonly ILogger<PostController> _logger;
 
         private readonly UserService _userService;
-        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService,CommentService commentService ,UserService userService)
+        public PostController(PostService postService, ILogger<PostController> logger, CategoryService categoryService, GroupService groupService, CommentService commentService, UserService userService)
         {
             _postService = postService;
             _logger = logger;
@@ -38,6 +38,26 @@ namespace SocialMedia.Controllers
 
         public IActionResult Create(int? id)
         {
+
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
+
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = user.Name;
+            ViewData["UserImage"] = user.Image;
+
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
             var model = new PostViewModel
             {
                 Title = "", // Add the missing Title property
@@ -53,23 +73,32 @@ namespace SocialMedia.Controllers
                 MaxPeople = 1,
                 Location = "Bangkok",
                 Group = _groupService.GetGroupById(id),
+                Activities = activity
             };
-            if(model.Group != null)
+            if (model.Group != null)
             {
 
-            model.GroupId = id;
+                model.GroupId = id;
             }
 
-            if(model.Categories.Count == 0)
+            if (model.Categories.Count == 0)
             {
                 throw new Exception("No categories found.");
             }
 
             // var username = HttpContext.User.Identity?.Name;
 
+
+            return View(model);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+
+
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            
-            if(UserId == null)
+
+            if (UserId == null)
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -81,6 +110,37 @@ namespace SocialMedia.Controllers
             ViewData["Username"] = user.Name;
             ViewData["UserImage"] = user.Image;
 
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
+            var model = new PostViewModel
+            {
+                Title = "", // Add the missing Title property
+                Content = "", // Add the missing Content property
+                Categories = _categoryService.GetAllCategories().Select(c => new SelectListItem
+                {
+                    Value = c.CategoryId.ToString(),
+                    Text = c.Name
+                }).ToList(),
+                Date = DateTime.Now,
+                ExpireDate = DateTime.Now,
+                Time = DateTime.Now.ToString("HH:mm"),
+                MaxPeople = 1,
+                Location = "Bangkok",
+                Group = _groupService.GetGroupById(id),
+                Activities = activity
+            };
+            if (model.Group != null)
+            {
+
+                model.GroupId = id;
+            }
+
+            if (model.Categories.Count == 0)
+            {
+                throw new Exception("No categories found.");
+            }
             return View(model);
         }
 
@@ -88,7 +148,7 @@ namespace SocialMedia.Controllers
         [Authorize]
         public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
         {
-            
+
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");
@@ -156,7 +216,8 @@ namespace SocialMedia.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateComment([FromBody] CommentViewModel model){
+        public async Task<ActionResult> CreateComment([FromBody] CommentViewModel model)
+        {
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");
@@ -167,7 +228,7 @@ namespace SocialMedia.Controllers
                 return Json(new { success = false, message = "User ID is invalid." });
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -181,8 +242,9 @@ namespace SocialMedia.Controllers
                     await _commentService.AddComment(comment);
                     return Json(new { success = true, message = "Comment created successfully!" });
                 }
-                catch(Exception ex){
-                     _logger.LogError(ex, "Error creating post.");
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating post.");
 
                     // Return a generic error message
                     return Json(new { success = false, message = "An error occurred while creating the post." });

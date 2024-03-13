@@ -88,6 +88,8 @@ namespace SocialMedia.ViewModels
 
     public int SelectedCategoryId { get; set; }
     public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
+
+    public List<JoinActivity>? Activities {get;set;}
   }
 
   public class CategoryViewModel

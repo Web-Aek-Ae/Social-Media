@@ -112,7 +112,7 @@ namespace SocialMedia.Services
         {
             return _context.JoinActivities
                            .Include(ja => ja.User)
-                           .ThenInclude(u => u.Posts)
+                           .ThenInclude(u => u.Posts).ThenInclude(p => p.JoinActivities)
                            .Where(ja => ja.UserId == userId)
                            .ToList();
         }
@@ -121,7 +121,7 @@ namespace SocialMedia.Services
         {
             return await _context.JoinActivities
                            .Include(ja => ja.User) 
-                           .ThenInclude(u => u.Posts)
+                           .ThenInclude(u => u.Posts).ThenInclude(p => p.JoinActivities)
                            .Where(ja => ja.UserId == userId)
                            .ToListAsync();
         }

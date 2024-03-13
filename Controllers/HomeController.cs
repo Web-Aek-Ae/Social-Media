@@ -21,7 +21,7 @@ public class HomeController : Controller
         _userService = userService;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
@@ -32,15 +32,17 @@ public class HomeController : Controller
         {
             return RedirectToAction("Login", "User");
         }
-        var user = _userService.GetUserById(int.Parse(UserId));
+        var user =  _userService.GetUserById(int.Parse(UserId));
 
         ViewData["Username"] = username;
         ViewData["UserId"] = UserId;
         ViewData["UserImg"] = user.Image;
 
+   
+
 
         var activity = new List<JoinActivity>();
-        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        var userActivities =  _userService.GetUserActivities(int.Parse(UserId));
         activity.AddRange(userActivities.Take(3));
 
         var posts = _postService.GetAllPosts();

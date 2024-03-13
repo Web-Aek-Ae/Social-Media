@@ -73,9 +73,13 @@
         </div>
         <div class="myactivity">
             <h1>My Activity</h1>
+            @if (Model.Activities != null)
+                {
                     @foreach (var post in Model.Activities)
                     {
-                <div class="containerPost">
+                        if(post != null )
+                        {
+<div class="containerPost">
                     <h1>@post.Post.Title</h1>
                     <div>
                         <div class="info">
@@ -120,6 +124,10 @@
                         </div>
                     </div>
                 </div>
+                        }
+                    
+                
+                    }
                     }
 
         </div>

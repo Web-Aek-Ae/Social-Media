@@ -121,7 +121,7 @@ namespace SocialMedia.Controllers
         }
 
         
-        public IActionResult Details(int id){
+        public async Task<IActionResult> Details(int id){
             var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -129,13 +129,18 @@ namespace SocialMedia.Controllers
             ViewData["UserId"] = UserId;
             ViewData["Username"] = username;
             var activity = new List<JoinActivity>();
-            var posts = _postService.GetPostsByGroupId(id);
-            var group = _groupService.GetGroupById(id);
+            var posts = await _postService.GetPostsByGroupIdAsync(id);
+            var group = await  _groupService.GetGroupByIdAsync(id);
             if (UserId == null)
             {
                 return RedirectToAction("Login", "User");
             }
-            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            if (group == null)
+            {
+                return RedirectToAction("Index", "Group");
+            }
+            
+            var userActivities = await  _userService.GetUserActivitiesAsync(int.Parse(UserId));
             activity.AddRange(userActivities.Take(3));
 
             var detailsmodel = new DetailsModels
@@ -144,6 +149,13 @@ namespace SocialMedia.Controllers
                 Group = group,
                 Activities = activity
             };
+            if(detailsmodel.Group == null || detailsmodel.Activities == null || detailsmodel.Posts == null)
+            {
+                return RedirectToAction("Index", "Group");
+            }
+            Console.WriteLine(detailsmodel.Group.Name);
+            Console.WriteLine(detailsmodel.Posts);
+            Console.WriteLine(detailsmodel.Activities);
 
             return View(detailsmodel);
         }

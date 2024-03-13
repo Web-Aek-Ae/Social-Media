@@ -2,12 +2,12 @@
     ViewData["Title"] = "Group Page";
     Layout = "~/Views/Shared/_LayoutGroup.cshtml";
     @using System.Security.Claims
-    var filteredGroups = Model.Where(group =>
+    var filteredGroups = Model.Groups.Where(group =>
     group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ?
     userId : 0))
     ).Take(3);
 }
-@model List<SocialMedia.Models.Database.Group>
+@model SocialMedia.ViewModels.GroupBlogModel
 
 <head>
     <link rel="stylesheet" href="~/css/group.css" asp-append-version="true">
@@ -15,7 +15,6 @@
 <a asp-action="create" asp-controller="group">
     <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
 </a>
-
 <div class="popup-backdrop"></div>
 <div class="group-element">
     <div class="header">
@@ -31,7 +30,7 @@
         </div>
     </div>
 
-    @foreach (var group in Model)
+    @foreach (var group in Model.Groups)
     {
 
         @if (group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
@@ -63,6 +62,10 @@
                                 <span>@group.User.Name</span>
                             </div>
                         </div>
+                        <div class="Recomended-Group-poster">
+                            <img src="@group.User.Image" alt="" id="group-poster-img">
+                            <span>@group.User.Name</span>
+                        </div>
                     </div>
                 </a>
                 <div class="pop-up">
@@ -82,11 +85,11 @@
                 </div>
 
             }
-            <a asp-action="Recommend" asp-controller="Group">see all</a>
+            <a href="/Group/Recommend">see all</a>
         </div>
     </div>
     <div class="container-group">
-        @foreach (var group in Model)
+        @foreach (var group in Model.Groups)
         {
             @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
            userId) ? userId : 0)))

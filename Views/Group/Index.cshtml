@@ -15,35 +15,17 @@
 <a asp-action="create" asp-controller="group">
     <img src="~/src/images/Creategoupicon.svg" class="create-post-button">
 </a>
-<div class="pop-up">
-    <div class="header-popup">
-        <h2>Members</h2>
-        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
-    </div>
-    @foreach (var group in Model.Groups)
-    {
-        if (group.Members.Any(m => m.GroupId == group.GroupId))
-        {
-            <div class="group-members">
-                <div class="members">
-                    <img src="@group.User.Image" alt="imagemembers" id="group-poster-img">
-                    <span>@group.User.Name</span>
-                </div>
-            </div>
-        }
-    }
-</div>
 <div class="popup-backdrop"></div>
 <div class="group-element">
     <div class="header">
         <div class="search">
             <div class="search-bar">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search" class="input">
+                <input type="text" placeholder="Search" id="searchInput">
             </div>
             <div class="filter-bar">
                 <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" class="input">
+                <input type="text" placeholder="Filter" id="input">
             </div>
         </div>
     </div>
@@ -59,34 +41,44 @@
     }
     <div class="Recomended-Group">
         <h2>Recomended Groups</h2>
-
         <div class="Recomended-Group-post">
-            
-                @foreach (var group in filteredGroups)
-                {   
-                    <div class="scroll-content">
-                        <div class="card-Recomended-Group">
-                            <img src="@group.Image" id="recomended-Group-Image">
-                            <div class="contents">
-                                <div class="contents-header">
-                                    <h3>@group.Name</h3>
-                                    <div onclick="openmembers()" id="amountofmembers">
-                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon"/>
-                                        <span>@group.Members.Count</span>
-                                    </div>
-                                </div>
-                                <div class="Recomended-Group-poster">
-                                    <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                        alt="" id="group-poster-img">
-                                    <span>@group.User.Name</span>
+            @foreach (var group in filteredGroups)
+            {
+                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"
+                    style="text-decoration: none; color:black">
+                    <div class="card-Recomended-Group">
+                        <img src="@group.Image" alt="Recomended-Group-Image" id="card-Recomended-Group-img">
+                        <div class="contents">
+                            <div class="contents-header">
+                                <h3>@group.Name</h3>
+                                <div onclick="openmembers()" class="amountofmembers">
+                                    <img src="~/src/images/People_in_postcardIcon.svg" alt="" class="icon">
+                                    <span>@group.Members.Count</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="Recomended-Group-poster">
-                            <img src="@group.User.Image" alt="" id="group-poster-img">
-                            <span>@group.User.Name</span>
+
+                            <div class="Recomended-Group-poster">
+                                <img src="@group.User.Image" alt="" id="group-poster-img">
+                                <span>@group.User.Name</span>
+                            </div>
                         </div>
                     </div>
+                </a>
+                <div class="pop-up">
+                    <div class="header-popup">
+                        <h2>Members</h2>
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                    </div>
+                    <div class="group-members">
+                        @foreach (var members in group.Members)
+                        {
+                            <div class="members">
+                                <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
+                                <span>@members.User.Name</span>
+                            </div>
+                        }
+                    </div>
+                </div>
 
             }
             <a href="/Group/Recommend">see all</a>
@@ -98,18 +90,20 @@
             @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
            userId) ? userId : 0)))
             {
-                <div class="group">
-                    <div class="card-group">
-                        <h1 id="section">@group.Name</h1>
-                        <p id="section-content">@group.Description</p>
-                        <div class="activity-image">
-                            <img src="@group.Image" alt="activity" id="activity1">
-                        </div>
-                        <div class="test2">
-                            <div class="group-poster">
-                                <img src="@group.User.Image" alt="" id="group-poster-img">
-                                <span>@group.User.Name</span>
+                <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId"
+                    style="color: black;text-decoration:none;">
+                    <div class="group">
+                        <div class="card-group">
+                            <h1 id="section">@group.Name</h1>
+                            <p id="section-content">@group.Description</p>
+                            <div class="activity-image">
+                                <img src="@group.Image" alt="activity" id="activity1">
                             </div>
+                            <div class="test2">
+                                <div class="group-poster">
+                                    <img src="@group.User.Image" alt="" id="group-poster-img">
+                                    <span>@group.User.Name</span>
+                                </div>
 
                             <div class="group-of-button">
                                 <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon"/>
@@ -119,7 +113,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
+
             }
 
         }
@@ -128,7 +124,49 @@
     </div>
 </div>
 
+@section scripts {
+    <script>
+        var elements = document.getElementsByClassName("amountofmembers");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('click', function (event) {
+                event.preventDefault();
+            })
+        };
+        document.getElementById("searchInput").addEventListener("change", sentSearch);
+        function sentSearch() {
+            var data = document.getElementById("searchInput").value;
+            if (data == "") {
+                window.location.href = "/Group/Index";
+                return;
+            }
+            var newXhr = new XMLHttpRequest();
+            newXhr.open("GET", "/Group/Index?data=" + data, true);
+            newXhr.setRequestHeader("Content-Type", "application/json");
 
+            newXhr.onreadystatechange = function () {
+                if (newXhr.readyState === XMLHttpRequest.DONE) {
+                    if (newXhr.status === 200) {
+                        console.log("Data sent successfully");
+                        console.log(data);
+                        const container = document.querySelector(".container-group")
+                        container.innerHTML = newXhr.responseText
+                        console.log(newXhr.responseText)
+                        poom()
+                    } else {
+                        console.log("Error sending data");
+                    }
+                }
+            };
 
-<script src="~/lib/testfile.js"></script>
-<script src="~/lib/logout.js" asp-append-version="true"></script>
+            var jsonData = JSON.stringify({ data: data });
+
+            // Send the request with the JSON data
+            newXhr.send(jsonData);
+        }
+
+    </script>
+
+    <script src="~/lib/testfile.js"></script>
+
+    <script src="~/lib/logout.js" asp-append-version="true"></script>
+}

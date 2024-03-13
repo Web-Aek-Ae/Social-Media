@@ -669,6 +669,12 @@ main {
         height: 16rem;
         gap: 1rem;
     }
+    .dropdownLike {
+        right :77%;
+    }
+    .dropdownParticipant {
+        right :53%;
+    }
 }
 
 

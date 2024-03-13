@@ -56,6 +56,10 @@ main {
     font-size: 14px;
 }
 
+.filter-bar:hover .dropdownFilter{
+    display: block;
+}
+
 .dropdownFilter {
     display: none;
     position: absolute;

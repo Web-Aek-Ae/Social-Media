@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  font-size: 16px;
   position: fixed;
   overflow-y: scroll;
   min-height: 100%;
@@ -270,11 +270,7 @@ ul .line {
   background-color: white;
   border: solid 2px;
 }
-@media (min-width: 320px) {
-  html {
-    font-size: 16px;
-  }
-}
+
 @media (max-width: 1200px) {
   .sidebar {
     height: 100vh;

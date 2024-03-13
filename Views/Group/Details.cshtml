@@ -22,11 +22,25 @@
 
 
     <div class="Group-details-header">
+        
             <a asp-action="Index" asp-controller="Group"><img src="~/src/images/Backicon.svg" class="back-recommend"></a>
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
             }  
+            <div class="threedots">
+                <button onclick="dropdown()" class="dropdownBtn"></button>
+                <div class="dropdown-content">
+                    <a href="">
+                        <img src="~/src/images/EditIcon.svg">
+                        <p>edit</p>
+                    </a>
+                    <a class="delete-group">
+                        <img src="~/src/images/binIcon.svg">
+                        <p>delete group</p>
+                    </a>
+                </div>
+            </div>
     </div>
     <div class="Group-details">
         @if (Model.Group != null)
@@ -142,13 +156,25 @@
         </div>
     </div>
 </div>
+<div class="delete-group-pop-up">
+    <div id="delete">
+        <p>Are you sure to delete <br>this group?</p>
+        <button id="btnDelete" class="accept" onclick="">Delete group</button>
+        <button id="btnCancle" class="cancel">Cancel</button>
+    </div>
+</div>
+<div class="popup-backdrop"></div>
 @section Scripts {
-           <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.like-button').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            var postId = this.getAttribute('data-postid');
+            <script>
+                $(document).ready(function () {
+                    $('.like-button').click(function () {
+                        var button = $(this); // The clicked button
+                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
+                        $.ajax({
+                            url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
+                            type: 'POST',
+                            data: { postId: postId }, // Send the post ID as data
+                            success: function (result) {
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
@@ -214,4 +240,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+<script src="~/lib/deleteGroup.js"></script>
     }

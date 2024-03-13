@@ -51,6 +51,30 @@ namespace SocialMedia.Services
        .Where(p => p.Title.Contains(data)) // Include Group
        .ToList();
         }
+        public List<Post> GetPostsByUsername(string data)
+        {
+            return _context.Posts
+       .Include(p => p.User)
+       .Include(p => p.PostLikes).ThenInclude(pl => pl.User) // Include the User of each PostLike
+       .Include(p => p.JoinActivities).ThenInclude(ja => ja.User) // Include the User of each JoinActivity
+       .Include(p => p.Comments).ThenInclude(c => c.User) // Include Comments and their Users
+       .Include(p => p.Category) // Include Category
+       .Include(p => p.Group)
+       .Where(p => p.User.Username.Contains(data)) // Include Group
+       .ToList();
+        }
+        public List<Post> GetPostsByCategory(string data)
+        {
+            return _context.Posts
+       .Include(p => p.User)
+       .Include(p => p.PostLikes).ThenInclude(pl => pl.User) // Include the User of each PostLike
+       .Include(p => p.JoinActivities).ThenInclude(ja => ja.User) // Include the User of each JoinActivity
+       .Include(p => p.Comments).ThenInclude(c => c.User) // Include Comments and their Users
+       .Include(p => p.Category) // Include Category
+       .Include(p => p.Group)
+       .Where(p => p.Category.Name.Contains(data)) // Include Group
+       .ToList();
+        }
 
         public Post? GetPostByPostId(int id)
         {

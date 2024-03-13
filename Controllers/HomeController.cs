@@ -117,7 +117,6 @@ public class HomeController : Controller
         Comments = comment
     };
 
-
         return View(model);
 
     }

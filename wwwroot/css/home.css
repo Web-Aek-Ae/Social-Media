@@ -675,6 +675,12 @@ main {
         border-radius: 1.25rem;
     }
     
+}
+
+.comment-btn{
+    background: none;
+    border: white;
+}
     .date h3 {
         text-align: center;
         color: #ffffff;
@@ -721,7 +727,7 @@ main {
     .dropdownLike {
         right: 18%;
     }
-}
+
 @media (max-width:768px)
 {
     .addPostIcon {

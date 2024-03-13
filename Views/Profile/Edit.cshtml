@@ -21,7 +21,7 @@
         <div id="modalImg">
             <img src="~/src/images/Cancleicon.svg" id="Cancel">
             <label>add your image</label>
-            <input type="text" asp-for='Image' />
+            <input type="text" id="ImageInput" asp-for='Image' />
             <button id="Upload">upload</button>
         </div>
         <div class="all-img"><img src="@Model.Image" alt="proflie" class="img1">
@@ -66,15 +66,10 @@
                 event.preventDefault(); // Prevent the default form submission
 
                 var formData = JSON.stringify({
-                    Image: document.querySelector('input[name="Image"]').value
+                    Image: document.getElementById("ImageInput").value
                 });
+                
 
-                // Basic validation example
-                if (!formData.Image) {
-                    alert("Fill in all required fields.");
-                    return; // Exit the function to prevent sending the request
-                }
-                console.log(formData); // Log the form data to the console
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", '/User/EditImage', true); // Modify with your correct URL
@@ -82,7 +77,7 @@
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         alert("Image uploaded successfully.");
-                        window.location.href = '/Profile/Post'; // Modify as needed
+                        window.location.href = '/Profile/Edit'; // Modify as needed
                     } else {
                         console.log(xhr.responseText);
                         alert("There was an error processing your request.");
@@ -106,12 +101,8 @@
                     Email: document.querySelector('input[name="Email"]').value
                 });
 
-                // Basic validation example
-                if (!formData.Name || !formData.Username || !formData.Email) {
-                    alert("Fill in all required fields.");
-                    return; // Exit the function to prevent sending the request
-                }
-                console.log(formData); // Log the form data to the console
+                
+            
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", '/User/Edit', true); // Modify with your correct URL

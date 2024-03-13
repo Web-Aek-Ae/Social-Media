@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SocialMedia.Controllers
 {
@@ -15,15 +16,20 @@ namespace SocialMedia.Controllers
         private readonly CategoryService _categoryService;
         private readonly PostService _postService;
 
+        private readonly CommentService _commentService;
         private readonly GroupService _groupService;
         private readonly ILogger<PostController> _logger;
 
-        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService)
+        private readonly UserService _userService;
+        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService,CommentService commentService ,UserService userService)
         {
             _postService = postService;
             _logger = logger;
             _categoryService = categoryService;
             _groupService = groupService;
+            _commentService = commentService;
+
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -59,12 +65,22 @@ namespace SocialMedia.Controllers
                 throw new Exception("No categories found.");
             }
 
-            var username = HttpContext.User.Identity?.Name;
+            // var username = HttpContext.User.Identity?.Name;
 
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
+            if(UserId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
 
             ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
+            ViewData["UserImage"] = user.Image;
+
             return View(model);
         }
 
@@ -138,6 +154,50 @@ namespace SocialMedia.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> CreateComment([FromBody] CommentViewModel model){
+            if (model == null)
+            {
+                return BadRequest("Model cannot be null.");
+            }
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
+
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    var comment = new Comment
+                    {
+                        Content = model.Content,
+                        UserId = userIdAsInt,
+                        PostId = model.PostId,
+                    };
+
+                    await _commentService.AddComment(comment);
+                    return Json(new { success = true, message = "Comment created successfully!" });
+                }
+                catch(Exception ex){
+                     _logger.LogError(ex, "Error creating post.");
+
+                    // Return a generic error message
+                    return Json(new { success = false, message = "An error occurred while creating the post." });
+                }
+            }
+            else
+            {
+                // Collect and return model state errors
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                var errorMessage = string.Join(" ", errors);
+
+                return Json(new { success = false, message = errorMessage });
+            }
+
+        }
 
     }
 }

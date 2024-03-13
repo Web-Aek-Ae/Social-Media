@@ -112,7 +112,8 @@ namespace SocialMedia.Services
         public ICollection<JoinActivity> GetUserActivities(int userId)
         {
             return _context.JoinActivities
-                           .Include(ja => ja.User) // Include the User of each JoinActivity
+                           .Include(ja => ja.User)
+                           .ThenInclude(u => u.Posts).ThenInclude(p => p.JoinActivities)
                            .Where(ja => ja.UserId == userId)
                            .ToList();
         }
@@ -120,7 +121,8 @@ namespace SocialMedia.Services
         public async Task<ICollection<JoinActivity>> GetUserActivitiesAsync(int userId)
         {
             return await _context.JoinActivities
-                           .Include(ja => ja.User) // Include the User of each JoinActivity
+                           .Include(ja => ja.User) 
+                           .ThenInclude(u => u.Posts).ThenInclude(p => p.JoinActivities)
                            .Where(ja => ja.UserId == userId)
                            .ToListAsync();
         }

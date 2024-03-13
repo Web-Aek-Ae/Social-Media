@@ -9,7 +9,7 @@
 </head>
 
 <body>
-     <div class="headerEdit">
+    <div class="headerEdit">
         <a asp-action="Post" asp-controller="Profile">
             <img src="~/src/images/Backicon.svg">
         </a>
@@ -24,87 +24,87 @@
             <input type="text" asp-for='Image' />
             <button id="Upload">upload</button>
         </div>
-        <div class="all-img"><img
-                src="@Model.Image"
-                alt="proflie" class="img1">
+        <div class="all-img"><img src="@Model.Image" alt="proflie" class="img1">
             <a class="imgEdit" id="Edit">
                 <img src="~/src/images/AddPhotoIcon.svg" class="img2">
             </a>
         </div>
-    
+
 
 
         <div class="boxEdit">
-            
-                <div class="Form">
 
-                    <label>full name</label>
-                    <input type="text" asp-for='Name' />
-                    <span  class='invalid'></span>
+            <div class="Form">
 
-                    <label>username</label>
-                    <input type="text" asp-for='Username' />
-                    <span  class='invalid'></span>
+                <label>full name</label>
+                <input type="text" asp-for='Name' />
+                <span class='invalid'></span>
+
+                <label>username</label>
+                <input type="text" asp-for='Username' />
+                <span class='invalid'></span>
 
 
-                    <label>email</label>
-                    <input type="email" asp-for='Email' />
-                    <span class='invalid'></span>
+                <label>email</label>
+                <input type="email" asp-for='Email' />
+                <span class='invalid'></span>
 
-                </div>
-                <div class="saveEdit">
-                    <button id="save_profile" >save</button>
-                </div>
+            </div>
+            <div class="saveEdit">
+                <button id="save_profile">save</button>
+            </div>
         </div>
-    </div> 
+    </div>
 
     <script src="/lib/addImg.js"></script>
 </body>
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $("#Upload").click(function (event) {
-
-
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("Upload").addEventListener("click", function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                var formData = {
-                    Image: $('input[name="Image"]').val()
-                };
+                var formData = JSON.stringify({
+                    Image: document.querySelector('input[name="Image"]').value
+                });
 
                 // Basic validation example
-                if (!formData.Image ) {
+                if (!formData.Image) {
                     alert("Fill in all required fields.");
                     return; // Exit the function to prevent sending the request
                 }
-                console.log(formData); // Log the form data to the
-                
+                console.log(formData); // Log the form data to the console
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("EditImage", "User")', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/User/EditImage', true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
                         alert("Image uploaded successfully.");
-                        window.location.href = '@Url.Action("Post", "Profile")'; // Modify as needed
-                    },
-                    error: function (error) {
-                        console.log(error);
+                        window.location.href = '/Profile/Post'; // Modify as needed
+                    } else {
+                        console.log(xhr.responseText);
                         alert("There was an error processing your request.");
                     }
-                }); 
+                };
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
             });
+        });
 
-            $("#save_profile").click(function (event) {
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("save_profile").addEventListener("click", function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                var formData = {
-                    Name: $('input[name="Name"]').val(),
-                    Username: $('input[name="Username"]').val(),
-                    Email: $('input[name="Email"]').val()
-                };
+                var formData = JSON.stringify({
+                    Name: document.querySelector('input[name="Name"]').value,
+                    Username: document.querySelector('input[name="Username"]').value,
+                    Email: document.querySelector('input[name="Email"]').value
+                });
 
                 // Basic validation example
                 if (!formData.Name || !formData.Username || !formData.Email) {
@@ -113,21 +113,24 @@
                 }
                 console.log(formData); // Log the form data to the console
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("Edit", "User")', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/User/Edit', true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
                         alert("Profile updated successfully.");
-                        window.location.href = '@Url.Action("Post", "Profile")'; // Modify as needed
-                    },
-                    error: function (error) {
-                        console.log(error);
+                        window.location.href = '/Profile/Post'; // Modify as needed
+                    } else {
+                        console.log(xhr.responseText);
                         alert("There was an error processing your request.");
                     }
-                });
+                };
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
             });
         });
+
     </script>
 }

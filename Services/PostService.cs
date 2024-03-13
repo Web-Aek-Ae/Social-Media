@@ -129,6 +129,13 @@ namespace SocialMedia.Services
             return true;
         }
 
+        public async Task<bool> UpdatePost(Post post)
+        {
+            _context.Posts.Update(post);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
 
     }
 }

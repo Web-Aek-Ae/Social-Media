@@ -3,6 +3,7 @@
 }
 
 @model SocialMedia.ViewModels.HomeViewModel
+            @if(Model.Posts != null){
 
             @foreach (var post in Model.Posts)
             {
@@ -98,6 +99,7 @@
                     </div>
                 </a>
 
+            }
             }
 
         

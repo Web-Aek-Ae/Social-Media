@@ -53,7 +53,14 @@ main {
     gap: 1.5rem;
     padding-bottom: 1rem;
 }
+.comment-btn{
+    background: none;
+    border: white;
+}
 
+.comment-btn:hover{
+    cursor: pointer;
+}
 .explain-post{
     position:relative;
     transition: all 0.5s;
@@ -380,10 +387,9 @@ main {
 .all-comment{
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     max-height: 13rem;
     overflow-y: scroll;
-
 }
 .comment{
     display: flex;

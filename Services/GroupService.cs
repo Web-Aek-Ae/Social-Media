@@ -49,11 +49,9 @@ namespace SocialMedia.Services
 
                 _context.Groups.Remove(group);
                 await _context.SaveChangesAsync();
-                return true; // Or use TempData or another way to communicate success
+                return true; 
             }
-
-
-            return false; // Or communicate the user was not found
+            return false;
         }
         public List<Group> GetAllGroups()
         {
@@ -64,7 +62,7 @@ namespace SocialMedia.Services
         public List<Group> GetGroupsByName(string data)
         {
             return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
-            .Include(g => g.User).Where(g => g.Name == data)
+            .Include(g => g.User).Where(g=>g.Name.ToLower().Contains(data.ToLower()))
             .ToList();
         }
 

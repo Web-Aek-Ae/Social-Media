@@ -344,6 +344,11 @@ main {
 }
 
 
+.comment-btn{
+    background: none;
+    border: white;
+}
+
 @media (max-width:1580px) {
     .post{
         width:50rem;
@@ -452,20 +457,20 @@ main {
         font-size: 12px;
         margin-top: -0.75rem;
     }
-
+    
     .topic h1 {
         font-size: 26px;
     }
-
+    
     .topic p{
         font-size: 16px;
     }
-
+    
     .description p{
         font-size: 16px;
         -webkit-line-clamp: 1;
     }
-
+    
     #owner-profile {
         width: 2rem;
         height: 2rem;
@@ -491,7 +496,8 @@ main {
     width: 10rem;
     height: 2.2rem;
     border-radius: 3rem;
-    background-color: #ffffff;
-    border: solid 2px #000000;
+    color : gray;
+    background-color: #cfcfcf;
+    border: solid 2px gray;
 
 }

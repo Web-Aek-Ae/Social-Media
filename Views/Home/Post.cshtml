@@ -26,8 +26,12 @@
     </a>
     <div class="container-post">
     
+
+        
+
         <div class="explain-post">
-            <div class="threedots">
+            @if(Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == Model.Post.UserId.ToString()){
+             <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
                     <a href="">
@@ -44,6 +48,8 @@
                     </a>
                 </div>
             </div>
+        }
+           
             <div class="post-detail">
                 <div class="post-header">
                     <div class="date">
@@ -58,7 +64,7 @@
                     <div class="status-categories">
                         <div class="status-activity">
                             <p>Status :</p>
-                            <p class="state"> Open</p>
+                            <p class="state"> @Model.Post.PostStatus</p>
                         </div>
                         <p class="categories">Categories : @Model.Post.Category.Name</p>
                     </div>
@@ -97,13 +103,14 @@
                                     @foreach (var like in Model.Post.PostLikes.ToList())
                                     {
                                         <div class="member">
-                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                             @if (like.User != null)
                                                 {
+                                                    <img src="@like.User.Image">
                                                     <h5>@like.User.Name</h5>
                                                 }
                                                 else
                                                 {
+                                                     <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                                     <h5>User not found.</h5>
                                                 }
 
@@ -122,7 +129,7 @@
                                                     @foreach (var joinActivity in Model.Post.JoinActivities)
                                                     {
                                                         <div class="member">
-                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                            <img src="@joinActivity.User.Image">
                                                             <h5>@joinActivity.User.Name</h5>
                                                         </div>
                                                     }                                        

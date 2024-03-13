@@ -95,6 +95,7 @@ public class HomeController : Controller
         var user = await _userService.GetUserByIdAsync(userId);
         ViewData["Username"] = user.Name;
         ViewData["UserId"] = UserIdClaim;
+        ViewData["UserImg"] = user.Image;
 
     var activity = new List<JoinActivity>();
     var userActivities = await _userService.GetUserActivitiesAsync(userId);

@@ -496,7 +496,8 @@ main {
     width: 10rem;
     height: 2.2rem;
     border-radius: 3rem;
-    background-color: #ffffff;
-    border: solid 2px #000000;
+    color : gray;
+    background-color: #cfcfcf;
+    border: solid 2px gray;
 
 }

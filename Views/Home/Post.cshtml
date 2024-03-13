@@ -29,12 +29,12 @@
                     </a>
                     @if(Model.Post.PostStatus == 0)
                     {
-                    <a class="applications-closed">
+                    <a  onclick='closePost("@Model.Post.PostId")' class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
                     }
-                    <a class="delete-post">
+                    <a onclick='deletePost("@Model.Post.PostId")' class="delete-post">
                         <img src="~/src/images/binIcon.svg">
                         <p  >delete post</p>
                     </a>
@@ -73,8 +73,8 @@
                                 <img src="~/src/images/globe.svg">
 
                                     @{
-                                        // Corrected variable names to reflect the comment's timing
-                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.Time, DateTimeKind.Utc);
+    
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreateAt, DateTimeKind.Utc);
                                         var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
                                         var hours = Convert.ToInt32(timeSincePost.TotalHours);
                                         var days = Convert.ToInt32(timeSincePost.TotalDays);
@@ -245,13 +245,12 @@
 toggle between hiding and showing the dropdown content */
 
 function dropdown() {
-    console.log('a');
-//   document.getElementById("myDropdown").classList.toggle("show");
+
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-        console.log(dropdowns[i])
+        
         var openDropdown = dropdowns[i];
         openDropdown.classList.toggle('show');
         dropdownBtn[i].classList.toggle('focus');
@@ -266,10 +265,10 @@ window.onclick = function(event) {
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-       console.log(dropdowns[i])
+       
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {console.log('b');
-        openDropdown.classList.remove('show');
+      @* if (openDropdown.classList.contains('show')) {console.log('b'); *@
+        openDropdown.classList.remove'show');
         dropdownBtn[i].classList.remove('focus');
       }
     }

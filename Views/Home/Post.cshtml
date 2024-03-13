@@ -30,7 +30,7 @@
             <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
-                    <a href="">
+                    <a asp-action="Edit" asp-controller="Post" asp-route-id="@Model.Post.PostId">
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>

@@ -15,16 +15,16 @@
     <div class="box">
         <div class="title-header">
             <div class="title">
-                <img src="@ViewData["UserImage"]"
-                    class="profile">
+                <img src="@ViewData["UserImage"]" class="profile">
                 <input asp-for="Title" placeholder="Event Name" class="name">
             </div>
-                @if(Model.Group != null){
-            <div class="group-name">
+            @if (Model.Group != null)
+            {
+                <div class="group-name">
                     <h3>@Model.Group.Name</h3>
                     <input type="text" asp-for="GroupId" style=" display : none;">
-            </div>
-                }
+                </div>
+            }
         </div>
 
         <textarea asp-for="Content" placeholder="description..."></textarea>
@@ -85,60 +85,54 @@
         </div>
 
         <div class="btn">
-            <button asp-action="Post" asp-controller="Profile">Post</button>
+            <button id="save_post" asp-action="Post" asp-controller="Profile"
+                asp-route-id="@ViewBag.postId">Post</button>
         </div>
     </div>
 </div>
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $(".btn button").click(function (event) {
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("save_post").addEventListener("click", function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                var formData = {
+                var formData = JSON.stringify({
                     Title: document.querySelector('input[name="Title"]').value,
-                    Content: document.querySelector('textarea[name="Content"]').value,
-                    Date: document.querySelector('input[name="Date"]').value,
-                    Location: document.querySelector('input[name="Location"]').value,
-                    SelectedCategoryId: document.querySelector('select[name="SelectedCategoryId"]').value,
-                    Time: document.querySelector('input[name="Time"]').value,
-                    ExpireDate: document.querySelector('input[name="ExpireDate"]').value,
-                    Image: document.querySelector('input[name="Image"]').value,
-                    MaxPeople: parseInt(document.querySelector('input[name="MaxPeople"]').value, 10),
-                    GroupId: document.querySelector('input[name="GroupId"]') ? parseInt(document.querySelector('input[name="GroupId"]').value, 10) : null
-                };
+                    Category: document.querySelector('select[name="SelectedCategoryId"]').value,
+                    Content: document.querySelector('textarea[name="Content"]').value
+                        Date: document.querySelector('input[name="Date"]').value
+                        Location: document.querySelector('input[name="Location"]').value
+                        Time: document.querySelector('input[name="Time"]').value
+                        ExpireDate: document.querySelector('input[name="ExpireDate"]').value
+                        Image: document.querySelector('input[name="Image"]').value
+                        MaxPeople: document.querySelector('input[name="MaxPeople"]').value
+                });
 
                 // Basic validation example
-                if (!formData.Title || !formData.Content) {
-                    alert("Title and Content are required.");
+                if (!formData.Title || !formData.Category || !formData.Content || !formData.Date || !formData.Location || !formData.Time || !formData.ExpireDate || !formData.Image || !formData.MaxPeople) {
+                    alert("Fill in all required fields.");
                     return; // Exit the function to prevent sending the request
                 }
+                console.log(formData); // Log the form data to the console
 
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", '@Url.Action("CreatePost", "Post")', true); // Modify with your correct URL
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                @* xhr.setRequestHeader("Authorization", "Bearer " + jwt); *@
+                xhr.open("POST", '/Post/Edit/?id=' + @ViewBag.postId, true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        var response = JSON.parse(xhr.responseText);
-                        if (response.success) {
-                            alert("Post created successfully.");
-                            // Optionally, redirect or clear form here
-                            window.location.href = '/Home/Index'; // Adjust controller and action names as necessary
-                        } else {
-                            alert("Failed to create post: " + response.message);
-                        }
+                        alert("Post updated successfully.");
+                        window.location.href = '/Profile/Post'; // Modify as needed
                     } else {
-                        alert("There was an error processing your request.");
                         console.log(xhr.responseText);
+                        alert("There was an error processing your request.");
                     }
-                }; xhr.onerror = function () {
-                    console.error("An error occurred during the transaction");
                 };
-
-                xhr.send(JSON.stringify(formData));
-
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
             });
         });
+
     </script>
 }

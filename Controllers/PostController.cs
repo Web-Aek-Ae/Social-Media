@@ -92,127 +92,108 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
-        public IActionResult Edit(int? id)
-        {
+        // [HttpPost]
+        // public async Task<IActionResult> Edit([FromBody] PostViewModel model, int id)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return View(model);
+        //     }
+
+        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        //     if (UserId == null)
+        //     {
+        //         return RedirectToAction("Login", "User");
+        //     }
+
+        //     var result = await _postService.UpdatePost(model,id);
+
+        //     if (result)
+        //     {
+        //         return RedirectToAction("Post", "Profile");
+        //     }
 
 
-            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
-            if (UserId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            var user = _userService.GetUserById(int.Parse(UserId));
-
-
-            ViewData["UserId"] = UserId;
-            ViewData["Username"] = user.Name;
-            ViewData["UserImage"] = user.Image;
-
-            var activity = new List<JoinActivity>();
-            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
-            activity.AddRange(userActivities.Take(3));
-
-            var model = new PostViewModel
-            {
-                Title = "", // Add the missing Title property
-                Content = "", // Add the missing Content property
-                Categories = _categoryService.GetAllCategories().Select(c => new SelectListItem
-                {
-                    Value = c.CategoryId.ToString(),
-                    Text = c.Name
-                }).ToList(),
-                Date = DateTime.Now,
-                ExpireDate = DateTime.Now,
-                Time = DateTime.Now.ToString("HH:mm"),
-                MaxPeople = 1,
-                Location = "Bangkok",
-                Group = _groupService.GetGroupById(id),
-                Activities = activity
-            };
-            if (model.Group != null)
-            {
-
-                model.GroupId = id;
-            }
-
-            if (model.Categories.Count == 0)
-            {
-                throw new Exception("No categories found.");
-            }
-            return View(model);
-        }
-
-        [HttpPost("CreatePost")]
-        [Authorize]
-        public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
-        {
-
-            if (model == null)
-            {
-                return BadRequest("Model cannot be null.");
-            }
-            _logger.LogInformation("Creating post with title: {Title}", model.Title);
-            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            // DateTime.TryParseExact(model.Time, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTime);
-            if (!int.TryParse(UserId, out int userIdAsInt))
-            {
-                return Json(new { success = false, message = "User ID is invalid." });
-            }
-            if (!DateTime.TryParse("2000-01-01 " + model.Time, out DateTime fullDateTime))
-            {
-                return Json(new { success = false, message = "Invalid time format." });
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var post = new Post
-                    {
-                        UserId = userIdAsInt,
-                        GroupId = model.GroupId,
-                        Title = model.Title,
-                        Content = model.Content,
-                        Location = model.Location,
-                        CategoryId = model.SelectedCategoryId,
-                        Time = fullDateTime,
-                        Image = model.Image,
-                        MaxPeople = model.MaxPeople,
-                        Date = model.Date,
-                        ExpireDate = model.ExpireDate
-                    };
-                    post.Time = DateTime.SpecifyKind(fullDateTime, DateTimeKind.Utc);
-                    post.Date = DateTime.SpecifyKind(model.Date, DateTimeKind.Utc);
-                    post.ExpireDate = DateTime.SpecifyKind(model.ExpireDate, DateTimeKind.Utc);
-
-                    // If you know a DateTime value is in local time and needs to be converted to UTC
-                    post.Date = model.Date.ToUniversalTime();
-                    post.ExpireDate = model.ExpireDate.ToUniversalTime();
+        //     return View(model);
+        // }
+        // [HttpGet]
+        // public IActionResult Edit(int id)
+        // {
+        //     ViewBag.postId = id;
+        //     return View();
+        // }
 
 
-                    await _postService.MakePost(post);
+        // [HttpPost("CreatePost")]
+        // [Authorize]
+        // public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
+        // {
 
-                    return Json(new { success = true, message = "Post created successfully!" });
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error creating post.");
+        //     if (model == null)
+        //     {
+        //         return BadRequest("Model cannot be null.");
+        //     }
+        //     _logger.LogInformation("Creating post with title: {Title}", model.Title);
+        //     var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        //     // DateTime.TryParseExact(model.Time, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTime);
+        //     if (!int.TryParse(UserId, out int userIdAsInt))
+        //     {
+        //         return Json(new { success = false, message = "User ID is invalid." });
+        //     }
+        //     if (!DateTime.TryParse("2000-01-01 " + model.Time, out DateTime fullDateTime))
+        //     {
+        //         return Json(new { success = false, message = "Invalid time format." });
+        //     }
 
-                    // Return a generic error message
-                    return Json(new { success = false, message = "An error occurred while creating the post." });
-                }
-            }
-            else
-            {
-                // Collect and return model state errors
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                var errorMessage = string.Join(" ", errors);
+        //     if (ModelState.IsValid)
+        //     {
+        //         try
+        //         {
+        //             var post = new Post
+        //             {
+        //                 UserId = userIdAsInt,
+        //                 GroupId = model.GroupId,
+        //                 Title = model.Title,
+        //                 Content = model.Content,
+        //                 Location = model.Location,
+        //                 CategoryId = model.SelectedCategoryId,
+        //                 Time = fullDateTime,
+        //                 Image = model.Image,
+        //                 MaxPeople = model.MaxPeople,
+        //                 Date = model.Date,
+        //                 ExpireDate = model.ExpireDate
+        //             };
+        //             post.Time = DateTime.SpecifyKind(fullDateTime, DateTimeKind.Utc);
+        //             post.Date = DateTime.SpecifyKind(model.Date, DateTimeKind.Utc);
+        //             post.ExpireDate = DateTime.SpecifyKind(model.ExpireDate, DateTimeKind.Utc);
 
-                return Json(new { success = false, message = errorMessage });
-            }
-        }
+        //             // If you know a DateTime value is in local time and needs to be converted to UTC
+        //             post.Date = model.Date.ToUniversalTime();
+        //             post.ExpireDate = model.ExpireDate.ToUniversalTime();
+
+
+        //             await _postService.MakePost(post);
+
+        //             return Json(new { success = true, message = "Post created successfully!" });
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             _logger.LogError(ex, "Error creating post.");
+
+        //             // Return a generic error message
+        //             return Json(new { success = false, message = "An error occurred while creating the post." });
+        //         }
+        //     }
+        //     else
+        //     {
+        //         // Collect and return model state errors
+        //         var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+        //         var errorMessage = string.Join(" ", errors);
+
+        //         return Json(new { success = false, message = errorMessage });
+        //     }
+        // }
 
         [HttpPost]
         [Authorize]

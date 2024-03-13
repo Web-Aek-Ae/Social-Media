@@ -44,7 +44,7 @@
 
             @foreach (var post in Model.Posts)
             {
-                <div class="post">
+                <div class="post" data-postid-2="@post.PostId">
                     <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">
@@ -150,6 +150,20 @@
 </body>
 
 <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var scrollToButtonId = sessionStorage.getItem('scrollToButton');
+    if (scrollToButtonId) {
+        var button = document.querySelector('[data-postid-2="' + scrollToButtonId + '"]');
+        if (button) {
+            button.scrollIntoView();
+        }
+        // Clear the stored value to prevent unwanted scrolling on subsequent page loads
+        sessionStorage.removeItem('scrollToButton');
+    }
+});
+
+
 const poom = () => {
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -167,6 +181,8 @@ const poom = () => {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    sessionStorage.setItem('scrollToButton', postId);
+                    window.location.reload();
                     
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
@@ -193,6 +209,8 @@ const poom = () => {
                     button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
                     
+                    sessionStorage.setItem('scrollToButton', postId);
+                    window.location.reload();
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);

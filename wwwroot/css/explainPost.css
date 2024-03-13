@@ -670,6 +670,14 @@ main {
         gap: 1rem;
     }
 }
+
+
+.comment-btn{
+    background: none;
+    border: white;
+}
+
+
 .closed-button{
     font-size: 16px;
     font-weight: 600;

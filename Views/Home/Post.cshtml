@@ -1,5 +1,7 @@
 @model SocialMedia.ViewModels.HomeViewModel
 @using System.Security.Claims
+@using SocialMedia.Models.Database
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -38,10 +40,13 @@
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
+                    @if(Model.Post.PostStatus == 0)
+                    {
                     <a class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
+                    }
                     <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
                         <p  >delete post</p>
@@ -188,13 +193,13 @@
 <div class="popup">
     <div id="applicationsClosed">
         <p>Are you sure to close <br>the application for this activity?</p>
-        <button id="btnClosed" class="accept" >I'm sure!!!</button>
+        <button id="btnClosed" class="accept" onclick="closePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >I'm sure!!!</button>
         <button id="btnCC" class="cancel">Cancel</button>
     </div>
     <div id="delete">
         <p>Are you sure to delete <br>this activity?</p>
         <button id="btnDelete" class="accept" onclick="deletePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >Delete post</button>
-        <button id="btnCancle" class="cancel">Cancel</button>
+        <button id="btnCancle" class="cancel" >Cancel</button>
     </div>
 </div>
 }
@@ -341,6 +346,31 @@ const deletePost = (postId) => {
     xhr.send(JSON.stringify({ postId: postId }));
 };
 
+const closePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/ChangeStatus', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post closed successfully");
+                // Redirect or handle the UI update here
+                window.location.reload(); // Adjust as needed
+            } else {
+                console.log("Failed to close post:", result.message);
+            }
+        } else {
+            console.log("Error closing post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
 
 
 

@@ -25,7 +25,7 @@ namespace SocialMedia.Services
        }
 
        public List<Comment> GetCommentsByPostId(int id){
-        return _context.Comments.Include(c => c.User).Where(c => c.PostId == id).ToList();
+        return _context.Comments.Include(c => c.User).Where(c => c.PostId == id).OrderBy(c => c.CreatedAt).ToList();
        }
     }
 }

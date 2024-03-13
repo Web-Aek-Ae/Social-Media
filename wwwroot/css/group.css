@@ -104,6 +104,7 @@
 }
 .test1 {
   margin-left: 5px;
+  
 }
 #activity1 {
   width: 100%;
@@ -284,6 +285,11 @@ transition: 0.3s;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
+}
+.contents-header h3 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .Recomended-Group-poster {
   display: flex;

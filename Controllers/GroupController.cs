@@ -32,7 +32,7 @@ namespace SocialMedia.Controllers
         }
         public IActionResult Index()
         {
-            var username = HttpContext.User.Identity?.Name;
+            // var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -45,7 +45,7 @@ namespace SocialMedia.Controllers
 
             var user = _userService.GetUserById(int.Parse(UserId));
 
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
             ViewData["UserImg"] = user.Image;
 
             var groupspost = _groupService.GetAllGroups();
@@ -66,7 +66,7 @@ namespace SocialMedia.Controllers
 
         public IActionResult Create()
         {
-            var username = HttpContext.User.Identity?.Name;
+            // var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (UserId == null)
@@ -76,7 +76,7 @@ namespace SocialMedia.Controllers
 
             var user = _userService.GetUserById(int.Parse(UserId));
             ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
             ViewData["UserImg"] = user.Image;
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
@@ -92,7 +92,7 @@ namespace SocialMedia.Controllers
 
         public IActionResult Recommend()
         {
-            var username = HttpContext.User.Identity?.Name;
+            // var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             // Use the username for your application logic...
@@ -104,7 +104,7 @@ namespace SocialMedia.Controllers
             var user = _userService.GetUserById(int.Parse(UserId));
 
             ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
             ViewData["UserImg"] = user.Image;
             var groupspost = _groupService.GetAllGroups();
             var activity = new List<JoinActivity>();
@@ -120,21 +120,38 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
-        
-        public IActionResult Details(int id){
-            var username = HttpContext.User.Identity?.Name;
+
+        public IActionResult Details(int id)
+        {
+            // var username = HttpContext.User.Identity?.Name;
             // Alternatively, if the username is stored in a specific claim type
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             // Use the username for your application logic...
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+             var user = _userService.GetUserById(int.Parse(UserId));
             ViewData["UserId"] = UserId;
-            ViewData["Username"] = username;
+            ViewData["Username"] = user.Name;
+            ViewData["UserImg"] = user.Image;
             var posts = _postService.GetPostsByGroupId(id);
             var group = _groupService.GetGroupById(id);
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
             var detailsmodel = new DetailsModels
             {
                 Posts = posts,
-                Group = group
+                Group = group,
+                Activities = activity
             };
+            if(detailsmodel.Group == null || detailsmodel.Activities == null || detailsmodel.Posts == null)
+            {
+                return RedirectToAction("Index", "Group");
+            }
 
             return View(detailsmodel);
         }
@@ -177,8 +194,8 @@ namespace SocialMedia.Controllers
             return Ok(model.Groupname);
         }
 
-        
-        
+
+
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> JoinGroup(int id)

@@ -1,3 +1,5 @@
+try {
+    
 var btnDelete = document.getElementsByClassName("delete-post");
 var btnCancel = document.getElementById("btnCancle");
 
@@ -12,3 +14,8 @@ function close(){
 
 btnDelete[0].addEventListener('click', open);
 btnCancel.addEventListener('click', close);
+
+
+} catch (error) {
+    
+}

@@ -12,8 +12,8 @@ using SocialMedia.Models.Database;
 namespace Social_Media.Migrations
 {
     [DbContext(typeof(SocialMediaContext))]
-    [Migration("20240310192550_AddImageToUser")]
-    partial class AddImageToUser
+    [Migration("20240313162841_ProductionV4")]
+    partial class ProductionV4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,6 +192,9 @@ namespace Social_Media.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<int>("MaxPeople")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PostStatus")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Time")

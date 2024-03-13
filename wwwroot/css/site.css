@@ -173,7 +173,7 @@ ul .line {
 .containerPost h1 {
   margin: 0 0 5px 0;
   font-size: 25px;
-  font-weight: lighter;
+  font-weight: 600;
 }
 .info icon {
   height: fit-content;
@@ -270,7 +270,7 @@ ul .line {
   background-color: white;
   border: solid 2px;
 }
-@media (min-width: 768px) {
+@media (min-width: 320px) {
   html {
     font-size: 16px;
   }

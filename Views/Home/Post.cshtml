@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 <head>
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/explainPost.css" asp-append-version="true">
 </head>
 <div class="main">
     <div class="header">
@@ -23,7 +23,7 @@
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
-    <div class="container-post" style="margin-top:-1rem;">
+    <div class="container-post">
     
         <div class="explain-post">
             <div class="threedots">
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="post-detail">
-                <div class="post-header" style="margin-left:0rem;width:60rem;">
+                <div class="post-header">
                     <div class="date">
                         <h3 class="month">@Model.Post.Date.ToString("MMM").ToUpper()</h3>
                         <h3 class="day">@Model.Post.Date.Day</h3>
@@ -59,20 +59,20 @@
                             <p>Status :</p>
                             <p class="state"> Open</p>
                         </div>
-                        <p style="position:absolute;right:0;top:1rem;">Categories : @Model.Post.Category.Name</p>
+                        <p class="categories">Categories : @Model.Post.Category.Name</p>
                     </div>
                 </div>
                 <p>@Model.Post.Content</p>
                 <img class="img-activity" src="@Model.Post.Image"> 
                 <div class="post-bottom">
-                    <div class="owner" style="margin:0;">
+                    <div class="owner">
                         <img src="@Model.Post.User.Image"
                             alt="" class="owner-img">
-                        <div class="name" style="font-size:20px;align-item:center;">
+                        <div class="name">
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-                                <span style="padding-top:0.1rem">15 minutes ago</span>
+                                <span>15 minutes ago</span>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
 
                             </button>
                             <span class="likeCount">@Model.Post.PostLikes.Count
-                                <div class="dropdownLike" style="right :75% ">
+                                <div class="dropdownLike">
 
                                     @foreach (var like in Model.Post.PostLikes.ToList())
                                     {
@@ -117,7 +117,7 @@
                                         <div class="participantCount">
                                             <span class="joined">@Model.Post.JoinActivities.Count </span>
                                             <span class="max"> / @Model.Post.MaxPeople</span>
-                                                <div class="dropdownParticipant" style="right:50%">
+                                                <div class="dropdownParticipant">
                                                     @foreach (var joinActivity in Model.Post.JoinActivities)
                                                     {
                                                         <div class="member">
@@ -130,7 +130,6 @@
 
                                     </div>
                                 
-                                <div class="join-btn" style="margin-left:1rem ;">
                                     @if (Model.Post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
                                 {
                                                 <button  data-postid="@Model.Post.PostId" class="joined-button" >joined</button>
@@ -139,8 +138,6 @@
                                 {
                                                  <button data-postid="@Model.Post.PostId"  class="join-button" >join activity</button>
                                 }
-                                </div>
-                                
                     </div>
                 </div>  
             </div>

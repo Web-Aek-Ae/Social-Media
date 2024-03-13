@@ -1047,25 +1047,76 @@ display: block;
 }
 @media (max-width:920px){
   .post{
-      width:38rem;
-      height: 15.3rem;
-  }
-  .card-post {
-      display: grid;
-      grid-template-columns: 35% 65%;
-  }
-  .activity{
-      width: 13rem;
-      height: 13rem;
-  }
-  .date {
-      width: 4rem;
-      height: 5rem;
-      background-color: #f77c7e;
-      border-radius: 1.25rem;
-  }
-  
+    width:38rem;
+    height: 15.3rem;
 }
+.description {
+    width: 23rem;
+}
+.card-post {
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+.activity{
+    width: 13rem;
+    height: 13rem;
+}
+.date {
+    width: 4rem;
+    height: 5rem;
+    background-color: #f77c7e;
+    border-radius: 1.25rem;
+}
+
+.date h3 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.month {
+    font-size: 16px;
+    margin-top: 0.25rem;
+    margin-bottom: 0rem;
+}
+
+.day {
+    font-size: 34px;
+    margin-top: -0.75rem;
+    margin-bottom: 0;
+}
+
+.year {
+    font-size: 12px;
+    margin-top: -0.75rem;
+}
+
+.topic h1 {
+    font-size: 26px;
+}
+
+.topic p{
+    font-size: 16px;
+}
+
+.description-post p{
+    font-size: 16px;
+    -webkit-line-clamp: 1;
+}
+
+#owner-profile {
+    width: 2rem;
+    height: 2rem;
+}
+.owner span{
+    font-size: 16px;
+}
+.dropdownLike {
+    right: 18%;
+}
+}
+  
+
 @media (max-width: 917px) {
   .post-rec {
     width: 560px;

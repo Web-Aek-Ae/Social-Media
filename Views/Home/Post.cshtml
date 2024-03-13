@@ -9,7 +9,20 @@
 <head>
     <link rel="stylesheet" href="~/css/explainPost.css" asp-append-version="true">
 </head>
-<div class="main">
+@if(Model.Post != null){
+    <div class="main">
+    <div class="header">
+        <div class="search">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search" id="search-input">
+            </div>
+            <div class="filter-bar">
+                <i class="fa-solid fa-angle-down"></i>
+                <input type="text" placeholder="Filter" id="filter-input">
+            </div>
+        </div>
+    </div>
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
@@ -23,18 +36,18 @@
              <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
-                    <a asp-action="Edit" asp-controller="Post" asp-route-id="@Model.Post.PostId">
+                    <a href="">
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
                     @if(Model.Post.PostStatus == 0)
                     {
-                    <a  onclick='closePost("@Model.Post.PostId")' class="applications-closed">
+                    <a class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
                     }
-                    <a onclick='deletePost("@Model.Post.PostId")' class="delete-post">
+                    <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
                         <p  >delete post</p>
                     </a>
@@ -71,8 +84,7 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-
-                                    @{
+                                @{
     
                                         var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreatedAt, DateTimeKind.Utc);
                                         var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
@@ -92,7 +104,6 @@
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
                                     }
-
                             </div>
                         </div>
                     </div>
@@ -178,8 +189,8 @@
                         <div class="comment-detail">
                             <div class="username">
                                 <span>@comment.User.Name</span>
-
-                                  @{
+                                
+@{
     
                                         var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
                                         var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
@@ -198,12 +209,10 @@
                                     else
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
-                                    }
-
-                               
-                            </div>
-                            <p style="margin:0;">@comment.Content</p>
+                                    }                            </div>
                         </div>
+                            <p style="margin:0;">@comment.Content</p>
+                    </div>
                     </div>
                         
             }
@@ -240,17 +249,16 @@
 
 <div class="modalBg"></div>
 
-<script>
+    <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 
 function dropdown() {
-
+//   document.getElementById("myDropdown").classList.toggle("show");
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-        
         var openDropdown = dropdowns[i];
         openDropdown.classList.toggle('show');
         dropdownBtn[i].classList.toggle('focus');
@@ -259,16 +267,15 @@ function dropdown() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-    
   if (!event.target.matches('.dropdownBtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-       
+    //   console.log(dropdowns[i])
       var openDropdown = dropdowns[i];
-      @* if (openDropdown.classList.contains('show')) {console.log('b'); *@
-        openDropdown.classList.remove'show');
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
         dropdownBtn[i].classList.remove('focus');
       }
     }

@@ -154,4 +154,9 @@ namespace SocialMedia.ViewModels
     public int PostId {get; set;}
   }
 
+  public class DeletePostViewModel
+  {
+    public int PostId {get; set;}
+  }
+
 }

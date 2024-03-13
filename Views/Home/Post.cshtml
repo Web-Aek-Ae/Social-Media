@@ -44,7 +44,7 @@
                     </a>
                     <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
-                        <p>delete post</p>
+                        <p  >delete post</p>
                     </a>
                 </div>
             </div>
@@ -188,12 +188,12 @@
 <div class="popup">
     <div id="applicationsClosed">
         <p>Are you sure to close <br>the application for this activity?</p>
-        <button id="btnClosed" class="accept" onclick="">I'm sure!!!</button>
+        <button id="btnClosed" class="accept" >I'm sure!!!</button>
         <button id="btnCC" class="cancel">Cancel</button>
     </div>
     <div id="delete">
         <p>Are you sure to delete <br>this activity?</p>
-        <button id="btnDelete" class="accept" onclick="">Delete post</button>
+        <button id="btnDelete" class="accept" onclick="deletePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >Delete post</button>
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>
@@ -265,6 +265,12 @@ window.onclick = function(event) {
         });
     });
 
+   
+
+
+
+
+
     // Handle join and unjoin activity button clicks
     function handleJoinActivity(button, isJoin) {
         var postId = button.getAttribute('data-postid');
@@ -308,6 +314,37 @@ window.onclick = function(event) {
 
 
 });
+
+const deletePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/DeletePost', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post deleted successfully");
+                // Redirect or handle the UI update here
+                window.location.href = '/Home/Index'; // Adjust as needed
+            } else {
+                console.log("Failed to delete post:", result.message);
+            }
+        } else {
+            console.log("Error deleting post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
+
+
+
+
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

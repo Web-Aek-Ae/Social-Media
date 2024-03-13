@@ -199,5 +199,30 @@ namespace SocialMedia.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<ActionResult> DeletePost([FromBody] DeletePostViewModel model)
+        {
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
+
+           
+           
+
+            var post = _postService.GetPostByPostId(model.PostId);
+            if (post == null)
+            {
+                return Json(new { success = false, message = "Post not found." });
+            }
+            if (post.UserId != userIdAsInt)
+            {
+                return Json(new { success = false, message = "User does not have permission to delete this post." });
+            }
+            await _postService.DeletePost(model.PostId);
+            return Json(new { success = true, message = "Post deleted successfully!" });
+        }
+
     }
 }

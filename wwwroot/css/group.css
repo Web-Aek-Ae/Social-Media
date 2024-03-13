@@ -635,12 +635,9 @@ button:not(#btnCancel):hover  {
   background-size:cover;
 }
 
-.show {
-  display: block;
-}
-
 .dropdown-content {
-  /* display: none; */
+  visibility: hidden;
+  margin-top: 30px;
   position: absolute;
   background-color: #f9f9f9;
   width: 20rem;
@@ -650,7 +647,9 @@ button:not(#btnCancel):hover  {
   right: 0;
   z-index: 1;
 }
-
+.show {
+  visibility: visible;
+}
 .dropdown-content a {
   margin : 1rem;
   height: fit-content;
@@ -701,6 +700,11 @@ button:not(#btnCancel):hover  {
 
 .Group-details {
   margin: 0px 30px 0px 30px;
+}
+
+.Group-details p {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .events h2 {
   font-size: 30px;

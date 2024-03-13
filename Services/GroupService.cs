@@ -13,10 +13,14 @@ namespace SocialMedia.Services
     {
         private readonly SocialMediaContext _context;
 
-        public GroupService(SocialMediaContext context)
+        private readonly PostService _postService;
+
+        public GroupService(SocialMediaContext context , PostService postService)
         {
             _context = context;
+            _postService = postService;
         }
+        
 
         public async Task<bool> DeleteGroup(int GroupId)
         {
@@ -31,7 +35,10 @@ namespace SocialMedia.Services
 
                 if (post != null)
                 {
-                    _context.Posts.RemoveRange(post);
+                    foreach (var p in post)
+                    {
+                        await _postService.DeletePost(p.PostId);
+                    }
                 }
 
 

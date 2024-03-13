@@ -14,11 +14,14 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
     private readonly UserService _userService;
-    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
+
+    private readonly CommentService _commentService;
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService,CommentService commentService)
     {
         _logger = logger;
         _postService = postService;
         _userService = userService;
+        _commentService = commentService;
     }
 
     // [HttpPost]
@@ -93,27 +96,25 @@ public class HomeController : Controller
 
         var user = await _userService.GetUserByIdAsync(userId);
 
-        if (user == null)
-        {
-            return RedirectToAction("Login", "User");
-        }
+    var activity = new List<JoinActivity>();
+    var userActivities = await _userService.GetUserActivitiesAsync(userId);
+    activity.AddRange(userActivities.Take(3));
+    var post = _postService.GetPostByPostId(id);
+    var posts = await _postService.GetAllPostsAsync();
+    var comment = _commentService.GetCommentsByPostId(id);
+    if (post == null)
+    {
+        return RedirectToAction("Index");
+    }
 
-        var activity = new List<JoinActivity>();
-        var userActivities = await _userService.GetUserActivitiesAsync(userId);
-        activity.AddRange(userActivities.Take(3));
-        var post = _postService.GetPostByPostId(id);
-        var posts = await _postService.GetAllPostsAsync();
-        if (post == null)
-        {
-            return RedirectToAction("Index");
-        }
+    var model = new HomeViewModel
+    {
+        Posts = posts,
+        Activities = activity,
+        Post = post,
+        Comments = comment
+    };
 
-        var model = new HomeViewModel
-        {
-            Posts = posts,
-            Activities = activity,
-            Post = post
-        };
 
         return View(model);
 

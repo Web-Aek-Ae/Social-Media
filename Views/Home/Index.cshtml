@@ -20,7 +20,7 @@
                     <input type="text" placeholder="Search" id="search-input">
                 </div>
                 <div class="filter-bar">
-                    <button onclick="dropdown()" class="filterBtn">
+                    <button class="filterBtn">
                         <i class="fa-solid fa-angle-down"></i>
                         <p>Filter</p>
                     </button>
@@ -206,41 +206,10 @@ document.addEventListener("DOMContentLoaded", function() {
             handleJoinActivity(this, false);
         });
     });
-
-
-
 });
+
+
 </script>
 <script src="~/lib/dropdownFilter.js"></script>
-    <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
 
-function dropdown() {
-//   document.getElementById("myDropdown").classList.toggle("show");
-    var dropdowns = document.getElementsByClassName("dropdownFilter");
-    var dropdownBtn = document.getElementsByClassName("filternBtn");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        openDropdown.classList.toggle('show');
-        // dropdownBtn[i].classList.toggle('focus');
-    }
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropdownBtn')) {
-    var dropdowns = document.getElementsByClassName("dropdownFilter");
-    var dropdownBtn = document.getElementsByClassName("filternBtn");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-        // dropdownBtn[i].classList.remove('focus');
-      }
-    }
-  }
-}
 

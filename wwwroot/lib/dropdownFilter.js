@@ -1,10 +1,25 @@
 var dBtn = document.getElementsByClassName("filterBtn");
 function dropdown() {
-        var dF = document.getElementsByClassName("dropdownFilter");
-        var i;
-        for (i = 0; i < dF.length; i++) {
-            var openDropdown = dF[i];
-            openDropdown.classList.toggle('show');
-        }
+    console.log('a');
+    var dropdowns = document.getElementsByClassName("dropdownFilter");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        openDropdown.classList.toggle('showFilter');
     }
-dBtn[0].addEventListener('click', dropdown()); 
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.filterBtn')) {
+      var dropdowns = document.getElementsByClassName("dropdownFilter");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+      //   console.log(dropdowns[i])
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('showFilter')) {console.log('b');
+          openDropdown.classList.remove('showFilter');
+        }
+      }
+    }
+  }
+dBtn[0].addEventListener('click', dropdown); 

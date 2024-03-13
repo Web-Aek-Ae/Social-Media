@@ -33,22 +33,7 @@
     width: 80%;
 }
 
-.filter-bar {
-    display: flex;
-    align-items: center;
-    height: 2.7rem;
-    width: 20%;
-    border: 2px solid #000000;
-    border-radius: 30px;
-    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
-    gap: 1rem;
-}
 
-.filter-bar input {
-    outline: none;
-    border: none;
-    width: 60%;
-}
 
 .backIcon {
     width: 44px;

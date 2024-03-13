@@ -74,7 +74,7 @@
 
                                     @{
     
-                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreateAt, DateTimeKind.Utc);
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreatedAt, DateTimeKind.Utc);
                                         var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
                                         var hours = Convert.ToInt32(timeSincePost.TotalHours);
                                         var days = Convert.ToInt32(timeSincePost.TotalDays);

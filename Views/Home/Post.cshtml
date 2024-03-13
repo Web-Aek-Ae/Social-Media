@@ -11,18 +11,7 @@
 </head>
 @if(Model.Post != null){
     <div class="main">
-    <div class="header">
-        <div class="search">
-            <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search" id="search-input">
-            </div>
-            <div class="filter-bar">
-                <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" id="filter-input">
-            </div>
-        </div>
-    </div>
+   
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
@@ -42,7 +31,7 @@
                     </a>
                     @if(Model.Post.PostStatus == 0)
                     {
-                    <a class="applications-closed">
+                    <a  class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
@@ -190,7 +179,7 @@
                             <div class="username">
                                 <span>@comment.User.Name</span>
                                 
-@{
+                                    @{
     
                                         var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
                                         var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
@@ -210,12 +199,12 @@
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
                                     }                            </div>
-                        </div>
                             <p style="margin:0;">@comment.Content</p>
-                    </div>
-                    </div>
+                            </div>
+                         </div>
+
                         
-            }
+                }   
                 </div>
                 }
                 

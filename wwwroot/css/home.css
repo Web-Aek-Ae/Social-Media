@@ -173,13 +173,14 @@ main {
 
 .description {
     margin: 0.5rem  0 0.25rem;
-    /* width: 40rem; */
+    width: 40rem;
 }
 
 .description p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    /* width: 40rem; */
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -350,6 +351,9 @@ main {
     .dropdownLike {
         right: 13%;
     }
+    .description {
+        width: 31rem;
+    }
 }
 @media (max-width:1370px){
     .post{
@@ -361,6 +365,9 @@ main {
     }
     .dropdownLike {
         right: 15%;
+    }
+    .description {
+        width:26rem;
     }
 }
 @media (max-width:1200px){
@@ -377,6 +384,9 @@ main {
     .dropdownLike {
         right: 13%;
     }
+    .description {
+        width: 31rem;
+    }
 }
 @media (max-width:1024px){
     .post{
@@ -389,11 +399,17 @@ main {
     .dropdownLike {
         right: 15%;
     }
+    .description {
+        width: 26rem;
+    }
 }
 @media (max-width:920px){
     .post{
         width:38rem;
         height: 15.3rem;
+    }
+    .description {
+        width: 23rem;
     }
     .card-post {
         display: grid;

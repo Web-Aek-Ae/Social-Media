@@ -21,8 +21,21 @@
                     <input type="text" placeholder="Search" id="search-input">
                 </div>
                 <div class="filter-bar">
-                    <i class="fa-solid fa-angle-down"></i>
-                    <input type="text" placeholder="Filter" id="filter-input">
+                    <button class="filterBtn">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <p>Filter</p>
+                    </button>
+                    <div class="dropdownFilter">
+                        <a href="" class="filter">
+                            <p>Title</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Username</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Categories</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,8 +44,8 @@
 
             @foreach (var post in Model.Posts)
             {
-                <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
-                    <div class="post">
+                <div class="post">
+                    <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">
                             <div class="content">
@@ -125,9 +138,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-
+                    </a>
+                </div>
             }
             }
             </div>
@@ -203,6 +215,8 @@ const poom = () => {
             handleJoinActivity(this, false);
         });
     });
+
+
     document.getElementById("search-input").addEventListener("change", sentSearch);
 
 };
@@ -240,4 +254,6 @@ function sentSearch() {
 
 poom()
 </script>
+
+<script src="~/lib/dropdownFilter.js"></script>
 

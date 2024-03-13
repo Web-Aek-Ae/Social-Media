@@ -26,6 +26,8 @@
             </div>
         </div>
         <div class="container-post">
+            @if(Model.Posts != null){
+
             @foreach (var post in Model.Posts)
             {
                 <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
@@ -120,6 +122,7 @@
                     </div>
                 </a>
 
+            }
             }
             </div>
             <div class="addPostIcon">

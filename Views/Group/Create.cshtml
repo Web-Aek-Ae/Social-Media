@@ -26,16 +26,18 @@
         </div>
     </div>
 </div>
+@section scripts {
+    
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".btn button").addEventListener("click", function (event) {
             event.preventDefault(); // Prevent the default form submission
 
-            var formData = {
-                Groupname: document.querySelector('input[name="Groupname"]').value,
-                Description: document.querySelector('textarea[name="Description"]').value,
-                Image: document.querySelector('input[name="Image"]').value
-            };
+        var formData = {
+            Groupname: document.querySelector('.name').value,
+            Description: document.querySelector('.description').value,
+            Image: document.querySelector('.photo').value
+        };
 
             // Basic validation example
             if (!formData.Groupname || !formData.Description || !formData.Image) {
@@ -66,3 +68,4 @@
         });
     });
 </script>
+}

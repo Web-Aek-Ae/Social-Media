@@ -511,6 +511,7 @@ main {
     border-radius: 30px;
 }
 .input input{
+    width: 100%;
     font-size: 18px;
     margin-left: 1rem;
     outline: none;
@@ -601,4 +602,9 @@ main {
 
 @media (max-width:1580px) {
     
+}
+
+.comment-btn{
+    background: none;
+    border: white;
 }

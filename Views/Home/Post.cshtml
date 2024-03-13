@@ -7,7 +7,8 @@
 <head>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
 </head>
-<div class="main">
+@if(Model.Post != null){
+    <div class="main">
     <div class="header">
         <div class="search">
             <div class="search-bar">
@@ -72,7 +73,7 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-                                <span style="padding-top:0.1rem">15 minutes ago</span>
+                                <span style="padding-top:0.1rem">@(Convert.ToInt32(DateTime.Now.Subtract(@Model.Post.Time).TotalHours)) minutes ago</span>
                             </div>
                         </div>
                     </div>
@@ -146,56 +147,34 @@
             </div>
             <div class="slice"></div>
             <div class="container-comment">
-                <h2>Comments (4)</h2>
+                @if(Model.Comments != null){
+                <h2>Comments (@Model.Comments.Count)</h2>
+                @foreach(var comment in Model.Comments)
+                {
                 <div class="all-comment">
                     <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                        <img class="comment-img" src="@comment.User.Image">
                         <div class="comment-detail">
                             <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
+                                <span>@comment.User.Name</span>
+                                <span class="time">@(Convert.ToInt32(DateTime.UtcNow.Subtract(comment.CreatedAt).TotalMinutes)) minutes ago</span>
                             </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
+                            <p style="margin:0;">@comment.Content</p>
                         </div>
                     </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
+                        
                 </div>
+            }
+                }
+                
+                
             </div>
             <div class="slice"></div>
             <div class="add-comment">
                 <img class="comment-img" src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg">
                 <div class="input">
-                    <input type="text" placeholder="Add a comment" id="comment-input">
-                    <img src="~/src/images/send.svg">
+                    <input type="text" placeholder="Add a comment" class="comment-input">
+                    <button class="comment-btn" data-postid="@Model.Post.PostId"><img src="~/src/images/send.svg" ></button>
                 </div>
             </div>
         </div>
@@ -214,6 +193,8 @@
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>
+}
+
 <div class="modalBg"></div>
 
     <script>
@@ -252,8 +233,8 @@ window.onclick = function(event) {
 <script src="~/lib/ApplicationClosed.js"></script>
 <script src="~/lib/deletePost.js"></script>
 
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
     // Handle like button clicks
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -323,5 +304,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $(".comment-btn").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                Commentbutton = $(this);
+                var formData = {
+                    Content:document.querySelector('.comment-input').value,
+                    PostId:Commentbutton.data("postid")
+                };
+
+                console.log(formData.Content);
+                console.log(formData.PostId);
+                // Basic validation example
+                if (formData.Content == null || formData.PostId == null) {
+                    alert("Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateComment", "Post")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Post", "Home")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create post: " + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
 </script>
 

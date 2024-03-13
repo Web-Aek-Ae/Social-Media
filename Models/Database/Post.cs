@@ -65,6 +65,11 @@ namespace SocialMedia.Models.Database
         public DateTime ExpireDate { get; set; }
         
 
+        [DataType(DataType.DateTime)] // Specifies that the data type is a date, without a time component
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        
+
 
     }
 

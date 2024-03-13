@@ -1,5 +1,7 @@
 @model SocialMedia.ViewModels.HomeViewModel
 @using System.Security.Claims
+@using SocialMedia.Models.Database
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -13,24 +15,33 @@
     </a>
     <div class="container-post">
     
+
+        
+
         <div class="explain-post">
-            <div class="threedots">
+            @if(Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == Model.Post.UserId.ToString()){
+             <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
                     <a href="">
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
+                    @if(Model.Post.PostStatus == 0)
+                    {
                     <a class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
+                    }
                     <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
-                        <p>delete post</p>
+                        <p  >delete post</p>
                     </a>
                 </div>
             </div>
+        }
+           
             <div class="post-detail">
                 <div class="post-header">
                     <div class="date">
@@ -45,7 +56,7 @@
                     <div class="status-categories">
                         <div class="status-activity">
                             <p>Status :</p>
-                            <p class="state"> Open</p>
+                            <p class="state"> @Model.Post.PostStatus</p>
                         </div>
                         <p class="categories">Categories : @Model.Post.Category.Name</p>
                     </div>
@@ -60,7 +71,7 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-                                <span>15 minutes ago</span>
+                                <span style="padding-top:0.1rem">@(Convert.ToInt32(DateTime.Now.Subtract(@Model.Post.Time).TotalHours)) minutes ago</span>
                             </div>
                         </div>
                     </div>
@@ -84,13 +95,14 @@
                                     @foreach (var like in Model.Post.PostLikes.ToList())
                                     {
                                         <div class="member">
-                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                             @if (like.User != null)
                                                 {
+                                                    <img src="@like.User.Image">
                                                     <h5>@like.User.Name</h5>
                                                 }
                                                 else
                                                 {
+                                                     <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                                     <h5>User not found.</h5>
                                                 }
 
@@ -109,7 +121,7 @@
                                                     @foreach (var joinActivity in Model.Post.JoinActivities)
                                                     {
                                                         <div class="member">
-                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                            <img src="@joinActivity.User.Image">
                                                             <h5>@joinActivity.User.Name</h5>
                                                         </div>
                                                     }                                        
@@ -131,56 +143,34 @@
             </div>
             <div class="slice"></div>
             <div class="container-comment">
-                <h2>Comments (4)</h2>
+                @if(Model.Comments != null){
+                <h2>Comments (@Model.Comments.Count)</h2>
+                @foreach(var comment in Model.Comments)
+                {
                 <div class="all-comment">
                     <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                        <img class="comment-img" src="@comment.User.Image">
                         <div class="comment-detail">
                             <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
+                                <span>@comment.User.Name</span>
+                                <span class="time">@(Convert.ToInt32(DateTime.UtcNow.Subtract(comment.CreatedAt).TotalMinutes)) minutes ago</span>
                             </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
+                            <p style="margin:0;">@comment.Content</p>
                         </div>
                     </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <img class="comment-img" src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
-                        <div class="comment-detail">
-                            <div class="username">
-                                <span>Oakoakoak</span>
-                                <span class="time">15 minutes ago</span>
-                            </div>
-                            <p style="margin:0;">แล้วเจอกันครับ</p>
-                        </div>
-                    </div>
+                        
                 </div>
+            }
+                }
+                
+                
             </div>
             <div class="slice"></div>
             <div class="add-comment">
                 <img class="comment-img" src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg">
                 <div class="input">
-                    <input type="text" placeholder="Add a comment" id="comment-input">
-                    <img src="~/src/images/send.svg">
+                    <input type="text" placeholder="Add a comment" class="comment-input">
+                    <button class="comment-btn" data-postid="@Model.Post.PostId"><img src="~/src/images/send.svg" ></button>
                 </div>
             </div>
         </div>
@@ -190,15 +180,17 @@
 <div class="popup">
     <div id="applicationsClosed">
         <p>Are you sure to close <br>the application for this activity?</p>
-        <button id="btnClosed" class="accept" onclick="">I'm sure!!!</button>
+        <button id="btnClosed" class="accept" onclick="closePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >I'm sure!!!</button>
         <button id="btnCC" class="cancel">Cancel</button>
     </div>
     <div id="delete">
         <p>Are you sure to delete <br>this activity?</p>
-        <button id="btnDelete" class="accept" onclick="">Delete post</button>
-        <button id="btnCancle" class="cancel">Cancel</button>
+        <button id="btnDelete" class="accept" onclick="deletePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >Delete post</button>
+        <button id="btnCancle" class="cancel" >Cancel</button>
     </div>
 </div>
+}
+
 <div class="modalBg"></div>
 
 <script>
@@ -239,8 +231,8 @@ window.onclick = function(event) {
 <script src="~/lib/ApplicationClosed.js"></script>
 <script src="~/lib/deletePost.js"></script>
 
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
     // Handle like button clicks
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -258,6 +250,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    window.location.reload();
                     
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
@@ -266,6 +259,12 @@ document.addEventListener("DOMContentLoaded", function() {
             xhr.send('postId=' + postId);
         });
     });
+
+   
+
+
+
+
 
     // Handle join and unjoin activity button clicks
     function handleJoinActivity(button, isJoin) {
@@ -283,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.classList.toggle('joined-button', result.joined);
                     button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
-                    
+                    window.location.reload();
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);
@@ -310,5 +309,101 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+
+const deletePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/DeletePost', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post deleted successfully");
+                // Redirect or handle the UI update here
+                window.location.href = '/Home/Index'; // Adjust as needed
+            } else {
+                console.log("Failed to delete post:", result.message);
+            }
+        } else {
+            console.log("Error deleting post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
+
+const closePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/ChangeStatus', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post closed successfully");
+                // Redirect or handle the UI update here
+                window.location.reload(); // Adjust as needed
+            } else {
+                console.log("Failed to close post:", result.message);
+            }
+        } else {
+            console.log("Error closing post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
+
+
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $(".comment-btn").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                Commentbutton = $(this);
+                var formData = {
+                    Content:document.querySelector('.comment-input').value,
+                    PostId:Commentbutton.data("postid")
+                };
+
+                console.log(formData.Content);
+                console.log(formData.PostId);
+                // Basic validation example
+                if (formData.Content == null || formData.PostId == null) {
+                    alert("Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateComment", "Post")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Post", "Home")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create post: " + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
 </script>
 

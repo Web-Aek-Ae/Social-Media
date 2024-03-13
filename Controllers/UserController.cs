@@ -118,15 +118,15 @@ namespace SocialMedia.Controllers
 
             // Generate JWT token
             var token = GenerateJwtToken(user);
+
             // Set the JWT token as a cookie
             Response.Cookies.Append("jwt", token, new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.Strict, // Adjust as needed
-                Expires = DateTime.Now.AddDays(1) // Adjust expiration as needed
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.Now.AddDays(1)
             });
 
-            // You can return the token as part of a view model, set it in a cookie, or use it in another appropriate way depending on your application's needs
             return RedirectToAction("Index", "Home");
         }
 

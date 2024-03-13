@@ -30,8 +30,6 @@
         </div>
     </div>
     <div class="post">
-        @if (Model.PostLikes != null)
-        {
             @foreach (var post in Model.PostLikes)
             {
 
@@ -76,14 +74,14 @@
                                 }
                                 else
                                 {
-                                    <p></p>
+                                    <p>Status : @post.Post.PostStatus</p>
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
 
-            }
+            
         }
 
 

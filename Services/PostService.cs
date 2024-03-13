@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Models.Database;
+using SocialMedia.ViewModels;
 
 
 
@@ -117,6 +118,29 @@ namespace SocialMedia.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        // public async Task<bool> UpdatePost(PostViewModel post, int PostId)
+        // {
+        //     var existingPost = await _context.Posts.FindAsync(PostId);
+        //     if (existingPost == null)
+        //     {
+        //         return false;
+        //     }
+
+        //     // existingPost.Category = post.Category;
+        //     existingPost.Title = post.Title;
+        //     existingPost.Content = post.Content;
+        //     existingPost.Location = post.Location;
+        //     existingPost.Image = post.Image;
+        //     existingPost.MaxPeople = post.MaxPeople;
+        //     // existingPost.Time = post.Time;
+        //     existingPost.Date = post.Date;
+        //     existingPost.ExpireDate = post.ExpireDate;
+
+        //     await _context.SaveChangesAsync();
+        //     return true;
+        // }
+
 
         public async Task<bool> DeletePost(int id)
         {

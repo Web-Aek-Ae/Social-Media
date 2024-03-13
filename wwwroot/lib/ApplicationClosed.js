@@ -1,3 +1,5 @@
+try {
+
 var btnApp = document.getElementsByClassName("applications-closed");
 var btnCancel = document.getElementById("btnCC");
 
@@ -12,3 +14,7 @@ function close(){
 
 btnApp[0].addEventListener('click', open);
 btnCancel.addEventListener('click', close);
+    
+} catch (error) {
+    
+}

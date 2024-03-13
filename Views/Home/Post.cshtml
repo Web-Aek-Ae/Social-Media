@@ -9,7 +9,9 @@
 <head>
     <link rel="stylesheet" href="~/css/explainPost.css" asp-append-version="true">
 </head>
-<div class="main">
+@if(Model.Post != null){
+    <div class="main">
+   
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
@@ -29,7 +31,7 @@
                     </a>
                     @if(Model.Post.PostStatus == 0)
                     {
-                    <a class="applications-closed">
+                    <a  class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
@@ -71,10 +73,9 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-
-                                    @{
-                                        // Corrected variable names to reflect the comment's timing
-                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.Time, DateTimeKind.Utc);
+                                @{
+    
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreatedAt, DateTimeKind.Utc);
                                         var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
                                         var hours = Convert.ToInt32(timeSincePost.TotalHours);
                                         var days = Convert.ToInt32(timeSincePost.TotalDays);
@@ -92,7 +93,6 @@
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
                                     }
-
                             </div>
                         </div>
                     </div>
@@ -178,8 +178,8 @@
                         <div class="comment-detail">
                             <div class="username">
                                 <span>@comment.User.Name</span>
-
-                                  @{
+                                
+                                    @{
     
                                         var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
                                         var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
@@ -198,15 +198,13 @@
                                     else
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
-                                    }
-
-                               
-                            </div>
+                                    }                            </div>
                             <p style="margin:0;">@comment.Content</p>
-                        </div>
-                    </div>
+                            </div>
+                         </div>
+
                         
-            }
+                }   
                 </div>
                 }
                 
@@ -240,18 +238,16 @@
 
 <div class="modalBg"></div>
 
-<script>
+    <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 
 function dropdown() {
-    console.log('a');
 //   document.getElementById("myDropdown").classList.toggle("show");
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-        console.log(dropdowns[i])
         var openDropdown = dropdowns[i];
         openDropdown.classList.toggle('show');
         dropdownBtn[i].classList.toggle('focus');
@@ -260,15 +256,14 @@ function dropdown() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-    
   if (!event.target.matches('.dropdownBtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-       console.log(dropdowns[i])
+    //   console.log(dropdowns[i])
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {console.log('b');
+      if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
         dropdownBtn[i].classList.remove('focus');
       }

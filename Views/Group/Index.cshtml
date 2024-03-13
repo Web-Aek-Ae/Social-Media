@@ -51,7 +51,7 @@
                         <div class="contents">
                             <div class="contents-header">
                                 <h3>@group.Name</h3>
-                                <div onclick="openmembers()" class="amountofmembers">
+                                <div onclick='openmembers("@group.GroupId")' class="amountofmembers">
                                     <img src="~/src/images/People_in_postcardIcon.svg" alt="" class="icon">
                                     <span>@group.Members.Count</span>
                                 </div>
@@ -64,12 +64,12 @@
                         </div>
                     </div>
                 </a>
-                <div class="pop-up">
+                <div class="pop-up id-@group.GroupId">
                     <div class="header-popup">
                         <h2>Members</h2>
-                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers(0)">
                     </div>
-                    <div class="group-members">
+                    <div class="group-members" >
                         @foreach (var members in group.Members)
                         {
                             <div class="members">
@@ -104,14 +104,15 @@
                                     <img src="@group.User.Image" alt="" id="group-poster-img">
                                     <span>@group.User.Name</span>
                                 </div>
-                                <div class="group-of-button">
-                                    <img src="~/src/images/People_in_postcardIcon.svg">
-                                    <span>@group.Members.Count</span>
 
+                                <div class="group-of-button">
+                                    <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon" />
+                                    <span>@group.Members.Count</span>
+                                    <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button
+                                            class="group-button">view group</button></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </a>
 
 
@@ -163,9 +164,26 @@
             newXhr.send(jsonData);
         }
 
+        
+        function openmembers(groupid) {
+
+            if (groupid === 0) {
+                Array.from(document.getElementsByClassName("pop-up")).forEach((element) => {
+                    element.style.visibility = "hidden";
+                });
+                document.getElementsByClassName("popup-backdrop")[0].style.visibility = "hidden";
+                return;
+            }
+            if (groupid) {
+                document.getElementsByClassName("id-"+groupid)[0].style.visibility = "visible";
+                document.querySelector(".popup-backdrop").style.visibility = "visible"; 
+            }
+
+        }
+
     </script>
 
-    <script src="~/lib/testfile.js"></script>
+    @* <script src="~/lib/testfile.js"></script> *@
 
     <script src="~/lib/logout.js" asp-append-version="true"></script>
 }

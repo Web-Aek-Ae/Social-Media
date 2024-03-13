@@ -735,3 +735,8 @@ main {
       }
 }
 
+
+.comment-btn{
+    background: none;
+    border: white;
+}

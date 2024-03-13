@@ -99,6 +99,18 @@ namespace SocialMedia.Services
             .Include(p => p.Category)
             .Where(p => p.GroupId == id).ToList();
         }
+
+        public async Task<List<Post>> GetPostsByGroupIdAsync(int id)
+        {
+            return await _context.Posts
+                .Include(p => p.Group)
+                .Include(p => p.User)
+                .Include(p => p.PostLikes).ThenInclude(pl => pl.User)
+                .Include(p => p.JoinActivities)
+                .Include(p => p.Comments).ThenInclude(c => c.User)
+                .Include(p => p.Category)
+                .Where(p => p.GroupId == id).ToListAsync();
+        }
         public async Task<bool> MakePost(Post post)
         {
             _context.Posts.Add(post);

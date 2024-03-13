@@ -47,6 +47,11 @@ namespace SocialMedia.Services
             return _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
         }
 
+        public async Task<Group?> GetGroupByIdAsync(int? id)
+        {
+            return await _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefaultAsync(g => g.GroupId == id);
+        }
+
         public async Task<bool> AddGroup(Group group)
         {
             var newGroup = _context.Groups.Add(group).Entity;

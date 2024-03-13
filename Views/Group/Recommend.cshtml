@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="group-of-button">
-                                <i class="fa-regular fa-user"></i>
+                                <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon"/>
                                 <span>@group.Members.Count</span>
                                 <button class="group-rec-button" GroupId="@group.GroupId" onclick="">join group</button>
                             </div>
@@ -89,6 +89,7 @@
 @section scripts {
     <script>
         function viewgrouponclick(groupId) {
+            event.preventDefault();
             window.location.href = '@Url.Action("Details", "Group")' + '/' + groupId;
         }
     </script>
@@ -110,6 +111,9 @@
                             if (data.success) {
                                 button.classList.add("group-button");
                                 button.classList.remove("group-rec-button");
+                                button.addEventListener('click',function(event){
+                                viewgrouponclick(event);
+                                });
                             } else {
                                 alert("Failed to Join Group: " + data.message);
                             }

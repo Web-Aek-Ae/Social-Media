@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
+@using SocialMedia.Models.Database
 @model SocialMedia.ViewModels.HomeViewModel
 
 
@@ -20,8 +21,21 @@
                     <input type="text" placeholder="Search" id="search-input">
                 </div>
                 <div class="filter-bar">
-                    <i class="fa-solid fa-angle-down"></i>
-                    <input type="text" placeholder="Filter" id="filter-input">
+                    <button class="filterBtn">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <p>Filter</p>
+                    </button>
+                    <div class="dropdownFilter">
+                        <a href="" class="filter">
+                            <p>Title</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Username</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Categories</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,8 +44,8 @@
 
             @foreach (var post in Model.Posts)
             {
-                <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
-                    <div class="post">
+                <div class="post" data-postid-2="@post.PostId">
+                    <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">
                             <div class="content">
@@ -55,13 +69,18 @@
                                     </div>
                                     <div class="action">
                                     @using System.Security.Claims
-                                    @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
-                                    {
-                                                    <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                    @if(post.PostStatus != Post.Status.Closed){
+                                            @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                            {
+                                                            <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                            }
+                                            else
+                                            {
+                                                            <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                            }
                                     }
-                                    else
-                                    {
-                                                    <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                    else{
+                                        <button class="closed-button">Closed</button>
                                     }
                                         <div class="likes">
                                             <button data-postid="@post.PostId" class="like-button">
@@ -119,9 +138,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-
+                    </a>
+                </div>
             }
             }
             </div>
@@ -132,6 +150,20 @@
 </body>
 
 <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var scrollToButtonId = sessionStorage.getItem('scrollToButton');
+    if (scrollToButtonId) {
+        var button = document.querySelector('[data-postid-2="' + scrollToButtonId + '"]');
+        if (button) {
+            button.scrollIntoView();
+        }
+        // Clear the stored value to prevent unwanted scrolling on subsequent page loads
+        sessionStorage.removeItem('scrollToButton');
+    }
+});
+
+
 const poom = () => {
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -149,6 +181,8 @@ const poom = () => {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    sessionStorage.setItem('scrollToButton', postId);
+                    window.location.reload();
                     
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
@@ -175,6 +209,8 @@ const poom = () => {
                     button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
                     
+                    sessionStorage.setItem('scrollToButton', postId);
+                    window.location.reload();
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);
@@ -197,6 +233,8 @@ const poom = () => {
             handleJoinActivity(this, false);
         });
     });
+
+
     document.getElementById("search-input").addEventListener("change", sentSearch);
 
 };
@@ -234,4 +272,6 @@ function sentSearch() {
 
 poom()
 </script>
+
+<script src="~/lib/dropdownFilter.js"></script>
 

@@ -32,11 +32,8 @@ namespace SocialMedia.Controllers
         }
         public IActionResult Index(string data)
         {
-            // var username = HttpContext.User.Identity?.Name;
-            // Alternatively, if the username is stored in a specific claim type
             var specificClaimUsername = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            // Use the username for your application logic...
             var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (UserId == null)
             {
@@ -50,7 +47,8 @@ namespace SocialMedia.Controllers
 
             var groupspost = _groupService.GetAllGroups();
 
-            if(data!=null){
+            if (data != null)
+            {
                 groupspost = _groupService.GetGroupsByName(data);
             }
 
@@ -63,6 +61,10 @@ namespace SocialMedia.Controllers
                 Groups = groupspost,
                 Activities = activity
             };
+            if (data != null)
+            {
+                return View("JustGroup", model);
+            }
 
 
             return View(model);
@@ -124,7 +126,17 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
-
+        [HttpPost]
+        public async Task<ActionResult> DeleteGroup([FromBody] DeleteGroupViewModel model)
+        {
+            var result = await _groupService.DeleteGroup(model.GroupId);
+            Console.WriteLine(result);
+            if(result == true)
+            {
+                return Json(new { success = true, message = "Group delete successfully!" });
+            }
+            return Json(new { success = false, message = "Group delete unsuccessfull!" });
+        }
         public IActionResult Details(int id)
         {
             // var username = HttpContext.User.Identity?.Name;
@@ -152,7 +164,7 @@ namespace SocialMedia.Controllers
                 Group = group,
                 Activities = activity
             };
-            if(detailsmodel.Group == null || detailsmodel.Activities == null || detailsmodel.Posts == null)
+            if (detailsmodel.Group == null || detailsmodel.Activities == null || detailsmodel.Posts == null)
             {
                 return RedirectToAction("Index", "Group");
             }

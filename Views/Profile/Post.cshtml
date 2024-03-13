@@ -72,14 +72,7 @@
                         </div>
                         <div class="status">
                             <p>Status:
-                                @if (@DateTime.Now < @post.ExpireDate)
-                                {
-                                    <span>Open</span>
-                                }
-                                else
-                                {
-                                    <span>ended</span>
-                                }
+                                @post.PostStatus
                             </p>
                         </div>
                     </div>

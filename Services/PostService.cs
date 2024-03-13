@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Models.Database;
+using SocialMedia.ViewModels;
 
 
 
@@ -118,6 +119,70 @@ namespace SocialMedia.Services
             return true;
         }
 
+        // public async Task<bool> UpdatePost(PostViewModel post, int PostId)
+        // {
+        //     var existingPost = await _context.Posts.FindAsync(PostId);
+        //     if (existingPost == null)
+        //     {
+        //         return false;
+        //     }
+
+        //     // existingPost.Category = post.Category;
+        //     existingPost.Title = post.Title;
+        //     existingPost.Content = post.Content;
+        //     existingPost.Location = post.Location;
+        //     existingPost.Image = post.Image;
+        //     existingPost.MaxPeople = post.MaxPeople;
+        //     // existingPost.Time = post.Time;
+        //     existingPost.Date = post.Date;
+        //     existingPost.ExpireDate = post.ExpireDate;
+
+        //     await _context.SaveChangesAsync();
+        //     return true;
+        // }
+
+
+        public async Task<bool> DeletePost(int id)
+        {
+            var post = _context.Posts.Include(p => p.Comments)
+                              .Include(p => p.PostLikes)
+                              .Include(p => p.JoinActivities)
+                              .FirstOrDefault(p => p.PostId == id);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            // If you have related entities to delete, do it here
+            if (post.Comments != null)
+            {
+                _context.Comments.RemoveRange(post.Comments);
+            }
+            if (post.PostLikes != null)
+            {
+                _context.PostLikes.RemoveRange(post.PostLikes);
+            }
+            if (post.JoinActivities != null)
+            {
+                _context.JoinActivities.RemoveRange(post.JoinActivities);
+            }
+
+            // Now, delete the post
+            _context.Posts.Remove(post);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdatePost(Post post)
+        {
+            _context.Posts.Update(post);
+            await _context.SaveChangesAsync();
+            return true;
+        }
 
 
     }

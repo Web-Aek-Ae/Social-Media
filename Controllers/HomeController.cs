@@ -21,7 +21,8 @@ public class HomeController : Controller
         _userService = userService;
     }
 
-    public IActionResult Index()
+    // [HttpPost]
+    public async Task<IActionResult> Index(string data)
     {
         var username = HttpContext.User.Identity?.Name;
         _logger.LogInformation($"Username from JWT: {username}");
@@ -45,13 +46,21 @@ public class HomeController : Controller
         var userActivities =  _userService.GetUserActivities(int.Parse(UserId));
         activity.AddRange(userActivities.Take(3));
 
+        // var posts = _postService.GetAllPosts();
         var posts = _postService.GetAllPosts();
+        if (data != null)
+        {
+            posts = _postService.GetPostsByTitle(data);
+        }
         var model = new HomeViewModel
         {
             Posts = posts,
             Activities = activity
         };
-
+        if (data != null)
+        {
+            return View("JustPost", model);
+        }
         return View(model); // Passes posts as a model to the view
 
     }

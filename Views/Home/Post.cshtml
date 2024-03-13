@@ -1,5 +1,7 @@
 @model SocialMedia.ViewModels.HomeViewModel
 @using System.Security.Claims
+@using SocialMedia.Models.Database
+
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -26,24 +28,33 @@
     </a>
     <div class="container-post">
     
+
+        
+
         <div class="explain-post">
-            <div class="threedots">
+            @if(Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == Model.Post.UserId.ToString()){
+             <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
                     <a href="">
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
+                    @if(Model.Post.PostStatus == 0)
+                    {
                     <a class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
+                    }
                     <a class="delete-post">
                         <img src="~/src/images/binIcon.svg">
-                        <p>delete post</p>
+                        <p  >delete post</p>
                     </a>
                 </div>
             </div>
+        }
+           
             <div class="post-detail">
                 <div class="post-header">
                     <div class="date">
@@ -58,7 +69,7 @@
                     <div class="status-categories">
                         <div class="status-activity">
                             <p>Status :</p>
-                            <p class="state"> Open</p>
+                            <p class="state"> @Model.Post.PostStatus</p>
                         </div>
                         <p class="categories">Categories : @Model.Post.Category.Name</p>
                     </div>
@@ -97,13 +108,14 @@
                                     @foreach (var like in Model.Post.PostLikes.ToList())
                                     {
                                         <div class="member">
-                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                             @if (like.User != null)
                                                 {
+                                                    <img src="@like.User.Image">
                                                     <h5>@like.User.Name</h5>
                                                 }
                                                 else
                                                 {
+                                                     <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                                     <h5>User not found.</h5>
                                                 }
 
@@ -122,7 +134,7 @@
                                                     @foreach (var joinActivity in Model.Post.JoinActivities)
                                                     {
                                                         <div class="member">
-                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                            <img src="@joinActivity.User.Image">
                                                             <h5>@joinActivity.User.Name</h5>
                                                         </div>
                                                     }                                        
@@ -181,13 +193,13 @@
 <div class="popup">
     <div id="applicationsClosed">
         <p>Are you sure to close <br>the application for this activity?</p>
-        <button id="btnClosed" class="accept" onclick="">I'm sure!!!</button>
+        <button id="btnClosed" class="accept" onclick="closePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >I'm sure!!!</button>
         <button id="btnCC" class="cancel">Cancel</button>
     </div>
     <div id="delete">
         <p>Are you sure to delete <br>this activity?</p>
-        <button id="btnDelete" class="accept" onclick="">Delete post</button>
-        <button id="btnCancle" class="cancel">Cancel</button>
+        <button id="btnDelete" class="accept" onclick="deletePost(this.getAttribute('data-post-id'))" data-post-id="@Model.Post.PostId" >Delete post</button>
+        <button id="btnCancle" class="cancel" >Cancel</button>
     </div>
 </div>
 }
@@ -249,6 +261,7 @@ window.onclick = function(event) {
                     button.querySelector('img').setAttribute('src', imgSrc);
                     button.nextElementSibling.textContent = result.likeCount;
                     console.log("Post liked successfully");
+                    window.location.reload();
                     
                 } else {
                     console.log("Error liking post: " + xhr.statusText);
@@ -257,6 +270,12 @@ window.onclick = function(event) {
             xhr.send('postId=' + postId);
         });
     });
+
+   
+
+
+
+
 
     // Handle join and unjoin activity button clicks
     function handleJoinActivity(button, isJoin) {
@@ -274,7 +293,7 @@ window.onclick = function(event) {
                     button.classList.toggle('joined-button', result.joined);
                     button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
-                    
+                    window.location.reload();
                 }
             } else {
                 console.log("Error joining activity: " + xhr.statusText);
@@ -301,6 +320,62 @@ window.onclick = function(event) {
 
 
 });
+
+const deletePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/DeletePost', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post deleted successfully");
+                // Redirect or handle the UI update here
+                window.location.href = '/Home/Index'; // Adjust as needed
+            } else {
+                console.log("Failed to delete post:", result.message);
+            }
+        } else {
+            console.log("Error deleting post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
+
+const closePost = (postId) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/Post/ChangeStatus', true); // Ensure this URL matches your routing setup
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Set Content-Type to application/json
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            console.log(result);
+            if (result.success) {
+                console.log("Post closed successfully");
+                // Redirect or handle the UI update here
+                window.location.reload(); // Adjust as needed
+            } else {
+                console.log("Failed to close post:", result.message);
+            }
+        } else {
+            console.log("Error closing post: " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("Request failed.");
+    };
+    // Send the postId as a JSON object
+    xhr.send(JSON.stringify({ postId: postId }));
+};
+
+
+
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

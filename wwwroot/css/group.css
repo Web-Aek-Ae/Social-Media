@@ -285,6 +285,11 @@ transition: 0.3s;
   justify-content: space-between;
   margin-bottom: 5px;
 }
+.contents-header h3 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .Recomended-Group-poster {
   display: flex;
   align-items: center;

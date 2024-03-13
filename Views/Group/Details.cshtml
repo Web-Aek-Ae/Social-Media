@@ -27,9 +27,11 @@
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
+                <button class="group-rec-button-details" onclick="">join group</button>
             @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
 
             {
+                
                 <div class="threedots">
                     <button onclick="dropdown()" class="dropdownBtn"></button>
                     <div class="dropdown-content">

@@ -27,7 +27,6 @@
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
-            }  
             <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
@@ -35,12 +34,13 @@
                         <img src="~/src/images/EditIcon.svg">
                         <p>edit</p>
                     </a>
-                    <a class="delete-group">
+                    <a class="delete-group" data-id="@Model.Group.GroupId">
                         <img src="~/src/images/binIcon.svg">
                         <p>delete group</p>
                     </a>
                 </div>
             </div>
+            }  
     </div>
     <div class="Group-details">
         @if (Model.Group != null)
@@ -156,25 +156,22 @@
         </div>
     </div>
 </div>
-<div class="delete-group-pop-up">
+@* <div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
         <button id="btnDelete" class="accept" onclick="">Delete group</button>
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
-</div>
+</div> *@
 <div class="popup-backdrop"></div>
 @section Scripts {
-            <script>
-                $(document).ready(function () {
-                    $('.like-button').click(function () {
-                        var button = $(this); // The clicked button
-                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
-                        $.ajax({
-                            url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
-                            type: 'POST',
-                            data: { postId: postId }, // Send the post ID as data
-                            success: function (result) {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Handle like button clicks
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute('data-postid');
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
@@ -210,7 +207,7 @@
                     button.textContent = result.joined ? 'joined' : 'join activity';
                     button.classList.toggle('join-button', !result.joined);
                     button.classList.toggle('joined-button', result.joined);
-                    button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
+                    button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
                     
                 }
@@ -235,10 +232,46 @@
             handleJoinActivity(this, false);
         });
     });
-
-
-
 });
+
 </script>
-<script src="~/lib/deleteGroup.js"></script>
-    }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $(".delete-group").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                Deletebutton = $(this);
+                var groupId = Deletebutton.data("id");
+                var formData = {
+                    GroupId: groupId
+                };
+                console.log(formData.GroupId);
+                // Basic validation example
+                if (formData.GroupId == null) {
+                    alert("Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Group/DeleteGroup/'+groupId, // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create post: " + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
+</script>
+@* <script src="~/lib/deleteGroup.js"></script> *@
+}

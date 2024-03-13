@@ -196,7 +196,7 @@ transition: 0.3s;
 .group-button {
   color: black;
   font-size: 16px;
-  font-weight: medium;
+  font-weight: 600;
   width: 130px;
   height: 34px;
   border-radius: 27px;
@@ -370,6 +370,13 @@ transition: 0.3s;
   display: flex;
   align-items: center;
 }
+
+.group-of-button a{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
 #cancle {
   margin-left: 40px;
   margin-right: 20px;
@@ -470,6 +477,20 @@ button:not(#btnCancel):hover  {
   border: solid 3px black;
 }
 
+.create-group-button {
+  font-size: 25px;
+  font-weight: 600;
+  width: 200px;
+  height: 60px;
+  border-radius: 27px;
+  background-color: #fbca63;
+}
+
+.create-group-button:hover {
+  background-color: #f77c7e;
+  color: #ffff;
+  transition: 0.3s;
+}
 /* recommend group */
 .Recomended-Group-header {
   font-size: 20px;

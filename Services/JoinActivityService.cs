@@ -38,6 +38,14 @@ namespace SocialMedia.Services
                 {
                     return new { success = false, message = "Post is full" };
                 }
+
+                if (post.MaxPeople - post.JoinActivities.Count == 1)
+                {
+                    post.PostStatus = Post.Status.Closed;
+                    _context.Posts.Update(post);
+                    await _context.SaveChangesAsync();
+                }
+
                 // Add like
                 var joinActivity = new JoinActivity
                 {

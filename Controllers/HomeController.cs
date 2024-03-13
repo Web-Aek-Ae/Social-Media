@@ -114,7 +114,8 @@ public class HomeController : Controller
         Posts = posts,
         Activities = activity,
         Post = post,
-        Comments = comment
+        Comments = comment,
+        User = user
     };
 
         return View(model);

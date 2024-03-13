@@ -139,6 +139,8 @@ namespace SocialMedia.ViewModels
     public List<JoinActivity>? Activities { get; set; }
     public List<Comment>? Comments { get; set; }
 
+    public User User {get; set;}
+
   }
   public class GroupBlogModel
   {

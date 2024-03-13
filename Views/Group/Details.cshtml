@@ -164,7 +164,7 @@
 <div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
-        <button id="btnDelete" class="accept" onclick="">Delete group</button>
+        <button id="btnDelete" class="accept" onclick="" data-id="@Model.Group.GroupId">Delete group</button>
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>
@@ -242,7 +242,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-            $(".delete-group").click(function (event) {
+            $(".accept").click(function (event) {
                 event.preventDefault(); // Prevent the default form submission
                 Deletebutton = $(this);
                 var groupId = Deletebutton.data("id");
@@ -311,5 +311,5 @@ window.onclick = function(event) {
   }
 }
 </script>
-@* <script src="~/lib/deleteGroup.js"></script> *@
+<script src="~/lib/deleteGroup.js"></script>
 }

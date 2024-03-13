@@ -149,9 +149,9 @@
             <div class="container-comment">
                 @if(Model.Comments != null){
                 <h2>Comments (@Model.Comments.Count)</h2>
+                <div class="all-comment">
                 @foreach(var comment in Model.Comments)
                 {
-                <div class="all-comment">
                     <div class="comment">
                         <img class="comment-img" src="@comment.User.Image">
                         <div class="comment-detail">
@@ -163,8 +163,8 @@
                         </div>
                     </div>
                         
-                </div>
             }
+                </div>
                 }
                 
                 

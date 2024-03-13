@@ -27,21 +27,24 @@
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
-            }
-            <button class="group-rec-button-details" onclick="">join group</button>  
-            <div class="threedots">
-                <button onclick="dropdown()" class="dropdownBtn"></button>
-                <div class="dropdown-content">
-                    <a href="">
-                        <img src="~/src/images/EditIcon.svg">
-                        <p>edit</p>
-                    </a>
-                    <a class="delete-group">
-                        <img src="~/src/images/binIcon.svg">
-                        <p>delete group</p>
-                    </a>
+            @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
+
+            {
+                <div class="threedots">
+                    <button onclick="dropdown()" class="dropdownBtn"></button>
+                    <div class="dropdown-content">
+                        <a href="">
+                            <img src="~/src/images/EditIcon.svg">
+                            <p>edit</p>
+                        </a>
+                        <a class="delete-group">
+                            <img src="~/src/images/binIcon.svg">
+                            <p>delete group</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
+                }
+            }  
     </div>
     <div class="Group-details">
         @if (Model.Group != null)
@@ -308,5 +311,5 @@ window.onclick = function(event) {
   }
 }
 </script>
-<script src="~/lib/deleteGroup.js"></script>
+@* <script src="~/lib/deleteGroup.js"></script> *@
 }

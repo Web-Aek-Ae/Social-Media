@@ -54,6 +54,7 @@ namespace SocialMedia.Controllers
 
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
             activity.AddRange(userActivities.Take(3));
 
             var model = new GroupBlogModel
@@ -86,6 +87,7 @@ namespace SocialMedia.Controllers
             ViewData["UserImg"] = user.Image;
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
             activity.AddRange(userActivities.Take(3));
 
             var model = new GroupBlogModel
@@ -115,6 +117,7 @@ namespace SocialMedia.Controllers
             var groupspost = _groupService.GetAllGroups();
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
             activity.AddRange(userActivities.Take(3));
 
             var model = new GroupBlogModel
@@ -156,6 +159,7 @@ namespace SocialMedia.Controllers
             var group = _groupService.GetGroupById(id);
             var activity = new List<JoinActivity>();
             var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
             activity.AddRange(userActivities.Take(3));
 
             var detailsmodel = new DetailsModels

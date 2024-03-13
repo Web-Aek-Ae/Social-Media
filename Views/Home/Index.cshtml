@@ -129,7 +129,7 @@
 </body>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+const poom = () => {
     document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -194,9 +194,40 @@ document.addEventListener("DOMContentLoaded", function() {
             handleJoinActivity(this, false);
         });
     });
+    document.getElementById("search-input").addEventListener("change", sentSearch);
 
+};
 
+function sentSearch() {
+    var data = document.getElementById("search-input").value;
+    if (data == ""){
+        window.location.href = "/Home/Index";
+        return;
+    }
+    var newXhr = new XMLHttpRequest();
+    newXhr.open("GET", "/Home/Index?data="+data, true);
+    newXhr.setRequestHeader("Content-Type", "application/json");
 
-});
+    newXhr.onreadystatechange = function () {
+        if (newXhr.readyState === XMLHttpRequest.DONE) {
+            if (newXhr.status === 200) {
+                console.log("Data sent successfully");
+                console.log(data);
+                const container = document.querySelector(".container-post")
+                container.innerHTML = newXhr.responseText
+                console.log(newXhr.responseText)
+                poom()
+            } else {
+                console.log("Error sending data");
+            }
+        }
+    };
+
+    var jsonData = JSON.stringify({ data: data });
+
+    // Send the request with the JSON data
+    newXhr.send(jsonData);
+}
+poom()
 </script>
 

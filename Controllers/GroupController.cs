@@ -124,7 +124,17 @@ namespace SocialMedia.Controllers
             return View(model);
         }
 
-
+        [HttpPost]
+        public async Task<ActionResult> DeleteGroup([FromBody] DeleteGroupViewModel model)
+        {
+            var result = await _groupService.DeleteGroup(model.GroupId);
+            Console.WriteLine(result);
+            if(result == true)
+            {
+                return Json(new { success = true, message = "Group delete successfully!" });
+            }
+            return Json(new { success = false, message = "Group delete unsuccessfull!" });
+        }
         public IActionResult Details(int id)
         {
             // var username = HttpContext.User.Identity?.Name;

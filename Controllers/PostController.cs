@@ -121,15 +121,16 @@ namespace SocialMedia.Controllers
                         Image = model.Image,
                         MaxPeople = model.MaxPeople,
                         Date = model.Date,
-                        ExpireDate = model.ExpireDate
+                        ExpireDate = model.ExpireDate,
+                        CreatedAt = DateTime.SpecifyKind( DateTime.UtcNow  , DateTimeKind.Utc)
                     };
                     post.Time = DateTime.SpecifyKind(fullDateTime, DateTimeKind.Utc);
-                    post.Date = DateTime.SpecifyKind(model.Date, DateTimeKind.Utc);
-                    post.ExpireDate = DateTime.SpecifyKind(model.ExpireDate, DateTimeKind.Utc);
-
+                    
                     // If you know a DateTime value is in local time and needs to be converted to UTC
                     post.Date = model.Date.ToUniversalTime();
                     post.ExpireDate = model.ExpireDate.ToUniversalTime();
+                    post.CreatedAt = post.CreatedAt.ToUniversalTime();
+                    
 
 
                     await _postService.MakePost(post);

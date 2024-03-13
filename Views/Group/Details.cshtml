@@ -27,19 +27,23 @@
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
-            <div class="threedots">
-                <button onclick="dropdown()" class="dropdownBtn"></button>
-                <div class="dropdown-content">
-                    <a href="">
-                        <img src="~/src/images/EditIcon.svg">
-                        <p>edit</p>
-                    </a>
-                    <a class="delete-group" data-id="@Model.Group.GroupId">
-                        <img src="~/src/images/binIcon.svg">
-                        <p>delete group</p>
-                    </a>
+            @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
+
+            {
+                <div class="threedots">
+                    <button onclick="dropdown()" class="dropdownBtn"></button>
+                    <div class="dropdown-content">
+                        <a href="">
+                            <img src="~/src/images/EditIcon.svg">
+                            <p>edit</p>
+                        </a>
+                        <a class="delete-group">
+                            <img src="~/src/images/binIcon.svg">
+                            <p>delete group</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
+                }
             }  
     </div>
     <div class="Group-details">
@@ -157,13 +161,13 @@
         </div>
     </div>
 </div>
-@* <div class="delete-group-pop-up">
+<div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
         <button id="btnDelete" class="accept" onclick="">Delete group</button>
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
-</div> *@
+</div>
 <div class="popup-backdrop"></div>
 @section Scripts {
 <script>

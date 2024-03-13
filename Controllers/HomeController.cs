@@ -14,11 +14,14 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly PostService _postService;
     private readonly UserService _userService;
-    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService)
+
+    private readonly CommentService _commentService;
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService,CommentService commentService)
     {
         _logger = logger;
         _postService = postService;
         _userService = userService;
+        _commentService = commentService;
     }
 
     public async Task<IActionResult> Index()
@@ -104,6 +107,7 @@ public class HomeController : Controller
     activity.AddRange(userActivities.Take(3));
     var post = _postService.GetPostByPostId(id);
     var posts = await _postService.GetAllPostsAsync();
+    var comment = _commentService.GetCommentsByPostId(id);
     if (post == null)
     {
         return RedirectToAction("Index");
@@ -113,7 +117,8 @@ public class HomeController : Controller
     {
         Posts = posts,
         Activities = activity,
-        Post = post
+        Post = post,
+        Comments = comment
     };
 
     return View(model); 

@@ -135,7 +135,15 @@ namespace SocialMedia.ViewModels
     public Post? Post { get; set; }
     public List<Post>? Posts { get; set; }
     public List<JoinActivity>? Activities { get; set; }
+    public List<Comment>? Comments {get; set;}
 
+  }
+
+  public class CommentViewModel
+  {
+    public string Content {get; set;}
+
+    public int PostId {get; set;}
   }
 
 }

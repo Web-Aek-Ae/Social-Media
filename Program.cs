@@ -19,7 +19,7 @@ builder.Logging.AddConsole();
 
 // Add PostgreSQL support
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-    "Host=34.142.237.224;Database=mydb;Username=root;Password=*2FyhT%#ZHkG+MJE;";
+    "Host=34.142.237.224;Database=mydb;Username=root;Password=&dC@u92=|Tvoeo";
 
 builder.Services.AddDbContext<SocialMediaContext>(options =>
     options.UseNpgsql(connectionString));
@@ -32,9 +32,14 @@ builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<JoinActivityService>();
 builder.Services.AddScoped<PostLikeService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<CommentService>();
 // builder.Services.AddScoped<PostGroupService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters

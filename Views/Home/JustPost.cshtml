@@ -1,0 +1,103 @@
+@{
+    Layout = null;
+}
+
+@model SocialMedia.ViewModels.HomeViewModel
+
+            @foreach (var post in Model.Posts)
+            {
+                <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
+                    <div class="post">
+                        <div class="card-post">
+                            <img src="@post.Image" alt="activity" class="activity">
+                            <div class="content">
+                                <div class="post-header">
+                                    <div class="date">
+                                        <h3 class="month">@post.Date.ToString("MMM").ToUpper()</h3>
+                                        <h3 class="day">@post.Date.Day</h3>
+                                        <h3 class="year">@post.Date.Year</h3>
+                                    </div>
+                                    <div class="topic">
+                                        <h1>@post.Title</h1>
+                                        <p>@post.Time.ToString("HH:mm"), @post.Location</p>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <p>@post.Content</p>
+                                    <div class="owner">
+                                        <img src="@post.User.Image"
+                                            alt="" id="owner-profile">
+                                        <span>@post.User.Name</span>
+                                    </div>
+                                    <div class="action">
+                                    @using System.Security.Claims
+                                    @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                    {
+                                                    <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                    }
+                                    else
+                                    {
+                                                    <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                    }
+                                        <div class="likes">
+                                            <button data-postid="@post.PostId" class="like-button">
+                                            @if (post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                            {
+                                                        <img src="@Url.Content("~/src/images/LikedIcon.svg")" class="icon" >
+
+                                            }
+                                            else
+                                            {
+                                                        <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
+                                            }
+
+                                            </button>
+                                            <span class="likeCount">@post.PostLikes.Count
+                                                <div class="dropdownLike">
+
+                                                    @foreach (var like in post.PostLikes.ToList())
+                                                    {
+                                                        <div class="member">
+                                                            @if (like.User != null)
+                                                                {
+                                                                    <img src="@like.User.Image">
+                                                                    <h5>@like.User.Name</h5>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h5>User not found.</h5>
+                                                                }
+
+                                                        </div>
+                                                    }
+                                                    
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="participant">
+                                            <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
+                                            <div class="participantCount">
+                                                <span class="joined">@post.JoinActivities.Count </span>
+                                                <span class="max"> / @post.MaxPeople</span>
+                                                    <div class="dropdownParticipant">
+                                                        @foreach (var joinActivity in post.JoinActivities)
+                                                        {
+                                                            <div class="member">
+                                                                <img src="@joinActivity.User.Image">
+                                                                <h5>@joinActivity.User.Name</h5>
+                                                            </div>
+                                                        }                                        
+                                                    </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            }
+
+        

@@ -1,11 +1,14 @@
+@model SocialMedia.ViewModels.HomeViewModel
+@using System.Security.Claims
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 <head>
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/explainPost.css" asp-append-version="true">
 </head>
-<div class="main">
+@if(Model.Post != null){
+    <div class="main">
     <div class="header">
         <div class="search">
             <div class="search-bar">
@@ -21,38 +24,322 @@
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
-    <div class="container-post" style="margin-top:-1rem;">
+    <div class="container-post">
+    
         <div class="explain-post">
             <div class="threedots">
-                <button class="dropdownBtn">
-                    <!-- <img src="~/src/images/Threedots.svg" style="border-radius:50%;"> -->
-                </button>
-            </div>   
+                <button onclick="dropdown()" class="dropdownBtn"></button>
+                <div class="dropdown-content">
+                    <a href="">
+                        <img src="~/src/images/EditIcon.svg">
+                        <p>edit</p>
+                    </a>
+                    <a class="applications-closed">
+                        <img src="~/src/images/applicationClosed.svg">
+                        <p>application closed</p>
+                    </a>
+                    <a class="delete-post">
+                        <img src="~/src/images/binIcon.svg">
+                        <p>delete post</p>
+                    </a>
+                </div>
+            </div>
             <div class="post-detail">
-                <div class="post-header" style="margin-left:0rem;width:60rem;">
+                <div class="post-header">
                     <div class="date">
-                        <h3 class="month">FEB</h3>
-                        <h3 class="day">26</h3>
-                        <h3 class="year">2024</h3>
+                        <h3 class="month">@Model.Post.Date.ToString("MMM").ToUpper()</h3>
+                        <h3 class="day">@Model.Post.Date.Day</h3>
+                        <h3 class="year">@Model.Post.Date.Year</h3>
                     </div>
                     <div class="topic">
-                        <h1>เตะบอลกันครับพี่ๆ</h1>
-                        <p>18:00 - 20:00, KMITL</p>
+                        <h1>@Model.Post.Title</h1>
+                        <p>@Model.Post.Time.ToString("HH:mm"), @Model.Post.Location</p>
                     </div>
                     <div class="status-categories">
                         <div class="status-activity">
                             <p>Status :</p>
                             <p class="state"> Open</p>
                         </div>
-                        <p style="position:absolute;right:0;top:1rem;">Categories : Sports, Football</p>
+                        <p class="categories">Categories : @Model.Post.Category.Name</p>
                     </div>
                 </div>
-                <p>เตะบอลวันอังคารที่ 27 ตอนเย็นที่สนามมอครับ ใครสนใจก็มาร่วมด้ายยย ค่าสนามชั่วโมงละ 1500 บาท เราเล่น 2 ชั่วโมงตกคนละ 200 บาทครับบ มีเพื่อนชวนเพื่อนมาได้โล้ดดด</p>   
+                <p>@Model.Post.Content</p>
+                <img class="img-activity" src="@Model.Post.Image"> 
+                <div class="post-bottom">
+                    <div class="owner">
+                        <img src="@Model.Post.User.Image"
+                            alt="" class="owner-img">
+                        <div class="name">
+                            <span>@Model.Post.User.Name</span>
+                            <div class="time">
+                                <img src="~/src/images/globe.svg">
+                                <span style="padding-top:0.1rem">@(Convert.ToInt32(DateTime.Now.Subtract(@Model.Post.Time).TotalHours)) minutes ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-ep">
+                       <div class="likes">
+                            <button data-postid="@Model.Post.PostId" class="like-button">
+                            @if (Model.Post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                            {
+                                        <img src="~/src/images/LikedIcon.svg" class="icon" >
+
+                            }
+                            else
+                            {
+                                        <img src="~/src/images/LikeIcon.svg" class="icon" >
+                            }
+
+                            </button>
+                            <span class="likeCount">@Model.Post.PostLikes.Count
+                                <div class="dropdownLike">
+
+                                    @foreach (var like in Model.Post.PostLikes.ToList())
+                                    {
+                                        <div class="member">
+                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                            @if (like.User != null)
+                                                {
+                                                    <h5>@like.User.Name</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>User not found.</h5>
+                                                }
+
+                                        </div>
+                                    }
+                                    
+                                </div>
+                            </span>
+                        </div>
+                        <div class="participant">
+                                        <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="icon"/>
+                                        <div class="participantCount">
+                                            <span class="joined">@Model.Post.JoinActivities.Count </span>
+                                            <span class="max"> / @Model.Post.MaxPeople</span>
+                                                <div class="dropdownParticipant">
+                                                    @foreach (var joinActivity in Model.Post.JoinActivities)
+                                                    {
+                                                        <div class="member">
+                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                            <h5>@joinActivity.User.Name</h5>
+                                                        </div>
+                                                    }                                        
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                
+                                    @if (Model.Post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                {
+                                                <button  data-postid="@Model.Post.PostId" class="joined-button" >joined</button>
+                                }
+                                else
+                                {
+                                                 <button data-postid="@Model.Post.PostId"  class="join-button" >join activity</button>
+                                }
+                    </div>
+                </div>  
             </div>
             <div class="slice"></div>
-            <div class="comment">
-                <h2>Comment</h2>
+            <div class="container-comment">
+                @if(Model.Comments != null){
+                <h2>Comments (@Model.Comments.Count)</h2>
+                @foreach(var comment in Model.Comments)
+                {
+                <div class="all-comment">
+                    <div class="comment">
+                        <img class="comment-img" src="@comment.User.Image">
+                        <div class="comment-detail">
+                            <div class="username">
+                                <span>@comment.User.Name</span>
+                                <span class="time">@(Convert.ToInt32(DateTime.UtcNow.Subtract(comment.CreatedAt).TotalMinutes)) minutes ago</span>
+                            </div>
+                            <p style="margin:0;">@comment.Content</p>
+                        </div>
+                    </div>
+                        
+                </div>
+            }
+                }
+                
+                
+            </div>
+            <div class="slice"></div>
+            <div class="add-comment">
+                <img class="comment-img" src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg">
+                <div class="input">
+                    <input type="text" placeholder="Add a comment" class="comment-input">
+                    <button class="comment-btn" data-postid="@Model.Post.PostId"><img src="~/src/images/send.svg" ></button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="popup">
+    <div id="applicationsClosed">
+        <p>Are you sure to close <br>the application for this activity?</p>
+        <button id="btnClosed" class="accept" onclick="">I'm sure!!!</button>
+        <button id="btnCC" class="cancel">Cancel</button>
+    </div>
+    <div id="delete">
+        <p>Are you sure to delete <br>this activity?</p>
+        <button id="btnDelete" class="accept" onclick="">Delete post</button>
+        <button id="btnCancle" class="cancel">Cancel</button>
+    </div>
+</div>
+}
+
+<div class="modalBg"></div>
+
+    <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+
+function dropdown() {
+//   document.getElementById("myDropdown").classList.toggle("show");
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        openDropdown.classList.toggle('show');
+        dropdownBtn[i].classList.toggle('focus');
+    }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdownBtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+    //   console.log(dropdowns[i])
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        dropdownBtn[i].classList.remove('focus');
+      }
+    }
+  }
+}
+</script>
+<script src="~/lib/ApplicationClosed.js"></script>
+<script src="~/lib/deletePost.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Handle like button clicks
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute('data-postid');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var result = JSON.parse(xhr.responseText);
+                    console.log(result);
+                    var imgSrc = result.liked ? '/src/images/LikedIcon.svg' : '/src/images/LikeIcon.svg'; // Adjust the paths as necessary
+                    button.querySelector('img').setAttribute('src', imgSrc);
+                    button.nextElementSibling.textContent = result.likeCount;
+                    console.log("Post liked successfully");
+                    
+                } else {
+                    console.log("Error liking post: " + xhr.statusText);
+                }
+            };
+            xhr.send('postId=' + postId);
+        });
+    });
+
+    // Handle join and unjoin activity button clicks
+    function handleJoinActivity(button, isJoin) {
+        var postId = button.getAttribute('data-postid');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/JoinActivity/JoinActivity'); // Adjust the URL to match your routing
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                console.log(result);
+                if (result.success) {
+                    button.textContent = result.joined ? 'joined' : 'join activity';
+                    button.classList.toggle('join-button', !result.joined);
+                    button.classList.toggle('joined-button', result.joined);
+                    button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
+                    console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
+                    
+                }
+            } else {
+                console.log("Error joining activity: " + xhr.statusText);
+            }
+        };
+        xhr.send('postId=' + postId);
+    }
+
+    // Initial bindings for join buttons
+    document.querySelectorAll('.join-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, true);
+        });
+    });
+
+    document.querySelectorAll('.joined-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, false);
+        });
+    });
+
+
+
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $(".comment-btn").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                Commentbutton = $(this);
+                var formData = {
+                    Content:document.querySelector('.comment-input').value,
+                    PostId:Commentbutton.data("postid")
+                };
+
+                console.log(formData.Content);
+                console.log(formData.PostId);
+                // Basic validation example
+                if (formData.Content == null || formData.PostId == null) {
+                    alert("Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CreateComment", "Post")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Post", "Home")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create post: " + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
+</script>
+

@@ -15,14 +15,18 @@
     <div class="box">
         <div class="title-header">
             <div class="title">
-                <img src=" https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
+                <img src="@ViewData["UserImage"]"
                     class="profile">
-                    <input asp-for="Title" placeholder="Event Name" class="name">
+                <input asp-for="Title" placeholder="Event Name" class="name">
             </div>
-                <div class="group-name">
-            <h3>groupname</h3>
-        </div></div>
-        
+                @if(Model.Group != null){
+            <div class="group-name">
+                    <h3>@Model.Group.Name</h3>
+                    <input type="text" asp-for="GroupId" style=" display : none;">
+            </div>
+                }
+        </div>
+
         <textarea asp-for="Content" placeholder="description..."></textarea>
 
         <h1>Details</h1>
@@ -92,16 +96,16 @@
                 event.preventDefault(); // Prevent the default form submission
 
                 var formData = {
-                    Title: $('input[name="Title"]').val(),
-                    Content: $('textarea[name="Content"]').val(),
-                    // Assuming Date and ExpireDate are in "YYYY-MM-DD" format
-                    Date: $('input[name="Date"]').val(),
-                    Location: $('input[name="Location"]').val(),
-                    SelectedCategoryId : $('select[name="SelectedCategoryId"]').val(),
-                    Time: $('input[name="Time"]').val(),
-                    ExpireDate: $('input[name="ExpireDate"]').val(),
-                    Image: $('input[name="Image"]').val(),
-                    MaxPeople: parseInt($('input[name="MaxPeople"]').val(), 10) // Parse as integer
+                    Title: document.querySelector('input[name="Title"]').value,
+                    Content: document.querySelector('textarea[name="Content"]').value,
+                    Date: document.querySelector('input[name="Date"]').value,
+                    Location: document.querySelector('input[name="Location"]').value,
+                    SelectedCategoryId: document.querySelector('select[name="SelectedCategoryId"]').value,
+                    Time: document.querySelector('input[name="Time"]').value,
+                    ExpireDate: document.querySelector('input[name="ExpireDate"]').value,
+                    Image: document.querySelector('input[name="Image"]').value,
+                    MaxPeople: parseInt(document.querySelector('input[name="MaxPeople"]').value, 10),
+                    GroupId: document.querySelector('input[name="GroupId"]') ? parseInt(document.querySelector('input[name="GroupId"]').value, 10) : null
                 };
 
                 // Basic validation example
@@ -110,25 +114,30 @@
                     return; // Exit the function to prevent sending the request
                 }
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("CreatePost", "Post")', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '@Url.Action("CreatePost", "Post")', true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                @* xhr.setRequestHeader("Authorization", "Bearer " + jwt); *@
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        var response = JSON.parse(xhr.responseText);
                         if (response.success) {
                             alert("Post created successfully.");
                             // Optionally, redirect or clear form here
-                            window.location.href = '@Url.Action("Index", "Home")'; // Adjust controller and action names as necessary
+                            window.location.href = '/Home/Index'; // Adjust controller and action names as necessary
                         } else {
                             alert("Failed to create post: " + response.message);
                         }
-                    },
-                    error: function (error) {
-                        console.log(error);
+                    } else {
                         alert("There was an error processing your request.");
+                        console.log(xhr.responseText);
                     }
-                });
+                }; xhr.onerror = function () {
+                    console.error("An error occurred during the transaction");
+                };
+
+                xhr.send(JSON.stringify(formData));
+
             });
         });
     </script>

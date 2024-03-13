@@ -20,10 +20,12 @@ body {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .title {
   display: flex;
+  gap: 10px;
 }
 .name {
   margin-left: 10px;
@@ -32,6 +34,7 @@ body {
   border-bottom: 1px solid grey;
   font-size: 30px;
   font-weight: bold;
+  width: 70%;
 }
 
 textarea {
@@ -55,7 +58,6 @@ textarea {
   background-color: #D9D9D9;
   padding: 0px 20px 0px 20px;
   border-radius: 7px;
-  margin-left: 30px;
   
 }
 

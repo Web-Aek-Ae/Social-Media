@@ -1,6 +1,6 @@
-@model SocialMedia.ViewModels.UserViewModel
+@model SocialMedia.ViewModels.EditProfileViewModel
 @{
-    ViewData["Title"] = "Register Page";
+    ViewData["Title"] = "Edit Profile Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
@@ -10,8 +10,8 @@
 
 <body>
     <div class="headerEdit">
-        <a href='@Url.Action("post", "Profile")'">
-            <img src=" @Url.Content("~/src/images/Backicon.svg")">
+        <a asp-action="Post" asp-controller="Profile">
+            <img src="~/src/images/Backicon.svg">
         </a>
         <h1>Edit profile</h1>
     </div>
@@ -19,53 +19,118 @@
     <div class="containerEdit">
         <div id="modalImgBg"></div>
         <div id="modalImg">
-            <img src=" @Url.Content("~/src/images/Cancleicon.svg")" id="Cancel">
+            <img src="~/src/images/Cancleicon.svg" id="Cancel">
             <label>add your image</label>
             <input type="text" asp-for='Image' />
             <button id="Upload">upload</button>
         </div>
-        <div class="all-img"><img
-                src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                alt="proflie" class="img1">
+        <div class="all-img"><img src="@Model.Image" alt="proflie" class="img1">
             <a class="imgEdit" id="Edit">
-                <img src=" @Url.Content("~/src/images/AddPhotoIcon.svg")" class="img2">
+                <img src="~/src/images/AddPhotoIcon.svg" class="img2">
             </a>
         </div>
 
 
+
         <div class="boxEdit">
-            <form asp-action="Register" asp-controller="User" method="post">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="Form">
 
-                    <label>full name</label>
-                    <input type="text" asp-for='Name' />
-                    <span asp-validation-for='Name' class='invalid'></span>
+            <div class="Form">
 
-                    <label>username</label>
-                    <input type="text" asp-for='Username' />
-                    <span asp-validation-for='Username' class='invalid'></span>
+                <label>full name</label>
+                <input type="text" asp-for='Name' />
+                <span class='invalid'></span>
 
-
-                    <label>email</label>
-                    <input type="text" asp-for='Email' />
-                    <span asp-validation-for='Email' class='invalid'></span>
-
-                    <label>password (8+)</label>
-                    <input type="text" asp-for='Password' />
-                    <span asp-validation-for='Password' class='invalid'></span>
-
-                    <label>confirm password</label>
-                    <input type="text" asp-for='ConfirmPassword' />
-                    <span asp-validation-for='ConfirmPassword' class='invalid'></span>
+                <label>username</label>
+                <input type="text" asp-for='Username' />
+                <span class='invalid'></span>
 
 
-                </div>
-            </form>
+                <label>email</label>
+                <input type="email" asp-for='Email' />
+                <span class='invalid'></span>
+
+            </div>
+            <div class="saveEdit">
+                <button id="save_profile">save</button>
+            </div>
         </div>
     </div>
-    <div class="saveEdit">
-        <button type="submit" onclick="window.location.href='@Url.Action("post", "Profile")'">save</button>
-    </div>
-    <script src="~/lib/addImg.js"></script>
+
+    <script src="/lib/addImg.js"></script>
 </body>
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("Upload").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = JSON.stringify({
+                    Image: document.querySelector('input[name="Image"]').value
+                });
+
+                // Basic validation example
+                if (!formData.Image) {
+                    alert("Fill in all required fields.");
+                    return; // Exit the function to prevent sending the request
+                }
+                console.log(formData); // Log the form data to the console
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/User/EditImage', true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        alert("Image uploaded successfully.");
+                        window.location.href = '/Profile/Post'; // Modify as needed
+                    } else {
+                        console.log(xhr.responseText);
+                        alert("There was an error processing your request.");
+                    }
+                };
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
+            });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("save_profile").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = JSON.stringify({
+                    Name: document.querySelector('input[name="Name"]').value,
+                    Username: document.querySelector('input[name="Username"]').value,
+                    Email: document.querySelector('input[name="Email"]').value
+                });
+
+                // Basic validation example
+                if (!formData.Name || !formData.Username || !formData.Email) {
+                    alert("Fill in all required fields.");
+                    return; // Exit the function to prevent sending the request
+                }
+                console.log(formData); // Log the form data to the console
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/User/Edit', true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        alert("Profile updated successfully.");
+                        window.location.href = '/Profile/Post'; // Modify as needed
+                    } else {
+                        console.log(xhr.responseText);
+                        alert("There was an error processing your request.");
+                    }
+                };
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
+            });
+        });
+
+    </script>
+}

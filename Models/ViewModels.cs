@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using SocialMedia.Models.Database; 
 
 namespace SocialMedia.ViewModels
 {
@@ -66,6 +66,11 @@ namespace SocialMedia.ViewModels
     [StringLength(500, ErrorMessage = "Location cannot be longer than 500 characters.")] // Optionally limit location length
     public string? Location { get; set; }
 
+    public Group? Group {get;set;}
+
+    
+    public int? GroupId {get;set;}
+
     public string? Image { get; set; } // Consider validating the image URL or path if applicable
 
     [Range(1, int.MaxValue, ErrorMessage = "MaxPeople must be at least 1")] // Ensures MaxPeople is a positive number
@@ -95,6 +100,58 @@ namespace SocialMedia.ViewModels
   public class JoinActivityViewModel
   {
     public int PostId { get; set; }
+  }
+
+  public class DetailsModels
+  {
+    public List<JoinActivity>? Activities { get; set; }
+    public List<Post>? Posts { get; set; }
+    public Group? Group { get; set; }
+  
+  }
+  
+  
+  public class EditProfileViewModel
+  {
+    [Required(ErrorMessage = "Name is required")]
+    public required string Name { get; set; }
+
+    [Required(ErrorMessage = "Username is required")]
+    public required string Username { get; set; }
+
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    public required string Email { get; set; }
+
+    public string? Image { get; set; }
+  }
+
+  public class EditImageViewModel
+  {
+    [Required]
+    [Url]
+    public string Image { get; set; }
+  }
+  public class HomeViewModel
+  {
+    public Post? Post { get; set; }
+    public List<Post>? Posts { get; set; }
+    public List<JoinActivity>? Activities { get; set; }
+    public List<Comment>? Comments {get; set;}
+
+  }
+  public class GroupBlogModel{
+
+    public List<Group> Groups {get;set;}
+    public Group group{get;set;}
+    public List<JoinActivity>? Activities {get;set;}
+  }
+
+  public class CommentViewModel
+  {
+    public string Content {get; set;}
+
+    public int PostId {get; set;}
   }
 
 }

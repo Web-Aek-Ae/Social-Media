@@ -191,6 +191,9 @@ namespace Social_Media.Migrations
                     b.Property<int>("MaxPeople")
                         .HasColumnType("integer");
 
+                    b.Property<int>("PostStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Time")
                         .HasColumnType("timestamp with time zone");
 
@@ -246,6 +249,9 @@ namespace Social_Media.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

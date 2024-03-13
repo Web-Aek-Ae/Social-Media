@@ -80,11 +80,23 @@ namespace SocialMedia.Controllers
 
         public IActionResult Login()
         {
+
+             var cookies = HttpContext.Request.Cookies;
+
+            // Loop through the cookies and delete each one
+            foreach (var cookie in cookies)
+            {
+                HttpContext.Response.Cookies.Delete(cookie.Key);
+            }
+
+            
             if (User?.Identity?.IsAuthenticated == true)
             {
                 // User is already authenticated, redirect to "/Home"
                 return RedirectToAction("Index", "Home");
             }
+
+            
 
             return View();
         }
@@ -106,15 +118,15 @@ namespace SocialMedia.Controllers
 
             // Generate JWT token
             var token = GenerateJwtToken(user);
+
             // Set the JWT token as a cookie
             Response.Cookies.Append("jwt", token, new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.Strict, // Adjust as needed
-                Expires = DateTime.Now.AddDays(1) // Adjust expiration as needed
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.Now.AddDays(1)
             });
 
-            // You can return the token as part of a view model, set it in a cookie, or use it in another appropriate way depending on your application's needs
             return RedirectToAction("Index", "Home");
         }
 
@@ -182,6 +194,57 @@ namespace SocialMedia.Controllers
             return RedirectToAction("Login", "User");
         }
         
+        [HttpPost]
+         public async Task<IActionResult> Edit([FromBody]  EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var result =   await _userService.UpdateUser(model, int.Parse(UserId));
+            
+            if (result)
+            {
+                return RedirectToAction("Post", "Profile");
+            }
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditImage ([FromBody] EditImageViewModel model)
+        {
+           if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var result =   await _userService.UpdateImage(model, int.Parse(UserId));
+            
+            if (result)
+            {
+                return RedirectToAction("Post", "Profile");
+            }
+
+
+            return View(model);
+        }
 
     }
 }

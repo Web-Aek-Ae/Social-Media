@@ -146,6 +146,7 @@ namespace SocialMedia.ViewModels
 
   public class CommentViewModel
   {
+    [Required(ErrorMessage = "Content is required")]
     public string Content {get; set;}
 
     public int PostId {get; set;}

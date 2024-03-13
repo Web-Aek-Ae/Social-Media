@@ -57,14 +57,9 @@
                                 </div>
                             </div>
                             <div class="Recomended-Group-poster">
-                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg"
-                                    alt="" id="group-poster-img">
+                                <img src="@group.User.Image" alt="" id="group-poster-img">
                                 <span>@group.User.Name</span>
                             </div>
-                        </div>
-                        <div class="Recomended-Group-poster">
-                            <img src="@group.User.Image" alt="" id="group-poster-img">
-                            <span>@group.User.Name</span>
                         </div>
                     </div>
                 </a>
@@ -94,7 +89,6 @@
             @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
            userId) ? userId : 0)))
             {
-                @* <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId" style="color: black;text-decoration: none;"> *@
                 <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId" style="color: black;text-decoration:none;">
                     <div class="group">
                         <div class="card-group">
@@ -108,7 +102,6 @@
                                     <img src="@group.User.Image" alt="" id="group-poster-img">
                                     <span>@group.User.Name</span>
                                 </div>
-
                                 <div class="group-of-button">
                                     <img src="~/src/images/People_in_postcardIcon.svg">
                                     <span>@group.Members.Count</span>

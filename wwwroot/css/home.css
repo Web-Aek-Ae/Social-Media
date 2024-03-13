@@ -470,10 +470,9 @@ main {
 .all-comment{
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     max-height: 13rem;
     overflow-y: scroll;
-
 }
 .comment{
     display: flex;
@@ -604,6 +603,11 @@ main {
     border: 2px solid black;
 }
 
+.comment-btn{
+    background: none;
+    border: white;
+}
+
 @media (max-width:1580px) {
     .post{
         width:50rem;
@@ -675,12 +679,6 @@ main {
         border-radius: 1.25rem;
     }
     
-}
-
-.comment-btn{
-    background: none;
-    border: white;
-}
     .date h3 {
         text-align: center;
         color: #ffffff;
@@ -703,20 +701,20 @@ main {
         font-size: 12px;
         margin-top: -0.75rem;
     }
-
+    
     .topic h1 {
         font-size: 26px;
     }
-
+    
     .topic p{
         font-size: 16px;
     }
-
+    
     .description p{
         font-size: 16px;
         -webkit-line-clamp: 1;
     }
-
+    
     #owner-profile {
         width: 2rem;
         height: 2rem;
@@ -727,6 +725,8 @@ main {
     .dropdownLike {
         right: 18%;
     }
+}
+
 
 @media (max-width:768px)
 {

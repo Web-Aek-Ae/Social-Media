@@ -12,8 +12,8 @@ using SocialMedia.Models.Database;
 namespace Social_Media.Migrations
 {
     [DbContext(typeof(SocialMediaContext))]
-    [Migration("20240313162501_AddStatusPost")]
-    partial class AddStatusPost
+    [Migration("20240313162841_ProductionV4")]
+    partial class ProductionV4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

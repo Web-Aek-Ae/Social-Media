@@ -59,27 +59,26 @@
     <div class="Blog">
         <div class="myprofile">
             <div class="allprofile">
-                <img src="https://media.newyorker.com/photos/59095bb86552fa0be682d9d0/master/pass/Monkey-Selfie.jpg"
-                    alt="proflie">
+                <img src="@ViewData["UserImg"]" alt="proflie">
 
-                        @if (ViewData["Username"] != null)
-                        {
+                    @if (ViewData["Username"] != null)
+                    {
                     <p>Hello, @ViewData["Username"]!</p>
-                        }
+                    }
 
             </div>
         </div>
         <div class="myactivity">
             <h1>My Activity</h1>
-            @foreach (var post in Model.Activities)
-            {
+                    @foreach (var post in Model.Activities)
+                    {
                 <div class="containerPost">
                     <h1>@post.Post.Title</h1>
                     <div>
                         <div class="info">
                             <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
                             <p>@post.Post.Date.ToString("MMM").ToUpper()<span> @post.Post.Date.Day</span><span>,
-                                    @post.Post.Date.Year</span></p>
+                                            @post.Post.Date.Year</span></p>
                         </div>
                         <div class="info">
                             <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
@@ -88,49 +87,48 @@
                         <div class="info">
                             <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
                             <p> @if (@post.Post.JoinActivities != null)
-                            {
+                                        {
 
-                                @post.Post.JoinActivities.Count
-                            }
-                            else
-                            {
-                                <span>0</span>
-                            }
-                            <span>/ @post.Post.MaxPeople</span></p>
+                                            @post.Post.JoinActivities.Count
+                                        }
+                                        else
+                                        {
+                                    <span>0</span>
+                                        }
+                                <span>/ @post.Post.MaxPeople</span>
+                            </p>
                         </div>
                         <div class="profilePost">
                             <div class="info">
-                                <img src="@post.Post.User.Image"
-                                    alt="proflie" class="imgProfile">
+                                <img src="@post.Post.User.Image" alt="proflie" class="imgProfile">
                                 <p>@post.Post.User.Name</p>
                             </div>
                             <div class="status">
-                                 @if (@DateTime.Now < @post.Post.ExpireDate)
-                            {
-                                <p>Start in <span>@(Convert.ToInt32(post.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
-                                        Hour...</span></p>
-                            }
-                            else
-                            {
-                                <p></p>
-                            }
+                                        @if (@DateTime.Now < @post.Post.ExpireDate)
+                                        {
+                                    <p>Start in <span>@(Convert.ToInt32(post.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
+                                            Hour...</span></p>
+                                        }
+                                        else
+                                        {
+                                    <p></p>
+                                        }
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+                    }
 
 
 
         </div>
 
-        <a class="seeAll" asp-action="Joined" asp-controller="Profile">See all</a>
+        <a class="seeAll" href="/Profile/Joined">See all</a>
         <!-- <a class="seeAll" asp-action="Joined" asp-controller="Profile">See all</a> -->
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/logout.js"></script>
-        @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

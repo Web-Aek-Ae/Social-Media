@@ -191,6 +191,9 @@ namespace Social_Media.Migrations
                     b.Property<int>("MaxPeople")
                         .HasColumnType("integer");
 
+                    b.Property<int>("PostStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Time")
                         .HasColumnType("timestamp with time zone");
 

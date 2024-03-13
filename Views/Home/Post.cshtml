@@ -73,7 +73,8 @@
                                 <img src="~/src/images/globe.svg">
 
                                     @{
-                                        var timeSincePost = DateTime.UtcNow - Model.Post.CreatedAt;
+                                        // Corrected variable names to reflect the comment's timing
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreateAt, DateTimeKind.Utc);
                                         var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
                                         var hours = Convert.ToInt32(timeSincePost.TotalHours);
                                         var days = Convert.ToInt32(timeSincePost.TotalDays);
@@ -81,16 +82,17 @@
 
                                     @if (days >= 1)
                                     {
-                                        <span style="padding-top:0.1rem">@days day@(days > 1 ? "s" : "") ago</span>
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@days day@(days > 1 ? "s" : "") ago</span>
                                     }
                                     else if (hours >= 1)
                                     {
-                                        <span style="padding-top:0.1rem">@hours hour@(hours > 1 ? "s" : "") ago</span>
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@hours hour@(hours > 1 ? "s" : "") ago</span>
                                     }
                                     else
                                     {
-                                        <span style="padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
                                     }
+
                             </div>
                         </div>
                     </div>
@@ -178,15 +180,16 @@
                                 <span>@comment.User.Name</span>
 
                                   @{
-                                        var timeSincePostC = DateTime.UtcNow - comment.CreatedAt;
-                                        var minutesC = Convert.ToInt32(timeSincePost.TotalMinutes);
-                                        var hoursC = Convert.ToInt32(timeSincePost.TotalHours);
-                                        var daysC = Convert.ToInt32(timeSincePost.TotalDays);
+    
+                                        var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
+                                        var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
+                                        var hoursC = Convert.ToInt32(timeSincePostC.TotalHours);
+                                        var daysC = Convert.ToInt32(timeSincePostC.TotalDays);
                                     }
 
                                     @if (daysC >= 1)
                                     {
-                                        <span style="font-weight: 200; font-size: 15px;  padding-top:0.1rem">@daysC day@(daysC > 1 ? "s" : "") ago</span>
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@daysC day@(daysC > 1 ? "s" : "") ago</span>
                                     }
                                     else if (hoursC >= 1)
                                     {
@@ -196,6 +199,7 @@
                                     {
                                         <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
                                     }
+
                                
                             </div>
                             <p style="margin:0;">@comment.Content</p>

@@ -109,24 +109,6 @@
   width: 100%;
   object-fit: cover;
 }
-.join-button {
-  font-size: 16px;
-  font-weight: 600;
-  width: 10rem;
-  height: 2.2rem;
-  border-radius: 3rem;
-  background-color: #fbca63;
-  border: 0;
-}
-.joined-button {
-  font-size: 16px;
-  font-weight: 600;
-  width: 10rem;
-  height: 2.2rem;
-  border-radius: 3rem;
-  background-color: #ffffff;
-  border: solid 2px #000000;
-}
 
 .participantCount{
   display: block;
@@ -460,16 +442,10 @@ textarea {
 }
 button {
   font-family: "Poppins", sans-serif;
-  width: 250px;
-  height: 70px;
-  background-color: #fbca63;
   border: none;
-  border-radius: 40px;
-  font-size: 30px;
-  font-weight: 600;
   cursor: pointer;
 }
-button:hover {
+/* button:hover {
   background-color: #f77c7e;
   color: #ffff;
   transition: 0.3s;
@@ -477,7 +453,7 @@ button:hover {
 }
 button:not(#btnCancel):hover  {
   transition: 0.3s;
-}
+} */
 
 .create-post-button {
   background-color: #fbca63;
@@ -537,14 +513,14 @@ button:not(#btnCancel):hover  {
 }
 .group-rec-button {
   font-size: 16px;
-  font-weight: medium;
+  font-weight: 600;
   width: 146px;
   height: 34px;
   border-radius: 27px;
   background-color: #fbca63;
 }
 
-#group-rec-button:hover {
+.group-rec-button:hover {
   background-color: #f77c7e;
   color: #ffff;
   transition: 0.3s;
@@ -557,6 +533,20 @@ button:not(#btnCancel):hover  {
 }
 
 /* detaills */
+.group-rec-button-details {
+  margin-left: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 146px;
+  height: 34px;
+  border-radius: 27px;
+  background-color: #fbca63;
+}
+.group-rec-button-details:hover {
+  background-color: #f77c7e;
+  color: #ffff;
+  transition: 0.3s;
+}
 .delete-group-pop-up p{
     font-size: 26px;
     margin:1.75rem 0 0 0;
@@ -714,7 +704,11 @@ button:not(#btnCancel):hover  {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+
+.post:hover {
+  transform: scale(1.05);
 }
 
 .post {
@@ -726,9 +720,6 @@ button:not(#btnCancel):hover  {
   margin-top: 2.5rem;
   box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
 }
-.post:hover {
-  transform: scale(1.05);
-}
 
 .post p {
   font-size: 18px;
@@ -736,74 +727,109 @@ button:not(#btnCancel):hover  {
   margin-left: 1rem;
   margin-top: 0rem;
 }
+
 .card-post {
-  display: flex;
+  display: grid;
+  grid-template-columns: 30% 70%;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 1rem;
-  height: fit-content;
 }
-#activity {
+
+.activity {
+  grid-column-start: 1;
+  grid-column-end: 2;
   width: 17rem;
   height: 17rem;
   object-fit: cover;
   border-radius: 1.75rem;
 }
+
+.content{
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
 .post-header {
   display: flex;
   margin-left: 1rem;
 }
+
 .date {
   width: 5rem;
   height: 6rem;
   background-color: #f77c7e;
   border-radius: 1.25rem;
 }
+
 .date h3 {
   text-align: center;
   color: #ffffff;
   font-weight: 600;
 }
-#month {
+
+.month {
   font-size: 18px;
   margin-top: 0.25rem;
   margin-bottom: 0rem;
 }
-#day {
+
+.day {
   font-size: 36px;
   margin-top: -0.75rem;
   margin-bottom: 0;
 }
-#year {
+
+.year {
   font-size: 18px;
   margin-top: -0.75rem;
 }
+
 .topic h1 {
   margin-left: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 0rem;
 }
+
+.description-post {
+  margin: 0.5rem  0 0.25rem;
+  /* width: 40rem; */
+}
+
+.description-post p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .owner {
   display: flex;
   align-items: center;
   margin-left: 1rem;
   gap: 0.5rem;
   font-weight: 600;
+  /* background-color: #F77C7E; */
 }
+
 #owner-profile {
   width: 2.5rem;
   height: 2.5rem;
   object-fit: cover;
   border-radius: 20rem;
 }
+
 .action {
   display: flex;
   justify-content: flex-end;
   /* gap: 1rem; */
+  margin-top: 1rem;
   align-items: center;
   /* background-color: #F77C7E; */
 }
-#btn {
+
+.join-button {
   font-size: 16px;
   font-weight: 600;
   width: 10rem;
@@ -812,12 +838,37 @@ button:not(#btnCancel):hover  {
   background-color: #fbca63;
   border: 0;
 }
+
+.joined-button {
+font-size: 16px;
+font-weight: 600;
+width: 10rem;
+height: 2.2rem;
+border-radius: 3rem;
+background-color: #ffffff;
+border: solid 2px #000000;
+}
+
+.joined-button:hover {
+background-color: #a2a2a2;
+color: white;
+transition: 0.3s;
+
+
+}
+.join-button:hover{
+  background-color: #F77C7E;
+  color: #FFFFFF;
+  transition: 0.3s;
+}
+
 .likes {
   margin-left: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .likeCount {
   width: 2rem;
   border: none;
@@ -829,10 +880,27 @@ button:not(#btnCancel):hover  {
   position: absolute;
   background-color: #f9f9f9;
   width: 10rem;
+  max-height: 13rem;
+  overflow-y: scroll;
   right: 10%;
   border-radius: 2rem;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
+
+.member {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.member img {
+  margin-left: 1rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+}
+
 .likeCount:hover .dropdownLike {
   display: block;
 }
@@ -843,12 +911,69 @@ button:not(#btnCancel):hover  {
   border: none;
   background-color: white;
 }
+
 .participant {
   display: flex;
-  /* background-color: #fbca63; */
-  gap: 0.5rem;
+  align-items: center;
 }
 
+.dropdownParticipant {
+  display: none;
+  position: absolute;
+  overflow-y: scroll;
+  background-color: #f9f9f9;
+  overflow-y: scroll;
+  width: 10rem;
+  width: 10rem;
+  max-height: 13rem;
+  right: 1.3rem;
+  border-radius: 2rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.joined {
+margin-right: 0.25rem;
+}
+.participantCount{
+display: block;
+}
+
+.participantCount:hover {
+  display: block;
+}
+.participantCount:hover .dropdownParticipant {
+ display: block;
+  
+}
+@media (min-width: 320px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (max-width:1580px) {
+  .post{
+      width:50rem;
+  }
+  .card-post {
+      display: grid;
+      grid-template-columns: 35% 65%;
+  }
+  .dropdownLike {
+      right: 13%;
+  }
+}
+@media (max-width:1370px){
+  .post{
+      width: 45rem;
+  }
+  .card-post {
+      display: grid;
+      grid-template-columns: 40% 60%;
+  }
+  .dropdownLike {
+      right: 15%;
+  }
+}
 @media (max-width: 1200px) {
   .create-post-button {
     bottom: 3%;
@@ -857,6 +982,28 @@ button:not(#btnCancel):hover  {
   .addPostIcon {
     bottom: 3%;
     right: 3%;
+  }
+  .post{
+    width: 50rem;
+  }
+  .card-post {
+      display: grid;
+      grid-template-columns: 35% 65%;
+  }
+  .dropdownLike {
+      right: 13%;
+  }
+}
+@media (max-width:1024px){
+  .post{
+      width:45rem;
+  }
+  .card-post {
+      display: grid;
+      grid-template-columns: 40% 60%;
+  }
+  .dropdownLike {
+      right: 15%;
   }
 }
 @media (max-width: 768px) {
@@ -867,7 +1014,27 @@ button:not(#btnCancel):hover  {
     bottom: 8%;
   }
 }
-
+@media (max-width:920px){
+  .post{
+      width:38rem;
+      height: 15.3rem;
+  }
+  .card-post {
+      display: grid;
+      grid-template-columns: 35% 65%;
+  }
+  .activity{
+      width: 13rem;
+      height: 13rem;
+  }
+  .date {
+      width: 4rem;
+      height: 5rem;
+      background-color: #f77c7e;
+      border-radius: 1.25rem;
+  }
+  
+}
 @media (max-width: 917px) {
   .post-rec {
     width: 560px;

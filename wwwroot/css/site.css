@@ -124,6 +124,7 @@ ul .line {
   width: 100%;
   align-items: center;
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 .allprofile img {
   border-radius: 50%;
@@ -270,7 +271,15 @@ ul .line {
   background-color: white;
   border: solid 2px;
 }
-
+@media (max-width: 1400px) {
+  .allprofile p{
+    font-size: 21px;
+  }
+  .allprofile img{
+    width: 55px;
+    height: 55px;
+  }
+}
 @media (max-width: 1200px) {
   .sidebar {
     height: 100vh;
@@ -288,6 +297,10 @@ ul .line {
   .container {
     width: 85%;
   }
+  /* .profilePost {
+    display: flex;
+    flex-direction: column;
+  } */
 }
 
 @media (max-width: 768px) {

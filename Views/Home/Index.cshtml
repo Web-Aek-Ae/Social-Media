@@ -44,7 +44,8 @@
 
             @foreach (var post in Model.Posts)
             {
-                <div class="post" data-postid-2="@post.PostId">
+
+                <div class="post" data-postid-2="@post.PostId" data-closed="@post.PostStatus" >
                     <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">
@@ -161,6 +162,12 @@
         // Clear the stored value to prevent unwanted scrolling on subsequent page loads
         sessionStorage.removeItem('scrollToButton');
     }
+
+    @* document.querySelectorAll('[data-closed="Closed"').forEach(button => {
+        console.log(button);
+        button.style = "background-color: #d3d3d3 ";
+        button.querySelector('.like-button').style = "background-color: #d3d3d3 ";
+    }); *@
 });
 
 

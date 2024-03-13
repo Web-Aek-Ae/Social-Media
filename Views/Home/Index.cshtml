@@ -20,16 +20,29 @@
                     <input type="text" placeholder="Search" id="search-input">
                 </div>
                 <div class="filter-bar">
-                    <i class="fa-solid fa-angle-down"></i>
-                    <input type="text" placeholder="Filter" id="filter-input">
+                    <button onclick="dropdown()" class="filterBtn">
+                        <i class="fa-solid fa-angle-down"></i>
+                        <p>Filter</p>
+                    </button>
+                    <div class="dropdownFilter">
+                        <a href="" class="filter">
+                            <p>Title</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Username</p>
+                        </a>
+                        <a href="" class="filter">
+                            <p>Categories</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container-post">
             @foreach (var post in Model.Posts)
             {
-                <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
-                    <div class="post">
+                <div class="post">
+                    <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                         <div class="card-post">
                             <img src="@post.Image" alt="activity" class="activity">
                             <div class="content">
@@ -117,9 +130,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-
+                    </a>
+                </div>
             }
             </div>
             <div class="addPostIcon">
@@ -199,4 +211,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+<script src="~/lib/dropdownFilter.js"></script>
+    <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+
+function dropdown() {
+//   document.getElementById("myDropdown").classList.toggle("show");
+    var dropdowns = document.getElementsByClassName("dropdownFilter");
+    var dropdownBtn = document.getElementsByClassName("filternBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        openDropdown.classList.toggle('show');
+        // dropdownBtn[i].classList.toggle('focus');
+    }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdownBtn')) {
+    var dropdowns = document.getElementsByClassName("dropdownFilter");
+    var dropdownBtn = document.getElementsByClassName("filternBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        // dropdownBtn[i].classList.remove('focus');
+      }
+    }
+  }
+}
 

@@ -39,21 +39,46 @@ main {
     width: 80%;
 }
 
-.filter-bar {
+.filterBtn{
+    cursor: pointer;
     display: flex;
     align-items: center;
-    height: 2.7rem;
-    width: 20%;
+    height: 2.9rem;
+    width: 10rem;
+    background-color: #FFFFFF;
     border: 2px solid #000000;
     border-radius: 30px;
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
     gap: 1rem;
 }
 
-.filter-bar input {
-    outline: none;
-    border: none;
-    width: 60%;
+.filterBtn p{
+    font-size: 14px;
+}
+
+.dropdownFilter {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 15rem;
+    max-height: 13rem;
+    border-radius: 2rem;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.dropdownFilter a{
+    text-decoration: none;
+    color:#000000;
+}
+.dropdownFilter p{
+    margin: 1rem;
+    padding: 0.5rem;
+}
+.dropdownFilter p:hover{
+    background-color: #ddd;
+    border-radius: 2rem;
+}
+.show {
+    display: block;
 }
 
 .container-post {
@@ -75,6 +100,7 @@ main {
     height: 19rem;
     margin-top: 2.5rem;
     box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+    cursor: pointer;
 }
 
 .post p {
@@ -87,9 +113,7 @@ main {
 .card-post {
     display: grid;
     grid-template-columns: 30% 70%;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 1rem;
+    margin: 1rem;
 }
 
 .activity {
@@ -276,10 +300,8 @@ main {
 .dropdownParticipant {
     display: none;
     position: absolute;
-    overflow-y: scroll;
     background-color: #f9f9f9;
     overflow-y: scroll;
-    width: 10rem;
     width: 10rem;
     max-height: 13rem;
     right: 1.3rem;

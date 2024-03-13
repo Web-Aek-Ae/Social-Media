@@ -20,13 +20,32 @@ namespace SocialMedia.Services
 
         public async Task<bool> DeleteGroup(int GroupId)
         {
-            var group = await _context.Groups.FindAsync(GroupId);
+
+            var group = await _context.Groups
+            .Include(g => g.Members)
+            .FirstOrDefaultAsync(g => g.GroupId == GroupId);
             if (group != null)
             {
+
+                var post = await _context.Posts.Where(post => post.GroupId == GroupId).ToListAsync();
+
+                if (post != null)
+                {
+                    _context.Posts.RemoveRange(post);
+                }
+
+
+                if (group.Members != null)
+                {
+                    _context.GroupMembers.RemoveRange(group.Members);
+                }
+
                 _context.Groups.Remove(group);
                 await _context.SaveChangesAsync();
                 return true; // Or use TempData or another way to communicate success
             }
+
+
             return false; // Or communicate the user was not found
         }
         public List<Group> GetAllGroups()
@@ -38,7 +57,7 @@ namespace SocialMedia.Services
         public List<Group> GetGroupsByName(string data)
         {
             return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
-            .Include(g => g.User).Where(g=>g.Name == data)
+            .Include(g => g.User).Where(g => g.Name == data)
             .ToList();
         }
 
@@ -70,6 +89,7 @@ namespace SocialMedia.Services
 
 
         }
+
 
     }
 }

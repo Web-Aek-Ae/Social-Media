@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
+@using SocialMedia.Models.Database
 @model SocialMedia.ViewModels.HomeViewModel
 
 
@@ -55,13 +56,18 @@
                                     </div>
                                     <div class="action">
                                     @using System.Security.Claims
-                                    @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
-                                    {
-                                                    <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                    @if(post.PostStatus != Post.Status.Closed){
+                                            @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
+                                            {
+                                                            <button  data-postid="@post.PostId" class="joined-button" >joined</button>
+                                            }
+                                            else
+                                            {
+                                                            <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                            }
                                     }
-                                    else
-                                    {
-                                                    <button data-postid="@post.PostId"  class="join-button" >join activity</button>
+                                    else{
+                                        <button class="closed-button">Closed</button>
                                     }
                                         <div class="likes">
                                             <button data-postid="@post.PostId" class="like-button">

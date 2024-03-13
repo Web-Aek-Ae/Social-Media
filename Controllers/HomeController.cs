@@ -38,7 +38,7 @@ public class HomeController : Controller
         }
         var user =  _userService.GetUserById(int.Parse(UserId));
 
-        ViewData["Username"] = username;
+        ViewData["Username"] = user.Name;
         ViewData["UserId"] = UserId;
         ViewData["UserImg"] = user.Image;
 
@@ -85,8 +85,6 @@ public class HomeController : Controller
         _logger.LogInformation($"Username from JWT: {username}");
 
         var UserIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        ViewData["Username"] = username;
-        ViewData["UserId"] = UserIdClaim;
 
         if (!int.TryParse(UserIdClaim, out var userId))
         {
@@ -95,6 +93,8 @@ public class HomeController : Controller
         }
 
         var user = await _userService.GetUserByIdAsync(userId);
+        ViewData["Username"] = user.Name;
+        ViewData["UserId"] = UserIdClaim;
 
     var activity = new List<JoinActivity>();
     var userActivities = await _userService.GetUserActivitiesAsync(userId);

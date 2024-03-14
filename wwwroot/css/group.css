@@ -21,6 +21,7 @@
   margin-left: 20px;
 }
 .search-bar {
+  margin-left: 1rem;
   display: flex;
   align-items: center;
   height: 2.7rem;
@@ -425,7 +426,7 @@ transition: 0.3s;
 }
 textarea {
   min-height: 50vh;
-  min-width: 50vw;
+  width: 100%;
   border: none;
   outline: none;
   margin-top: 20px;
@@ -564,7 +565,7 @@ button:not(#btnCancel):hover  {
   margin-left: 30px;
   font-size: 16px;
   font-weight: 600;
-  width: 146px;
+  min-width: 146px;
   height: 34px;
   border-radius: 27px;
   background-color: #fbca63;
@@ -717,12 +718,13 @@ button:not(#btnCancel):hover  {
 
 .Group-details {
   margin: 0px 30px 0px 30px;
-}
-
-.Group-details p {
+  width: 60rem;
   overflow: hidden;
+}
+.Group-details p{
   text-overflow: ellipsis;
 }
+
 .events h2 {
   font-size: 30px;
   margin-left: 30px;
@@ -1001,6 +1003,7 @@ display: block;
       right: 15%;
   }
 }
+
 @media (max-width: 1200px) {
   .create-post-button {
     bottom: 3%;
@@ -1040,28 +1043,82 @@ display: block;
   .addPostIcon {
     bottom: 8%;
   }
+  .box {
+    padding: 40px 20px;
+  }
 }
 @media (max-width:920px){
   .post{
-      width:38rem;
-      height: 15.3rem;
-  }
-  .card-post {
-      display: grid;
-      grid-template-columns: 35% 65%;
-  }
-  .activity{
-      width: 13rem;
-      height: 13rem;
-  }
-  .date {
-      width: 4rem;
-      height: 5rem;
-      background-color: #f77c7e;
-      border-radius: 1.25rem;
-  }
-  
+    width:38rem;
+    height: 15.3rem;
 }
+.description {
+    width: 23rem;
+}
+.card-post {
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+.activity{
+    width: 13rem;
+    height: 13rem;
+}
+.date {
+    width: 4rem;
+    height: 5rem;
+    background-color: #f77c7e;
+    border-radius: 1.25rem;
+}
+
+.date h3 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.month {
+    font-size: 16px;
+    margin-top: 0.25rem;
+    margin-bottom: 0rem;
+}
+
+.day {
+    font-size: 34px;
+    margin-top: -0.75rem;
+    margin-bottom: 0;
+}
+
+.year {
+    font-size: 12px;
+    margin-top: -0.75rem;
+}
+
+.topic h1 {
+    font-size: 26px;
+}
+
+.topic p{
+    font-size: 16px;
+}
+
+.description-post p{
+    font-size: 16px;
+    -webkit-line-clamp: 1;
+}
+
+#owner-profile {
+    width: 2rem;
+    height: 2rem;
+}
+.owner span{
+    font-size: 16px;
+}
+.dropdownLike {
+    right: 18%;
+}
+}
+  
+
 @media (max-width: 917px) {
   .post-rec {
     width: 560px;
@@ -1071,5 +1128,30 @@ display: block;
 @media (max-width: 932px) {
   .group {
     width: 590px;
+  }
+}
+@media (max-width:1570px) {
+  .Group-details{
+    width:52rem;
+}
+}
+@media (max-width:1385px){
+  .Group-details{
+      width:45rem;
+  }
+}
+@media (max-width:1200px){
+  .Group-details{
+      width:50rem;
+  }
+}
+@media (max-width:1018px){
+  .Group-details{
+      width:45rem;
+  }
+}
+@media (max-width:922px){
+  .Group-details{
+      width:38rem;
   }
 }

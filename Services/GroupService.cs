@@ -68,7 +68,8 @@ namespace SocialMedia.Services
 
         public Group? GetGroupById(int? id)
         {
-            return _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
+            return _context.Groups.Include(g => g.Members).ThenInclude(g => g.User)
+            .Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
         }
 
         public async Task<Group?> GetGroupByIdAsync(int? id)

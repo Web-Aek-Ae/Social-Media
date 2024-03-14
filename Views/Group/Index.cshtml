@@ -5,7 +5,7 @@
     var filteredGroups = Model.Groups.Where(group =>
     group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ?
     userId : 0))
-    ).Take(3);
+    ).Take(4);
 }
 @model SocialMedia.ViewModels.GroupBlogModel
 
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </a>
-                <div class="pop-up id-@group.GroupId">
+                <div class="pop-up ">
                     <div class="header-popup">
                         <h2>Members</h2>
                         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers(0)">
@@ -104,18 +104,32 @@
                                     <img src="@group.User.Image" alt="" id="group-poster-img">
                                     <span>@group.User.Name</span>
                                 </div>
-
                                 <div class="group-of-button">
-                                    <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon" />
-                                    <span>@group.Members.Count</span>
-                                    <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"><button
-                                            class="group-button">view group</button></a>
+                                    <div onclick="openmembers()" class="amountofmembers">
+                                        <img src="~/src/images/People_in_postcardIcon.svg">
+                                        <span>@group.Members.Count</span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-
+                <div class="pop-up">
+                    <div class="header-popup">
+                        <h2>Members</h2>
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                    </div>
+                    <div class="group-members">
+                        @foreach (var members in group.Members)
+                        {
+                            <div class="members">
+                                <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
+                                <span>@members.User.Name</span>
+                            </div>
+                        }
+                    </div>
+                </div>
 
             }
 
@@ -184,7 +198,7 @@
 
     </script>
 
-    @* <script src="~/lib/testfile.js"></script> *@
+    <script src="~/lib/testfile.js"></script>
 
     <script src="~/lib/logout.js" asp-append-version="true"></script>
 }

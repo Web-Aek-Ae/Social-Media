@@ -564,7 +564,7 @@ button:not(#btnCancel):hover  {
   margin-left: 30px;
   font-size: 16px;
   font-weight: 600;
-  width: 146px;
+  min-width: 146px;
   height: 34px;
   border-radius: 27px;
   background-color: #fbca63;
@@ -717,7 +717,11 @@ button:not(#btnCancel):hover  {
 
 .Group-details {
   margin: 0px 30px 0px 30px;
-  width: 100%;
+  width: 60rem;
+  overflow: hidden;
+}
+.Group-details p{
+  text-overflow: ellipsis;
 }
 
 .events h2 {
@@ -1123,5 +1127,30 @@ display: block;
 @media (max-width: 932px) {
   .group {
     width: 590px;
+  }
+}
+@media (max-width:1570px) {
+  .Group-details{
+    width:52rem;
+}
+}
+@media (max-width:1385px){
+  .Group-details{
+      width:45rem;
+  }
+}
+@media (max-width:1200px){
+  .Group-details{
+      width:50rem;
+  }
+}
+@media (max-width:1018px){
+  .Group-details{
+      width:45rem;
+  }
+}
+@media (max-width:922px){
+  .Group-details{
+      width:38rem;
   }
 }

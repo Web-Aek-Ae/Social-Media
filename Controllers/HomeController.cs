@@ -111,13 +111,14 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
 
-        var model = new HomeViewModel
-        {
-            Posts = posts,
-            Activities = activity,
-            Post = post,
-            Comments = comment
-        };
+    var model = new HomeViewModel
+    {
+        Posts = posts,
+        Activities = activity,
+        Post = post,
+        Comments = comment,
+        User = user
+    };
 
         return View(model);
 

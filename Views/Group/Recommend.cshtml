@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="group-of-button">
-                                <img src="@Url.Content("~/src/images/People_in_postcardIcon.svg")" class="member-icon"/>
+                                <img src="~/src/images/People_in_postcardIcon.svg" class="member-icon"/>
                                 <span>@group.Members.Count</span>
                                 <button class="group-rec-button" GroupId="@group.GroupId" onclick="">join group</button>
                             </div>
@@ -104,22 +104,21 @@
                     xhr.open("POST", '/Group/JoinGroup/' + groupId, true);
 
                     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
+                    
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 300) {
                             var data = JSON.parse(xhr.responseText);
                             if (data.success) {
                                 button.classList.add("group-button");
                                 button.classList.remove("group-rec-button");
+                                button.innerHTML = "View Group";
                                 button.addEventListener('click',function(event){
                                 viewgrouponclick(event);
                                 });
                             } else {
                                 alert("Failed to Join Group: " + data.message);
                             }
-                        } else {
-                            alert("An error occurred while joining the group. Please try again later.");
-                        }
+                        } 
                     };
 
                     xhr.onerror = function () {

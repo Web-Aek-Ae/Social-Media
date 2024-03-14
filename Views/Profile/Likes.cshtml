@@ -72,14 +72,14 @@
                                 <p>@post.Post.User.Username</p>
                             </div>
                             <div class="status">
-                            @if(@post.ExpireDate < DateTime.Now)
+                            @if(@post.Post.ExpireDate < DateTime.Now)
                                 {
                                     <p>Status : Expire</p>
                                 }
                                 else
                                 {
                                     <p>Status:
-                                    @post.PostStatus
+                                    @post.Post.PostStatus
                                     </p>
                                     
                                 }

@@ -661,6 +661,14 @@ main {
         width: 24px;
         margin-right: 1rem;
     }
+    .dropdownLike {
+        right :77%;
+    }
+    .dropdownParticipant {
+        right :53%;
+    }
+}
+@media (max-width: 768px){
     #applicationsClosed {
         top: 33%;
         left: 23%;
@@ -674,12 +682,6 @@ main {
         width: 25rem;
         height: 16rem;
         gap: 1rem;
-    }
-    .dropdownLike {
-        right :77%;
-    }
-    .dropdownParticipant {
-        right :53%;
     }
 }
 

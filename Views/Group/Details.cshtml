@@ -298,43 +298,49 @@
 });
 
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-            $(".accept").click(function (event) {
-                event.preventDefault(); // Prevent the default form submission
-                Deletebutton = $(this);
-                var groupId = Deletebutton.data("id");
-                var formData = {
-                    GroupId: groupId
-                };
-                console.log(formData.GroupId);
-                // Basic validation example
-                if (formData.GroupId == null) {
-                    alert("Content are required.");
-                    return; // Exit the function to prevent sending the request
-                }
+    document.addEventListener("DOMContentLoaded", function() {
+    var acceptButtons = document.querySelectorAll(".accept");
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("DeleteGroup", "Group")', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
-                        if (response.success) {
-                            // Optionally, redirect or clear form here
-                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
-                        } else {
-                            alert("Failed to create post: " + response.message);
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        alert("There was an error processing your request.");
+    acceptButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            var groupId = this.getAttribute("data-id");
+            var formData = {
+                GroupId: groupId
+            };
+            console.log(formData.GroupId);
+
+            // Basic validation example
+            if (formData.GroupId == null) {
+                alert("Content are required.");
+                return; // Exit the function to prevent sending the request
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/Group/DeleteGroup", true); // Modify with your correct URL
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // Optionally, redirect or clear form here
+                        window.location.href = '/Group/Index'; // Adjust controller and action names as necessary
+                    } else {
+                        alert("Failed to delete group: " + response.message);
                     }
-                });
-            });
+                } else if (xhr.readyState === 4) {
+                    console.log("Error: ", xhr.responseText);
+                    alert("There was an error processing your request.");
+                }
+            };
+
+            xhr.send(JSON.stringify(formData));
         });
+    });
+});
 </script>
 <script>
 /* When the user clicks on the button, 

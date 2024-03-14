@@ -28,7 +28,6 @@
             }
             @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
             {
-                
                 <div class="threedots">
                     <button onclick="dropdown()" class="dropdownBtn"></button>
                     <div class="dropdown-content">
@@ -166,7 +165,10 @@
 <div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
+        @if(Model.Group != null){
+
         <button id="btnDelete" class="accept" onclick="" data-id="@Model.Group.GroupId">Delete group</button>
+        }
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>

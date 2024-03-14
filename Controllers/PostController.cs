@@ -136,8 +136,8 @@ namespace SocialMedia.Controllers
                     post.Time = DateTime.SpecifyKind(fullDateTime, DateTimeKind.Utc);
 
                     // If you know a DateTime value is in local time and needs to be converted to UTC
-                    post.Date = model.Date.ToUniversalTime();
-                    post.ExpireDate = model.ExpireDate.ToUniversalTime();
+                    post.Date = model.Date.AddHours(7).ToUniversalTime();
+                    post.ExpireDate = model.ExpireDate.AddHours(7).ToUniversalTime();
                     post.CreatedAt = post.CreatedAt.ToUniversalTime();
 
 

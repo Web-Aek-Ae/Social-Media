@@ -82,8 +82,8 @@ button:not(#btnCancel):not(#Upload):hover {
   display: flex;
   position: relative;
   flex-wrap: wrap;
-  gap: 2%;
-  margin: 0 0 0 3%;
+  gap: 3rem;
+  margin: 2% 0 0 3%;
 }
 .addPostIcon {
   background-color: #fbca63;

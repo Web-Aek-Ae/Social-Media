@@ -36,7 +36,7 @@
     .ThenBy(p => p.Post.Time)
     .ToList())
             {
-
+                <a asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
                 <div class="containerPost">
                     <h1>@post.Post.Title</h1>
                     <div>
@@ -72,26 +72,28 @@
                                 <p>@post.Post.User.Username</p>
                             </div>
                             <div class="status">
-                                @if(@post.Post.PostStatus == Post.Status.Open && @post.Post.ExpireDate > DateTime.Now)
+                            @if(@post.Post.Date < DateTime.Now  && @post.Post.PostStatus == Post.Status.Closed)
                             {
-                                <p>Start in<span>@(post.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                                <p>Status: Ended</p>
                             }
-                            else if (@post.Post.PostStatus == Post.Status.Closed)
+                            else if (@post.Post.PostStatus == Post.Status.Open && @post.Post.ExpireDate < DateTime.Now)
                             {
-                                <p>Status:
-                                @post.Post.PostStatus
-                                </p>
+                                <p>Status: Cancle</p>
                                 
                             }
                             else
                             {
-                                <p>Status: Expired</p>
+                                <p>Status:
+                                @post.Post.PostStatus
+                                </p>
                             
                             }
+                            
                             </div>
                         </div>
                     </div>
                 </div>
+                </a>
 
             
         }

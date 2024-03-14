@@ -35,53 +35,52 @@
 
         @foreach (var activity in Model.JoinActivities.OrderBy(activity => activity.Post.Date).ThenBy(activity => activity.Post.Time))
         {
-
-            <div class="containerPost">
-                <h1>@activity.Post.Title</h1>
-                <div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
-                        <p>@activity.Post.Date.ToString("MMM").ToUpper()<span> @activity.Post.Date.Day</span><span>,
-                                @activity.Post.Date.Year</span>
-                        </p>
-                    </div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
-                        <p>@activity.Post.Time.ToString("HH:mm"), @activity.Post.Location</p>
-                    </div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
-                        <p>
-                            @activity.Post.JoinActivities.Count
-                            <span>/ @activity.Post.MaxPeople</span>
-                        </p>
-                    </div>
-                    <div class="profilePost">
+            <a asp-action="Post" asp-controller="Home" asp-route-id="@activity.Post.PostId" style="text-decoration: none; color:black;">
+                <div class="containerPost">
+                    <h1>@activity.Post.Title</h1>
+                    <div>
                         <div class="info">
-                            <img src="@activity.Post.User.Image" alt="proflie" class="imgProfile">
-                            <p>@activity.Post.User.Name</p>
+                            <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                            <p>@activity.Post.Date.ToString("MMM").ToUpper()<span> @activity.Post.Date.Day</span><span>,
+                                    @activity.Post.Date.Year</span>
+                            </p>
                         </div>
-                        <div class="status">
-                           @if(activity.Post.PostStatus == Post.Status.Open && activity.Post.ExpireDate > DateTime.Now)
-                            {
-                               <p>Start in<span>@(activity.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
-                            }
-                            else if (activity.Post.PostStatus == Post.Status.Closed)
-                            {
-                                <p>Status:
-                                @activity.Post.PostStatus
-                                </p>
+                        <div class="info">
+                            <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                            <p>@activity.Post.Time.ToString("HH:mm"), @activity.Post.Location</p>
+                        </div>
+                        <div class="info">
+                            <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                            <p>
+                                @activity.Post.JoinActivities.Count
+                                <span>/ @activity.Post.MaxPeople</span>
+                            </p>
+                        </div>
+                        <div class="profilePost">
+                            <div class="info">
+                                <img src="@activity.Post.User.Image" alt="proflie" class="imgProfile">
+                                <p>@activity.Post.User.Name</p>
+                            </div>
+                            <div class="status">
+                                @if(activity.Post.Date < DateTime.Now  && activity.Post.PostStatus == Post.Status.Closed)
+                                {
+                                    <p>Status: Ended</p>
+                                }
+                                else if (activity.Post.PostStatus == Post.Status.Open && activity.Post.ExpireDate < DateTime.Now)
+                                {
+                                    <p>Status: Cancle</p>
+                                    
+                                }
+                                else
+                                {
+                                    <p>Start in <span>@(activity.Post.Date.Subtract(DateTime.Now).Hours) Hour...</span></p>
                                 
-                            }
-                            else
-                            {
-                                <p>Status: Expired</p>
-                            
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
         }
 

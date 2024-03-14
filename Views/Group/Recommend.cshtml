@@ -111,9 +111,7 @@
                                 button.classList.add("group-button");
                                 button.classList.remove("group-rec-button");
                                 button.innerHTML = "View Group";
-                                button.addEventListener('click',
-                                viewgrouponclick(groupId);
-                                });
+                                button.addEventListener('click',()=> viewgrouponclick(groupId));
                             } else {
                                 alert("Failed to Join Group: " + data.message);
                             }

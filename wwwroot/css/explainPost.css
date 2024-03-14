@@ -215,8 +215,11 @@ main {
     font-weight: 600;
 }
 .categories{
-    display: flex;
+    display: flex;  
     justify-content: flex-end;
+}
+.post-detail p{
+    overflow: hidden;
 }
 .img-activity{
     height:40rem;

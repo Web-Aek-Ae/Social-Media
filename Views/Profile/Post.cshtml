@@ -38,62 +38,58 @@
 
         @foreach (var post in Model.Posts.OrderBy(p => p.Date).ThenBy(p => p.Time))
         {
-
-            <div class="containerPost">
-                <h1>@post.Title</h1>
-                <div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
-                        <p>@post.Date.ToString("MMM").ToUpper()<span> @post.Date.Day</span><span>, @post.Date.Year</span>
-                        </p>
-                    </div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
-                        <p>@post.Time.ToString("HH:mm"), @post.Location</p>
-                    </div>
-                    <div class="info">
-                        <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
-                        <p>
-                            @if (@post.JoinActivities != null)
-                            {
-
-                                @post.JoinActivities.Count
-                            }
-                            else
-                            {
-                                <span>0</span>
-                            }
-                            <span>/ @post.MaxPeople</span>
-                        </p>
-                    </div>
-                    <div class="profilePost">
+            <a asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
+                <div class="containerPost">
+                    <h1>@post.Title</h1>
+                    <div>
                         <div class="info">
-                            <img src="@post.User.Image" alt="proflie" class="imgProfile">
-                            <p>@post.User.Name</p>
+                            <img src="@Url.Content("~/src/images/DateProfileIcon.svg")" class="icon">
+                            <p>@post.Date.ToString("MMM").ToUpper()<span> @post.Date.Day</span><span>, @post.Date.Year</span>
+                            </p>
                         </div>
-                        <div class="status">
+                        <div class="info">
+                            <img src="@Url.Content("~/src/images/TimeProfileIcon.svg")" class="icon">
+                            <p>@post.Time.ToString("HH:mm"), @post.Location</p>
+                        </div>
+                        <div class="info">
+                            <img src="@Url.Content("~/src/images/PeopleProfileIcon.svg")" class="icon">
+                            <p>
+                                @if (@post.JoinActivities != null)
+                                {
 
-                            @if(@post.PostStatus == Post.Status.Open && @post.ExpireDate > DateTime.Now)
-                            {
-                                <p>Start in<span>@(post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
-                            }
-                            else if (@post.PostStatus == Post.Status.Closed)
-                            {
-                                <p>Status:
-                                @post.PostStatus
-                                </p>
+                                    @post.JoinActivities.Count
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                                <span>/ @post.MaxPeople</span>
+                            </p>
+                        </div>
+                        <div class="profilePost">
+                            <div class="info">
+                                <img src="@post.User.Image" alt="proflie" class="imgProfile">
+                                <p>@post.User.Name</p>
+                            </div>
+                            <div class="status">
+
+                                @if(@post.ExpireDate < DateTime.Now)
+                                {
+                                    <p>Status : Expire</p>
+                                }
+                                else
+                                {
+                                    <p>Status:
+                                    @post.PostStatus
+                                    </p>
+                                    
+                                }
                                 
-                            }
-                            else
-                            {
-                                <p>Status: Expired</p>
-                            
-                            }
-                            
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
         }
 

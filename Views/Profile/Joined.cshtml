@@ -62,15 +62,17 @@
                                 <p>@activity.Post.User.Name</p>
                             </div>
                             <div class="status">
-                                @if(activity.Post.Date < DateTime.Now  && activity.Post.PostStatus == Post.Status.Closed)
+                             @if(@activity.Post.ExpireDate < DateTime.Now)
                                 {
-                                    <p>Status: Ended</p>
+                                    <p>Status : Expire</p>
                                 }
-                                else if (activity.Post.PostStatus == Post.Status.Open && activity.Post.ExpireDate < DateTime.Now)
+                                else
                                 {
-                                    <p>Status: Cancle</p>
+                                    <p>Status:
+                                    @activity.Post.PostStatus
+                                    </p>
                                     
-                                }
+                                }   
                             </div>
                         </div>
                     </div>

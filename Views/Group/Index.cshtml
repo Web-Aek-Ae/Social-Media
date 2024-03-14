@@ -40,8 +40,7 @@
         <div class="Recomended-Group-post">
             @foreach (var group in filteredGroups)
             {
-                <a asp-action="Details" asp-controller="Group" asp-route-id="@group.GroupId"
-                    style="text-decoration: none; color:black">
+                
                     <div class="card-Recomended-Group">
                         <img src="@group.Image" alt="Recomended-Group-Image" id="card-Recomended-Group-img">
                         <div class="contents">
@@ -59,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                </a>
+                
                 <div class="pop-up id-@group.GroupId">
                     <div class="header-popup">
                         <h2>Members</h2>

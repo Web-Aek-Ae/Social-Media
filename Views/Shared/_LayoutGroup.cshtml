@@ -107,7 +107,7 @@
                                 <img src="@post.Post.User.Image" alt="proflie" class="imgProfile">
                                 <p>@post.Post.User.Name</p>
                             </div>
-                            <div class="status">
+                            @* <div class="status">
                                         @if (@DateTime.Now < @post.Post.ExpireDate)
                                         {
                                     <p>Start in <span>@(Convert.ToInt32(post.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
@@ -117,7 +117,7 @@
                                         {
                                     <p></p>
                                         }
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 </div>

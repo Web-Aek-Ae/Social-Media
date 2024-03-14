@@ -20,14 +20,17 @@ namespace SocialMedia.Controllers
         private readonly GroupService _groupService;
         private readonly ILogger<PostController> _logger;
 
+        private readonly JoinActivityService _joinActivityService;
+
         private readonly UserService _userService;
-        public PostController(PostService postService, ILogger<PostController> logger, CategoryService categoryService, GroupService groupService, CommentService commentService, UserService userService)
+        public PostController(PostService postService, ILogger<PostController> logger, CategoryService categoryService, GroupService groupService, CommentService commentService, UserService userService , JoinActivityService joinActivityService)
         {
             _postService = postService;
             _logger = logger;
             _categoryService = categoryService;
             _groupService = groupService;
             _commentService = commentService;
+            _joinActivityService = joinActivityService;
 
             _userService = userService;
         }
@@ -109,6 +112,8 @@ namespace SocialMedia.Controllers
                 return Json(new { success = false, message = "Invalid time format." });
             }
 
+            var user = _userService.GetUserById(userIdAsInt);
+
             if (ModelState.IsValid)
             {
                 try
@@ -136,8 +141,10 @@ namespace SocialMedia.Controllers
                     post.CreatedAt = post.CreatedAt.ToUniversalTime();
 
 
-
-                    await _postService.MakePost(post);
+                    
+                    var new_post =  await _postService.MakePost(post);
+                    
+                    await _joinActivityService.ToggleActivity(new_post.PostId , UserId);
 
                     return Json(new { success = true, message = "Post created successfully!" });
                 }

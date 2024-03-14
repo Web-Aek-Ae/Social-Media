@@ -22,14 +22,15 @@
 
 
     <div class="Group-details-header">
-        
             <a asp-action="Index" asp-controller="Group"><img src="~/src/images/Backicon.svg" class="back-recommend"></a>
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
-                <button class="group-rec-button-details" onclick="">join group</button>
-            @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
+            @if (Model.Group.Members.All(m => m.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))){
 
+            <button class="group-rec-button-details" onclick="" GroupId="@Model.Group.GroupId">join group</button>
+            }
+            @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
             {
                 <div class="threedots">
                     <button onclick="dropdown()" class="dropdownBtn"></button>
@@ -44,7 +45,10 @@
                         </a>
                     </div>
                 </div>
-                }
+            }
+           
+                
+            
             }  
     </div>
     <div class="Group-details">
@@ -165,12 +169,51 @@
 <div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
-        <button id="btnDelete" class="accept" onclick="">Delete group</button>
+        <button id="btnDelete" class="accept" onclick="" data-id="@Model.Group.GroupId">Delete group</button>
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>
 <div class="popup-backdrop"></div>
 @section Scripts {
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("button.group-rec-button-details").forEach(function (button) {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    var groupId = button.getAttribute("GroupId");
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", '/Group/JoinGroup/' + groupId, true);
+
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.success) {
+                                button.classList.add("group-button");
+                                button.classList.remove("group-rec-button");
+                                button.style.display = "none";
+                                button.addEventListener('click',function(event){
+                                viewgrouponclick(event);
+                                });
+                            } else {
+                                alert("Failed to Join Group: " + data.message);
+                            }
+                        } else {
+                            alert("An error occurred while joining the group. Please try again later.");
+                        }
+                    };
+
+                    xhr.onerror = function () {
+                        alert("An error occurred while joining the group. Please try again later.");
+                    };
+
+                    xhr.send();
+                });
+            });
+        });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
     // Handle like button clicks
@@ -237,46 +280,66 @@
             handleJoinActivity(this, false);
         });
     });
+
+    document.querySelectorAll('.group-rec-button-details').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, true);
+        });
+    });
+
+    document.querySelectorAll('.group-rec-button-details').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            handleJoinActivity(this, false);
+        });
+    });
 });
 
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-            $(".delete-group").click(function (event) {
-                event.preventDefault(); // Prevent the default form submission
-                Deletebutton = $(this);
-                var groupId = Deletebutton.data("id");
-                var formData = {
-                    GroupId: groupId
-                };
-                console.log(formData.GroupId);
-                // Basic validation example
-                if (formData.GroupId == null) {
-                    alert("Content are required.");
-                    return; // Exit the function to prevent sending the request
-                }
+    document.addEventListener("DOMContentLoaded", function() {
+    var acceptButtons = document.querySelectorAll(".accept");
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("DeleteGroup", "Group")', // Modify with your correct URL
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
-                        if (response.success) {
-                            // Optionally, redirect or clear form here
-                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
-                        } else {
-                            alert("Failed to create post: " + response.message);
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        alert("There was an error processing your request.");
+    acceptButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            var groupId = this.getAttribute("data-id");
+            var formData = {
+                GroupId: groupId
+            };
+            console.log(formData.GroupId);
+
+            // Basic validation example
+            if (formData.GroupId == null) {
+                alert("Content are required.");
+                return; // Exit the function to prevent sending the request
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/Group/DeleteGroup", true); // Modify with your correct URL
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // Optionally, redirect or clear form here
+                        window.location.href = '/Group/Index'; // Adjust controller and action names as necessary
+                    } else {
+                        alert("Failed to delete group: " + response.message);
                     }
-                });
-            });
+                } else if (xhr.readyState === 4) {
+                    console.log("Error: ", xhr.responseText);
+                    alert("There was an error processing your request.");
+                }
+            };
+
+            xhr.send(JSON.stringify(formData));
         });
+    });
+});
 </script>
 <script>
 /* When the user clicks on the button, 
@@ -312,5 +375,5 @@ window.onclick = function(event) {
   }
 }
 </script>
-@* <script src="~/lib/deleteGroup.js"></script> *@
+<script src="~/lib/deleteGroup.js"></script>
 }

@@ -55,6 +55,7 @@ public class HomeController : Controller
         if (data != null)
         {
             posts = _postService.GetPostsByTitle(data);
+            posts = posts.Where(p => p.ExpireDate > DateTime.Now).ToList();
         }
         var model = new HomeViewModel
         {
@@ -110,6 +111,8 @@ public class HomeController : Controller
         {
             return RedirectToAction("Index");
         }
+
+        
 
     var model = new HomeViewModel
     {

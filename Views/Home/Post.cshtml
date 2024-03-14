@@ -18,17 +18,11 @@
     <div class="container-post">
     
 
-        
-
         <div class="explain-post">
             @if(Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == Model.Post.UserId.ToString()){
              <div class="threedots">
                 <button onclick="dropdown()" class="dropdownBtn"></button>
                 <div class="dropdown-content">
-                    <a href="">
-                        <img src="~/src/images/EditIcon.svg">
-                        <p>edit</p>
-                    </a>
                     @if(Model.Post.PostStatus == 0)
                     {
                     <a  class="applications-closed">

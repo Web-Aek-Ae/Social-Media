@@ -28,7 +28,6 @@
             }
             @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
             {
-                
                 <div class="threedots">
                     <button onclick="dropdown()" class="dropdownBtn"></button>
                     <div class="dropdown-content">

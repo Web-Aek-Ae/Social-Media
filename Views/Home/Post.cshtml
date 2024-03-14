@@ -18,8 +18,6 @@
     <div class="container-post">
     
 
-        
-
         <div class="explain-post">
             @if(Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == Model.Post.UserId.ToString()){
              <div class="threedots">

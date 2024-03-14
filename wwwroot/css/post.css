@@ -55,10 +55,17 @@ textarea {
   justify-content: end;
   align-items: center;
   height: 40px;
+  max-width: 150px;
   background-color: #D9D9D9;
   padding: 0px 20px 0px 20px;
   border-radius: 7px;
   
+}
+
+.group-name h3{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .details {

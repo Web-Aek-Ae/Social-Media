@@ -13,10 +13,6 @@
                 <i class="fa fa-search"></i>
                 <input type="text" placeholder="Search" id="search-input">
             </div>
-            <div class="filter-bar">
-                <i class="fa-solid fa-angle-down"></i>
-                <input type="text" placeholder="Filter" id="filter-input">
-            </div>
         </div>
     </div>
 
@@ -169,7 +165,10 @@
 <div class="delete-group-pop-up">
     <div id="delete">
         <p>Are you sure to delete <br>this group?</p>
+        @if(Model.Group != null){
+
         <button id="btnDelete" class="accept" onclick="" data-id="@Model.Group.GroupId">Delete group</button>
+        }
         <button id="btnCancle" class="cancel">Cancel</button>
     </div>
 </div>

@@ -47,7 +47,7 @@
                         <div class="contents">
                             <div class="contents-header">
                                 <h3>@group.Name</h3>
-                                <div onclick='openmembers("@group.GroupId")' class="amountofmembers">
+                                <div onclick='openmembers(@group.GroupId)' class="amountofmembers">
                                     <img src="~/src/images/People_in_postcardIcon.svg" alt="" class="icon">
                                     <span>@group.Members.Count</span>
                                 </div>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </a>
-                <div class="pop-up ">
+                <div class="pop-up id-@group.GroupId">
                     <div class="header-popup">
                         <h2>Members</h2>
                         <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers(0)">
@@ -101,7 +101,7 @@
                                     <span>@group.User.Name</span>
                                 </div>
                                 <div class="group-of-button">
-                                    <div onclick="openmembers()" class="amountofmembers">
+                                    <div onclick='openmembers(@group.GroupId)' class="amountofmembers">
                                         <img src="~/src/images/People_in_postcardIcon.svg">
                                         <span>@group.Members.Count</span>
                                     </div>
@@ -111,10 +111,10 @@
                         </div>
                     </div>
                 </a>
-                <div class="pop-up">
+                <div class="pop-up id-@group.GroupId">
                     <div class="header-popup">
                         <h2>Members</h2>
-                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers(0)">
                     </div>
                     <div class="group-members">
                         @foreach (var members in group.Members)
@@ -177,7 +177,8 @@
 
         
         function openmembers(groupid) {
-
+            
+            console.log(groupid)
             if (groupid === 0) {
                 Array.from(document.getElementsByClassName("pop-up")).forEach((element) => {
                     element.style.visibility = "hidden";
@@ -194,7 +195,7 @@
 
     </script>
 
-    <script src="~/lib/testfile.js"></script>
+    @* <script src="~/lib/testfile.js"></script> *@
 
     <script src="~/lib/logout.js" asp-append-version="true"></script>
 }

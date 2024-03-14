@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SocialMedia.Models.Database; 
+using SocialMedia.Models.Database;
 
 namespace SocialMedia.ViewModels
 {
@@ -69,10 +69,10 @@ namespace SocialMedia.ViewModels
     [StringLength(500, ErrorMessage = "Location cannot be longer than 500 characters.")] // Optionally limit location length
     public string? Location { get; set; }
 
-    public Group? Group {get;set;}
+    public Group? Group { get; set; }
 
-    
-    public int? GroupId {get;set;}
+
+    public int? GroupId { get; set; }
 
     public string? Image { get; set; } // Consider validating the image URL or path if applicable
 
@@ -91,6 +91,8 @@ namespace SocialMedia.ViewModels
 
     public int SelectedCategoryId { get; set; }
     public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
+
+    public List<JoinActivity>? Activities {get;set;}
   }
 
   public class CategoryViewModel
@@ -110,10 +112,10 @@ namespace SocialMedia.ViewModels
     public List<JoinActivity>? Activities { get; set; }
     public List<Post>? Posts { get; set; }
     public Group? Group { get; set; }
-  
+
   }
-  
-  
+
+
   public class EditProfileViewModel
   {
     [Required(ErrorMessage = "Name is required")]
@@ -140,22 +142,41 @@ namespace SocialMedia.ViewModels
     public Post? Post { get; set; }
     public List<Post>? Posts { get; set; }
     public List<JoinActivity>? Activities { get; set; }
-    public List<Comment>? Comments {get; set;}
+    public List<Comment>? Comments { get; set; }
+
+    public User User {get; set;}
 
   }
-  public class GroupBlogModel{
+  public class GroupBlogModel
+  {
 
-    public List<Group> Groups {get;set;}
-    public Group group{get;set;}
-    public List<JoinActivity>? Activities {get;set;}
+    public List<Group> Groups { get; set; }
+    public Group group { get; set; }
+    public List<JoinActivity>? Activities { get; set; }
   }
 
   public class CommentViewModel
   {
-    public string Content {get; set;}
+    [Required(ErrorMessage = "Content is required")]
+    public string Content { get; set; }
 
-    public int PostId {get; set;}
+    public int PostId { get; set; }
   }
+
+  public class DeleteGroupViewModel
+  {
+    public int GroupId { get; set; }
+  }
+  public class DeletePostViewModel
+  {
+    public int PostId { get; set; }
+  }
+  public class ChangeStatusViewModel
+  {
+    public int PostId { get; set; }
+
+    public Post.Status PostStatus { get; set; } = Post.Status.Closed;
+}
 
 }
 

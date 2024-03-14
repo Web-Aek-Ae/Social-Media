@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
 
+@using SocialMedia.Models.Database
 @model SocialMedia.Models.Database.User
 @* @model IEnumerable<SocialMedia.Models.Database.User> *@
 
@@ -35,7 +36,7 @@
             <a asp-action="Create" asp-controller="Post"><img src=" @Url.Content("~/src/images/AddPostIcon.svg")"></a>
         </div>
 
-        @foreach (var post in Model.Posts)
+        @foreach (var post in Model.Posts.OrderBy(p => p.Date).ThenBy(p => p.Time))
         {
 
             <div class="containerPost">
@@ -71,16 +72,24 @@
                             <p>@post.User.Name</p>
                         </div>
                         <div class="status">
-                            <p>Status:
-                                @if (@DateTime.Now < @post.ExpireDate)
-                                {
-                                    <span>Open</span>
-                                }
-                                else
-                                {
-                                    <span>ended</span>
-                                }
-                            </p>
+
+                            @if(@post.PostStatus == Post.Status.Open && @post.ExpireDate > DateTime.Now)
+                            {
+                                <p>Start in<span>@(post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                            }
+                            else if (@post.PostStatus == Post.Status.Closed)
+                            {
+                                <p>Status:
+                                @post.PostStatus
+                                </p>
+                                
+                            }
+                            else
+                            {
+                                <p>Status: Expired</p>
+                            
+                            }
+                            
                         </div>
                     </div>
                 </div>

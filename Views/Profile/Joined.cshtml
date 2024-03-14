@@ -3,6 +3,7 @@
     ViewData["Title"] = "GroupJoined Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
+@using SocialMedia.Models.Database
 <head>
     <link rel="stylesheet" href="~/css/profile.css" />
 </head>
@@ -32,7 +33,7 @@
     </div>
     <div class="post">
 
-        @foreach (var activity in Model.JoinActivities)
+        @foreach (var activity in Model.JoinActivities.OrderBy(activity => activity.Post.Date).ThenBy(activity => activity.Post.Time))
         {
 
             <div class="containerPost">
@@ -61,14 +62,21 @@
                             <p>@activity.Post.User.Name</p>
                         </div>
                         <div class="status">
-                            @if (@DateTime.Now < @activity.Post.ExpireDate)
+                           @if(activity.Post.PostStatus == Post.Status.Open && activity.Post.ExpireDate > DateTime.Now)
                             {
-                                <p>Start in <span>@(Convert.ToInt32(activity.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
-                                        Hour...</span></p>
+                               <p>Start in<span>@(activity.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                            }
+                            else if (activity.Post.PostStatus == Post.Status.Closed)
+                            {
+                                <p>Status:
+                                @activity.Post.PostStatus
+                                </p>
+                                
                             }
                             else
                             {
-                                <p></p>
+                                <p>Status: Expired</p>
+                            
                             }
                         </div>
                     </div>

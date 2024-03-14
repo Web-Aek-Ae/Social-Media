@@ -13,21 +13,45 @@ namespace SocialMedia.Services
     {
         private readonly SocialMediaContext _context;
 
-        public GroupService(SocialMediaContext context)
+        private readonly PostService _postService;
+
+        public GroupService(SocialMediaContext context , PostService postService)
         {
             _context = context;
+            _postService = postService;
         }
+        
 
         public async Task<bool> DeleteGroup(int GroupId)
         {
-            var group = await _context.Groups.FindAsync(GroupId);
+
+            var group = await _context.Groups
+            .Include(g => g.Members)
+            .FirstOrDefaultAsync(g => g.GroupId == GroupId);
             if (group != null)
             {
+
+                var post = await _context.Posts.Where(post => post.GroupId == GroupId).ToListAsync();
+
+                if (post != null)
+                {
+                    foreach (var p in post)
+                    {
+                        await _postService.DeletePost(p.PostId);
+                    }
+                }
+
+
+                if (group.Members != null)
+                {
+                    _context.GroupMembers.RemoveRange(group.Members);
+                }
+
                 _context.Groups.Remove(group);
                 await _context.SaveChangesAsync();
-                return true; // Or use TempData or another way to communicate success
+                return true; 
             }
-            return false; // Or communicate the user was not found
+            return false;
         }
         public List<Group> GetAllGroups()
         {
@@ -38,13 +62,14 @@ namespace SocialMedia.Services
         public List<Group> GetGroupsByName(string data)
         {
             return _context.Groups.Include(g => g.Members).ThenInclude(gl => gl.User)
-            .Include(g => g.User).Where(g=>g.Name == data)
+            .Include(g => g.User).Where(g=>g.Name.ToLower().Contains(data.ToLower()))
             .ToList();
         }
 
         public Group? GetGroupById(int? id)
         {
-            return _context.Groups.Include(g => g.Members).Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
+            return _context.Groups.Include(g => g.Members).ThenInclude(g => g.User)
+            .Include(g => g.User).FirstOrDefault(g => g.GroupId == id);
         }
 
         public async Task<Group?> GetGroupByIdAsync(int? id)
@@ -70,6 +95,7 @@ namespace SocialMedia.Services
 
 
         }
+
 
     }
 }

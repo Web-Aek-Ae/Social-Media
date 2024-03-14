@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace SocialMedia.Controllers
 {
     public class PostController : Controller
-    {   
+    {
         private readonly CategoryService _categoryService;
         private readonly PostService _postService;
 
@@ -20,14 +20,17 @@ namespace SocialMedia.Controllers
         private readonly GroupService _groupService;
         private readonly ILogger<PostController> _logger;
 
+        private readonly JoinActivityService _joinActivityService;
+
         private readonly UserService _userService;
-        public PostController(PostService postService, ILogger<PostController> logger , CategoryService categoryService,GroupService groupService,CommentService commentService ,UserService userService)
+        public PostController(PostService postService, ILogger<PostController> logger, CategoryService categoryService, GroupService groupService, CommentService commentService, UserService userService , JoinActivityService joinActivityService)
         {
             _postService = postService;
             _logger = logger;
             _categoryService = categoryService;
             _groupService = groupService;
             _commentService = commentService;
+            _joinActivityService = joinActivityService;
 
             _userService = userService;
         }
@@ -38,6 +41,25 @@ namespace SocialMedia.Controllers
 
         public IActionResult Create(int? id)
         {
+
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (UserId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = _userService.GetUserById(int.Parse(UserId));
+
+
+            ViewData["UserId"] = UserId;
+            ViewData["Username"] = user.Name;
+            ViewData["UserImage"] = user.Image;
+
+            var activity = new List<JoinActivity>();
+            var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+            activity.AddRange(userActivities.Take(3));
+
             var model = new PostViewModel
             {
                 Title = "", // Add the missing Title property
@@ -53,33 +75,18 @@ namespace SocialMedia.Controllers
                 MaxPeople = 1,
                 Location = "Bangkok",
                 Group = _groupService.GetGroupById(id),
+                Activities = activity
             };
-            if(model.Group != null)
+            if (model.Group != null)
             {
 
-            model.GroupId = id;
+                model.GroupId = id;
             }
 
-            if(model.Categories.Count == 0)
+            if (model.Categories.Count == 0)
             {
                 throw new Exception("No categories found.");
             }
-
-            // var username = HttpContext.User.Identity?.Name;
-
-            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            
-            if(UserId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            var user = _userService.GetUserById(int.Parse(UserId));
-
-
-            ViewData["UserId"] = UserId;
-            ViewData["Username"] = user.Name;
-            ViewData["UserImage"] = user.Image;
 
             return View(model);
         }
@@ -88,7 +95,7 @@ namespace SocialMedia.Controllers
         [Authorize]
         public async Task<ActionResult> CreatePost([FromBody] PostViewModel model)
         {
-            
+
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");
@@ -104,6 +111,8 @@ namespace SocialMedia.Controllers
             {
                 return Json(new { success = false, message = "Invalid time format." });
             }
+
+            var user = _userService.GetUserById(userIdAsInt);
 
             if (ModelState.IsValid)
             {
@@ -121,18 +130,21 @@ namespace SocialMedia.Controllers
                         Image = model.Image,
                         MaxPeople = model.MaxPeople,
                         Date = model.Date,
-                        ExpireDate = model.ExpireDate
+                        ExpireDate = model.ExpireDate,
+                        CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)
                     };
                     post.Time = DateTime.SpecifyKind(fullDateTime, DateTimeKind.Utc);
-                    post.Date = DateTime.SpecifyKind(model.Date, DateTimeKind.Utc);
-                    post.ExpireDate = DateTime.SpecifyKind(model.ExpireDate, DateTimeKind.Utc);
 
                     // If you know a DateTime value is in local time and needs to be converted to UTC
                     post.Date = model.Date.ToUniversalTime();
                     post.ExpireDate = model.ExpireDate.ToUniversalTime();
+                    post.CreatedAt = post.CreatedAt.ToUniversalTime();
 
 
-                    await _postService.MakePost(post);
+                    
+                    var new_post =  await _postService.MakePost(post);
+                    
+                    await _joinActivityService.ToggleActivity(new_post.PostId , UserId);
 
                     return Json(new { success = true, message = "Post created successfully!" });
                 }
@@ -156,7 +168,8 @@ namespace SocialMedia.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateComment([FromBody] CommentViewModel model){
+        public async Task<ActionResult> CreateComment([FromBody] CommentViewModel model)
+        {
             if (model == null)
             {
                 return BadRequest("Model cannot be null.");
@@ -167,7 +180,7 @@ namespace SocialMedia.Controllers
                 return Json(new { success = false, message = "User ID is invalid." });
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -181,8 +194,9 @@ namespace SocialMedia.Controllers
                     await _commentService.AddComment(comment);
                     return Json(new { success = true, message = "Comment created successfully!" });
                 }
-                catch(Exception ex){
-                     _logger.LogError(ex, "Error creating post.");
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating post.");
 
                     // Return a generic error message
                     return Json(new { success = false, message = "An error occurred while creating the post." });
@@ -197,6 +211,54 @@ namespace SocialMedia.Controllers
                 return Json(new { success = false, message = errorMessage });
             }
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeletePost([FromBody] DeletePostViewModel model)
+        {
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
+
+
+
+
+            var post = _postService.GetPostByPostId(model.PostId);
+            if (post == null)
+            {
+                return Json(new { success = false, message = "Post not found." });
+            }
+            if (post.UserId != userIdAsInt)
+            {
+                return Json(new { success = false, message = "User does not have permission to delete this post." });
+            }
+            await _postService.DeletePost(model.PostId);
+            return Json(new { success = true, message = "Post deleted successfully!" });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangeStatus([FromBody] ChangeStatusViewModel model)
+        {
+            var UserId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(UserId, out int userIdAsInt))
+            {
+                return Json(new { success = false, message = "User ID is invalid." });
+            }
+
+            var post = _postService.GetPostByPostId(model.PostId);
+            if (post == null)
+            {
+                return Json(new { success = false, message = "Post not found." });
+            }
+            if (post.UserId != userIdAsInt)
+            {
+                return Json(new { success = false, message = "User does not have permission to change the status of this post." });
+            }
+            post.PostStatus = model.PostStatus;
+            await _postService.UpdatePost(post);
+            return Json(new { success = true, message = "Post status changed successfully!" });
         }
 
     }

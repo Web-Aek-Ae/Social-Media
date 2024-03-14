@@ -3,6 +3,7 @@
     ViewData["Title"] = "GruopLike Page";
     Layout = "~/Views/Shared/_LayoutNavbarOnly.cshtml";
 }
+@using SocialMedia.Models.Database
 
 
 <head>
@@ -31,7 +32,10 @@
         </div>
     </div>
     <div class="post">
-            @foreach (var post in Model.PostLikes)
+            @foreach (var post in Model.PostLikes
+    .OrderBy(p => p.Post.Date)
+    .ThenBy(p => p.Post.Time)
+    .ToList())
             {
 
                 <div class="containerPost">
@@ -69,14 +73,22 @@
                                 <p>@post.Post.User.Username</p>
                             </div>
                             <div class="status">
-                                @if (@DateTime.Now < @post.Post.ExpireDate)
-                                {
-                                    <p>Start in<span>@(post.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
-                                }
-                                else
-                                {
-                                    <p></p>
-                                }
+                                @if(@post.Post.PostStatus == Post.Status.Open && @post.Post.ExpireDate > DateTime.Now)
+                            {
+                                <p>Start in<span>@(post.Post.ExpireDate.Subtract(DateTime.Now).Hours) Hour...</span></p>
+                            }
+                            else if (@post.Post.PostStatus == Post.Status.Closed)
+                            {
+                                <p>Status:
+                                @post.Post.PostStatus
+                                </p>
+                                
+                            }
+                            else
+                            {
+                                <p>Status: Expired</p>
+                            
+                            }
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@
     var filteredGroups = Model.Groups.Where(group =>
     group.Members.All(l => l.UserId != (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ?
     userId : 0))
-    ).Take(3);
+    ).Take(4);
 }
 @model SocialMedia.ViewModels.GroupBlogModel
 
@@ -51,7 +51,7 @@
                         <div class="contents">
                             <div class="contents-header">
                                 <h3>@group.Name</h3>
-                                <div onclick="openmembers()" class="amountofmembers">
+                                <div onclick='openmembers("@group.GroupId")' class="amountofmembers">
                                     <img src="~/src/images/People_in_postcardIcon.svg" alt="" class="icon">
                                     <span>@group.Members.Count</span>
                                 </div>
@@ -64,12 +64,12 @@
                         </div>
                     </div>
                 </a>
-                <div class="pop-up">
+                <div class="pop-up ">
                     <div class="header-popup">
                         <h2>Members</h2>
-                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers(0)">
                     </div>
-                    <div class="group-members">
+                    <div class="group-members" >
                         @foreach (var members in group.Members)
                         {
                             <div class="members">
@@ -104,17 +104,32 @@
                                     <img src="@group.User.Image" alt="" id="group-poster-img">
                                     <span>@group.User.Name</span>
                                 </div>
-
                                 <div class="group-of-button">
-                                    <img src="~/src/images/People_in_postcardIcon.svg">
-                                    <span>@group.Members.Count</span>
+                                    <div onclick="openmembers()" class="amountofmembers">
+                                        <img src="~/src/images/People_in_postcardIcon.svg">
+                                        <span>@group.Members.Count</span>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-
+                <div class="pop-up">
+                    <div class="header-popup">
+                        <h2>Members</h2>
+                        <img src="~/src/images/Cancleicon.svg" alt="canclelogo" id="cancle" onclick="openmembers()">
+                    </div>
+                    <div class="group-members">
+                        @foreach (var members in group.Members)
+                        {
+                            <div class="members">
+                                <img src="@members.User.Image" alt="imagemembers" id="group-poster-img">
+                                <span>@members.User.Name</span>
+                            </div>
+                        }
+                    </div>
+                </div>
 
             }
 
@@ -162,6 +177,23 @@
 
             // Send the request with the JSON data
             newXhr.send(jsonData);
+        }
+
+        
+        function openmembers(groupid) {
+
+            if (groupid === 0) {
+                Array.from(document.getElementsByClassName("pop-up")).forEach((element) => {
+                    element.style.visibility = "hidden";
+                });
+                document.getElementsByClassName("popup-backdrop")[0].style.visibility = "hidden";
+                return;
+            }
+            if (groupid) {
+                document.getElementsByClassName("id-"+groupid)[0].style.visibility = "visible";
+                document.querySelector(".popup-backdrop").style.visibility = "visible"; 
+            }
+
         }
 
     </script>

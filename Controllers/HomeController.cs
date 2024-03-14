@@ -16,7 +16,7 @@ public class HomeController : Controller
     private readonly UserService _userService;
 
     private readonly CommentService _commentService;
-    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService,CommentService commentService)
+    public HomeController(ILogger<HomeController> logger, PostService postService, UserService userService, CommentService commentService)
     {
         _logger = logger;
         _postService = postService;
@@ -36,17 +36,18 @@ public class HomeController : Controller
         {
             return RedirectToAction("Login", "User");
         }
-        var user =  _userService.GetUserById(int.Parse(UserId));
+        var user = _userService.GetUserById(int.Parse(UserId));
 
         ViewData["Username"] = user.Name;
         ViewData["UserId"] = UserId;
         ViewData["UserImg"] = user.Image;
 
-   
+
 
 
         var activity = new List<JoinActivity>();
-        var userActivities =  _userService.GetUserActivities(int.Parse(UserId));
+        var userActivities = _userService.GetUserActivities(int.Parse(UserId));
+        userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
         activity.AddRange(userActivities.Take(3));
 
         // var posts = _postService.GetAllPosts();
@@ -95,24 +96,28 @@ public class HomeController : Controller
         var user = await _userService.GetUserByIdAsync(userId);
         ViewData["Username"] = user.Name;
         ViewData["UserId"] = UserIdClaim;
+        ViewData["UserImg"] = user.Image;
+        ViewData["PostId"] = id;
 
-    var activity = new List<JoinActivity>();
-    var userActivities = await _userService.GetUserActivitiesAsync(userId);
-    activity.AddRange(userActivities.Take(3));
-    var post = _postService.GetPostByPostId(id);
-    var posts = await _postService.GetAllPostsAsync();
-    var comment = _commentService.GetCommentsByPostId(id);
-    if (post == null)
-    {
-        return RedirectToAction("Index");
-    }
+        var activity = new List<JoinActivity>();
+        var userActivities = await _userService.GetUserActivitiesAsync(userId);
+        userActivities = userActivities.OrderBy(activity => activity.Post.Date).ToList();
+        activity.AddRange(userActivities.Take(3));
+        var post = _postService.GetPostByPostId(id);
+        var posts = await _postService.GetAllPostsAsync();
+        var comment = _commentService.GetCommentsByPostId(id);
+        if (post == null)
+        {
+            return RedirectToAction("Index");
+        }
 
     var model = new HomeViewModel
     {
         Posts = posts,
         Activities = activity,
         Post = post,
-        Comments = comment
+        Comments = comment,
+        User = user
     };
 
         return View(model);

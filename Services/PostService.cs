@@ -112,11 +112,12 @@ namespace SocialMedia.Services
                 .Include(p => p.Category)
                 .Where(p => p.GroupId == id).ToListAsync();
         }
-        public async Task<bool> MakePost(Post post)
+        public async Task<Post> MakePost(Post post)
         {
-            _context.Posts.Add(post);
+            var  newPost = await _context.Posts.AddAsync(post);
             await _context.SaveChangesAsync();
-            return true;
+            return newPost.Entity;
+            
         }
 
         // public async Task<bool> UpdatePost(PostViewModel post, int PostId)

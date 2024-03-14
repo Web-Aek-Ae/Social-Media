@@ -33,7 +33,7 @@
     </div>
     <div class="post">
 
-        @foreach (var activity in Model.JoinActivities)
+        @foreach (var activity in Model.JoinActivities.OrderBy(activity => activity.Post.Date))
         {
 
             <div class="containerPost">
@@ -64,7 +64,7 @@
                         <div class="status">
                             @if (@DateTime.Now < @activity.Post.ExpireDate)
                             {
-                                <p>Start in <span>@(Convert.ToInt32(activity.Post.ExpireDate.Subtract(DateTime.Now).TotalHours))
+                                <p>Start in <span>@(Convert.ToInt32(activity.Post.Date.Subtract(DateTime.Now).TotalHours))
                                         Hour...</span></p>
                             }
                             else

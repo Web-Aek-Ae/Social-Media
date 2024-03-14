@@ -113,6 +113,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </a>
 
 
@@ -167,19 +168,12 @@
         
         function openmembers(groupid) {
 
-
             if (groupid === 0) {
-
-
                 Array.from(document.getElementsByClassName("pop-up")).forEach((element) => {
                     element.style.visibility = "hidden";
                 });
-
-
-
                 document.getElementsByClassName("popup-backdrop")[0].style.visibility = "hidden";
                 return;
-
             }
             if (groupid) {
                 document.getElementsByClassName("id-"+groupid)[0].style.visibility = "visible";

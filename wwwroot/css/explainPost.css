@@ -1,3 +1,9 @@
+main {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0 0 60px;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -47,7 +53,14 @@
     gap: 1.5rem;
     padding-bottom: 1rem;
 }
+.comment-btn{
+    background: none;
+    border: white;
+}
 
+.comment-btn:hover{
+    cursor: pointer;
+}
 .explain-post{
     position:relative;
     transition: all 0.5s;
@@ -374,10 +387,9 @@
 .all-comment{
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     max-height: 13rem;
     overflow-y: scroll;
-
 }
 .comment{
     display: flex;
@@ -515,6 +527,14 @@
     .input{
         width: 45rem;
     }
+    #applicationsClosed {
+        top: 33%;
+        left: 33%;
+    }
+    #delete{
+        top: 33%;
+        left: 33%;
+    }
 }
 @media (max-width:1385px){
     .explain-post{
@@ -528,6 +548,14 @@
     }
     .input{
         width: 38rem;
+    }
+    #applicationsClosed {
+        top: 33%;
+        left: 30%;
+    }
+    #delete{
+        top: 33%;
+        left: 30%;
     }
 }
 @media (max-width:1200px){
@@ -633,7 +661,37 @@
         width: 24px;
         margin-right: 1rem;
     }
+    .dropdownLike {
+        right :77%;
+    }
+    .dropdownParticipant {
+        right :53%;
+    }
 }
+@media (max-width: 768px){
+    #applicationsClosed {
+        top: 33%;
+        left: 23%;
+        width: 25rem;
+        height: 19rem;
+        gap: 1rem;
+    }
+    #delete{
+        top: 33%;
+        left: 23%;
+        width: 25rem;
+        height: 16rem;
+        gap: 1rem;
+    }
+}
+
+
+.comment-btn{
+    background: none;
+    border: white;
+}
+
+
 .closed-button{
     font-size: 16px;
     font-weight: 600;
@@ -645,3 +703,7 @@
     margin-left: 20px;
   
   }
+  .comment-btn{
+    background: none;
+    border: white;
+}

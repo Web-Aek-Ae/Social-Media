@@ -1,0 +1,39 @@
+@{
+    Layout = null;
+     @using System.Security.Claims
+}
+
+@model SocialMedia.ViewModels.GroupBlogModel
+@foreach (var group in Model.Groups)
+{
+    @if (group.Members.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int
+   userId) ? userId : 0)))
+    {
+        <a asp-controller="Group" asp-action="Details" asp-route-id="@group.GroupId" style="color: black;text-decoration:none;">
+            <div class="group">
+                <div class="card-group">
+                    <h1 id="section">@group.Name</h1>
+                    <p id="section-content">@group.Description</p>
+                    <div class="activity-image">
+                        <img src="@group.Image" alt="activity" id="activity1">
+                    </div>
+                    <div class="test2">
+                        <div class="group-poster">
+                            <img src="@group.User.Image" alt="" id="group-poster-img">
+                            <span>@group.User.Name</span>
+                        </div>
+
+                        <div class="group-of-button">
+                            <img src="~/src/images/People_in_postcardIcon.svg">
+                            <span>@group.Members.Count</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+
+    }
+
+}

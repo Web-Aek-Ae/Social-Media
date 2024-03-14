@@ -1,0 +1,138 @@
+@model SocialMedia.ViewModels.PostViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutEditPost.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/post.css">
+</head>
+<div>
+    <a asp-action="Post" asp-controller="Profile">
+        <img src="~/src/images/Backicon.svg" class="back">
+    </a>
+    <div class="box">
+        <div class="title-header">
+            <div class="title">
+                <img src="@ViewData["UserImage"]" class="profile">
+                <input asp-for="Title" placeholder="Event Name" class="name">
+            </div>
+            @if (Model.Group != null)
+            {
+                <div class="group-name">
+                    <h3>@Model.Group.Name</h3>
+                    <input type="text" asp-for="GroupId" style=" display : none;">
+                </div>
+            }
+        </div>
+
+        <textarea asp-for="Content" placeholder="description..."></textarea>
+
+        <h1>Details</h1>
+        <div class="details">
+            <!-- Category selection -->
+            <div class="boxinput">
+                <img src="@Url.Content("~/src/images/CategoriesIcon.svg")">
+                <div class="item">
+                    <label for="SelectedCategoryId">Category:</label>
+                    <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="input">
+                    </select>
+                </div>
+            </div>
+
+            <div class="boxinput">
+                <img src="@Url.Content("~/src/images/Dateicon.svg")">
+                <div class="item">
+                    <label for="Date">Date :</label>
+                    <input asp-for="Date" placeholder="Pick a date..." type="date" class="input">
+                </div>
+
+            </div>
+            <div class="boxinput"><img src="@Url.Content("~/src/images/Locationicon.svg")">
+                <div class="item">
+                    <label for="Location">Location :</label>
+                    <input asp-for="Location" placeholder="Location" class="input">
+                </div>
+
+            </div>
+            <div class="boxinput"><img src="~/src/images/Timeicon.svg">
+                <div class="item">
+                    <label for="Time">Time :</label>
+                    <input asp-for="Time" placeholder="What time ?" type="time" class="input">
+                </div>
+            </div>
+            <div class="boxinput"><img src="~/src/images/Expireicon.svg">
+                <div class="item">
+                    <label for="ExpireDate">Expire Date :</label>
+                    <input asp-for="ExpireDate" placeholder="Expire date" type="date" class="input">
+                </div>
+
+            </div>
+            <div class="boxinput"><img src="~/src/images/Imgicon.svg">
+                <div class="item">
+                    <label for="Image">Image :</label>
+                    <input asp-for="Image" placeholder="Add some photos" class="input">
+                </div>
+
+            </div>
+            <div class="boxinput"><img src="/src/images/Peopleicon.svg">
+                <div class="item">
+                    <label for="MaxPeople">Max People :</label>
+                    <input asp-for="MaxPeople" placeholder="Max people" type="number" class="input">
+                </div>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button id="save_post" asp-action="Post" asp-controller="Profile"
+                asp-route-id="@ViewBag.postId">Post</button>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("save_post").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = JSON.stringify({
+                    Title: document.querySelector('input[name="Title"]').value,
+                    Category: document.querySelector('select[name="SelectedCategoryId"]').value,
+                    Content: document.querySelector('textarea[name="Content"]').value
+                        Date: document.querySelector('input[name="Date"]').value
+                        Location: document.querySelector('input[name="Location"]').value
+                        Time: document.querySelector('input[name="Time"]').value
+                        ExpireDate: document.querySelector('input[name="ExpireDate"]').value
+                        Image: document.querySelector('input[name="Image"]').value
+                        MaxPeople: document.querySelector('input[name="MaxPeople"]').value
+                });
+
+                // Basic validation example
+                if (!formData.Title || !formData.Category || !formData.Content || !formData.Date || !formData.Location || !formData.Time || !formData.ExpireDate || !formData.Image || !formData.MaxPeople) {
+                    alert("Fill in all required fields.");
+                    return; // Exit the function to prevent sending the request
+                }
+                console.log(formData); // Log the form data to the console
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/Post/Edit/?id=' + @ViewBag.postId, true); // Modify with your correct URL
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        alert("Post updated successfully.");
+                        window.location.href = '/Profile/Post'; // Modify as needed
+                    } else {
+                        console.log(xhr.responseText);
+                        alert("There was an error processing your request.");
+                    }
+                };
+                xhr.onerror = function () {
+                    console.log("An error occurred during the transaction");
+                };
+                xhr.send(formData);
+            });
+        });
+
+    </script>
+}

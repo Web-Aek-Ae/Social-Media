@@ -27,20 +27,26 @@
             @if (Model.Group != null)
             {
                 <h1>@Model.Group.Name</h1>
-            }  
-            <div class="threedots">
-                <button onclick="dropdown()" class="dropdownBtn"></button>
-                <div class="dropdown-content">
-                    <a href="">
-                        <img src="~/src/images/EditIcon.svg">
-                        <p>edit</p>
-                    </a>
-                    <a class="delete-group">
-                        <img src="~/src/images/binIcon.svg">
-                        <p>delete group</p>
-                    </a>
+                <button class="group-rec-button-details" onclick="">join group</button>
+            @if (Model.Group.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0))
+
+            {
+                
+                <div class="threedots">
+                    <button onclick="dropdown()" class="dropdownBtn"></button>
+                    <div class="dropdown-content">
+                        <a href="">
+                            <img src="~/src/images/EditIcon.svg">
+                            <p>edit</p>
+                        </a>
+                        <a class="delete-group">
+                            <img src="~/src/images/binIcon.svg">
+                            <p>delete group</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
+                }
+            }  
     </div>
     <div class="Group-details">
         @if (Model.Group != null)
@@ -56,33 +62,34 @@
     <div class= "events">
         <h2>Upcoming events</h2>
         <div class="container-post">
-            @if (Model.Posts != null)
-                {
-                @foreach(var post in Model.Posts){
-                    
+            @if(Model.Posts != null){
+
+            @foreach (var post in Model.Posts)
+            {
                 <a class="link" asp-action="Post" asp-controller="Home" asp-route-id="@post.PostId" style="text-decoration: none; color:black;">
-                <div class="post">
-                    <div class="card-post">
-                        <img src="@post.Image" alt="activity" id="activity">
-                        <div class="content">
-                            <div class="post-header">
-                                <div class="date">
-                                    <h3 id="month">@post.Date.ToString("MMM").ToUpper()</h3>
-                                    <h3 id="day">@post.Date.Day</h3>
-                                    <h3 id="year">@post.Date.Year</h3>
+                    <div class="post">
+                        <div class="card-post">
+                            <img src="@post.Image" alt="activity" class="activity">
+                            <div class="content">
+                                <div class="post-header">
+                                    <div class="date">
+                                        <h3 class="month">@post.Date.ToString("MMM").ToUpper()</h3>
+                                        <h3 class="day">@post.Date.Day</h3>
+                                        <h3 class="year">@post.Date.Year</h3>
+                                    </div>
+                                    <div class="topic">
+                                        <h1>@post.Title</h1>
+                                        <p>@post.Time.ToString("HH:mm"), @post.Location</p>
+                                    </div>
                                 </div>
-                                <div class="topic">
-                                    <h1>@post.Title</h1>
-                                    <p>@post.Time.ToString("HH:mm"), @post.Location</p>
-                                </div>
-                            </div>
-                            <div class="description">
-                                <p>@post.Content</p>
-                                <div class="owner">
-                                    <img src="@post.User.Image" alt="" id="owner-profile">
-                                    <span>@post.User.Name</span>
-                                </div>
-                                <div class="action">
+                                <div class="description-post">
+                                    <p>@post.Content</p>
+                                    <div class="owner">
+                                        <img src="@post.User.Image"
+                                            alt="" id="owner-profile">
+                                        <span>@post.User.Name</span>
+                                    </div>
+                                    <div class="action">
                                     @using System.Security.Claims
                                     @if (post.JoinActivities.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
                                     {
@@ -96,12 +103,12 @@
                                             <button data-postid="@post.PostId" class="like-button">
                                             @if (post.PostLikes.Any(l => l.UserId == (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId) ? userId : 0)))
                                             {
-                                                        <img src="~/src/images/LikedIcon.svg" class="icon" >
+                                                        <img src="@Url.Content("~/src/images/LikedIcon.svg")" class="icon" >
 
                                             }
                                             else
                                             {
-                                                        <img src="~/src/images/LikeIcon.svg" class="icon" >
+                                                        <img src="@Url.Content("~/src/images/LikeIcon.svg")" class="icon" >
                                             }
 
                                             </button>
@@ -111,9 +118,9 @@
                                                     @foreach (var like in post.PostLikes.ToList())
                                                     {
                                                         <div class="member">
-                                                            <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
                                                             @if (like.User != null)
                                                                 {
+                                                                    <img src="@like.User.Image">
                                                                     <h5>@like.User.Name</h5>
                                                                 }
                                                                 else
@@ -136,7 +143,7 @@
                                                         @foreach (var joinActivity in post.JoinActivities)
                                                         {
                                                             <div class="member">
-                                                                <img src="https://www.thaihealth.or.th/data/content/2019/01/46598/cms/newscms_thaihealth_c_acdiprsvxz24.jpg">
+                                                                <img src="@joinActivity.User.Image">
                                                                 <h5>@joinActivity.User.Name</h5>
                                                             </div>
                                                         }                                        
@@ -145,14 +152,14 @@
 
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </a>
-                }
-            
-            }       
+
+            }
+            }
         </div>
     </div>
 </div>
@@ -165,17 +172,13 @@
 </div>
 <div class="popup-backdrop"></div>
 @section Scripts {
-            <script>
-                $(document).ready(function () {
-                    $('.like-button').click(function () {
-                        var button = $(this); // The clicked button
-                        var postId = button.data('postid'); // Retrieve the post ID from the button's data attribute
-                        $.ajax({
-                            url: '@Url.Action("LikePost", "PostLike")', // The URL to the LikePost action
-                            type: 'POST',
-                            data: { postId: postId }, // Send the post ID as data
-                            success: function (result) {
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Handle like button clicks
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            var postId = this.getAttribute('data-postid');
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/PostLike/LikePost'); // Adjust the URL to match your routing
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -210,7 +213,7 @@
                     button.textContent = result.joined ? 'joined' : 'join activity';
                     button.classList.toggle('join-button', !result.joined);
                     button.classList.toggle('joined-button', result.joined);
-                    button.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
+                    button.parentNode.parentNode.querySelector('.joined').textContent = result.joinActivitiesCount;
                     console.log(result.joined ? "Post joined successfully" : "Post unjoined successfully");
                     
                 }
@@ -235,10 +238,80 @@
             handleJoinActivity(this, false);
         });
     });
-
-
-
 });
+
 </script>
-<script src="~/lib/deleteGroup.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $(".delete-group").click(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                Deletebutton = $(this);
+                var groupId = Deletebutton.data("id");
+                var formData = {
+                    GroupId: groupId
+                };
+                console.log(formData.GroupId);
+                // Basic validation example
+                if (formData.GroupId == null) {
+                    alert("Content are required.");
+                    return; // Exit the function to prevent sending the request
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteGroup", "Group")', // Modify with your correct URL
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response.success) {
+                            // Optionally, redirect or clear form here
+                            window.location.href = '@Url.Action("Index", "Group")'; // Adjust controller and action names as necessary
+                        } else {
+                            alert("Failed to create post: " + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert("There was an error processing your request.");
+                    }
+                });
+            });
+        });
+</script>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+
+function dropdown() {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        console.log(dropdowns[i])
+        var openDropdown = dropdowns[i];
+        openDropdown.classList.toggle('show');
+        dropdownBtn[i].classList.toggle('focus');
     }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdownBtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdownBtn = document.getElementsByClassName("dropdownBtn");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        console.log(dropdowns[i])
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        dropdownBtn[i].classList.remove('focus');
+      }
+    }
+  }
+}
+</script>
+@* <script src="~/lib/deleteGroup.js"></script> *@
+}

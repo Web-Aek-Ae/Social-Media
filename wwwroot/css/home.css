@@ -1,7 +1,7 @@
 main {
     font-family: "Poppins", sans-serif;
     margin: 0;
-    padding: 0 0 60px;
+    padding: 0 0 70px;
 }
 
 .header {
@@ -54,6 +54,10 @@ main {
 
 .filterBtn p{
     font-size: 14px;
+}
+
+.filter-bar:hover .dropdownFilter{
+    display: block;
 }
 
 .dropdownFilter {
@@ -173,13 +177,14 @@ main {
 
 .description {
     margin: 0.5rem  0 0.25rem;
-    /* width: 40rem; */
+    width: 40rem;
 }
 
 .description p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    /* width: 40rem; */
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -339,6 +344,11 @@ main {
 }
 
 
+.comment-btn{
+    background: none;
+    border: white;
+}
+
 @media (max-width:1580px) {
     .post{
         width:50rem;
@@ -349,6 +359,9 @@ main {
     }
     .dropdownLike {
         right: 13%;
+    }
+    .description {
+        width: 31rem;
     }
 }
 @media (max-width:1370px){
@@ -361,6 +374,9 @@ main {
     }
     .dropdownLike {
         right: 15%;
+    }
+    .description {
+        width:26rem;
     }
 }
 @media (max-width:1200px){
@@ -377,6 +393,9 @@ main {
     .dropdownLike {
         right: 13%;
     }
+    .description {
+        width: 31rem;
+    }
 }
 @media (max-width:1024px){
     .post{
@@ -389,11 +408,17 @@ main {
     .dropdownLike {
         right: 15%;
     }
+    .description {
+        width: 26rem;
+    }
 }
 @media (max-width:920px){
     .post{
         width:38rem;
         height: 15.3rem;
+    }
+    .description {
+        width: 23rem;
     }
     .card-post {
         display: grid;
@@ -432,20 +457,20 @@ main {
         font-size: 12px;
         margin-top: -0.75rem;
     }
-
+    
     .topic h1 {
         font-size: 26px;
     }
-
+    
     .topic p{
         font-size: 16px;
     }
-
+    
     .description p{
         font-size: 16px;
         -webkit-line-clamp: 1;
     }
-
+    
     #owner-profile {
         width: 2rem;
         height: 2rem;
@@ -465,18 +490,14 @@ main {
 }
 
 
-.comment-btn{
-    background: none;
-    border: white;
-}
-
 .closed-button{
     font-size: 16px;
     font-weight: 600;
     width: 10rem;
     height: 2.2rem;
     border-radius: 3rem;
-    background-color: #ffffff;
-    border: solid 2px #000000;
+    color : gray;
+    background-color: #cfcfcf;
+    border: solid 2px gray;
 
 }

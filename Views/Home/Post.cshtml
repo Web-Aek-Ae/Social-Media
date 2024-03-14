@@ -9,7 +9,9 @@
 <head>
     <link rel="stylesheet" href="~/css/explainPost.css" asp-append-version="true">
 </head>
-<div class="main">
+@if(Model.Post != null){
+    <div class="main">
+   
     <a asp-action="Index" asp-controller="Home">
         <img src="~/src/images/Backicon.svg" class="backIcon">
     </a>
@@ -29,7 +31,7 @@
                     </a>
                     @if(Model.Post.PostStatus == 0)
                     {
-                    <a class="applications-closed">
+                    <a  class="applications-closed">
                         <img src="~/src/images/applicationClosed.svg">
                         <p>application closed</p>
                     </a>
@@ -71,7 +73,26 @@
                             <span>@Model.Post.User.Name</span>
                             <div class="time">
                                 <img src="~/src/images/globe.svg">
-                                <span style="padding-top:0.1rem">@(Convert.ToInt32(DateTime.Now.Subtract(@Model.Post.Time).TotalHours)) minutes ago</span>
+                                @{
+    
+                                        var timeSincePost = DateTime.UtcNow - DateTime.SpecifyKind(Model.Post.CreatedAt, DateTimeKind.Utc);
+                                        var minutes = Convert.ToInt32(timeSincePost.TotalMinutes);
+                                        var hours = Convert.ToInt32(timeSincePost.TotalHours);
+                                        var days = Convert.ToInt32(timeSincePost.TotalDays);
+                                    }
+
+                                    @if (days >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@days day@(days > 1 ? "s" : "") ago</span>
+                                    }
+                                    else if (hours >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@hours hour@(hours > 1 ? "s" : "") ago</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutes minute@(minutes != 1 ? "s" : "") ago</span>
+                                    }
                             </div>
                         </div>
                     </div>
@@ -149,22 +170,42 @@
             <div class="container-comment">
                 @if(Model.Comments != null){
                 <h2>Comments (@Model.Comments.Count)</h2>
+                <div class="all-comment">
                 @foreach(var comment in Model.Comments)
                 {
-                <div class="all-comment">
                     <div class="comment">
                         <img class="comment-img" src="@comment.User.Image">
                         <div class="comment-detail">
                             <div class="username">
                                 <span>@comment.User.Name</span>
-                                <span class="time">@(Convert.ToInt32(DateTime.UtcNow.Subtract(comment.CreatedAt).TotalMinutes)) minutes ago</span>
-                            </div>
+                                
+                                    @{
+    
+                                        var timeSincePostC = DateTime.UtcNow - DateTime.SpecifyKind(comment.CreatedAt, DateTimeKind.Utc);
+                                        var minutesC = Convert.ToInt32(timeSincePostC.TotalMinutes);
+                                        var hoursC = Convert.ToInt32(timeSincePostC.TotalHours);
+                                        var daysC = Convert.ToInt32(timeSincePostC.TotalDays);
+                                    }
+
+                                    @if (daysC >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@daysC day@(daysC > 1 ? "s" : "") ago</span>
+                                    }
+                                    else if (hoursC >= 1)
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@hoursC hour@(hoursC > 1 ? "s" : "") ago</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight: 200; font-size: 15px; padding-top:0.1rem">@minutesC minute@(minutesC != 1 ? "s" : "") ago</span>
+                                    }                            </div>
                             <p style="margin:0;">@comment.Content</p>
-                        </div>
-                    </div>
+                            </div>
+                         </div>
+
                         
+                }   
                 </div>
-            }
                 }
                 
                 
@@ -197,12 +238,11 @@
 
 <div class="modalBg"></div>
 
-<script>
+    <script>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 
 function dropdown() {
-    console.log('a');
 //   document.getElementById("myDropdown").classList.toggle("show");
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
@@ -216,7 +256,6 @@ function dropdown() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-    
   if (!event.target.matches('.dropdownBtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var dropdownBtn = document.getElementsByClassName("dropdownBtn");
@@ -224,7 +263,7 @@ window.onclick = function(event) {
     for (i = 0; i < dropdowns.length; i++) {
     //   console.log(dropdowns[i])
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {console.log('b');
+      if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
         dropdownBtn[i].classList.remove('focus');
       }

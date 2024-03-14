@@ -6,6 +6,7 @@ using SocialMedia.ViewModels;
 using System.Security.Claims;
 using SocialMedia.Services;
 using SocialMedia.Models.Database;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace SocialMedia.Controllers;
 
 [Authorize]
@@ -25,6 +26,7 @@ public class HomeController : Controller
     }
 
     // [HttpPost]
+
     public async Task<IActionResult> Index(string data)
     {
         var username = HttpContext.User.Identity?.Name;
@@ -55,8 +57,14 @@ public class HomeController : Controller
         if (data != null)
         {
             posts = _postService.GetPostsByTitle(data);
-            posts = posts.Where(p => p.ExpireDate > DateTime.Now).ToList();
+
+            
         }
+        
+        posts = posts.Where(p =>  p.PostStatus == SocialMedia.Models.Database.Post.Status.Closed || (p.PostStatus == SocialMedia.Models.Database.Post.Status.Open && p.ExpireDate > DateTime.Now)).ToList();
+
+        
+
         var model = new HomeViewModel
         {
             Posts = posts,
